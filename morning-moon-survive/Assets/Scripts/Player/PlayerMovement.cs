@@ -44,15 +44,6 @@ public class PlayerMovement : MonoBehaviour
         
     }
     
-    /*void RotationPlayer()
-    {
-        Vector2 currentMovement = moveAction.ReadValue<Vector2>();
-        
-        Vector3 currentPosition = transform.position;
-        Vector3 newPosition = new Vector3(currentMovement.x,0,currentMovement.y);
-        Vector3 positionToLookAt = currentPosition += newPosition;
-        transform.LookAt(positionToLookAt);
-    }*/
     void RotationPlayer()
     {
         Vector2 direction = moveAction.ReadValue<Vector2>();

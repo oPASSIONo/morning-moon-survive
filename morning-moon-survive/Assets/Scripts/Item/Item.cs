@@ -19,7 +19,7 @@ public enum ItemCategory
     Equipment,
     Consumable,
     Treasure,
-    ResourceAndFarming,
+    ResourceAndFarm,
     Fishing
     // Add more categories as needed
 }
