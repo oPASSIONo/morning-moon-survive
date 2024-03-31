@@ -1,26 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Unity.Netcode;
+using Cinemachine;
 
-public class CameraFollow : NetworkBehaviour
+public class CameraFollow : MonoBehaviour
 {
-    public Transform target; // The target object to follow
-    public float smoothSpeed = 0.125f; // The smoothness of the camera movement
-    public Vector3 offset; // The offset of the camera relative to the target
+    private CinemachineVirtualCamera cinemachineVirtualCamera;
 
-    void LateUpdate()
+    private void Awake()
     {
-        if (!IsOwner)
-            return;
+        cinemachineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
+    }
 
-        if (target != null)
+    public void FollowPlayer(Transform targetTransform)
+    {
+        if (cinemachineVirtualCamera != null)
         {
-            Vector3 desiredPosition = target.position + offset;
-            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-            transform.position = smoothedPosition;
-
-            transform.LookAt(target);
+            cinemachineVirtualCamera.Follow = targetTransform;
         }
+
     }
 }

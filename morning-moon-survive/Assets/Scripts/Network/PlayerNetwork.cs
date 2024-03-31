@@ -4,14 +4,9 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Cinemachine;
-using Random = UnityEngine.Random;
 
 public class PlayerNetwork : NetworkBehaviour 
 {
-    [SerializeField] private float spawnPositionRange = 5f;
-    [SerializeField] private CinemachineVirtualCamera virtualCamera;
-   
     private PlayerInput playerInput;
     private InputAction moveAction;
     private float speed = 5f;
@@ -19,25 +14,13 @@ public class PlayerNetwork : NetworkBehaviour
     
     void Start()
     {
+        if (IsOwner && IsClient)
+        {
+        }
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions.FindAction("Move");
     }
 
-    public override void OnNetworkSpawn()
-    {
-        if (IsOwner)
-        {
-            virtualCamera.Priority = 1;
-        }
-        else
-        {
-            virtualCamera.Priority = 0;
-        }
-        transform.position = new Vector3(Random.Range(spawnPositionRange, -spawnPositionRange), 0,
-            Random.Range(spawnPositionRange, -spawnPositionRange));
-        transform.rotation = new Quaternion(0, 180, 0, 0);
-        
-    }
 
     void Update()
     {
@@ -52,13 +35,17 @@ public class PlayerNetwork : NetworkBehaviour
     {
         Vector2 direction = moveAction.ReadValue<Vector2>();
         
-        Transform cameraTransform = virtualCamera.transform;
+        // Get the main camera's transform
+        Transform cameraTransform = Camera.main.transform;
 
+        // Calculate movement direction relative to the camera's forward direction
         Vector3 movement = cameraTransform.forward * direction.y + cameraTransform.right * direction.x;
-        movement.y = 0f; 
+        movement.y = 0f; // Ensure the movement stays in the horizontal plane
 
+        // Apply speed and deltaTime
         Vector3 moveDirection = movement.normalized * speed * Time.deltaTime;
 
+        // Apply movement
         transform.position += moveDirection;
         
     }
@@ -67,25 +54,22 @@ public class PlayerNetwork : NetworkBehaviour
     {
         Vector2 direction = moveAction.ReadValue<Vector2>();
 
-        Transform cameraTransform = virtualCamera.transform;
+        // Get the main camera's transform
+        Transform cameraTransform = Camera.main.transform;
 
+        // Calculate movement direction relative to the camera's forward direction
         Vector3 movement = cameraTransform.forward * direction.y + cameraTransform.right * direction.x;
-        movement.y = 0f; 
+        movement.y = 0f; // Ensure the movement stays in the horizontal plane
 
+        // Calculate the target position to look at
         Vector3 targetPosition = transform.position + movement.normalized;
 
+        // Make the player look at the target position
         if (movement.magnitude > 0.1f) // Check if there is significant movement
         {
             transform.LookAt(targetPosition);
         }
     }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void UpdatePositionServerRpc()
-    {
-        transform.position = new Vector3(Random.Range(spawnPositionRange, -spawnPositionRange), 0,
-            Random.Range(spawnPositionRange, -spawnPositionRange));
-        transform.rotation = new Quaternion(0, 180, 0, 0);
-    }
+    
 
 }
