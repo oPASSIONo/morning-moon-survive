@@ -11,6 +11,9 @@ public class PlayerNetwork : NetworkBehaviour
     private InputAction moveAction;
     
     private float speed = 5f;
+
+    [SerializeField] private Transform playerTransform;
+    [SerializeField] private float spawnPositionRange = 5f;
     
     void Start()
     {
@@ -18,9 +21,18 @@ public class PlayerNetwork : NetworkBehaviour
         moveAction = playerInput.actions.FindAction("Move");
     }
 
+    public override void OnNetworkSpawn()
+    {
+        transform.position = new Vector3(Random.Range(spawnPositionRange, -spawnPositionRange), 0,
+            Random.Range(spawnPositionRange, -spawnPositionRange));
+        transform.rotation = new Quaternion(0, 180, 0, 0);
+        
+        
+    }
+
     void Update()
     {
-        if (!IsOwner) return;
+        if (!IsOwner ) return;
         {
             MovePlayer();
             RotationPlayer();
@@ -57,6 +69,14 @@ public class PlayerNetwork : NetworkBehaviour
         {
             transform.LookAt(targetPosition);
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void UpdatePositionServerRpc()
+    {
+        transform.position = new Vector3(Random.Range(spawnPositionRange, -spawnPositionRange), 0,
+            Random.Range(spawnPositionRange, -spawnPositionRange));
+        transform.rotation = new Quaternion(0, 180, 0, 0);
     }
 
 }

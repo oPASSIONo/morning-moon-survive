@@ -10,13 +10,14 @@ public class PlayerMovement : MonoBehaviour
     private InputAction moveAction;
     
     private float speed = 5f;
-    
+
     // Start is called before the first frame update
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions.FindAction("Move");
     }
+    
 
     // Update is called once per frame
     void Update()
