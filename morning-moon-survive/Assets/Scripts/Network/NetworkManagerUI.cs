@@ -1,41 +1,35 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Netcode;
+using Unity.Networking.Transport;
 
 public class NetworkManagerUI : MonoBehaviour
 {
-
-    [SerializeField] private Button serverBt;
-    [SerializeField] private Button hostBt;
-    [SerializeField] private Button clientBt;
-
+    [SerializeField] private Button serverButton;
+    [SerializeField] private Button hostButton;
+    [SerializeField] private Button clientButton;
+    [SerializeField] private InputField ipAddressInput;
+    
     private void Awake()
     {
-        serverBt.onClick.AddListener(() =>
-        {
-            NetworkManager.Singleton.StartServer();
-        });
-        hostBt.onClick.AddListener(() =>
-        {
-            NetworkManager.Singleton.StartHost();
-        });
-        clientBt.onClick.AddListener(() =>
-        {
-            NetworkManager.Singleton.StartClient();
-        });
-        
+        serverButton.onClick.AddListener(StartServer);
+        hostButton.onClick.AddListener(StartHost);
+        clientButton.onClick.AddListener(StartClient);
     }
 
-    void Start()
+    private void StartServer()
     {
-        
+        NetworkManager.Singleton.StartServer();
     }
 
-    void Update()
+    private void StartHost()
     {
-        
+        NetworkManager.Singleton.StartHost();
+    }
+    
+    private void StartClient()
+    {
+        NetworkManager.Singleton.StartClient();
+
     }
 }
