@@ -1,19 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
+using Random = UnityEngine.Random;
 
 public class PlayerNetwork : NetworkBehaviour 
 {
-    private PlayerInput playerInput;
-
-    private InputAction moveAction;
-    
-    private float speed = 5f;
-
-    [SerializeField] private Transform playerTransform;
     [SerializeField] private float spawnPositionRange = 5f;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+   
+    private PlayerInput playerInput;
+    private InputAction moveAction;
+    private float speed = 5f;
+    
     
     void Start()
     {
@@ -23,10 +25,17 @@ public class PlayerNetwork : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        if (IsOwner)
+        {
+            virtualCamera.Priority = 1;
+        }
+        else
+        {
+            virtualCamera.Priority = 0;
+        }
         transform.position = new Vector3(Random.Range(spawnPositionRange, -spawnPositionRange), 0,
             Random.Range(spawnPositionRange, -spawnPositionRange));
         transform.rotation = new Quaternion(0, 180, 0, 0);
-        
         
     }
 
@@ -43,7 +52,7 @@ public class PlayerNetwork : NetworkBehaviour
     {
         Vector2 direction = moveAction.ReadValue<Vector2>();
         
-        Transform cameraTransform = Camera.main.transform;
+        Transform cameraTransform = virtualCamera.transform;
 
         Vector3 movement = cameraTransform.forward * direction.y + cameraTransform.right * direction.x;
         movement.y = 0f; 
@@ -58,7 +67,7 @@ public class PlayerNetwork : NetworkBehaviour
     {
         Vector2 direction = moveAction.ReadValue<Vector2>();
 
-        Transform cameraTransform = Camera.main.transform;
+        Transform cameraTransform = virtualCamera.transform;
 
         Vector3 movement = cameraTransform.forward * direction.y + cameraTransform.right * direction.x;
         movement.y = 0f; 
