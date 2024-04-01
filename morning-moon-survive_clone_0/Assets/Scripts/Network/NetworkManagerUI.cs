@@ -12,6 +12,8 @@ public class HostClientScript : NetworkBehaviour
     [SerializeField] private TextMeshProUGUI playerCount;
     [SerializeField] private TMP_InputField ipAddressAndPortInputField;
 
+    [SerializeField] private GameObject panel;
+
     private NetworkVariable<int> playerNum = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone);
 
     private void Awake()
@@ -44,14 +46,14 @@ public class HostClientScript : NetworkBehaviour
 
         // Set the random port number as the connection port
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(
-            "127.0.0.1",  // Use any available IP address
+            "0.0.0.0",  // Use any available IP address
             randomPort
         );
 
         // Start the host
         NetworkManager.Singleton.StartHost();
         
-        Debug.Log("Host created at IP: 127.0.0.1  Port: " + randomPort);
+        Debug.Log("Host created at IP : 127.0.0.1" +  "Port : " + randomPort);
     }
     
     private void StartClient()
@@ -71,6 +73,7 @@ public class HostClientScript : NetworkBehaviour
                 );
 
                 NetworkManager.Singleton.StartClient();
+                panel.SetActive(false);
                 return;
             }
         }

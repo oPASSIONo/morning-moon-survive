@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
-public class PlayerNetwork : NetworkBehaviour 
+public class PlayerNetwork : NetworkBehaviour
 {
+
+    [SerializeField] private CinemachineVirtualCamera vc;
     private PlayerInput playerInput;
     private InputAction moveAction;
     private float speed = 5f;
@@ -14,11 +17,20 @@ public class PlayerNetwork : NetworkBehaviour
     
     void Start()
     {
-        if (IsOwner && IsClient)
-        {
-        }
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions.FindAction("Move");
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if (IsOwner)
+        {
+            vc.Priority = 1;
+        }
+        else
+        {
+            vc.Priority = 0;
+        }
     }
 
 
@@ -27,26 +39,22 @@ public class PlayerNetwork : NetworkBehaviour
         if (!IsOwner ) return;
         {
             MovePlayer();
-            RotationPlayer();
+            //RotationPlayer();
         }
     }
     
     void MovePlayer()
     {
         Vector2 direction = moveAction.ReadValue<Vector2>();
-        
-        // Get the main camera's transform
-        Transform cameraTransform = Camera.main.transform;
-
-        // Calculate movement direction relative to the camera's forward direction
-        Vector3 movement = cameraTransform.forward * direction.y + cameraTransform.right * direction.x;
-        movement.y = 0f; // Ensure the movement stays in the horizontal plane
+    
+        // Convert the input direction to a 3D vector
+        Vector3 movement = new Vector3(direction.x, 0f, direction.y);
 
         // Apply speed and deltaTime
         Vector3 moveDirection = movement.normalized * speed * Time.deltaTime;
 
         // Apply movement
-        transform.position += moveDirection;
+        transform.Translate(moveDirection, Space.World);
         
     }
     
