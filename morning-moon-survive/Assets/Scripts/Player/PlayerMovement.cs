@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
         
         // Get the main camera's transform
         Transform cameraTransform = Camera.main.transform;
+        
 
         // Calculate movement direction relative to the camera's forward direction
         Vector3 movement = cameraTransform.forward * direction.y + cameraTransform.right * direction.x;
