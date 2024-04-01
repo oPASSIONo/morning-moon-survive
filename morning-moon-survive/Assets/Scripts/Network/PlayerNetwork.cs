@@ -8,12 +8,12 @@ using Cinemachine;
 
 public class PlayerNetwork : NetworkBehaviour
 {
-
     [SerializeField] private CinemachineVirtualCamera vc;
+    [SerializeField] private Camera cm;
     private PlayerInput playerInput;
     private InputAction moveAction;
     private float speed = 5f;
-    
+
     
     void Start()
     {
@@ -33,20 +33,19 @@ public class PlayerNetwork : NetworkBehaviour
         }
     }
 
-
     void Update()
     {
-        if (!IsOwner ) return;
+        if (!IsOwner) return;
         {
             MovePlayer();
             //RotationPlayer();
         }
     }
-    
-    void MovePlayer()
+
+    /*void MovePlayer()
     {
         Vector2 direction = moveAction.ReadValue<Vector2>();
-    
+
         // Convert the input direction to a 3D vector
         Vector3 movement = new Vector3(direction.x, 0f, direction.y);
 
@@ -55,15 +54,32 @@ public class PlayerNetwork : NetworkBehaviour
 
         // Apply movement
         transform.Translate(moveDirection, Space.World);
+    }*/
+    void MovePlayer()
+    {
+        Vector2 direction = moveAction.ReadValue<Vector2>();
         
+        // Get the main camera's transform
+        Transform cameraTransform = cm.transform;
+
+        // Calculate movement direction relative to the camera's forward direction
+        Vector3 movement = cameraTransform.forward * direction.y + cameraTransform.right * direction.x;
+        movement.y = 0f; // Ensure the movement stays in the horizontal plane
+
+        // Apply speed and deltaTime
+        Vector3 moveDirection = movement.normalized * speed * Time.deltaTime;
+
+        // Apply movement
+        transform.position += moveDirection;
+
     }
-    
+
     void RotationPlayer()
     {
         Vector2 direction = moveAction.ReadValue<Vector2>();
 
         // Get the main camera's transform
-        Transform cameraTransform = Camera.main.transform;
+        Transform cameraTransform = cm.transform;
 
         // Calculate movement direction relative to the camera's forward direction
         Vector3 movement = cameraTransform.forward * direction.y + cameraTransform.right * direction.x;
@@ -78,6 +94,5 @@ public class PlayerNetwork : NetworkBehaviour
             transform.LookAt(targetPosition);
         }
     }
-    
 
 }
