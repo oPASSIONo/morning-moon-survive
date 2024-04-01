@@ -4,7 +4,7 @@ using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 
-public class HostClientScript : NetworkBehaviour
+public class NetworkManagerUI : NetworkBehaviour
 {
     [SerializeField] private Button serverButton;
     [SerializeField] private Button hostButton;

@@ -38,7 +38,7 @@ public class PlayerNetwork : NetworkBehaviour
         if (!IsOwner) return;
         {
             MovePlayer();
-            //RotationPlayer();
+            RotationPlayer();
         }
     }
 
