@@ -4292,7 +4292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 1982672437}
-  inventorySize: 10
+  inventoryData: {fileID: 11400000, guid: 5747cb1644aa57c4bbbafb0b0312d6d9, type: 2}
 --- !u!1001 &1784528550
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6624,6 +6624,12 @@ PrefabInstance:
       propertyPath: title
       value: TestFood
       objectReference: {fileID: 0}
+    - target: {fileID: 8399181806932294639, guid: 2076ab1e5e9de2f4d944a52f4569fd27,
+        type: 3}
+      propertyPath: image2
+      value: 
+      objectReference: {fileID: 21300000, guid: 3ff703cac9ad886448d039388988558c,
+        type: 3}
     - target: {fileID: 8399181806932294639, guid: 2076ab1e5e9de2f4d944a52f4569fd27,
         type: 3}
       propertyPath: quantity
