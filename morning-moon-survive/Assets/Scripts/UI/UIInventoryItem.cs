@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIInventoryItem : MonoBehaviour
+public class UIInventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IEndDragHandler,IDropHandler,IDragHandler
 {
     [SerializeField] private Image itemImage;
     [SerializeField] private TMP_Text quantityTxt;
@@ -47,29 +47,35 @@ public class UIInventoryItem : MonoBehaviour
         borderImage.enabled = true;
     }
 
-    public void OnBeginDrag()
+    // Implement the OnBeginDrag method required by IBeginDragHandler interface
+    public void OnBeginDrag(PointerEventData eventData)
     {
         if (empty)
             return;
         OnItemBeginDrag?.Invoke(this);
-        
     }
 
-    public void OnDrop()
+    // Implement the OnDrag method required by IDragHandler interface
+    public void OnDrag(PointerEventData eventData)
+    {
+        // Your implementation here
+    }
+
+    // Implement the OnDrop method required by IDropHandler interface
+    public void OnDrop(PointerEventData eventData)
     {
         OnItemDroppedOn?.Invoke(this);
     }
 
-    public void OnEndDrag()
+    // Implement the OnEndDrag method required by IEndDragHandler interface
+    public void OnEndDrag(PointerEventData eventData)
     {
         OnItemEndDrag?.Invoke(this);
     }
 
-    public void OnPointerClicked(BaseEventData data)
+    // Implement the OnPointerClick method required by IPointerClickHandler interface
+    public void OnPointerClick(PointerEventData pointerData)
     {
-        if(empty)
-            return;
-        PointerEventData pointerData = (PointerEventData)data;
         if (pointerData.button==PointerEventData.InputButton.Right)
         {
             OnRightMouseBtnClick?.Invoke(this);
