@@ -46,7 +46,7 @@ public class NetworkManagerUI : NetworkBehaviour
             "0.0.0.0",  // Use any available IP address
             randomPort
         );
-        portText.text =  "Port : " + randomPort.ToString();
+        portText.text =  "Port : 127.0.0.1:" + randomPort.ToString();
         NetworkManager.Singleton.StartHost();
     }
     
