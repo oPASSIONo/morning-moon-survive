@@ -5,29 +5,36 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIInventoryDescription : MonoBehaviour
+namespace Inventory.UI
 {
-    [SerializeField] private Image itemImage;
-    [SerializeField] private TMP_Text title;
-    [SerializeField] private TMP_Text description;
-
-    public void Awake()
+    public class UIInventoryDescription : MonoBehaviour
     {
-        ResetDescription();
-    }
+        [SerializeField] private Image itemImage;
+        [SerializeField] private TMP_Text title;
+        [SerializeField] private TMP_Text description;
+        [SerializeField] private TMP_Text category;
+        [SerializeField] private TMP_Text rarity;
+        public void Awake()
+        {
+            ResetDescription();
+        }
 
-    public void ResetDescription()
-    {
-        itemImage.gameObject.SetActive(false);
-        title.text = "";
-        description.text = "";
-    }
+        public void ResetDescription()
+        {
+            itemImage.gameObject.SetActive(false);
+            title.text = "";
+            description.text = "";
+        }
 
-    public void SetDescription(Sprite sprite, string itemName, string itemDescription)
-    {
-        itemImage.gameObject.SetActive(true);
-        itemImage.sprite = sprite;
-        title.text = itemName;
-        description.text = itemDescription;
+        public void SetDescription(Sprite sprite, string itemName, string itemDescription,string category,string rarity)
+        {
+            //gameObject.SetActive(true);
+            itemImage.gameObject.SetActive(true);
+            itemImage.sprite = sprite;
+            title.text = itemName;
+            description.text = $"Ability:\n{itemDescription}";
+            this.category.text = $"Category: {category}";
+            this.rarity.text = $"Rarity: {rarity}";
+        }
     }
 }
