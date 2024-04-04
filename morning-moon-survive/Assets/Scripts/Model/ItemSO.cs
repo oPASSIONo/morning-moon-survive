@@ -22,6 +22,8 @@ namespace Inventory.Model
         [field: SerializeField] public string ItemCategory { get; set; }
         [field: SerializeField] public string ItemSubCategory { get; set; }
         [field: SerializeField] public string ItemRarity { get; set; }
+        
+        //[field: SerializeField] public GameObject ItemModel { get; set; }
     }
 
     public enum ItemCategory
