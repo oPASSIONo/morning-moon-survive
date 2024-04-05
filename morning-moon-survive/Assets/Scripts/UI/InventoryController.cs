@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using Inventory.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -58,7 +59,19 @@ namespace Inventory
 
         private void HandleItemActionRequest(int itemIndex)
         {
-        
+            InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+            if (inventoryItem.IsEmpty)
+                return;
+            IDestroyableItem destroyableItem=inventoryItem.item as IDestroyableItem;
+            if (destroyableItem != null)
+            {
+                inventoryData.RemoveItem(itemIndex,1);
+            }
+            IItemAction itemAction=inventoryItem.item as IItemAction;
+            if (itemAction!=null)
+            {
+                itemAction.PerformAction(gameObject,inventoryItem.itemState);
+            }
         }
     
         private void HandleDraggin(int itemIndex)
@@ -83,7 +96,23 @@ namespace Inventory
                 return;
             }
             ItemSO item = inventoryItem.item;
-            inventoryUI.UpdateDescription(itemIndex,item.ItemImage,item.name,item.ItemAbility,item.ItemCategory,item.ItemRarity);
+            string description = PrepareDescription(inventoryItem);
+            inventoryUI.UpdateDescription(itemIndex,item.ItemImage,item.name,description,item.ItemCategory,item.ItemRarity);
+        }
+
+        private string PrepareDescription(InventoryItem inventoryItem)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(inventoryItem.item.ItemAbility);
+            sb.AppendLine();
+            for (int i = 0; i < inventoryItem.itemState.Count; i++)
+            {
+                sb.Append($"{inventoryItem.itemState[i].itemParameter.ParameterName}" +
+                          $": {inventoryItem.itemState[i].value} / "+
+                          $"{inventoryItem.item.DefaultParametersList[i].value}");
+                sb.AppendLine();
+            }
+            return sb.ToString();
         }
 
         void Update()
