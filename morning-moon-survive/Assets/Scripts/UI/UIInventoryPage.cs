@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Inventory.UI
 {
@@ -121,6 +122,7 @@ namespace Inventory.UI
         public void AddAction(string actionName, Action performAction)
         {
             //actionPanel.AddButton(actionName,performAction);
+            actionPanel.dropBtn.GetComponent<Button>().onClick.AddListener(()=>performAction());
         }
 
         public void ShowItemAction(int itemIndex)
