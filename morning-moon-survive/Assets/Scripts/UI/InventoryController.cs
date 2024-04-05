@@ -6,6 +6,7 @@ using Inventory.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Inventory.Model;
+using UnityEngine.UI;
 
 namespace Inventory
 {
@@ -69,7 +70,9 @@ namespace Inventory
             IItemAction itemAction=inventoryItem.item as IItemAction;
             if (itemAction!=null)
             {
-                //inventoryUI.AddAction(itemAction.ActionName,()=>PerformAction(itemIndex));
+                Debug.Log("Use Item");
+                inventoryUI.AddAction(itemAction.ActionName,()=>PerformAction(itemIndex));
+                
                 inventoryUI.ShowItemAction(itemIndex);
             }
             IDestroyableItem destroyableItem=inventoryItem.item as IDestroyableItem;
@@ -99,6 +102,7 @@ namespace Inventory
 
         private void DropItem(int itemIndex, int quantity)
         {
+            Debug.Log("Drop Item");
             inventoryData.RemoveItem(itemIndex,quantity);
             inventoryUI.ResetSelection();
             audioSource.PlayOneShot(dropClip);

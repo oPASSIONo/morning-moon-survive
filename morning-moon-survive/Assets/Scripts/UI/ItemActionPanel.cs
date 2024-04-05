@@ -8,7 +8,9 @@ namespace Inventory.UI
 {
     public class ItemActionPanel : MonoBehaviour
     {
-        [SerializeField] public Button dropBtn;
+        public Button dropBtn;
+
+        public Button useBtn;
         //[SerializeField] private GameObject buttonPrefab;
 
         /*public void AddButton(string name,Action onClickAction)
