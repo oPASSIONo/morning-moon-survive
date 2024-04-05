@@ -8,7 +8,7 @@ namespace Inventory.Model
     public class EquippableItemSO : ItemSO,IDestroyableItem,IItemAction
     {
         public string ActionName => "Equip";
-        public AudioClip actionSFX { get; private set; }
+        [field: SerializeField] public AudioClip actionSFX { get; private set; }
         public bool PerformAction(GameObject character,List<ItemParameter>itemState)
         {
             AgentWeapon weaponSystem = character.GetComponent<AgentWeapon>();

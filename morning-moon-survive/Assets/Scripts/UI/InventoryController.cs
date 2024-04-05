@@ -17,6 +17,9 @@ namespace Inventory
     
         private PlayerInput playerInput;
         private InputAction openInventoryAction;
+
+        [SerializeField] private AudioClip dropClip;
+        [SerializeField] private AudioSource audioSource;
     
     
         void Start()
@@ -62,6 +65,25 @@ namespace Inventory
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
             if (inventoryItem.IsEmpty)
                 return;
+            
+            IItemAction itemAction=inventoryItem.item as IItemAction;
+            if (itemAction!=null)
+            {
+                //inventoryUI.AddAction(itemAction.ActionName,()=>PerformAction(itemIndex));
+                inventoryUI.ShowItemAction(itemIndex);
+            }
+            IDestroyableItem destroyableItem=inventoryItem.item as IDestroyableItem;
+            if (destroyableItem != null)
+            {
+                inventoryUI.AddAction("Drop",()=>DropItem(itemIndex,inventoryItem.quantity));
+            }
+        }
+
+        public void PerformAction(int itemIndex)
+        {
+            InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+            if (inventoryItem.IsEmpty)
+                return;
             IDestroyableItem destroyableItem=inventoryItem.item as IDestroyableItem;
             if (destroyableItem != null)
             {
@@ -71,7 +93,15 @@ namespace Inventory
             if (itemAction!=null)
             {
                 itemAction.PerformAction(gameObject,inventoryItem.itemState);
+                audioSource.PlayOneShot(itemAction.actionSFX);
             }
+        }
+
+        private void DropItem(int itemIndex, int quantity)
+        {
+            inventoryData.RemoveItem(itemIndex,quantity);
+            inventoryUI.ResetSelection();
+            audioSource.PlayOneShot(dropClip);
         }
     
         private void HandleDraggin(int itemIndex)
