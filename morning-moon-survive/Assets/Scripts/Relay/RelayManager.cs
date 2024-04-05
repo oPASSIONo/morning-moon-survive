@@ -39,7 +39,7 @@ public class RelayManager : MonoBehaviour
         await StartClientWithRelay(joinCodeInputField.text);
     }
 
-    private async Task<string> StartHostWithRelay(int maxConnection = 3)
+    private async Task<string> StartHostWithRelay(int maxConnection = 4)
     {
         try
         {
@@ -51,13 +51,13 @@ public class RelayManager : MonoBehaviour
            
            string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
            Debug.Log(joinCode);
-
+           
            return NetworkManager.Singleton.StartHost() ? joinCode : null;
            
         }
         catch (RelayServiceException e)
         {
-            Debug.Log(e);
+            Debug.LogError($"Relay create location failed {e.Message}");
             throw;
         }
     }
@@ -83,4 +83,5 @@ public class RelayManager : MonoBehaviour
         }
         
     }
+    
 }

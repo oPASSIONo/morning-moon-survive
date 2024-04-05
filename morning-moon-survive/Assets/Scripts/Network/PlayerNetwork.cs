@@ -32,6 +32,17 @@ public class PlayerNetwork : NetworkBehaviour
             vc.Priority = 0;
         }
     }
+    
+    public  override void OnNetworkDespawn()
+    {
+        if (!IsOwner)
+        { 
+            Debug.Log("---------------------");
+            return;
+        }
+        NetworkObject.Destroy(gameObject);
+
+    }
 
     void Update()
     {

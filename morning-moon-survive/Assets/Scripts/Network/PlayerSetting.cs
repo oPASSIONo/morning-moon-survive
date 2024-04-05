@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,11 +15,11 @@ public class PlayerSetting : NetworkBehaviour
             NetworkVariableWritePermission.Server);
 
     public override void OnNetworkSpawn()
-    {
-        networkPlayerName.Value = "Player : " + (OwnerClientId + 1);
+    { 
+        networkPlayerName.Value = "Player " + (OwnerClientId + 1);
         playerName.text = networkPlayerName.Value.ToString();
     }
-
+    
 }
     
     
