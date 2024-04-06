@@ -13,15 +13,15 @@ public class PlayerMovement : MonoBehaviour
     private float currentSpeed; // Current movement speed
     
     // Reference to the Hunger component
-    [SerializeField] private Hunger hunger;
+    private Hunger hunger;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerInput = GetComponent<PlayerInput>();
-        
         // Set the initial speed to the base speed
         currentSpeed = baseSpeed;
+
+        hunger = GetComponent<Hunger>();
 
         // Subscribe to the OnHungerChanged event
         if (hunger != null)
@@ -35,27 +35,33 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         MovePlayer();
-        RotationPlayer();
+       // RotationPlayer();
     }
     
     void MovePlayer()
     {
-        Vector2 direction = moveAction.ReadValue<Vector2>();
+        Vector2 inputVector = GameInput.Instance.GetMovement();
         
         // Get the main camera's transform
-        Transform cameraTransform = Camera.main.transform;
-        
+        Transform cameraTransform =  Camera.main.transform;
 
         // Calculate movement direction relative to the camera's forward direction
-        Vector3 movement = cameraTransform.forward * direction.y + cameraTransform.right * direction.x;
+        Vector3 movement = cameraTransform.forward * inputVector.y + cameraTransform.right * inputVector.x;
         movement.y = 0f; // Ensure the movement stays in the horizontal plane
 
         // Apply speed and deltaTime
-        Vector3 moveDirection = movement.normalized * currentSpeed * Time.deltaTime;
+        Vector3 moveDirection = movement.normalized * baseSpeed * Time.deltaTime;
 
         // Apply movement
         transform.position += moveDirection;
-        
+        Vector3 targetPosition = transform.position + movement.normalized;
+
+        // Make the player look at the target position
+        if (movement.magnitude > 0.1f) // Check if there is significant movement
+        {
+            transform.LookAt(targetPosition);
+        }
+
     }
     
     void RotationPlayer()

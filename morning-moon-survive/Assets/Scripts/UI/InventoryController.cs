@@ -21,14 +21,22 @@ namespace Inventory
 
         [SerializeField] private AudioClip dropClip;
         [SerializeField] private AudioSource audioSource;
-    
-    
+
+
+        private void Awake()
+        {
+            playerInput = new PlayerInput();
+            playerInput.PlayerControls.Enable();
+            
+            openInventoryAction = playerInput.PlayerControls.Inventory;
+        }
+
         void Start()
         {
             PrepareUI();
             PrepareInventoryData();
-            playerInput = GetComponent<PlayerInput>();
-            openInventoryAction = playerInput.actions.FindAction("Inventory");
+           // playerInput = GetComponent<PlayerInput>();
+           // openInventoryAction = playerInput.PlayerControls.Inventory;
         }
 
         private void PrepareInventoryData()

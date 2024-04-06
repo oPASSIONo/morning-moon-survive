@@ -11,7 +11,7 @@ public class HotbarController : MonoBehaviour
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
-        hotbarAction = playerInput.actions.FindAction("Hotbar");
+        hotbarAction = playerInput.PlayerControls.Hotbar;
     }
 
     // Update is called once per frame

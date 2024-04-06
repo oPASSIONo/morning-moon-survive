@@ -24,11 +24,18 @@
                     "initialStateCheck": false
                 },
                 {
-
                     "name": "Pause",
                     "type": "Button",
                     "id": "95be0c09-5a0f-4f7b-8760-2fb80dbc84b4",
-
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Hotbar",
+                    "type": "Button",
+                    "id": "04d3d8ac-aab7-4cb8-a4a8-742f472d8a6d",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -104,16 +111,25 @@
                 },
                 {
                     "name": "",
-
                     "id": "8e4b87ac-cf63-443c-9f2c-f74a681bb8ba",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
-                  "isComposite": false,
-                  "isPartOfComposite": false
-
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1d9c054c-079e-4cc4-87b8-6f2389c5fb39",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hotbar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -211,7 +227,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Hotbar",
-                  
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b505a1c3-d18a-4308-bb03-c4c50816aa97",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hotbar",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
