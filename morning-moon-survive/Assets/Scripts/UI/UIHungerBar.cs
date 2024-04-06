@@ -24,7 +24,7 @@ public class UIHungerBar : MonoBehaviour
         hunger.OnHungerChanged += UpdateHungerBar;
 
         // Initialize the hunger bar
-        UpdateHungerBar(hunger.currentHunger, hunger.maxHunger);
+        UpdateHungerBar(hunger.CurrentHunger, hunger.MaxHunger);
     }
 
     void UpdateHungerBar(int currentHunger, int maxHunger)

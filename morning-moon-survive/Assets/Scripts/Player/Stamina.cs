@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Stamina : MonoBehaviour
 {
-    public float maxStamina = 100f;
-    public float currentStamina;
+    public float MaxStamina { get; private set; } = 100f;
+    public float CurrentStamina { get; private set; }
     private float staminaRegenRate = 10f;
-
+    
     private Stamina stamina;//test
 
     // Start is called before the first frame update
     void Start()
     {
-        currentStamina = maxStamina;
+        CurrentStamina = MaxStamina;
         
         stamina = GetComponent<Stamina>();//test
     }
@@ -27,25 +27,25 @@ public class Stamina : MonoBehaviour
     void RegenerateStamina()
     {
         // Regenerate stamina over time
-        currentStamina = Mathf.Min(currentStamina + (staminaRegenRate * Time.deltaTime), maxStamina);
+        CurrentStamina = Mathf.Min(CurrentStamina + (staminaRegenRate * Time.deltaTime), MaxStamina);
     }
 
     public bool CanPerformAction(float staminaCost)
     {
         // Check if there's enough stamina to perform the action
-        return currentStamina >= staminaCost;
+        return CurrentStamina >= staminaCost;
     }
 
     public void ConsumeStamina(float staminaCost)
     {
         // Consume stamina when performing an action
-        currentStamina = Mathf.Max(currentStamina - staminaCost, 0f);
+        CurrentStamina = Mathf.Max(CurrentStamina - staminaCost, 0f);
     }
 
     public void IncreaseStamina(int amount)
     {
         // Increase stamina by the specified amount
-        currentStamina = Mathf.Min(currentStamina + amount, maxStamina);
+        CurrentStamina = Mathf.Min(CurrentStamina + amount, MaxStamina);
     }
     
     

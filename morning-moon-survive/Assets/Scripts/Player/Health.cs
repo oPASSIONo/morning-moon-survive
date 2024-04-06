@@ -4,29 +4,29 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public int maxHealth = 100;
-    public int currentHealth;
+    public int MaxHealth { get; private set; } = 100;
+    public int CurrentHealth { get; private set; }
 
     public event System.Action<int, int> OnHealthChanged; // Event to notify health changes
 
     void Start()
     {
         // Initialize current health to max health
-        currentHealth = maxHealth;
+        CurrentHealth = MaxHealth;
     }
 
     public void TakeDamage(int damageAmount)
     {
         // Reduce current health by damage amount
-        currentHealth -= damageAmount;
+        CurrentHealth -= damageAmount;
         // Clamp current health to ensure it stays within bounds
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
 
         // Trigger health changed event
-        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
 
         // Check if health is zero
-        if (currentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
             Die();
         }
@@ -35,12 +35,12 @@ public class Health : MonoBehaviour
     public void AddHealth(int amount)
     {
         // Increase current health by the specified amount
-        currentHealth += amount;
+        CurrentHealth += amount;
         // Clamp current health to ensure it stays within bounds
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
 
         // Trigger health changed event
-        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
     }
 
     void Die()
@@ -51,3 +51,4 @@ public class Health : MonoBehaviour
         //Destroy(gameObject);
     }
 }
+
