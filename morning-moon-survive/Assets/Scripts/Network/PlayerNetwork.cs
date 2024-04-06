@@ -10,7 +10,6 @@ public class PlayerNetwork : NetworkBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera vc;
     [SerializeField] private Camera cm;
-    [SerializeField] private GameInput gameInput;
     private PlayerInput playerInput;
     private InputAction moveAction;
     private float speed = 5f;
@@ -52,7 +51,7 @@ public class PlayerNetwork : NetworkBehaviour
     
     void MovePlayer()
     {
-        Vector2 inputVector = gameInput.GetMovement();
+        Vector2 inputVector = GameInput.Instance.GetMovement();
         
         // Get the main camera's transform
         Transform cameraTransform = cm.transform;
@@ -78,7 +77,7 @@ public class PlayerNetwork : NetworkBehaviour
 
     void RotationPlayer()
     {
-        Vector2 inputVector = gameInput.GetMovement();
+        Vector2 inputVector = GameInput.Instance.GetMovement();
 
         // Get the main camera's transform
         Transform cameraTransform = cm.transform;

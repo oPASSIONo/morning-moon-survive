@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class GameUIManager : NetworkBehaviour
+public class GameManager : NetworkBehaviour
 {
-    public static GameUIManager Instance { get; private set; }
+    public static GameManager Instance { get; private set; }
     
     public event EventHandler OnLocalGamePaused;
     public event EventHandler OnLocalGameUnPaused;

@@ -16,12 +16,16 @@ public class GameInput : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        
         playerInput = new PlayerInput();
         playerInput.PlayerControls.Enable();
 
         playerInput.PlayerControls.Pause.performed += Pause_performed;
         
+    }
+    
+    private void Pause_performed(InputAction.CallbackContext obj)
+    {
+        OnPauseAction?.Invoke(this, EventArgs.Empty);
     }
     
     public Vector2 GetMovement()
@@ -31,9 +35,5 @@ public class GameInput : MonoBehaviour
         inputVector = inputVector.normalized;
         return inputVector;
     }   
-
-    private void Pause_performed(InputAction.CallbackContext obj)
-    {
-        OnPauseAction?.Invoke(this, EventArgs.Empty);
-    }
+    
 }
