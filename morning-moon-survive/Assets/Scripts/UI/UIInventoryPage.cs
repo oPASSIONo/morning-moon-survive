@@ -18,7 +18,8 @@ namespace Inventory.UI
 
         public event Action<int> OnDescriptionRequested, OnItemActionRequested, OnStartDragging;
         public event Action<int, int> OnSwapItems;
-        [SerializeField] private ItemActionPanel actionPanel;
+        public ItemActionPanel actionPanel;
+        [SerializeField] private Button quickUseButton;
         private void Awake()
         {
             Hide();

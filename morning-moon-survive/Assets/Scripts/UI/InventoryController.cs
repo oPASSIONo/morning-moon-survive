@@ -89,6 +89,7 @@ namespace Inventory
             inventoryData.RemoveItem(itemIndex, quantity);
             inventoryUI.ResetSelection();
             audioSource.PlayOneShot(dropClip);
+            inventoryUI.actionPanel.Toggle(false);
         }
 
         public void PerformAction(int itemIndex)
@@ -111,6 +112,7 @@ namespace Inventory
                 if (inventoryData.GetItemAt(itemIndex).IsEmpty)
                     inventoryUI.ResetSelection();
             }
+            inventoryUI.actionPanel.Toggle(false);
         }
     
         private void HandleDraggin(int itemIndex)
@@ -126,7 +128,8 @@ namespace Inventory
             inventoryData.SwapItems(itemIndex_1, itemIndex_2);
         }
 
-        private void HandleDescriptionRequest(int itemIndex)
+        
+        private void HandleDescriptionRequest(int itemIndex)//Selecting Item
         {
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
             if (inventoryItem.IsEmpty)
@@ -137,6 +140,7 @@ namespace Inventory
             ItemSO item = inventoryItem.item;
             string description = PrepareDescription(inventoryItem);
             inventoryUI.UpdateDescription(itemIndex,item.ItemImage,item.name,description,item.ItemCategory,item.ItemRarity);
+            
         }
 
         private string PrepareDescription(InventoryItem inventoryItem)
@@ -170,6 +174,5 @@ namespace Inventory
                 inventoryUI.UpdateData(item.Key,item.Value.item.ItemImage,item.Value.quantity);
             }
         }
-
     }
 }

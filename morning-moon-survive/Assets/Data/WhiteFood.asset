@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23e0e09dab6317a4892ad48806eba570, type: 3}
-  m_Name: RedFood
+  m_Name: WhiteFood
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
   <MaxStackSize>k__BackingField: 99
-  <Name>k__BackingField: RedFood
-  <ItemAbility>k__BackingField: +10 Hunger
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: 3ff703cac9ad886448d039388988558c,
+  <Name>k__BackingField: WhiteFood
+  <ItemAbility>k__BackingField: +10 Fatigue
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 14c3d35640307444ba3ecdf99ef5a403,
     type: 3}
   <ItemCategory>k__BackingField: Consumable
   <ItemSubCategory>k__BackingField: Food
-  <ItemRarity>k__BackingField: Common
+  <ItemRarity>k__BackingField: Epic
   <DefaultParametersList>k__BackingField: []
   modifierData:
-  - statModifier: {fileID: 11400000, guid: 9cb51cb05dad0f14db3e4c223627956b, type: 2}
+  - statModifier: {fileID: 11400000, guid: 1b6bfde4fed8afe409c2ef338cfba99c, type: 2}
     value: 10
   <actionSFX>k__BackingField: {fileID: 0}
