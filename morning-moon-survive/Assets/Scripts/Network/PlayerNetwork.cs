@@ -31,42 +31,59 @@ public class PlayerNetwork : NetworkBehaviour
         {
             vc.Priority = 0;
         }
+
+        if (IsServer)
+        {
+            NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
+
+        }
+    }
+
+    private void NetworkManager_OnClientDisconnectCallback(ulong clientId)
+    {
+        if (clientId == OwnerClientId)
+        {
+            
+        }
     }
     
-    public  override void OnNetworkDespawn()
-    {
-        if (!IsOwner)
-        { 
-            Debug.Log("---------------------");
-            return;
-        }
-        NetworkObject.Destroy(gameObject);
-
-    }
 
     void Update()
     {
         if (!IsOwner) return;
         {
-            MovePlayer();
+            MovePlayerServerAuth();
+            //MovePlayer();
             RotationPlayer();
         }
     }
 
-    /*void MovePlayer()
+    private void MovePlayerServerAuth()
     {
         Vector2 direction = moveAction.ReadValue<Vector2>();
+        MovePlayerServerRpc(direction);
+    }
 
-        // Convert the input direction to a 3D vector
-        Vector3 movement = new Vector3(direction.x, 0f, direction.y);
+    [ServerRpc(RequireOwnership = false)]
+    private void MovePlayerServerRpc(Vector2 direction)
+    {
+         
+        // Get the main camera's transform
+        Transform cameraTransform = cm.transform;
+
+        // Calculate movement direction relative to the camera's forward direction
+        Vector3 movement = cameraTransform.forward * direction.y + cameraTransform.right * direction.x;
+        movement.y = 0f; // Ensure the movement stays in the horizontal plane
 
         // Apply speed and deltaTime
         Vector3 moveDirection = movement.normalized * speed * Time.deltaTime;
 
         // Apply movement
-        transform.Translate(moveDirection, Space.World);
-    }*/
-    void MovePlayer()
+        transform.position += moveDirection;
+
+    }
+    
+    /*void MovePlayer()
     {
         Vector2 direction = moveAction.ReadValue<Vector2>();
         
@@ -83,7 +100,7 @@ public class PlayerNetwork : NetworkBehaviour
         // Apply movement
         transform.position += moveDirection;
 
-    }
+    }*/
 
     void RotationPlayer()
     {
