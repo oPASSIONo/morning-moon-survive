@@ -15,7 +15,7 @@ MonoBehaviour:
   <IsStackable>k__BackingField: 1
   <MaxStackSize>k__BackingField: 99
   <Name>k__BackingField: WhiteFood
-  <ItemAbility>k__BackingField: +10 Fatigue
+  <ItemAbility>k__BackingField: +10 Stamina
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 14c3d35640307444ba3ecdf99ef5a403,
     type: 3}
   <ItemCategory>k__BackingField: Consumable
@@ -23,6 +23,6 @@ MonoBehaviour:
   <ItemRarity>k__BackingField: Epic
   <DefaultParametersList>k__BackingField: []
   modifierData:
-  - statModifier: {fileID: 11400000, guid: 1b6bfde4fed8afe409c2ef338cfba99c, type: 2}
+  - statModifier: {fileID: 11400000, guid: 775f8505e7a51ef4a874837f7bb9cb5e, type: 2}
     value: 10
   <actionSFX>k__BackingField: {fileID: 0}

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class CharacterStatFatigueModifierSO : CharacterStatModifierSO
+public class CharacterStatStaminaModifierSO : CharacterStatModifierSO
 {
     // Start is called before the first frame update
     void Start()
@@ -19,8 +19,8 @@ public class CharacterStatFatigueModifierSO : CharacterStatModifierSO
 
     public override void AffectCharacter(GameObject character, float val)
     {
-        Fatique fatique = character.GetComponent<Fatique>();
-        if (fatique!=null)
-            fatique.AddFatigue((int)val);
+        Stamina stamina = character.GetComponent<Stamina>();
+        if (stamina!=null)
+            stamina.IncreaseStamina((int)val);
     }
 }
