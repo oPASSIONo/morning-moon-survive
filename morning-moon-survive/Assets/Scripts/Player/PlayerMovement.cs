@@ -9,13 +9,26 @@ public class PlayerMovement : MonoBehaviour
 
     private InputAction moveAction;
     
-    private float speed = 5f;
+    private float baseSpeed = 5f; // Base movement speed
+    private float currentSpeed; // Current movement speed
+    
+    // Reference to the Hunger component
+    [SerializeField] private Hunger hunger;
 
     // Start is called before the first frame update
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions.FindAction("Move");
+        
+        // Set the initial speed to the base speed
+        currentSpeed = baseSpeed;
+
+        // Subscribe to the OnHungerChanged event
+        if (hunger != null)
+        {
+            hunger.OnHungerChanged += UpdateSpeed;
+        }
     }
     
 
@@ -39,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         movement.y = 0f; // Ensure the movement stays in the horizontal plane
 
         // Apply speed and deltaTime
-        Vector3 moveDirection = movement.normalized * speed * Time.deltaTime;
+        Vector3 moveDirection = movement.normalized * currentSpeed * Time.deltaTime;
 
         // Apply movement
         transform.position += moveDirection;
@@ -67,4 +80,30 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Method to update the player's speed based on the current hunger level
+    void UpdateSpeed(int currentHunger, int maxHunger)
+    {
+        // If hunger is greater than or equal to 75, decrease the speed
+        if (currentHunger >= 75)
+        {
+            currentSpeed = baseSpeed * 0.5f; // Reduce the speed to 50%
+            Debug.Log(currentSpeed);
+            
+        }
+        else
+        {
+            // If hunger is below 75, reset the speed to the base speed
+            currentSpeed = baseSpeed;
+        }
+    }
+    
+    // Unsubscribe from the OnHungerChanged event when the script is destroyed
+    void OnDestroy()
+    {
+        if (hunger != null)
+        {
+            hunger.OnHungerChanged -= UpdateSpeed;
+        }
+    }
+    
 }

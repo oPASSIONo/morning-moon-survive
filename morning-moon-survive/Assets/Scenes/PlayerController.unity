@@ -4753,6 +4753,8 @@ GameObject:
   - component: {fileID: 1655586975}
   - component: {fileID: 1655586976}
   - component: {fileID: 1655586977}
+  - component: {fileID: 1655586979}
+  - component: {fileID: 1655586978}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4803,6 +4805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ddd19374d37e08419c63ab2484e85ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hunger: {fileID: 1655586978}
 --- !u!136 &1655586968
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5067,6 +5070,35 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1655586978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655586965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1bca90d03ffbc24dbc89d8a5fa56650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHunger: 100
+  currentHunger: 0
+  health: {fileID: 1655586979}
+--- !u!114 &1655586979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655586965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 916b0767f21f80f4e8929a330acffe04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
 --- !u!1 &1665393633
 GameObject:
   m_ObjectHideFlags: 0
