@@ -13,12 +13,14 @@ namespace Inventory.UI
         public Button useBtn;
         //[SerializeField] private GameObject buttonPrefab;
 
-        /*public void AddButton(string name,Action onClickAction)
+        public void AddButton(string name,Action onClickAction)
         {
-            GameObject button = Instantiate(buttonPrefab, transform);
+            /*GameObject button = Instantiate(buttonPrefab, transform);
             button.GetComponent<Button>().onClick.AddListener(()=>onClickAction());
-            button.GetComponentInChildren<TMPro.TMP_Text>().text = name;
-        }*/
+            button.GetComponentInChildren<TMPro.TMP_Text>().text = name;*/
+            /*dropBtn.GetComponent<Button>().onClick.AddListener(()=>onClickAction());
+            useBtn.GetComponent<Button>().onClick.AddListener(()=>onClickAction());*/
+        }
         public void Toggle(bool val)
         {
             /*if (val)

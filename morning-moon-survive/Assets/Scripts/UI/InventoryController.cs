@@ -70,10 +70,9 @@ namespace Inventory
             IItemAction itemAction=inventoryItem.item as IItemAction;
             if (itemAction!=null)
             {
-                Debug.Log("Use Item");
+                inventoryUI.ShowItemAction(itemIndex);
                 inventoryUI.AddAction(itemAction.ActionName,()=>PerformAction(itemIndex));
                 
-                inventoryUI.ShowItemAction(itemIndex);
             }
             IDestroyableItem destroyableItem=inventoryItem.item as IDestroyableItem;
             if (destroyableItem != null)
@@ -95,8 +94,11 @@ namespace Inventory
             IItemAction itemAction=inventoryItem.item as IItemAction;
             if (itemAction!=null)
             {
+                Debug.Log("Use Item");
                 itemAction.PerformAction(gameObject,inventoryItem.itemState);
                 audioSource.PlayOneShot(itemAction.actionSFX);
+                /*if(inventoryData.GetItemAt(itemIndex).IsEmpty)
+                    inventoryUI.ResetSelection();*/
             }
         }
 
