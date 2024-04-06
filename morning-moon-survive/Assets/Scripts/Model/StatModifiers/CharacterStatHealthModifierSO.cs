@@ -10,6 +10,5 @@ public class CharacterStatHealthModifierSO : CharacterStatModifierSO
         /*Health health = character.GetComponent<Health>();
         if (health!=null)
             health.AddHealth((int)val);*/
-        Debug.Log("Health has changed");
     }
 }

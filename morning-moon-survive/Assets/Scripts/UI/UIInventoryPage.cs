@@ -121,8 +121,7 @@ namespace Inventory.UI
 
         public void AddAction(string actionName, Action performAction)
         {
-            //actionPanel.AddButton(actionName,performAction);
-            //actionPanel.dropBtn.GetComponent<Button>().onClick.AddListener(()=>performAction());
+            actionPanel.AddButton(actionName,performAction);
         }
 
         public void ShowItemAction(int itemIndex)
@@ -149,8 +148,8 @@ namespace Inventory.UI
 
         public void UpdateDescription(int itemIndex, Sprite itemImage, string name, string ability,string category,string rarity)
         {
-            actionPanel.dropBtn.GetComponent<Button>().onClick.RemoveAllListeners();
-            actionPanel.useBtn.GetComponent<Button>().onClick.RemoveAllListeners();
+            //actionPanel.dropBtn.GetComponent<Button>().onClick.RemoveAllListeners();
+            //actionPanel.useBtn.GetComponent<Button>().onClick.RemoveAllListeners();
             itemDescription.SetDescription(itemImage,name,ability,category,rarity);
             DeselectAllItems();
             listOfUIItems[itemIndex].Select();

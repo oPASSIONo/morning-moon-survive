@@ -8,35 +8,32 @@ namespace Inventory.UI
 {
     public class ItemActionPanel : MonoBehaviour
     {
-        public Button dropBtn;
-
-        public Button useBtn;
-        //[SerializeField] private GameObject buttonPrefab;
+        [SerializeField] private GameObject buttonPrefab;
+        [SerializeField] private GameObject actionZone;
 
         public void AddButton(string name,Action onClickAction)
         {
-            /*GameObject button = Instantiate(buttonPrefab, transform);
+            GameObject button = Instantiate(buttonPrefab, actionZone.transform);
             button.GetComponent<Button>().onClick.AddListener(()=>onClickAction());
-            button.GetComponentInChildren<TMPro.TMP_Text>().text = name;*/
-            /*dropBtn.GetComponent<Button>().onClick.AddListener(()=>onClickAction());
-            useBtn.GetComponent<Button>().onClick.AddListener(()=>onClickAction());*/
+            button.GetComponentInChildren<TMPro.TMP_Text>().text = name;
+            
         }
         public void Toggle(bool val)
         {
-            /*if (val)
+            if (val)
             {
                 RemoveOldButton();
-            }*/
+            }
             gameObject.SetActive(val);
         }
 
-        /*public void RemoveOldButton()
+        public void RemoveOldButton()
         {
-            foreach (Transform transformChildObjects in transform)
+            foreach (Transform transformChildObjects in actionZone.transform)
             {
                 Destroy(transformChildObjects.gameObject);
             }
-        }*/
+        }
     }
 }
 

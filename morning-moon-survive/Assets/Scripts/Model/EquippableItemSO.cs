@@ -14,6 +14,7 @@ namespace Inventory.Model
             AgentWeapon weaponSystem = character.GetComponent<AgentWeapon>();
             if (weaponSystem!=null)
             {
+                Debug.Log("Equip Weapon");
                 weaponSystem.SetWeapon(this,itemState==null? DefaultParametersList : itemState);
                 return true;
             }

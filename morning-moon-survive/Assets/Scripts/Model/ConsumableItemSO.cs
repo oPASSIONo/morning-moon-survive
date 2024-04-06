@@ -16,6 +16,7 @@ namespace Inventory.Model
         {
             foreach (ModifierData data in modifierData)
             {
+                Debug.Log("Consume Item");
                 data.statModifier.AffectCharacter(character, data.value);
             }
 
