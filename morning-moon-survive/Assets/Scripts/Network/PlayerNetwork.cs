@@ -10,16 +10,11 @@ public class PlayerNetwork : NetworkBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera vc;
     [SerializeField] private Camera cm;
+    [SerializeField] private GameInput gameInput;
     private PlayerInput playerInput;
     private InputAction moveAction;
     private float speed = 5f;
-
     
-    void Start()
-    {
-        playerInput = GetComponent<PlayerInput>();
-        moveAction = playerInput.actions.FindAction("Move");
-    }
 
     public override void OnNetworkSpawn()
     {
@@ -47,17 +42,61 @@ public class PlayerNetwork : NetworkBehaviour
         }
     }
     
-
     void Update()
     {
         if (!IsOwner) return;
         {
-            MovePlayerServerAuth();
-            //MovePlayer();
-            RotationPlayer();
+            MovePlayer();
         }
     }
+    
+    void MovePlayer()
+    {
+        Vector2 inputVector = gameInput.GetMovement();
+        
+        // Get the main camera's transform
+        Transform cameraTransform = cm.transform;
 
+        // Calculate movement direction relative to the camera's forward direction
+        Vector3 movement = cameraTransform.forward * inputVector.y + cameraTransform.right * inputVector.x;
+        movement.y = 0f; // Ensure the movement stays in the horizontal plane
+
+        // Apply speed and deltaTime
+        Vector3 moveDirection = movement.normalized * speed * Time.deltaTime;
+
+        // Apply movement
+        transform.position += moveDirection;
+        Vector3 targetPosition = transform.position + movement.normalized;
+
+        // Make the player look at the target position
+        if (movement.magnitude > 0.1f) // Check if there is significant movement
+        {
+            transform.LookAt(targetPosition);
+        }
+
+    }
+
+    void RotationPlayer()
+    {
+        Vector2 inputVector = gameInput.GetMovement();
+
+        // Get the main camera's transform
+        Transform cameraTransform = cm.transform;
+
+        // Calculate movement direction relative to the camera's forward direction
+        Vector3 movement = cameraTransform.forward * inputVector.y + cameraTransform.right * inputVector.x;
+        movement.y = 0f; // Ensure the movement stays in the horizontal plane
+
+        // Calculate the target position to look at
+        Vector3 targetPosition = transform.position + movement.normalized;
+
+        // Make the player look at the target position
+        if (movement.magnitude > 0.1f) // Check if there is significant movement
+        {
+            transform.LookAt(targetPosition);
+        }
+    }
+    
     private void MovePlayerServerAuth()
     {
         Vector2 direction = moveAction.ReadValue<Vector2>();
@@ -81,46 +120,6 @@ public class PlayerNetwork : NetworkBehaviour
         // Apply movement
         transform.position += moveDirection;
 
-    }
-    
-    /*void MovePlayer()
-    {
-        Vector2 direction = moveAction.ReadValue<Vector2>();
-        
-        // Get the main camera's transform
-        Transform cameraTransform = cm.transform;
-
-        // Calculate movement direction relative to the camera's forward direction
-        Vector3 movement = cameraTransform.forward * direction.y + cameraTransform.right * direction.x;
-        movement.y = 0f; // Ensure the movement stays in the horizontal plane
-
-        // Apply speed and deltaTime
-        Vector3 moveDirection = movement.normalized * speed * Time.deltaTime;
-
-        // Apply movement
-        transform.position += moveDirection;
-
-    }*/
-
-    void RotationPlayer()
-    {
-        Vector2 direction = moveAction.ReadValue<Vector2>();
-
-        // Get the main camera's transform
-        Transform cameraTransform = cm.transform;
-
-        // Calculate movement direction relative to the camera's forward direction
-        Vector3 movement = cameraTransform.forward * direction.y + cameraTransform.right * direction.x;
-        movement.y = 0f; // Ensure the movement stays in the horizontal plane
-
-        // Calculate the target position to look at
-        Vector3 targetPosition = transform.position + movement.normalized;
-
-        // Make the player look at the target position
-        if (movement.magnitude > 0.1f) // Check if there is significant movement
-        {
-            transform.LookAt(targetPosition);
-        }
     }
 
 }

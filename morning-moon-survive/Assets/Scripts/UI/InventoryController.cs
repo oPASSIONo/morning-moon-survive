@@ -18,7 +18,7 @@ public class InventoryController : MonoBehaviour
     {
         inventoryUI.InitializeInventoryUI(inventorySize);
         playerInput = GetComponent<PlayerInput>();
-        openInventoryAction = playerInput.actions.FindAction("Inventory");
+        openInventoryAction = playerInput.PlayerControls.Inventory;
     }
 
     void Update()
