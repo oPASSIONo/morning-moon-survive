@@ -13,6 +13,7 @@ public class UIStaminaBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         // Initialize the slider value to represent the player's current stamina
         UpdateStaminaBar();
     }
