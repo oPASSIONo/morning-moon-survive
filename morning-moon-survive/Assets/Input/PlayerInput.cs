@@ -62,6 +62,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interaction"",
+                    ""type"": ""Button"",
+                    ""id"": ""a74a1eae-41e1-4c8b-a8de-2525c69c23e7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -262,6 +271,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Hotbar"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""793c31fe-e78f-4b93-9cc5-8b9465562d07"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -274,6 +294,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_PlayerControls_Inventory = m_PlayerControls.FindAction("Inventory", throwIfNotFound: true);
         m_PlayerControls_Pause = m_PlayerControls.FindAction("Pause", throwIfNotFound: true);
         m_PlayerControls_Hotbar = m_PlayerControls.FindAction("Hotbar", throwIfNotFound: true);
+        m_PlayerControls_Interaction = m_PlayerControls.FindAction("Interaction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -339,6 +360,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_Inventory;
     private readonly InputAction m_PlayerControls_Pause;
     private readonly InputAction m_PlayerControls_Hotbar;
+    private readonly InputAction m_PlayerControls_Interaction;
     public struct PlayerControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -347,6 +369,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Inventory => m_Wrapper.m_PlayerControls_Inventory;
         public InputAction @Pause => m_Wrapper.m_PlayerControls_Pause;
         public InputAction @Hotbar => m_Wrapper.m_PlayerControls_Hotbar;
+        public InputAction @Interaction => m_Wrapper.m_PlayerControls_Interaction;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -368,6 +391,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Hotbar.started += instance.OnHotbar;
             @Hotbar.performed += instance.OnHotbar;
             @Hotbar.canceled += instance.OnHotbar;
+            @Interaction.started += instance.OnInteraction;
+            @Interaction.performed += instance.OnInteraction;
+            @Interaction.canceled += instance.OnInteraction;
         }
 
         private void UnregisterCallbacks(IPlayerControlsActions instance)
@@ -384,6 +410,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Hotbar.started -= instance.OnHotbar;
             @Hotbar.performed -= instance.OnHotbar;
             @Hotbar.canceled -= instance.OnHotbar;
+            @Interaction.started -= instance.OnInteraction;
+            @Interaction.performed -= instance.OnInteraction;
+            @Interaction.canceled -= instance.OnInteraction;
         }
 
         public void RemoveCallbacks(IPlayerControlsActions instance)
@@ -407,5 +436,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnInventory(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnHotbar(InputAction.CallbackContext context);
+        void OnInteraction(InputAction.CallbackContext context);
     }
 }

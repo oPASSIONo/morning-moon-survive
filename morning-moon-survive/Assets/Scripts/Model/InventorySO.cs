@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Inventory.Model
 {
@@ -109,9 +110,10 @@ namespace Inventory.Model
             }
         }
 
-        public void DropItemToWorld(int itemIndex)
+        public void DropItemToWorld(int itemIndex,Vector3 position)
         {
-            Instantiate(inventoryItems[itemIndex].item.ItemPrefab,Vector3.zero, Quaternion.identity);
+            Vector3 dropOffset = new Vector3(Random.Range(-2f, 2f), 0f, Random.Range(-2f, 2f));
+            Instantiate(inventoryItems[itemIndex].item.ItemPrefab,position+dropOffset, Quaternion.identity);
             //Debug.Log(inventoryItems[itemIndex].item.name);
         }
         

@@ -94,7 +94,7 @@ namespace Inventory
         private void DropItem(int itemIndex, int quantity)
         {
             Debug.Log("Drop Item");
-            inventoryData.DropItemToWorld(itemIndex);
+            inventoryData.DropItemToWorld(itemIndex,transform.position);
             inventoryData.RemoveItem(itemIndex, quantity);
             inventoryUI.ResetSelection();
             audioSource.PlayOneShot(dropClip);
