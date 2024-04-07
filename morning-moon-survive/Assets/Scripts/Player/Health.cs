@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,11 @@ public class Health : MonoBehaviour
     {
         // Initialize current health to max health
         CurrentHealth = MaxHealth;
+    }
+
+    private void Update()
+    {
+        Debug.Log(CurrentHealth);
     }
 
     public void TakeDamage(int damageAmount)

@@ -6,9 +6,9 @@ using TMPro;
 
 public class UIStaminaBar : MonoBehaviour
 {
-    public Stamina stamina;
-    public Slider slider;
-    public TMP_Text staminaText; // Reference to the TextMeshPro text component
+    [SerializeField] private Stamina stamina;
+    [SerializeField] private Slider slider;
+    [SerializeField] private TMP_Text staminaText; // Reference to the TextMeshPro text component
 
     // Start is called before the first frame update
     void Start()

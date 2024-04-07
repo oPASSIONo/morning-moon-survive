@@ -12,12 +12,14 @@ public class Hunger : MonoBehaviour
 
     public event Action<int, int> OnHungerChanged; // Event to notify hunger changes
 
-    public Health Health { private get; set; } // Reference to the Health component for the player
+    private Health health; // Reference to the Health component for the player
 
     private float nextDamageTime; // Time of the next damage tick
 
     void Start()
     {
+        health = GetComponent<Health>(); // Initialize the health reference
+
         // Initialize current hunger to 0
         CurrentHunger = 0;
 
@@ -34,9 +36,9 @@ public class Hunger : MonoBehaviour
             if (Time.time >= nextDamageTime)
             {
                 // Apply damage to the player's health
-                if (Health != null)
+                if (health != null)
                 {
-                    Health.TakeDamage(damageAmount);
+                    health.TakeDamage(damageAmount);
                 }
 
                 // Update the time of the next damage tick
@@ -67,6 +69,3 @@ public class Hunger : MonoBehaviour
         OnHungerChanged?.Invoke(CurrentHunger, MaxHunger);
     }
 }
-
-
-

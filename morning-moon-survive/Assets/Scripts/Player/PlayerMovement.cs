@@ -13,22 +13,30 @@ public class PlayerMovement : MonoBehaviour
     private float currentSpeed; // Current movement speed
     
     // Reference to the Hunger component
-    private Hunger hunger;
+    public Hunger Hunger { private get; set; } // Reference to the Health component for the player
 
     // Start is called before the first frame update
     void Start()
     {
-        // Set the initial speed to the base speed
-        currentSpeed = baseSpeed;
+        // Get the Hunger component
+        Hunger = GetComponent<Hunger>();
 
-        hunger = GetComponent<Hunger>();
-
-        // Subscribe to the OnHungerChanged event
-        if (hunger != null)
+        // Check if Hunger component exists
+        if (Hunger != null)
         {
-            hunger.OnHungerChanged += UpdateSpeed;
+            // Subscribe to the OnHungerChanged event
+            Hunger.OnHungerChanged += UpdateSpeed;
+
+            // Initialize the player speed
+            UpdateSpeed(Hunger.CurrentHunger, Hunger.MaxHunger);
+            
+        }
+        else
+        {
+            Debug.LogWarning("Hunger component not found.");
         }
     }
+
     
 
     // Update is called once per frame
@@ -41,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     void MovePlayer()
     {
         Vector2 inputVector = GameInput.Instance.GetMovement();
-        
+    
         // Get the main camera's transform
         Transform cameraTransform =  Camera.main.transform;
 
@@ -50,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         movement.y = 0f; // Ensure the movement stays in the horizontal plane
 
         // Apply speed and deltaTime
-        Vector3 moveDirection = movement.normalized * baseSpeed * Time.deltaTime;
+        Vector3 moveDirection = movement.normalized * currentSpeed * Time.deltaTime; // Use currentSpeed here
 
         // Apply movement
         transform.position += moveDirection;
@@ -61,10 +69,43 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.LookAt(targetPosition);
         }
+    }
 
+
+    void UpdateSpeed(int currentHunger, int maxHunger)
+    {
+        CheckHunger(currentHunger); // Pass the current hunger received as parameter
+    }
+
+    // Method to update the player's speed based on the current hunger level
+
+    private void CheckHunger(int currentHunger)
+    {
+        // If hunger is greater than or equal to 75, decrease the speed
+        if (currentHunger >= 75)
+        {
+            currentSpeed = baseSpeed * 0.5f; // Reduce the speed to 50%
+            Debug.Log(currentSpeed);
+            
+        }
+        else
+        {
+            // If hunger is below 75, reset the speed to the base speed
+            currentSpeed = baseSpeed;
+        }
+    }
+
+    // Unsubscribe from the OnHungerChanged event when the script is destroyed
+    void OnDestroy()
+    {
+        if (Hunger != null)
+        {
+            Hunger.OnHungerChanged -= UpdateSpeed;
+        }
     }
     
-    void RotationPlayer()
+        
+    /*void RotationPlayer()
     {
         Vector2 direction = moveAction.ReadValue<Vector2>();
 
@@ -83,32 +124,5 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.LookAt(targetPosition);
         }
-    }
-
-    // Method to update the player's speed based on the current hunger level
-    void UpdateSpeed(int currentHunger, int maxHunger)
-    {
-        // If hunger is greater than or equal to 75, decrease the speed
-        if (currentHunger >= 75)
-        {
-            currentSpeed = baseSpeed * 0.5f; // Reduce the speed to 50%
-            Debug.Log(currentSpeed);
-            
-        }
-        else
-        {
-            // If hunger is below 75, reset the speed to the base speed
-            currentSpeed = baseSpeed;
-        }
-    }
-    
-    // Unsubscribe from the OnHungerChanged event when the script is destroyed
-    void OnDestroy()
-    {
-        if (hunger != null)
-        {
-            hunger.OnHungerChanged -= UpdateSpeed;
-        }
-    }
-    
+    }*/
 }
