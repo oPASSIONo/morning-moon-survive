@@ -39,12 +39,12 @@ public class GameManager : NetworkBehaviour
     {
         if (isGamePaused.Value)
         {
-            Time.timeScale = 0f;
+            //Time.timeScale = 0f;
             OnMultiplayerGamePaused?.Invoke(this, EventArgs.Empty);
         }
         else
         {
-            Time.timeScale = 1f;
+            //Time.timeScale = 1f;
             OnMultiplayerGameUnPaused?.Invoke(this, EventArgs.Empty);
         }
     }
