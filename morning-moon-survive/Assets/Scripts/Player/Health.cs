@@ -10,7 +10,7 @@ public class Health : MonoBehaviour
 
     public event System.Action<int, int> OnHealthChanged; // Event to notify health changes
 
-    void Start()
+    void Awake()
     {
         // Initialize current health to max health
         CurrentHealth = MaxHealth;

@@ -23,9 +23,10 @@ public class UIHealthBar : MonoBehaviour
         // Subscribe to the health changed event
         healthComponent.OnHealthChanged += UpdateHealthBar;
 
-        // Initialize the health bar
+        // Call UpdateHealthBar immediately to ensure correct initialization
         UpdateHealthBar(healthComponent.CurrentHealth, healthComponent.MaxHealth);
     }
+
 
     void UpdateHealthBar(int currentHealth, int maxHealth)
     {
