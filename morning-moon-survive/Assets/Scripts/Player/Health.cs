@@ -16,11 +16,6 @@ public class Health : MonoBehaviour
         CurrentHealth = MaxHealth;
     }
 
-    private void Update()
-    {
-        Debug.Log(CurrentHealth);
-    }
-
     public void TakeDamage(int damageAmount)
     {
         // Reduce current health by damage amount

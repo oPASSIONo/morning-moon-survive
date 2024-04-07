@@ -24,7 +24,7 @@ namespace Inventory.Model
         [field: SerializeField] public string ItemRarity { get; set; }
         [field: SerializeField] public List<ItemParameter> DefaultParametersList { get; set; }
         
-        //[field: SerializeField] public GameObject ItemModel { get; set; }
+        [field: SerializeField] public GameObject ItemPrefab { get; set; }
     }
 
     [Serializable]

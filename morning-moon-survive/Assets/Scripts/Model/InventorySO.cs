@@ -108,6 +108,13 @@ namespace Inventory.Model
                 InformAboutChange();
             }
         }
+
+        public void DropItemToWorld(int itemIndex)
+        {
+            Instantiate(inventoryItems[itemIndex].item.ItemPrefab,Vector3.zero, Quaternion.identity);
+            //Debug.Log(inventoryItems[itemIndex].item.name);
+        }
+        
         public void AddItem(InventoryItem item)
         {
             AddItem(item.item,item.quantity);
