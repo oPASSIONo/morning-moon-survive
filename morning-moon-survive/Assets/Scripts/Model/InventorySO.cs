@@ -112,7 +112,7 @@ namespace Inventory.Model
 
         public void DropItemToWorld(int itemIndex,Vector3 position)
         {
-            Vector3 dropOffset = new Vector3(Random.Range(-2f, 2f), 0f, Random.Range(-2f, 2f));
+            Vector3 dropOffset = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
             Instantiate(inventoryItems[itemIndex].item.ItemPrefab,position+dropOffset, Quaternion.identity);
             //Debug.Log(inventoryItems[itemIndex].item.name);
         }
