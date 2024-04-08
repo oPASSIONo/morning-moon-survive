@@ -22,7 +22,7 @@ namespace Inventory
         [SerializeField] private AudioClip dropClip;
         [SerializeField] private AudioSource audioSource;
 
-
+        
         private void Awake()
         {
             playerInput = new PlayerInput();
@@ -192,5 +192,11 @@ namespace Inventory
                 inventoryUI.UpdateData(item.Key,item.Value.item.ItemImage,item.Value.quantity);
             }
         }
+        
+        public InventorySO GetInventoryData()
+        {
+            return inventoryData;
+        }
+        
     }
 }

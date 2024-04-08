@@ -4962,7 +4962,7 @@ GameObject:
   - component: {fileID: 1318482585}
   - component: {fileID: 1318482584}
   m_Layer: 5
-  m_Name: Button (Legacy) (4)
+  m_Name: CraftingBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5031,7 +5031,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1318482585}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1655586982}
+        m_TargetAssemblyTypeName: CraftingSystem, Assembly-CSharp
+        m_MethodName: CraftItem
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 96529e80061cc5345959f2895db394e2,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: Recipe, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1318482585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5683,7 +5696,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Crafting
 --- !u!222 &1407871191
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6864,6 +6877,7 @@ GameObject:
   - component: {fileID: 1655586978}
   - component: {fileID: 1655586980}
   - component: {fileID: 1655586981}
+  - component: {fileID: 1655586982}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -7203,6 +7217,20 @@ MonoBehaviour:
   itemList: 01000000
   selectedItem: 0
   pickAxe: {fileID: 775759115}
+--- !u!114 &1655586982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655586965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f849a24741c98424b86a4d898dcfd6a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recipes: []
+  playerInventory: {fileID: 11400000, guid: 5747cb1644aa57c4bbbafb0b0312d6d9, type: 2}
 --- !u!1 &1665393633
 GameObject:
   m_ObjectHideFlags: 0

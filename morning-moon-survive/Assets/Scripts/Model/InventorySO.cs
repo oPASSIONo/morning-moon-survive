@@ -10,6 +10,7 @@ namespace Inventory.Model
     [CreateAssetMenu]
     public class InventorySO : ScriptableObject
     {
+        
         [SerializeField] private List<InventoryItem> inventoryItems;
         [field: SerializeField] public int Size { get; private set; } = 10;
 
@@ -23,6 +24,8 @@ namespace Inventory.Model
                 inventoryItems.Add(InventoryItem.GetEmptyItem());
             }
         }
+        
+        
         public int AddItem(ItemSO item,int quantity,List<ItemParameter>itemState=null)
         {
             if (!item.IsStackable)
@@ -153,8 +156,18 @@ namespace Inventory.Model
         {
             OnInventoryUpdated?.Invoke(GetCurrentInventoryState());
         }
+        public int GetItemIndex(ItemSO item)
+        {
+            for (int i = 0; i < inventoryItems.Count; i++)
+            {
+                if (!inventoryItems[i].IsEmpty && inventoryItems[i].item == item)
+                {
+                    return i;
+                }
+            }
+            return -1; // Item not found
+        }
 
-        
     }
 
     [Serializable]
