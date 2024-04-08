@@ -11,11 +11,11 @@ namespace Inventory.Model
         [field: SerializeField] public AudioClip actionSFX { get; private set; }
         public bool PerformAction(GameObject character,List<ItemParameter>itemState)
         {
-            AgentWeapon weaponSystem = character.GetComponent<AgentWeapon>();
-            if (weaponSystem!=null)
+            AgentEquipment equipmentSystem = character.GetComponent<AgentEquipment>();
+            if (equipmentSystem!=null)
             {
-                Debug.Log("Equip Weapon");
-                weaponSystem.SetWeapon(this,itemState==null? DefaultParametersList : itemState);
+                Debug.Log("Equip Equipment");
+                equipmentSystem.SetEquipment(this,itemState==null? DefaultParametersList : itemState);
                 return true;
             }
 

@@ -1,24 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using Inventory.Model;
+using Inventory.UI;
 using UnityEngine;
 
-public class AgentWeapon : MonoBehaviour
+public class AgentEquipment : MonoBehaviour
 {
-    [SerializeField] private EquippableItemSO weapon;
+    [SerializeField] private EquippableItemSO equipment;
     [SerializeField] private InventorySO inventoryData;
     [SerializeField] private List<ItemParameter> parameterToModify, itemCurrentState;
+    [SerializeField] private UIEquipmentPage equipUI;
 
-    public void SetWeapon(EquippableItemSO weaponItemSO, List<ItemParameter> itemState)
+    public void SetEquipment(EquippableItemSO equipmentItemSO, List<ItemParameter> itemState)
     {
-        if (weapon!=null)
+        if (equipment!=null)
         {
-            inventoryData.AddItem(weapon, 1, itemCurrentState);
+            inventoryData.AddItem(equipment, 1, itemCurrentState);
         }
 
-        this.weapon = weaponItemSO;
+        this.equipment = equipmentItemSO;
         this.itemCurrentState = new List<ItemParameter>(itemState);
         ModifyParameters();
+        equipUI.SetEquipImage(equipmentItemSO.ItemImage);
     }
 
     private void ModifyParameters()

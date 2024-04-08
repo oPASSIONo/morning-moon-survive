@@ -13,6 +13,7 @@ namespace Inventory.UI
         [SerializeField] private UIInventoryDescription itemDescription;
         [SerializeField] private MouseFollower mouseFollower;
         private List<UIInventoryItem> listOfUIItems = new List<UIInventoryItem>();
+        
 
         private int currentlyDraggedItemIndex = -1;
 
@@ -164,5 +165,7 @@ namespace Inventory.UI
                item.Deselect();
             }
         }
+
+        
     }
 }

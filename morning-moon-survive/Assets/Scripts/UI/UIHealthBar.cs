@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class UIHealthBar : MonoBehaviour
 {
-    [SerializeField] private Health healthComponent; // Reference to the Health component
+   [SerializeField] private Health healthComponent; // Reference to the Health component
     [SerializeField] private Slider slider; // Reference to the Slider UI component
     [SerializeField] private TMP_Text healthText; // Reference to the TextMeshPro text element
 
@@ -46,3 +44,36 @@ public class UIHealthBar : MonoBehaviour
         }
     }
 }
+
+    
+/*[SerializeField] private Slider slider;
+[SerializeField] private TMP_Text healthText;
+
+void Start()
+{
+   // Ensure slider and text are set
+   if (slider == null || healthText == null)
+   {
+       Debug.LogError("Slider or TextMeshPro text reference not set.");
+       enabled = false;
+       return;
+   }
+
+   // Subscribe to health changes
+   HealthController.Instance.OnHealthChanged += UpdateHealthBar;
+
+   // Update health bar immediately
+   UpdateHealthBar(HealthController.Instance.GetCurrentHealth(), HealthController.Instance.GetMaxHealth());
+}
+
+void UpdateHealthBar(int currentHealth, int maxHealth)
+{
+   slider.value = (float)currentHealth / maxHealth;
+   healthText.text = $"{currentHealth}/{maxHealth}";
+}
+
+void OnDestroy()
+{
+   // Unsubscribe from health changes
+   HealthController.Instance.OnHealthChanged -= UpdateHealthBar;
+}*/
