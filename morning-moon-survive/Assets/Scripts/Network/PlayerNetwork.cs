@@ -14,6 +14,33 @@ public class PlayerNetwork : NetworkBehaviour
     private InputAction moveAction;
     private float speed = 5f;
     
+      
+    //private float baseSpeed = 5f; // Base movement speed
+    private float currentSpeed; // Current movement speed
+    
+    // Reference to the Hunger component
+    public Hunger Hunger { private get; set; }
+    
+    void Start()
+    {
+        // Get the Hunger component
+        Hunger = GetComponent<Hunger>();
+
+        // Check if Hunger component exists
+        if (Hunger != null)
+        {
+            // Subscribe to the OnHungerChanged event
+            Hunger.OnHungerChanged += UpdateSpeed;
+
+            UpdateSpeed(Hunger.CurrentHunger, Hunger.MaxHunger);
+            
+        }
+        else
+        {
+            Debug.LogWarning("Hunger component not found.");
+        }
+    }
+    
 
     public override void OnNetworkSpawn()
     {
@@ -61,7 +88,7 @@ public class PlayerNetwork : NetworkBehaviour
         movement.y = 0f; // Ensure the movement stays in the horizontal plane
 
         // Apply speed and deltaTime
-        Vector3 moveDirection = movement.normalized * speed * Time.deltaTime;
+        Vector3 moveDirection = movement.normalized * currentSpeed * Time.deltaTime;
 
         // Apply movement
         transform.position += moveDirection;
@@ -73,6 +100,38 @@ public class PlayerNetwork : NetworkBehaviour
             transform.LookAt(targetPosition);
         }
 
+    }
+    
+    void UpdateSpeed(int currentHunger, int maxHunger)
+    {
+        CheckHunger(currentHunger); // Pass the current hunger received as parameter
+    }
+
+    // Method to update the player's speed based on the current hunger level
+
+    private void CheckHunger(int currentHunger)
+    {
+        // If hunger is greater than or equal to 75, decrease the speed
+        if (currentHunger >= 75)
+        {
+            currentSpeed = speed * 0.5f; // Reduce the speed to 50%
+            Debug.Log(currentSpeed);
+            
+        }
+        else
+        {
+            // If hunger is below 75, reset the speed to the base speed
+            currentSpeed = speed;
+        }
+    }
+
+    // Unsubscribe from the OnHungerChanged event when the script is destroyed
+    void OnDestroy()
+    {
+        if (Hunger != null)
+        {
+            Hunger.OnHungerChanged -= UpdateSpeed;
+        }
     }
 
     void RotationPlayer()

@@ -69,6 +69,15 @@ namespace Inventory
             inventoryUI.OnItemActionRequested += HandleItemActionRequest;
         }
 
+        /*private void OnDestroy()
+        {
+            inventoryUI.OnDescriptionRequested -= HandleDescriptionRequest;
+            inventoryUI.OnSwapItems -= HandleSwapItems;
+            inventoryUI.OnStartDragging -= HandleDraggin;
+            inventoryUI.OnItemActionRequested -= HandleItemActionRequest;
+        }*/
+
+
         private void HandleItemActionRequest(int itemIndex)
         {
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
