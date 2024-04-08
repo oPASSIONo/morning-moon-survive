@@ -1193,10 +1193,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d31bfb7cd9bd0841b8902d9c1027252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 0}
+  equipment: {fileID: 0}
   inventoryData: {fileID: 11400000, guid: 5747cb1644aa57c4bbbafb0b0312d6d9, type: 2}
   parameterToModify: []
   itemCurrentState: []
+  equipUI: {fileID: 0}
 --- !u!114 &4704519880439668174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1204,7 +1205,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8655805732595286339}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d47d24feaaa20a142b7d99ea4bc4ef1f, type: 3}
   m_Name: 
