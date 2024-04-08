@@ -18,10 +18,11 @@ MonoBehaviour:
   <ItemAbility>k__BackingField: +10 Health
   <ItemImage>k__BackingField: {fileID: 21300000, guid: e1beec217240a4b45bcf65efa20856df,
     type: 3}
-  <ItemCategory>k__BackingField: Consumable
+  <ItemCategory>k__BackingField: 2
   <ItemSubCategory>k__BackingField: Food
-  <ItemRarity>k__BackingField: Rare
+  <ItemRarity>k__BackingField: 0
   <DefaultParametersList>k__BackingField: []
+  <ItemPrefab>k__BackingField: {fileID: 0}
   modifierData:
   - statModifier: {fileID: 11400000, guid: 6f7c05ada6108f54d8a593a9f533c154, type: 2}
     value: 10

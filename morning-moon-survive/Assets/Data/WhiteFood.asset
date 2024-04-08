@@ -18,10 +18,11 @@ MonoBehaviour:
   <ItemAbility>k__BackingField: +10 Stamina
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 14c3d35640307444ba3ecdf99ef5a403,
     type: 3}
-  <ItemCategory>k__BackingField: Consumable
+  <ItemCategory>k__BackingField: 2
   <ItemSubCategory>k__BackingField: Food
-  <ItemRarity>k__BackingField: Epic
+  <ItemRarity>k__BackingField: 0
   <DefaultParametersList>k__BackingField: []
+  <ItemPrefab>k__BackingField: {fileID: 0}
   modifierData:
   - statModifier: {fileID: 11400000, guid: 775f8505e7a51ef4a874837f7bb9cb5e, type: 2}
     value: 10

@@ -19,9 +19,9 @@ namespace Inventory.Model
         public string ItemAbility { get; set; }
 
         [field: SerializeField] public Sprite ItemImage { get; set; }
-        [field: SerializeField] public string ItemCategory { get; set; }
+        [field: SerializeField] public ItemCategory ItemCategory { get; set; }
         [field: SerializeField] public string ItemSubCategory { get; set; }
-        [field: SerializeField] public string ItemRarity { get; set; }
+        [field: SerializeField] public ItemRarity ItemRarity { get; set; }
         [field: SerializeField] public List<ItemParameter> DefaultParametersList { get; set; }
         
         [field: SerializeField] public GameObject ItemPrefab { get; set; }

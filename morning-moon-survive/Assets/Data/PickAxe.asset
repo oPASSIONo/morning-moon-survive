@@ -10,19 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5dd86caf5063a8141a4a6e8a9ae68821, type: 3}
-  m_Name: Garment
+  m_Name: PickAxe
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 0
   <MaxStackSize>k__BackingField: 1
-  <Name>k__BackingField: Garment
-  <ItemAbility>k__BackingField: Test Garment
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: b6d41e20b314fef4bb1345980f19e97b,
+  <Name>k__BackingField: PickAxe
+  <ItemAbility>k__BackingField: 
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: cae43ef6f5e08e34597c24a49af41bab,
     type: 3}
   <ItemCategory>k__BackingField: 1
   <ItemSubCategory>k__BackingField: 
   <ItemRarity>k__BackingField: 0
-  <DefaultParametersList>k__BackingField:
-  - itemParameter: {fileID: 11400000, guid: 507af2d111d353844ba0d356fa56b6f8, type: 2}
-    value: 100
-  <ItemPrefab>k__BackingField: {fileID: 0}
+  <DefaultParametersList>k__BackingField: []
+  <ItemPrefab>k__BackingField: {fileID: 919132149155446097, guid: 2682e6a68f120b5439445d0fad5d4874,
+    type: 3}
   <actionSFX>k__BackingField: {fileID: 0}

@@ -55,18 +55,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Hotbar"",
+                    ""name"": ""Interaction"",
                     ""type"": ""Button"",
-                    ""id"": ""04d3d8ac-aab7-4cb8-a4a8-742f472d8a6d"",
+                    ""id"": ""a74a1eae-41e1-4c8b-a8de-2525c69c23e7"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Interaction"",
+                    ""name"": ""SelectSlot1"",
                     ""type"": ""Button"",
-                    ""id"": ""a74a1eae-41e1-4c8b-a8de-2525c69c23e7"",
+                    ""id"": ""9af2da4a-cc0f-4f25-b1ff-014b8bc7d5ae"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -153,133 +153,23 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1d9c054c-079e-4cc4-87b8-6f2389c5fb39"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Hotbar"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""6cc0699e-a872-4efe-a4c4-5e797190d2f1"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Hotbar"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""326ed008-6083-494b-903e-4fc3eb4b1aef"",
-                    ""path"": ""<Keyboard>/3"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Hotbar"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b0393511-0607-47ed-9d15-507169b73d96"",
-                    ""path"": ""<Keyboard>/4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Hotbar"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""07a7a5c7-9df6-4988-bfe7-25d0c1f9ba9e"",
-                    ""path"": ""<Keyboard>/5"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Hotbar"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""903160df-a1fb-4175-9d15-8544b96c383d"",
-                    ""path"": ""<Keyboard>/6"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Hotbar"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1358252a-8354-4ed9-b7ed-3aa0a2045d9d"",
-                    ""path"": ""<Keyboard>/7"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Hotbar"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5b69d189-3153-4cab-9213-161b33eae818"",
-                    ""path"": ""<Keyboard>/8"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Hotbar"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""994894d0-a3f9-4828-82af-f1c2a70739ef"",
-                    ""path"": ""<Keyboard>/9"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Hotbar"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c293fc5a-1b60-4324-8874-b1c093446974"",
-                    ""path"": ""<Keyboard>/0"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Hotbar"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b505a1c3-d18a-4308-bb03-c4c50816aa97"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Hotbar"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""793c31fe-e78f-4b93-9cc5-8b9465562d07"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7a956317-7a55-46d2-bcae-c286b80c2bac"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectSlot1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -293,8 +183,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_PlayerControls_Move = m_PlayerControls.FindAction("Move", throwIfNotFound: true);
         m_PlayerControls_Inventory = m_PlayerControls.FindAction("Inventory", throwIfNotFound: true);
         m_PlayerControls_Pause = m_PlayerControls.FindAction("Pause", throwIfNotFound: true);
-        m_PlayerControls_Hotbar = m_PlayerControls.FindAction("Hotbar", throwIfNotFound: true);
         m_PlayerControls_Interaction = m_PlayerControls.FindAction("Interaction", throwIfNotFound: true);
+        m_PlayerControls_SelectSlot1 = m_PlayerControls.FindAction("SelectSlot1", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -359,8 +249,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_Move;
     private readonly InputAction m_PlayerControls_Inventory;
     private readonly InputAction m_PlayerControls_Pause;
-    private readonly InputAction m_PlayerControls_Hotbar;
     private readonly InputAction m_PlayerControls_Interaction;
+    private readonly InputAction m_PlayerControls_SelectSlot1;
     public struct PlayerControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -368,8 +258,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_PlayerControls_Move;
         public InputAction @Inventory => m_Wrapper.m_PlayerControls_Inventory;
         public InputAction @Pause => m_Wrapper.m_PlayerControls_Pause;
-        public InputAction @Hotbar => m_Wrapper.m_PlayerControls_Hotbar;
         public InputAction @Interaction => m_Wrapper.m_PlayerControls_Interaction;
+        public InputAction @SelectSlot1 => m_Wrapper.m_PlayerControls_SelectSlot1;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -388,12 +278,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
-            @Hotbar.started += instance.OnHotbar;
-            @Hotbar.performed += instance.OnHotbar;
-            @Hotbar.canceled += instance.OnHotbar;
             @Interaction.started += instance.OnInteraction;
             @Interaction.performed += instance.OnInteraction;
             @Interaction.canceled += instance.OnInteraction;
+            @SelectSlot1.started += instance.OnSelectSlot1;
+            @SelectSlot1.performed += instance.OnSelectSlot1;
+            @SelectSlot1.canceled += instance.OnSelectSlot1;
         }
 
         private void UnregisterCallbacks(IPlayerControlsActions instance)
@@ -407,12 +297,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
-            @Hotbar.started -= instance.OnHotbar;
-            @Hotbar.performed -= instance.OnHotbar;
-            @Hotbar.canceled -= instance.OnHotbar;
             @Interaction.started -= instance.OnInteraction;
             @Interaction.performed -= instance.OnInteraction;
             @Interaction.canceled -= instance.OnInteraction;
+            @SelectSlot1.started -= instance.OnSelectSlot1;
+            @SelectSlot1.performed -= instance.OnSelectSlot1;
+            @SelectSlot1.canceled -= instance.OnSelectSlot1;
         }
 
         public void RemoveCallbacks(IPlayerControlsActions instance)
@@ -435,7 +325,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
-        void OnHotbar(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
+        void OnSelectSlot1(InputAction.CallbackContext context);
     }
 }

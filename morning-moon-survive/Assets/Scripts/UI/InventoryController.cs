@@ -157,7 +157,7 @@ namespace Inventory
             }
             ItemSO item = inventoryItem.item;
             string description = PrepareDescription(inventoryItem);
-            inventoryUI.UpdateDescription(itemIndex,item.ItemImage,item.name,description,item.ItemCategory,item.ItemRarity);
+            inventoryUI.UpdateDescription(itemIndex,item.ItemImage,item.name,description,item.ItemCategory.ToString(),item.ItemRarity.ToString());
             
         }
 
