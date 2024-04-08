@@ -19,6 +19,7 @@ public class RelayManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI joinCodeText;
     [SerializeField] private TMP_InputField joinCodeInputField;
     [SerializeField] private GameObject control;
+
     private async void Start()
     {
         await UnityServices.InitializeAsync();
