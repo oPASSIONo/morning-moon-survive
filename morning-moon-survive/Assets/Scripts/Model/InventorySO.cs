@@ -23,6 +23,8 @@ namespace Inventory.Model
             {
                 inventoryItems.Add(InventoryItem.GetEmptyItem());
             }
+            
+            
         }
         
         

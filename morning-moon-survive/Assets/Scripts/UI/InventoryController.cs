@@ -21,7 +21,6 @@ namespace Inventory
 
         [SerializeField] private AudioClip dropClip;
         [SerializeField] private AudioSource audioSource;
-
         
         private void Awake()
         {
