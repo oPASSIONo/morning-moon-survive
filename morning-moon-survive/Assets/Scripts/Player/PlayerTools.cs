@@ -10,7 +10,8 @@ public class PlayerTools : MonoBehaviour
 
     public int selectedItem;
 
-    [Space(20)] [Header("Item gameobjects")] [SerializeField] private GameObject pickAxe;
+    [Space(20)] [Header("Item gameobjects")] 
+    [SerializeField] private GameObject pickAxe;
 
     private Dictionary<ItemCategory, GameObject> itemSetActive = new Dictionary<ItemCategory, GameObject>() { };
     
