@@ -66,6 +66,14 @@ namespace Inventory.Model
 
         private bool IsInventoryFull() => inventoryItems.Where(item => item.IsEmpty).Any() == false;
         
+        public bool InventoryIsFull()
+        {
+            return IsInventoryFull();
+        }
+        
+        
+
+        
 
         private int AddStackableItem(ItemSO item, int quantity)
         {

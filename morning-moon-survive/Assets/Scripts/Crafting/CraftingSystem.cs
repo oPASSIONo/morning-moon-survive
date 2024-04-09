@@ -25,12 +25,21 @@ public class CraftingSystem : MonoBehaviour
             }
         }
 
+        // Check if the inventory is full before crafting the item
+        if (playerInventory.InventoryIsFull())
+        {
+            Debug.LogWarning("Inventory is full. Cannot craft item.");
+            return;
+        }
+
+
         // Craft the item
-        AddCraftedItemToInventory(recipe.CraftedItem,1);
+        AddCraftedItemToInventory(recipe.CraftedItem, recipe.CraftedQuantity);
 
         // Remove consumed ingredients from player's inventory
         ConsumeIngredients(recipe.RequiredIngredients);
     }
+
 
     private bool PlayerHasIngredient(ItemSO item, int quantity)
     {
@@ -43,9 +52,9 @@ public class CraftingSystem : MonoBehaviour
         return false;
     }
 
-    private void AddCraftedItemToInventory(ItemSO item,int quantity)
+    private void AddCraftedItemToInventory(ItemSO item, int quantity)
     {
-        playerInventory.AddItem(item,quantity);
+        playerInventory.AddItem(item, quantity);
     }
 
     private void ConsumeIngredients(List<RequiredIngredient> ingredients)
@@ -59,4 +68,7 @@ public class CraftingSystem : MonoBehaviour
             }
         }
     }
+    
+
+
 }
