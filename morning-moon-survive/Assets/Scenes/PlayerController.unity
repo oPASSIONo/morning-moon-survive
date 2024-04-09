@@ -7369,6 +7369,9 @@ MonoBehaviour:
   - quantity: 5
     item: {fileID: 11400000, guid: 90408da37538a964ba2db3860e930574, type: 2}
     itemState: []
+  - quantity: 1
+    item: {fileID: 11400000, guid: 6316362a60431224d82f421596a1c9ec, type: 2}
+    itemState: []
   dropClip: {fileID: 0}
   audioSource: {fileID: 1655586976}
 --- !u!114 &1655586973
@@ -8395,22 +8398,22 @@ PrefabInstance:
     - target: {fileID: 8827250473896342728, guid: 565d0f4f62340a84b833872d0228c164,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8827250473896342728, guid: 565d0f4f62340a84b833872d0228c164,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8827250473896342728, guid: 565d0f4f62340a84b833872d0228c164,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8827250473896342728, guid: 565d0f4f62340a84b833872d0228c164,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

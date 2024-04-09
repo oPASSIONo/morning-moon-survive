@@ -7,6 +7,7 @@ namespace Inventory.Model
     [CreateAssetMenu]
     public class EquippableItemSO : ItemSO,IDestroyableItem,IItemAction
     {
+        public EquipmentSlot slot; // Add a field to specify the equipment slot
         public string ActionName => "Equip";
         [field: SerializeField] public AudioClip actionSFX { get; private set; }
         public bool PerformAction(GameObject character,List<ItemParameter>itemState)
@@ -15,7 +16,7 @@ namespace Inventory.Model
             if (equipmentSystem!=null)
             {
                 Debug.Log("Equip Equipment");
-                equipmentSystem.SetEquipment(this,itemState==null? DefaultParametersList : itemState);
+                equipmentSystem.SetEquipment(slot,this,itemState==null? DefaultParametersList : itemState);
                 return true;
             }
 
