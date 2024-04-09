@@ -13,7 +13,7 @@ namespace Inventory.UI
         [SerializeField] private UIInventoryDescription itemDescription;
         [SerializeField] private MouseFollower mouseFollower;
         private List<UIInventoryItem> listOfUIItems = new List<UIInventoryItem>();
-        
+        [SerializeField] private RectTransform hotbarPanel;
 
         private int currentlyDraggedItemIndex = -1;
 
@@ -30,10 +30,22 @@ namespace Inventory.UI
 
         public void InitializeInventoryUI(int inventorysize)
         {
-            for (int i = 0; i < inventorysize; i++)
+            for (int i = 0; i < inventorysize-10; i++)
             {
                 UIInventoryItem uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
                 uiItem.transform.SetParent(contentPanel);
+                listOfUIItems.Add(uiItem);
+                uiItem.OnItemClicked += HandleItemSelection;
+                uiItem.OnItemBeginDrag += HandleBeginDrag;
+                uiItem.OnItemDroppedOn += HandleSwap;
+                uiItem.OnItemEndDrag += HandleEndDrag;
+                uiItem.OnRightMouseBtnClick += HandleShowItemActions;
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                UIInventoryItem uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
+                uiItem.transform.SetParent(hotbarPanel);
                 listOfUIItems.Add(uiItem);
                 uiItem.OnItemClicked += HandleItemSelection;
                 uiItem.OnItemBeginDrag += HandleBeginDrag;
