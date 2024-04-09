@@ -22,8 +22,7 @@ namespace Inventory
 
         [SerializeField] private AudioClip dropClip;
         [SerializeField] private AudioSource audioSource;
-
-
+        
         private void Awake()
         {
             playerInput = new PlayerInput();
@@ -38,6 +37,19 @@ namespace Inventory
             PrepareUI();
             PrepareInventoryData();
 
+        }
+        
+        void Update()
+        {
+            if (openInventoryAction.triggered)
+            {
+                OpenInventoryUI();
+            }
+        }
+        
+        void HandleItemSelected(int itemIndex)
+        {
+            // Handle item selection logic here
         }
 
         private void PrepareInventoryData()
@@ -63,7 +75,7 @@ namespace Inventory
 
         private void PrepareUI()
         {
-            inventoryUI.InitializeInventoryUI(inventoryData.Size);
+            inventoryUI.InitializeInventoryUI(inventoryData.Size,inventoryData.HotBarSize);
             inventoryUI.OnDescriptionRequested += HandleDescriptionRequest;
             inventoryUI.OnSwapItems += HandleSwapItems;
             inventoryUI.OnStartDragging += HandleDraggin;
@@ -177,14 +189,6 @@ namespace Inventory
             return sb.ToString();
         }
 
-        void Update()
-        {
-            if (openInventoryAction.triggered)
-            {
-                OpenInventoryUI();
-            }
-        }
-
         void OpenInventoryUI()
         {
             inventoryUI.Show();
@@ -193,5 +197,31 @@ namespace Inventory
                 inventoryUI.UpdateData(item.Key,item.Value.item.ItemImage,item.Value.quantity);
             }
         }
+        
+        /*public InventorySO GetInventoryData()
+        {
+            return inventoryData;
+        }*/
+        
+        
+        private void OnEnable()
+        {
+            // Subscribe to hotbar selection actions
+            playerInput.FindAction("SelectSlot1").performed += ctx => SelectSlot(1);
+
+        }
+        private void OnDisable()
+        {
+            // Unsubscribe from hotbar selection actions
+            playerInput.FindAction("SelectSlot1").performed -= ctx => SelectSlot(1);
+        }
+        private void SelectSlot(int slot)
+        {
+            Debug.Log("Selected slot " + slot);
+            PerformAction(slot-1);
+            /*InventoryItem inventoryItem = inventoryData.GetItemAt(slot - 1);
+            inventoryUI.HandleItemSelectionExternally(inventoryItem);*/
+        }
+        
     }
 }

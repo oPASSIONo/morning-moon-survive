@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd86caf5063a8141a4a6e8a9ae68821, type: 3}
+  m_Name: Accessory
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 0
+  <MaxStackSize>k__BackingField: 1
+  <Name>k__BackingField: Accessory
+  <ItemAbility>k__BackingField: test Accessory
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: a2a6de80ca55aff45a664d2ade27b271,
+    type: 3}
+  <ItemCategory>k__BackingField: 1
+  <ItemSubCategory>k__BackingField: 
+  <ItemRarity>k__BackingField: 0
+  <DefaultParametersList>k__BackingField:
+  - itemParameter: {fileID: 11400000, guid: 507af2d111d353844ba0d356fa56b6f8, type: 2}
+    value: 100
+  <ItemPrefab>k__BackingField: {fileID: 0}
+  slot: 1
+  <actionSFX>k__BackingField: {fileID: 0}

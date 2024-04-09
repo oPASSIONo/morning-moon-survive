@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Inventory.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,14 +15,14 @@ namespace Inventory.UI
         [SerializeField] private UIInventoryDescription itemDescription;
         [SerializeField] private MouseFollower mouseFollower;
         private List<UIInventoryItem> listOfUIItems = new List<UIInventoryItem>();
-        
+        [SerializeField] private RectTransform hotbarPanel;
 
         private int currentlyDraggedItemIndex = -1;
 
         public event Action<int> OnDescriptionRequested, OnItemActionRequested, OnStartDragging;
         public event Action<int, int> OnSwapItems;
         public ItemActionPanel actionPanel;
-        [SerializeField] private Button quickUseButton;
+        
         private void Awake()
         {
             Hide();
@@ -29,9 +30,22 @@ namespace Inventory.UI
             itemDescription.ResetDescription();
         }
 
-        public void InitializeInventoryUI(int inventorysize)
+        public void InitializeInventoryUI(int inventorysize,int hotbarsize)
         {
-            for (int i = 0; i < inventorysize; i++)
+            
+            for (int i = 0; i < 10; i++)
+            {
+                UIInventoryItem uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
+                uiItem.transform.SetParent(hotbarPanel);
+                listOfUIItems.Add(uiItem);
+                uiItem.OnItemClicked += HandleItemSelection;
+                uiItem.OnItemBeginDrag += HandleBeginDrag;
+                uiItem.OnItemDroppedOn += HandleSwap;
+                uiItem.OnItemEndDrag += HandleEndDrag;
+                uiItem.OnRightMouseBtnClick += HandleShowItemActions;
+            }
+            
+            for (int i = 0; i < inventorysize-hotbarsize; i++)
             {
                 UIInventoryItem uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
                 uiItem.transform.SetParent(contentPanel);
@@ -42,6 +56,7 @@ namespace Inventory.UI
                 uiItem.OnItemEndDrag += HandleEndDrag;
                 uiItem.OnRightMouseBtnClick += HandleShowItemActions;
             }
+
         }
 
         public void UpdateData(int itemIndex, Sprite itemImage, int itemQuantity)
@@ -106,6 +121,12 @@ namespace Inventory.UI
                 return;
             OnDescriptionRequested?.Invoke(index);
         }
+        
+        // Define a public method to expose the functionality
+        public void HandleItemSelectionExternally(UIInventoryItem inventoryItemUI)
+        {
+            HandleItemSelection(inventoryItemUI); // Call the private method internally
+        }
 
         public void Show()
         {
@@ -166,7 +187,8 @@ namespace Inventory.UI
                item.Deselect();
             }
         }
-
+        
+        
         
     }
 }
