@@ -4,7 +4,7 @@ using Inventory.Model;
 using Inventory.UI;
 using UnityEngine;
 
-public enum EquipmentSlot
+public enum EquipmentType
 {
     Garment,
     Accessory,
@@ -19,7 +19,7 @@ public class AgentEquipment : MonoBehaviour
     [SerializeField] private List<ItemParameter> parameterToModify, itemCurrentState;
     [SerializeField] private UIEquipmentPage equipUI;
     
-    private Dictionary<EquipmentSlot, EquippableItemSO> equippedItems = new Dictionary<EquipmentSlot, EquippableItemSO>();
+    private Dictionary<EquipmentType, EquippableItemSO> equippedItems = new Dictionary<EquipmentType, EquippableItemSO>();
 
 
     /*public void SetEquipment(EquippableItemSO equipmentItemSO, List<ItemParameter> itemState)
@@ -35,19 +35,20 @@ public class AgentEquipment : MonoBehaviour
         equipUI.SetEquipImage(equipmentItemSO.ItemImage);
     }*/
     
-    public void SetEquipment(EquipmentSlot slot, EquippableItemSO equipmentItemSO, List<ItemParameter> itemState)
+    public void SetEquipment(EquipmentType type, EquippableItemSO equipmentItemSO, List<ItemParameter> itemState)
     {
         // Unequip the existing equipment before equipping the new one
-        if (equippedItems.ContainsKey(slot))
+        if (equippedItems.ContainsKey(type))
         {
-            inventoryData.AddItem(equippedItems[slot], 1, itemCurrentState);
+            inventoryData.AddItem(equippedItems[type], 1, itemCurrentState);
         }
 
         // Equip the new item
-        equippedItems[slot] = equipmentItemSO;
+        equippedItems[type] = equipmentItemSO;
         this.itemCurrentState = new List<ItemParameter>(itemState);
         ModifyParameters();
-        equipUI.SetEquipImage(equipmentItemSO.ItemImage);
+        
+        equipUI.SetEquipImage(type, equipmentItemSO.ItemImage);
     }
 
 
@@ -82,7 +83,7 @@ public class AgentEquipment : MonoBehaviour
         }
     }
 
-    private List<ItemParameter> GetItemState(EquipmentSlot slot)
+    private List<ItemParameter> GetItemState(EquipmentType type)
     {
         // Implement logic to retrieve the current item state based on the slot
         // For example, you can store item states in a dictionary or use separate variables/lists for each slot
@@ -90,7 +91,7 @@ public class AgentEquipment : MonoBehaviour
         return new List<ItemParameter>(); // Placeholder return statement
     }
 
-    private List<ItemParameter> GetParametersToModify(EquipmentSlot slot)
+    private List<ItemParameter> GetParametersToModify(EquipmentType type)
     {
         // Implement logic to determine which parameters need to be modified based on the slot
         // You can define this per slot or have a common set of parameters to modify for all slots

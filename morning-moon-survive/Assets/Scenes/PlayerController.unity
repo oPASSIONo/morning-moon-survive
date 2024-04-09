@@ -1594,6 +1594,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 436711396}
   m_CullTransparentMesh: 1
+--- !u!1 &473293536 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2657976955326490519, guid: 2076ab1e5e9de2f4d944a52f4569fd27,
+    type: 3}
+  m_PrefabInstance: {fileID: 6522806788795199046}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &476509246
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4210,7 +4216,6 @@ GameObject:
   - component: {fileID: 1098166174}
   - component: {fileID: 1098166173}
   - component: {fileID: 1098166172}
-  - component: {fileID: 1098166175}
   m_Layer: 5
   m_Name: EquipmentPanel (2)
   m_TagString: Untagged
@@ -4303,19 +4308,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1098166170}
   m_CullTransparentMesh: 1
---- !u!114 &1098166175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1098166170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b10fd07293092b47ad64c5b4406b314, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  equipImage: {fileID: 964354404}
 --- !u!1 &1105957214
 GameObject:
   m_ObjectHideFlags: 0
@@ -7405,7 +7397,7 @@ MonoBehaviour:
   - itemParameter: {fileID: 11400000, guid: 507af2d111d353844ba0d356fa56b6f8, type: 2}
     value: -1
   itemCurrentState: []
-  equipUI: {fileID: 1098166175}
+  equipUI: {fileID: 1947337956}
 --- !u!82 &1655586976
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8752,6 +8744,20 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6522806788795199046}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1947337956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473293536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b10fd07293092b47ad64c5b4406b314, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  accessoryImage: {fileID: 392696737}
+  garmentImage: {fileID: 964354404}
 --- !u!1 &1953679397
 GameObject:
   m_ObjectHideFlags: 0
@@ -11491,7 +11497,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2013776311}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2657976955326490519, guid: 2076ab1e5e9de2f4d944a52f4569fd27,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1947337956}
   m_SourcePrefab: {fileID: 100100000, guid: 2076ab1e5e9de2f4d944a52f4569fd27, type: 3}
 --- !u!1001 &7051041786839834246
 PrefabInstance:
