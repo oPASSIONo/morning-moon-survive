@@ -8,6 +8,7 @@ namespace Inventory.UI
 {
     public class UIInventoryPage : MonoBehaviour
     {
+        
         [SerializeField] private UIInventoryItem itemPrefab;
         [SerializeField] private RectTransform contentPanel;
         [SerializeField] private UIInventoryDescription itemDescription;

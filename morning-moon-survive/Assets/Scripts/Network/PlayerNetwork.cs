@@ -8,6 +8,8 @@ using Cinemachine;
 
 public class PlayerNetwork : NetworkBehaviour
 {
+    public static PlayerNetwork Instance { get; private set; }
+    
     [SerializeField] private CinemachineVirtualCamera vc;
     [SerializeField] private Camera cm;
     private PlayerInput playerInput;
@@ -46,6 +48,7 @@ public class PlayerNetwork : NetworkBehaviour
     {
         if (IsOwner)
         {
+            Instance = this;
             vc.Priority = 1;
         }
         else

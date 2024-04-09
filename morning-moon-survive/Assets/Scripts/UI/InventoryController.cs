@@ -12,6 +12,7 @@ namespace Inventory
 {
     public class InventoryController : MonoBehaviour
     {
+        
         [SerializeField] private UIInventoryPage inventoryUI;
         [SerializeField] private InventorySO inventoryData;
         public List<InventoryItem> initialItems = new List<InventoryItem>();
@@ -29,14 +30,14 @@ namespace Inventory
             playerInput.PlayerControls.Enable();
             
             openInventoryAction = playerInput.PlayerControls.Inventory;
+            
         }
 
         void Start()
         {
             PrepareUI();
             PrepareInventoryData();
-           // playerInput = GetComponent<PlayerInput>();
-           // openInventoryAction = playerInput.PlayerControls.Inventory;
+
         }
 
         private void PrepareInventoryData()
