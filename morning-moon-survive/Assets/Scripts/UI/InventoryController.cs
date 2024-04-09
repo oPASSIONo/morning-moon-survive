@@ -36,6 +36,7 @@ namespace Inventory
         {
             PrepareUI();
             PrepareInventoryData();
+            
 
         }
         
