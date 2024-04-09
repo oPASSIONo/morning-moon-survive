@@ -21,6 +21,7 @@ public class GamePauseUI : MonoBehaviour
         {
             GameManager.Instance.TogglePauseGame();
         });
+        
     }
     private void Start()
     {

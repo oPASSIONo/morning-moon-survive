@@ -11,6 +11,7 @@ using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RelayManager : MonoBehaviour
@@ -19,6 +20,8 @@ public class RelayManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI joinCodeText;
     [SerializeField] private TMP_InputField joinCodeInputField;
     [SerializeField] private GameObject control;
+    
+    
 
     private async void Start()
     {
@@ -34,7 +37,8 @@ public class RelayManager : MonoBehaviour
     {
         string joinCode = await StartHostWithRelay();
         joinCodeText.text = joinCode;
-    }
+        Debug.Log(joinCode);
+    } 
 
     public async void JoinRelay()
     {
@@ -53,9 +57,10 @@ public class RelayManager : MonoBehaviour
            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
            
            string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-           Debug.Log(joinCode);
+           //Debug.Log(joinCode);
            
-           return NetworkManager.Singleton.StartHost() ? joinCode : null;
+           return  NetworkManager.Singleton.StartHost() ? joinCode : null;
+           
            
         }
         catch (RelayServiceException e)

@@ -18,6 +18,8 @@ public class GameManager : NetworkBehaviour
     private bool isLocalGamePaused = false;
     private NetworkVariable<bool> isGamePaused = new NetworkVariable<bool>(false);
 
+    private bool autoGamepausedstate;
+
     private void Awake()
     {
         Instance = this;
@@ -33,6 +35,16 @@ public class GameManager : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         isGamePaused.OnValueChanged += IsGamePaused_OnValueChanged;
+
+        if (IsServer)
+        {
+            NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
+        }
+    }
+
+    private void NetworkManager_OnClientDisconnectCallback(ulong clientId)
+    {
+        autoGamepausedstate = true;
     }
 
     private void IsGamePaused_OnValueChanged(bool previousValue, bool newValue)
@@ -66,6 +78,15 @@ public class GameManager : NetworkBehaviour
         {
             UnPauseGameServerRpc();
             OnLocalGameUnPaused?.Invoke(this,EventArgs.Empty);
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (autoGamepausedstate)
+        {
+            autoGamepausedstate = false;
+            GamePauseState();
         }
     }
 
