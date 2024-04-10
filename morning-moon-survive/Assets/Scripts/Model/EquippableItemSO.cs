@@ -9,7 +9,7 @@ namespace Inventory.Model
     public class EquippableItemSO : ItemSO,IDestroyableItem,IItemAction
     {
         [FormerlySerializedAs("slot")] public EquipmentType type; // Add a field to specify the equipment slot
-        public string ActionName => "Equip";
+        public string ActionName => "EQUIP";
         [field: SerializeField] public AudioClip actionSFX { get; private set; }
         public bool PerformAction(GameObject character,List<ItemParameter>itemState)
         {

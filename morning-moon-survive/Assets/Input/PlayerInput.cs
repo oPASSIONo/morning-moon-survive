@@ -71,6 +71,87 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectSlot2"",
+                    ""type"": ""Button"",
+                    ""id"": ""571fe157-9d95-4f22-b696-3855f1043d77"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectSlot3"",
+                    ""type"": ""Button"",
+                    ""id"": ""4b682041-cb05-44aa-a03c-7e99a4f01b81"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectSlot4"",
+                    ""type"": ""Button"",
+                    ""id"": ""8faf15a8-348c-4fce-addf-01db28440afb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectSlot5"",
+                    ""type"": ""Button"",
+                    ""id"": ""dd31eb96-b020-44de-a464-e4bbaaa89f7e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectSlot6"",
+                    ""type"": ""Button"",
+                    ""id"": ""471d71e2-e783-485b-85cc-f6922d4b88e5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectSlot7"",
+                    ""type"": ""Button"",
+                    ""id"": ""f73c923f-8581-41f3-8b2f-0c6b440d2be7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectSlot8"",
+                    ""type"": ""Button"",
+                    ""id"": ""2b2f5838-241e-42f0-a59d-d977e96c627a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectSlot9"",
+                    ""type"": ""Button"",
+                    ""id"": ""3d75ade0-d0ab-4102-8f97-5f9145def35c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectSlot10"",
+                    ""type"": ""Button"",
+                    ""id"": ""ea16ef1f-ce0e-43a3-a75a-6cf9652a736b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -172,6 +253,105 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""SelectSlot1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""053d496e-9db7-4b9f-87e9-0ddac3879db0"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectSlot2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""08be15ac-3b3d-4bcb-ae6a-849a2d9b69af"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectSlot3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8dff8476-cf25-4c1c-9b7d-9b20cb1ef3ac"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectSlot4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3b4ef4d4-846b-4d59-b9fb-3f81204480c9"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectSlot5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3b2abbaf-32db-476f-bd8d-22c7298cb19a"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectSlot6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b398156-d71d-45bd-99f4-f8e23d6dcc23"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectSlot7"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1a1f2fe3-938f-4950-be5a-8cac8844f614"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectSlot8"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""82016b44-73b6-4ed0-8e31-16ceed3445d3"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectSlot9"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1cd9fd1b-c342-4f7e-8b9a-f3c6c1a40c5e"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectSlot10"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -185,6 +365,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_PlayerControls_Pause = m_PlayerControls.FindAction("Pause", throwIfNotFound: true);
         m_PlayerControls_Interaction = m_PlayerControls.FindAction("Interaction", throwIfNotFound: true);
         m_PlayerControls_SelectSlot1 = m_PlayerControls.FindAction("SelectSlot1", throwIfNotFound: true);
+        m_PlayerControls_SelectSlot2 = m_PlayerControls.FindAction("SelectSlot2", throwIfNotFound: true);
+        m_PlayerControls_SelectSlot3 = m_PlayerControls.FindAction("SelectSlot3", throwIfNotFound: true);
+        m_PlayerControls_SelectSlot4 = m_PlayerControls.FindAction("SelectSlot4", throwIfNotFound: true);
+        m_PlayerControls_SelectSlot5 = m_PlayerControls.FindAction("SelectSlot5", throwIfNotFound: true);
+        m_PlayerControls_SelectSlot6 = m_PlayerControls.FindAction("SelectSlot6", throwIfNotFound: true);
+        m_PlayerControls_SelectSlot7 = m_PlayerControls.FindAction("SelectSlot7", throwIfNotFound: true);
+        m_PlayerControls_SelectSlot8 = m_PlayerControls.FindAction("SelectSlot8", throwIfNotFound: true);
+        m_PlayerControls_SelectSlot9 = m_PlayerControls.FindAction("SelectSlot9", throwIfNotFound: true);
+        m_PlayerControls_SelectSlot10 = m_PlayerControls.FindAction("SelectSlot10", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -251,6 +440,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_Pause;
     private readonly InputAction m_PlayerControls_Interaction;
     private readonly InputAction m_PlayerControls_SelectSlot1;
+    private readonly InputAction m_PlayerControls_SelectSlot2;
+    private readonly InputAction m_PlayerControls_SelectSlot3;
+    private readonly InputAction m_PlayerControls_SelectSlot4;
+    private readonly InputAction m_PlayerControls_SelectSlot5;
+    private readonly InputAction m_PlayerControls_SelectSlot6;
+    private readonly InputAction m_PlayerControls_SelectSlot7;
+    private readonly InputAction m_PlayerControls_SelectSlot8;
+    private readonly InputAction m_PlayerControls_SelectSlot9;
+    private readonly InputAction m_PlayerControls_SelectSlot10;
     public struct PlayerControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -260,6 +458,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Pause => m_Wrapper.m_PlayerControls_Pause;
         public InputAction @Interaction => m_Wrapper.m_PlayerControls_Interaction;
         public InputAction @SelectSlot1 => m_Wrapper.m_PlayerControls_SelectSlot1;
+        public InputAction @SelectSlot2 => m_Wrapper.m_PlayerControls_SelectSlot2;
+        public InputAction @SelectSlot3 => m_Wrapper.m_PlayerControls_SelectSlot3;
+        public InputAction @SelectSlot4 => m_Wrapper.m_PlayerControls_SelectSlot4;
+        public InputAction @SelectSlot5 => m_Wrapper.m_PlayerControls_SelectSlot5;
+        public InputAction @SelectSlot6 => m_Wrapper.m_PlayerControls_SelectSlot6;
+        public InputAction @SelectSlot7 => m_Wrapper.m_PlayerControls_SelectSlot7;
+        public InputAction @SelectSlot8 => m_Wrapper.m_PlayerControls_SelectSlot8;
+        public InputAction @SelectSlot9 => m_Wrapper.m_PlayerControls_SelectSlot9;
+        public InputAction @SelectSlot10 => m_Wrapper.m_PlayerControls_SelectSlot10;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -284,6 +491,33 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SelectSlot1.started += instance.OnSelectSlot1;
             @SelectSlot1.performed += instance.OnSelectSlot1;
             @SelectSlot1.canceled += instance.OnSelectSlot1;
+            @SelectSlot2.started += instance.OnSelectSlot2;
+            @SelectSlot2.performed += instance.OnSelectSlot2;
+            @SelectSlot2.canceled += instance.OnSelectSlot2;
+            @SelectSlot3.started += instance.OnSelectSlot3;
+            @SelectSlot3.performed += instance.OnSelectSlot3;
+            @SelectSlot3.canceled += instance.OnSelectSlot3;
+            @SelectSlot4.started += instance.OnSelectSlot4;
+            @SelectSlot4.performed += instance.OnSelectSlot4;
+            @SelectSlot4.canceled += instance.OnSelectSlot4;
+            @SelectSlot5.started += instance.OnSelectSlot5;
+            @SelectSlot5.performed += instance.OnSelectSlot5;
+            @SelectSlot5.canceled += instance.OnSelectSlot5;
+            @SelectSlot6.started += instance.OnSelectSlot6;
+            @SelectSlot6.performed += instance.OnSelectSlot6;
+            @SelectSlot6.canceled += instance.OnSelectSlot6;
+            @SelectSlot7.started += instance.OnSelectSlot7;
+            @SelectSlot7.performed += instance.OnSelectSlot7;
+            @SelectSlot7.canceled += instance.OnSelectSlot7;
+            @SelectSlot8.started += instance.OnSelectSlot8;
+            @SelectSlot8.performed += instance.OnSelectSlot8;
+            @SelectSlot8.canceled += instance.OnSelectSlot8;
+            @SelectSlot9.started += instance.OnSelectSlot9;
+            @SelectSlot9.performed += instance.OnSelectSlot9;
+            @SelectSlot9.canceled += instance.OnSelectSlot9;
+            @SelectSlot10.started += instance.OnSelectSlot10;
+            @SelectSlot10.performed += instance.OnSelectSlot10;
+            @SelectSlot10.canceled += instance.OnSelectSlot10;
         }
 
         private void UnregisterCallbacks(IPlayerControlsActions instance)
@@ -303,6 +537,33 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SelectSlot1.started -= instance.OnSelectSlot1;
             @SelectSlot1.performed -= instance.OnSelectSlot1;
             @SelectSlot1.canceled -= instance.OnSelectSlot1;
+            @SelectSlot2.started -= instance.OnSelectSlot2;
+            @SelectSlot2.performed -= instance.OnSelectSlot2;
+            @SelectSlot2.canceled -= instance.OnSelectSlot2;
+            @SelectSlot3.started -= instance.OnSelectSlot3;
+            @SelectSlot3.performed -= instance.OnSelectSlot3;
+            @SelectSlot3.canceled -= instance.OnSelectSlot3;
+            @SelectSlot4.started -= instance.OnSelectSlot4;
+            @SelectSlot4.performed -= instance.OnSelectSlot4;
+            @SelectSlot4.canceled -= instance.OnSelectSlot4;
+            @SelectSlot5.started -= instance.OnSelectSlot5;
+            @SelectSlot5.performed -= instance.OnSelectSlot5;
+            @SelectSlot5.canceled -= instance.OnSelectSlot5;
+            @SelectSlot6.started -= instance.OnSelectSlot6;
+            @SelectSlot6.performed -= instance.OnSelectSlot6;
+            @SelectSlot6.canceled -= instance.OnSelectSlot6;
+            @SelectSlot7.started -= instance.OnSelectSlot7;
+            @SelectSlot7.performed -= instance.OnSelectSlot7;
+            @SelectSlot7.canceled -= instance.OnSelectSlot7;
+            @SelectSlot8.started -= instance.OnSelectSlot8;
+            @SelectSlot8.performed -= instance.OnSelectSlot8;
+            @SelectSlot8.canceled -= instance.OnSelectSlot8;
+            @SelectSlot9.started -= instance.OnSelectSlot9;
+            @SelectSlot9.performed -= instance.OnSelectSlot9;
+            @SelectSlot9.canceled -= instance.OnSelectSlot9;
+            @SelectSlot10.started -= instance.OnSelectSlot10;
+            @SelectSlot10.performed -= instance.OnSelectSlot10;
+            @SelectSlot10.canceled -= instance.OnSelectSlot10;
         }
 
         public void RemoveCallbacks(IPlayerControlsActions instance)
@@ -327,5 +588,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
         void OnSelectSlot1(InputAction.CallbackContext context);
+        void OnSelectSlot2(InputAction.CallbackContext context);
+        void OnSelectSlot3(InputAction.CallbackContext context);
+        void OnSelectSlot4(InputAction.CallbackContext context);
+        void OnSelectSlot5(InputAction.CallbackContext context);
+        void OnSelectSlot6(InputAction.CallbackContext context);
+        void OnSelectSlot7(InputAction.CallbackContext context);
+        void OnSelectSlot8(InputAction.CallbackContext context);
+        void OnSelectSlot9(InputAction.CallbackContext context);
+        void OnSelectSlot10(InputAction.CallbackContext context);
     }
 }

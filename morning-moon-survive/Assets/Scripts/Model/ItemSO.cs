@@ -51,15 +51,6 @@ namespace Inventory.Model
         // Add more categories as needed
     }
 
-    public enum ItemSubCategory
-    {
-        Fruit,
-        Potion,
-
-        Food
-        // Add more sub-categories as needed
-    }
-
     public enum ItemRarity
     {
         Common,

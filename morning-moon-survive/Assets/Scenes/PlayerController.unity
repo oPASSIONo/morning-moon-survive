@@ -6693,8 +6693,8 @@ GameObject:
   - component: {fileID: 1655586979}
   - component: {fileID: 1655586978}
   - component: {fileID: 1655586980}
-  - component: {fileID: 1655586981}
   - component: {fileID: 1655586982}
+  - component: {fileID: 1655586983}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -7022,21 +7022,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51d66af81ef69d242a43afe364204f0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1655586981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1655586965}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf19a434b6224f04f9912cc0d19c4a62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemList: 01000000
-  selectedItem: 0
-  pickAxe: {fileID: 775759115}
 --- !u!114 &1655586982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7052,6 +7037,19 @@ MonoBehaviour:
   recipes:
   - {fileID: 11400000, guid: 96529e80061cc5345959f2895db394e2, type: 2}
   playerInventory: {fileID: 11400000, guid: 5747cb1644aa57c4bbbafb0b0312d6d9, type: 2}
+--- !u!114 &1655586983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655586965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90e55977fa5be4f4ab655c41fbd1ab60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickaxe: {fileID: 775759115}
 --- !u!1 &1665393633
 GameObject:
   m_ObjectHideFlags: 0
@@ -7780,22 +7778,22 @@ PrefabInstance:
     - target: {fileID: 8827250473896342728, guid: 565d0f4f62340a84b833872d0228c164,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8827250473896342728, guid: 565d0f4f62340a84b833872d0228c164,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8827250473896342728, guid: 565d0f4f62340a84b833872d0228c164,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8827250473896342728, guid: 565d0f4f62340a84b833872d0228c164,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
