@@ -18,6 +18,9 @@ namespace Inventory.UI
 
         public event Action<UIInventoryItem> OnItemClicked, OnItemDroppedOn, OnItemBeginDrag, OnItemEndDrag,OnRightMouseBtnClick;
         private bool empty = true;
+        
+        public bool IsEmpty => empty;
+
 
         public void Awake()
         {

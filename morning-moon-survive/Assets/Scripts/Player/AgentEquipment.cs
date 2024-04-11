@@ -22,19 +22,6 @@ public class AgentEquipment : MonoBehaviour
     private Dictionary<EquipmentType, EquippableItemSO> equippedItems = new Dictionary<EquipmentType, EquippableItemSO>();
 
 
-    /*public void SetEquipment(EquippableItemSO equipmentItemSO, List<ItemParameter> itemState)
-    {
-        if (equipment!=null)
-        {
-            inventoryData.AddItem(equipment, 1, itemCurrentState);
-        }
-
-        this.equipment = equipmentItemSO;
-        this.itemCurrentState = new List<ItemParameter>(itemState);
-        ModifyParameters();
-        equipUI.SetEquipImage(equipmentItemSO.ItemImage);
-    }*/
-    
     public void SetEquipment(EquipmentType type, EquippableItemSO equipmentItemSO, List<ItemParameter> itemState)
     {
         // Unequip the existing equipment before equipping the new one
@@ -46,27 +33,11 @@ public class AgentEquipment : MonoBehaviour
         // Equip the new item
         equippedItems[type] = equipmentItemSO;
         this.itemCurrentState = new List<ItemParameter>(itemState);
-        ModifyParameters();
+        //ModifyParameters();
         
         equipUI.SetEquipImage(type, equipmentItemSO.ItemImage);
     }
 
-
-    /*private void ModifyParameters()
-    {
-        foreach (var parameter in parameterToModify)
-        {
-            if (itemCurrentState.Contains(parameter))
-            {
-                int index = itemCurrentState.IndexOf(parameter);
-                float newValue = itemCurrentState[index].value + parameter.value;
-                itemCurrentState[index] = new ItemParameter()
-                {
-                    itemParameter = parameter.itemParameter, value = newValue
-                };
-            }
-        }
-    }*/
     private void ModifyParameters()
     {
         foreach (var parameter in parameterToModify)

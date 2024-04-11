@@ -12,7 +12,6 @@ namespace Inventory
 {
     public class InventoryController : MonoBehaviour
     {
-        
         [SerializeField] private UIInventoryPage inventoryUI;
         [SerializeField] private InventorySO inventoryData;
         public List<InventoryItem> initialItems = new List<InventoryItem>();
@@ -29,15 +28,12 @@ namespace Inventory
             playerInput.PlayerControls.Enable();
             
             openInventoryAction = playerInput.PlayerControls.Inventory;
-            
         }
 
         void Start()
         {
             PrepareUI();
             PrepareInventoryData();
-            
-
         }
         
         void Update()
@@ -48,10 +44,6 @@ namespace Inventory
             }
         }
         
-        void HandleItemSelected(int itemIndex)
-        {
-            // Handle item selection logic here
-        }
 
         private void PrepareInventoryData()
         {
@@ -90,7 +82,7 @@ namespace Inventory
             inventoryUI.OnStartDragging -= HandleDraggin;
             inventoryUI.OnItemActionRequested -= HandleItemActionRequest;
         }*/
-
+        
 
         private void HandleItemActionRequest(int itemIndex)
         {
@@ -109,9 +101,8 @@ namespace Inventory
             IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
             if (destroyableItem != null)
             {
-                inventoryUI.AddAction("Drop", () => DropItem(itemIndex, inventoryItem.quantity));
+                inventoryUI.AddAction("DROP", () => DropItem(itemIndex, inventoryItem.quantity));
             }
-
         }
 
         private void DropItem(int itemIndex, int quantity)
@@ -131,7 +122,7 @@ namespace Inventory
                 return;
 
             IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
-            if (destroyableItem != null)
+            if (destroyableItem != null && !(inventoryItem.item is ToolItemSO))
             {
                 inventoryData.RemoveItem(itemIndex, 1);
             }
@@ -189,6 +180,7 @@ namespace Inventory
             }
             return sb.ToString();
         }
+        
 
         void OpenInventoryUI()
         {
@@ -198,6 +190,7 @@ namespace Inventory
                 inventoryUI.UpdateData(item.Key,item.Value.item.ItemImage,item.Value.quantity);
             }
         }
+        
         
         /*public InventorySO GetInventoryData()
         {
@@ -209,12 +202,30 @@ namespace Inventory
         {
             // Subscribe to hotbar selection actions
             playerInput.FindAction("SelectSlot1").performed += ctx => SelectSlot(1);
+            playerInput.FindAction("SelectSlot2").performed += ctx => SelectSlot(2);
+            playerInput.FindAction("SelectSlot3").performed += ctx => SelectSlot(3);
+            playerInput.FindAction("SelectSlot4").performed += ctx => SelectSlot(4);
+            playerInput.FindAction("SelectSlot5").performed += ctx => SelectSlot(5);
+            playerInput.FindAction("SelectSlot6").performed += ctx => SelectSlot(6);
+            playerInput.FindAction("SelectSlot7").performed += ctx => SelectSlot(7);
+            playerInput.FindAction("SelectSlot8").performed += ctx => SelectSlot(8);
+            playerInput.FindAction("SelectSlot9").performed += ctx => SelectSlot(9);
+            playerInput.FindAction("SelectSlot10").performed += ctx => SelectSlot(10);
 
         }
         private void OnDisable()
         {
             // Unsubscribe from hotbar selection actions
             playerInput.FindAction("SelectSlot1").performed -= ctx => SelectSlot(1);
+            playerInput.FindAction("SelectSlot2").performed -= ctx => SelectSlot(2);
+            playerInput.FindAction("SelectSlot3").performed -= ctx => SelectSlot(3);
+            playerInput.FindAction("SelectSlot4").performed -= ctx => SelectSlot(4);
+            playerInput.FindAction("SelectSlot5").performed -= ctx => SelectSlot(5);
+            playerInput.FindAction("SelectSlot6").performed -= ctx => SelectSlot(6);
+            playerInput.FindAction("SelectSlot7").performed -= ctx => SelectSlot(7);
+            playerInput.FindAction("SelectSlot8").performed -= ctx => SelectSlot(8);
+            playerInput.FindAction("SelectSlot9").performed -= ctx => SelectSlot(9);
+            playerInput.FindAction("SelectSlot10").performed -= ctx => SelectSlot(10);
         }
         private void SelectSlot(int slot)
         {
@@ -222,6 +233,7 @@ namespace Inventory
             PerformAction(slot-1);
             /*InventoryItem inventoryItem = inventoryData.GetItemAt(slot - 1);
             inventoryUI.HandleItemSelectionExternally(inventoryItem);*/
+            HandleDescriptionRequest(slot-1);
         }
         
     }
