@@ -10,7 +10,7 @@ namespace Inventory.Model
     {
         public string ActionName => "USE";
         [field: SerializeField] public AudioClip actionSFX { get; private set; }
-        public bool PerformAction(GameObject character, List<ItemParameter> itemState)
+        public bool PerformAction(GameObject character, List<ItemParameter> itemState,int amount)
         {
             // Get the AgentTool component attached to the character
             AgentTool agentTool = character.GetComponent<AgentTool>();

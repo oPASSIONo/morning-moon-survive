@@ -7382,6 +7382,7 @@ MonoBehaviour:
     itemState: []
   dropClip: {fileID: 0}
   audioSource: {fileID: 1655586976}
+  amountController: {fileID: 708344657}
 --- !u!114 &1655586973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11357,17 +11358,17 @@ PrefabInstance:
     - target: {fileID: 428423624864650883, guid: f2e715bab82b7644f9dc3ef3e417d48a,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 428423624864650883, guid: f2e715bab82b7644f9dc3ef3e417d48a,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 428423624864650883, guid: f2e715bab82b7644f9dc3ef3e417d48a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -356.25
       objectReference: {fileID: 0}
     - target: {fileID: 784845038865248267, guid: f2e715bab82b7644f9dc3ef3e417d48a,
         type: 3}
@@ -11557,6 +11558,11 @@ PrefabInstance:
     - target: {fileID: 2488921018469561475, guid: f2e715bab82b7644f9dc3ef3e417d48a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2637318617241744711, guid: f2e715bab82b7644f9dc3ef3e417d48a,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2700572019920955826, guid: f2e715bab82b7644f9dc3ef3e417d48a,
@@ -11914,10 +11920,13 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7021207593163263087, guid: f2e715bab82b7644f9dc3ef3e417d48a, type: 3}
+    - {fileID: 2235699975351888957, guid: f2e715bab82b7644f9dc3ef3e417d48a, type: 3}
     m_RemovedGameObjects:
     - {fileID: 825564063780319827, guid: f2e715bab82b7644f9dc3ef3e417d48a, type: 3}
     - {fileID: 163131143632629006, guid: f2e715bab82b7644f9dc3ef3e417d48a, type: 3}
+    - {fileID: 2637318617241744711, guid: f2e715bab82b7644f9dc3ef3e417d48a, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5922778671536703067, guid: f2e715bab82b7644f9dc3ef3e417d48a,
         type: 3}

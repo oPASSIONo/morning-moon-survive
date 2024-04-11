@@ -9,7 +9,7 @@ namespace Inventory.Model
     {
         public string ActionName => "CRAFT";
         [field: SerializeField] public AudioClip actionSFX { get; private set; }
-        public bool PerformAction(GameObject character, List<ItemParameter> itemState)
+        public bool PerformAction(GameObject character, List<ItemParameter> itemState,int amount)
         {
             throw new System.NotImplementedException();
         }

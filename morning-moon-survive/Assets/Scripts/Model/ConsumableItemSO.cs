@@ -12,12 +12,16 @@ namespace Inventory.Model
         public string ActionName => "Consume";
         [field: SerializeField] public AudioClip actionSFX {get;private set; }
 
-        public bool PerformAction(GameObject character,List<ItemParameter>itemState=null)
+        public bool PerformAction(GameObject character,List<ItemParameter>itemState,int amount)
         {
+            itemState = null;
             foreach (ModifierData data in modifierData)
             {
-                Debug.Log("Consume Item");
-                data.statModifier.AffectCharacter(character, data.value);
+                for (int i = 0; i < amount; i++)
+                {
+                    data.statModifier.AffectCharacter(character, data.value);
+                    Debug.Log("Consume Item");
+                }
             }
 
             return true;
@@ -34,7 +38,7 @@ namespace Inventory.Model
     {
         public string ActionName { get; }
         public AudioClip actionSFX { get; }
-        bool PerformAction(GameObject character,List<ItemParameter>itemState);
+        bool PerformAction(GameObject character,List<ItemParameter>itemState,int amount);
     }
 
     [Serializable]

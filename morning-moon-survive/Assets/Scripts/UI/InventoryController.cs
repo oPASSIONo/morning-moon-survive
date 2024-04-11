@@ -21,6 +21,8 @@ namespace Inventory
 
         [SerializeField] private AudioClip dropClip;
         [SerializeField] private AudioSource audioSource;
+
+        [SerializeField] private AmountController amountController;
         
         private void Awake()
         {
@@ -95,27 +97,27 @@ namespace Inventory
             {
                 
                 inventoryUI.ShowItemAction(itemIndex);
-                inventoryUI.AddAction(itemAction.ActionName, () => PerformAction(itemIndex));
+                inventoryUI.AddAction(itemAction.ActionName, () => PerformAction(itemIndex,amountController.InputToAmount()));
             }
 
             IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
             if (destroyableItem != null)
             {
-                inventoryUI.AddAction("DROP", () => DropItem(itemIndex, inventoryItem.quantity));
+                inventoryUI.AddAction("DROP", () => DropItem(itemIndex, amountController.InputToAmount()));
             }
         }
 
         private void DropItem(int itemIndex, int quantity)
         {
             Debug.Log("Drop Item");
-            inventoryData.DropItemToWorld(itemIndex,transform.position);
+            inventoryData.DropItemToWorld(itemIndex,transform.position,quantity);
             inventoryData.RemoveItem(itemIndex, quantity);
             inventoryUI.ResetSelection();
             audioSource.PlayOneShot(dropClip);
             inventoryUI.actionPanel.Toggle(false);
         }
 
-        public void PerformAction(int itemIndex)
+        public void PerformAction(int itemIndex,int quantity)
         {
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
             if (inventoryItem.IsEmpty)
@@ -124,13 +126,13 @@ namespace Inventory
             IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
             if (destroyableItem != null && !(inventoryItem.item is ToolItemSO))
             {
-                inventoryData.RemoveItem(itemIndex, 1);
+                inventoryData.RemoveItem(itemIndex, quantity);
             }
 
             IItemAction itemAction = inventoryItem.item as IItemAction;
             if (itemAction != null)
             {
-                itemAction.PerformAction(gameObject, inventoryItem.itemState);
+                itemAction.PerformAction(gameObject, inventoryItem.itemState,quantity);
                 audioSource.PlayOneShot(itemAction.actionSFX);
                 if (inventoryData.GetItemAt(itemIndex).IsEmpty)
                     inventoryUI.ResetSelection();
@@ -230,7 +232,7 @@ namespace Inventory
         private void SelectSlot(int slot)
         {
             Debug.Log("Selected slot " + slot);
-            PerformAction(slot-1);
+            PerformAction(slot-1,1);
             /*InventoryItem inventoryItem = inventoryData.GetItemAt(slot - 1);
             inventoryUI.HandleItemSelectionExternally(inventoryItem);*/
             HandleDescriptionRequest(slot-1);

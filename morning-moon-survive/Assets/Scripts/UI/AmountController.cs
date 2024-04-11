@@ -42,9 +42,9 @@ public class AmountController : MonoBehaviour
         inputField.text = filteredValue;
     }
 
-    /*public int InputToAmount()
+    public int InputToAmount()
     {
         int.TryParse(inputField.text, out int amount);
-        return int amount;
-    }*/
+        return amount;
+    }
 }

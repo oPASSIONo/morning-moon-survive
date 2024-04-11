@@ -11,7 +11,7 @@ namespace Inventory.Model
         [FormerlySerializedAs("slot")] public EquipmentType type; // Add a field to specify the equipment slot
         public string ActionName => "EQUIP";
         [field: SerializeField] public AudioClip actionSFX { get; private set; }
-        public bool PerformAction(GameObject character,List<ItemParameter>itemState)
+        public bool PerformAction(GameObject character,List<ItemParameter>itemState,int amount)
         {
             AgentEquipment equipmentSystem = character.GetComponent<AgentEquipment>();
             if (equipmentSystem!=null)
