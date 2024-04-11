@@ -36,7 +36,6 @@ public class GameMultiplayerManager : NetworkBehaviour
         AuthenticationService.Instance.SignedIn += () =>
         {
             Debug.Log("Signed in " + AuthenticationService.Instance.PlayerId);
-            Debug.Log("Signed in " + AuthenticationService.Instance.PlayerName);
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }

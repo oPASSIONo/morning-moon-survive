@@ -4486,6 +4486,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1529435505}
+  - component: {fileID: 1529435507}
   - component: {fileID: 1529435506}
   m_Layer: 5
   m_Name: RelayUI
@@ -4531,6 +4532,28 @@ MonoBehaviour:
   joinCodeText: {fileID: 433858880}
   joinCodeInputField: {fileID: 1564701541}
   control: {fileID: 1626166039}
+  maxConnection: 1
+--- !u!114 &1529435507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529435504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3678241870
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &1557882697
 GameObject:
   m_ObjectHideFlags: 0
