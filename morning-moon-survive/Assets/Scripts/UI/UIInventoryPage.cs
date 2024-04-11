@@ -21,7 +21,11 @@ namespace Inventory.UI
         public event Action<int> OnDescriptionRequested, OnItemActionRequested, OnStartDragging;
         public event Action<int, int> OnSwapItems;
         public ItemActionPanel actionPanel;
-        
+        [SerializeField] private Button previousButton;
+        [SerializeField] private Button nextButton;
+
+        private int indexOfSelectingItem;
+
         private void Awake()
         {
             Hide();
@@ -55,9 +59,9 @@ namespace Inventory.UI
                 uiItem.OnItemEndDrag += HandleEndDrag;
                 uiItem.OnRightMouseBtnClick += HandleShowItemActions;
             }
-
+            
         }
-
+        
         public void UpdateData(int itemIndex, Sprite itemImage, int itemQuantity)
         {
             if (listOfUIItems.Count>itemIndex)
@@ -68,12 +72,46 @@ namespace Inventory.UI
         private void HandleShowItemActions(UIInventoryItem inventoryItemUI)
         {
             int index = listOfUIItems.IndexOf(inventoryItemUI);
+            indexOfSelectingItem = index;
             if (index == -1)
             {
                 return;
             }
             OnItemActionRequested?.Invoke(index);
         }
+                
+        public void OnNextButtonClicked()
+        {
+            do
+            {
+                indexOfSelectingItem++;
+            } while (indexOfSelectingItem < listOfUIItems.Count && listOfUIItems[indexOfSelectingItem].IsEmpty);
+
+            if (indexOfSelectingItem >= listOfUIItems.Count)
+            {
+                indexOfSelectingItem = listOfUIItems.Count - 1;
+            }
+            
+            HandleShowItemActions(listOfUIItems[indexOfSelectingItem]);
+            Debug.Log(indexOfSelectingItem);
+        }
+
+        public void OnPreviousButtonClicked()
+        {
+            do
+            {
+                indexOfSelectingItem--;
+            } while (indexOfSelectingItem >= 0 && listOfUIItems[indexOfSelectingItem].IsEmpty);
+
+            if (indexOfSelectingItem < 0)
+            {
+                indexOfSelectingItem = 0;
+            }
+
+            HandleShowItemActions(listOfUIItems[indexOfSelectingItem]);
+            Debug.Log(indexOfSelectingItem);
+        }
+
 
         private void HandleEndDrag(UIInventoryItem inventoryItemUI)
         {
@@ -82,6 +120,7 @@ namespace Inventory.UI
 
         private void HandleSwap(UIInventoryItem inventoryItemUI)
         {
+            
             int index = listOfUIItems.IndexOf(inventoryItemUI);
             if (index == -1)
             {
@@ -115,6 +154,7 @@ namespace Inventory.UI
 
         private void HandleItemSelection(UIInventoryItem inventoryItemUI)
         {
+            
             int index = listOfUIItems.IndexOf(inventoryItemUI);
             if(index==-1)
                 return;
@@ -153,7 +193,7 @@ namespace Inventory.UI
             actionPanel.Toggle(true);
             //actionPanel.transform.position = listOfUIItems[itemIndex].transform.position;
         }
-
+        
         private void DeselectAllItems()
         {
             foreach (UIInventoryItem item in listOfUIItems)
@@ -186,8 +226,7 @@ namespace Inventory.UI
                item.Deselect();
             }
         }
-        
-        
+
         
     }
 }

@@ -34,8 +34,6 @@ namespace Inventory
         {
             PrepareUI();
             PrepareInventoryData();
-           // playerInput = GetComponent<PlayerInput>();
-           // openInventoryAction = playerInput.PlayerControls.Inventory;
         }
         
         void Update()
@@ -46,10 +44,6 @@ namespace Inventory
             }
         }
         
-        void HandleItemSelected(int itemIndex)
-        {
-            // Handle item selection logic here
-        }
 
         private void PrepareInventoryData()
         {
@@ -88,7 +82,7 @@ namespace Inventory
             inventoryUI.OnStartDragging -= HandleDraggin;
             inventoryUI.OnItemActionRequested -= HandleItemActionRequest;
         }*/
-
+        
 
         private void HandleItemActionRequest(int itemIndex)
         {
@@ -109,7 +103,6 @@ namespace Inventory
             {
                 inventoryUI.AddAction("DROP", () => DropItem(itemIndex, inventoryItem.quantity));
             }
-
         }
 
         private void DropItem(int itemIndex, int quantity)
@@ -129,7 +122,7 @@ namespace Inventory
                 return;
 
             IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
-            if (destroyableItem != null)
+            if (destroyableItem != null && !(inventoryItem.item is ToolItemSO))
             {
                 inventoryData.RemoveItem(itemIndex, 1);
             }
@@ -187,6 +180,7 @@ namespace Inventory
             }
             return sb.ToString();
         }
+        
 
         void OpenInventoryUI()
         {
@@ -196,6 +190,7 @@ namespace Inventory
                 inventoryUI.UpdateData(item.Key,item.Value.item.ItemImage,item.Value.quantity);
             }
         }
+        
         
         /*public InventorySO GetInventoryData()
         {
@@ -238,6 +233,7 @@ namespace Inventory
             PerformAction(slot-1);
             /*InventoryItem inventoryItem = inventoryData.GetItemAt(slot - 1);
             inventoryUI.HandleItemSelectionExternally(inventoryItem);*/
+            HandleDescriptionRequest(slot-1);
         }
         
     }
