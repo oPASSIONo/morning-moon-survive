@@ -29,7 +29,7 @@ public class GameManager : NetworkBehaviour
 
     private void Start()
     {
-        GameInput.Instance.OnPauseAction += GameInput_OnpauseAction;
+        GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
     }
 
     public override void OnNetworkSpawn()
@@ -60,8 +60,9 @@ public class GameManager : NetworkBehaviour
             OnMultiplayerGameUnPaused?.Invoke(this, EventArgs.Empty);
         }
     }
+   
 
-    private void GameInput_OnpauseAction(object sender, EventArgs e)
+    private void GameInput_OnPauseAction(object sender, EventArgs e)
     {
         TogglePauseGame();
     }

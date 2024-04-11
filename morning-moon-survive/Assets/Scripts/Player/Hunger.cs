@@ -16,10 +16,13 @@ public class Hunger : MonoBehaviour
 
     private float nextDamageTime; // Time of the next damage tick
 
-    void Start()
+    private void Awake()
     {
         health = GetComponent<Health>(); // Initialize the health reference
+    }
 
+    void Start()
+    {
         // Initialize current hunger to 0
         CurrentHunger = 0;
 

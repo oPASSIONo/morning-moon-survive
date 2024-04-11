@@ -13,6 +13,7 @@ public class PlayerSetting : NetworkBehaviour
     [SerializeField] private NetworkVariable<FixedString128Bytes> networkPlayerName =
         new NetworkVariable<FixedString128Bytes>("Player : 0", NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Server);
+    
 
     public override void OnNetworkSpawn()
     { 
