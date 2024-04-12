@@ -17,19 +17,22 @@ using UnityEngine.UI;
 public class GameMultiplayerManager : NetworkBehaviour
 {
     public static GameMultiplayerManager Instance { get; private set; }
-    
+   
+    [Header("Setting")]
     [SerializeField] private TextMeshProUGUI joinCodeText;
     [SerializeField] private TMP_InputField joinCodeInputField;
     [SerializeField] private GameObject control;
-
     [SerializeField] private int maxConnection = 2;
-
+    
+    private NetworkVariable<int> playerNum = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone);
+    [SerializeField] private TextMeshProUGUI playerCount;
+    
 
     private void Awake()
     {
         Instance = this;
     }
-
+    
     private async void Start()
     {
         await UnityServices.InitializeAsync();
@@ -38,6 +41,7 @@ public class GameMultiplayerManager : NetworkBehaviour
             Debug.Log("Signed in " + AuthenticationService.Instance.PlayerId);
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        
     }
 
     public async void StartRelay()
@@ -77,15 +81,9 @@ public class GameMultiplayerManager : NetworkBehaviour
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
 
            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
-           
-          // string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-           //Debug.Log(joinCode);
-
-           string code = await GetRelayJoinCode(allocation);
-           
-           NetworkManager.Singleton.StartHost();
-           //return  NetworkManager.Singleton.StartHost() ? code : null;
-           return code;
+           string joincode = await GetRelayJoinCode(allocation);
+           return  NetworkManager.Singleton.StartHost() ? joincode : null;
+  
 
         }
         catch (RelayServiceException e)
@@ -137,5 +135,17 @@ public class GameMultiplayerManager : NetworkBehaviour
         NetworkManager.Singleton.Shutdown();
         AuthenticationService.Instance.SignOut();
     }
-    
+    private void Update()
+    {
+        PlayerCount();
+    }
+    private void PlayerCount()
+    {
+        playerCount.text = "Online : " + playerNum.Value.ToString();
+        if (!NetworkManager.Singleton.IsServer)
+            return;
+        playerNum.Value = NetworkManager.Singleton.ConnectedClients.Count;
+    }
 }
+    
+
