@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Inventory.Model;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PickupSystem : MonoBehaviour
+public class PickupSystem : NetworkBehaviour
 {
     [SerializeField] private InventorySO inventoryData;
     private bool isInRange = false;
@@ -20,6 +21,14 @@ public class PickupSystem : MonoBehaviour
         playerInput.PlayerControls.Enable();
             
         pickup = playerInput.PlayerControls.Interaction;
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if (!base.IsOwner)
+        {
+            enabled = false;
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -55,7 +64,6 @@ public class PickupSystem : MonoBehaviour
             PerformPickup();
         }
     }
-    
     private void PerformPickup()
     {
         if (enteredCollider!=null)
@@ -82,21 +90,5 @@ public class PickupSystem : MonoBehaviour
         }
     }
 
-    /*private void OnTriggerEnter(Collider collision)
-    {
-        Item item = collision.GetComponent<Item>();
-        if (item!=null)
-        {
-            int reminder = inventoryData.AddItem(item.InventoryItem, item.Quantity);
-            if (reminder==0)
-            {
-                item.DestroyItem();
-            }
-            else
-            {
-                item.Quantity = reminder;
-            }
-        }
-    }*/
 
 }
