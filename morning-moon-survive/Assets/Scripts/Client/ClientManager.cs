@@ -48,10 +48,11 @@ public class ClientManager : NetworkBehaviour
         
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
         
-        /*OnTryingToJoinGame?.Invoke(this, EventArgs.Empty);
-        NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;*/
+        OnTryingToJoinGame?.Invoke(this, EventArgs.Empty);
+        NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
         
         NetworkManager.Singleton.StartClient();
+        Loader.Load(Loader.Scene.PlayScene);
     }
 
     private void NetworkManager_OnClientDisconnectCallback(ulong clientId)

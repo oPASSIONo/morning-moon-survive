@@ -81,8 +81,8 @@ public class GameMultiplayerManager : NetworkBehaviour
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
 
            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
-           string joincode = await GetRelayJoinCode(allocation);
-           return  NetworkManager.Singleton.StartHost() ? joincode : null;
+           string joinCode = await GetRelayJoinCode(allocation);
+           return  NetworkManager.Singleton.StartHost() ? joinCode : null;
   
 
         }

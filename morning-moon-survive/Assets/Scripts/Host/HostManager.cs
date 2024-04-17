@@ -59,6 +59,7 @@ public class HostManager : NetworkBehaviour
 
         NetworkManager.Singleton.ConnectionApprovalCallback += NetworkManager_ConnectionApprovalCallback;
         NetworkManager.Singleton.StartHost();
+        Loader.Load(Loader.Scene.PlayScene);
     }
 
     private void NetworkManager_ConnectionApprovalCallback(

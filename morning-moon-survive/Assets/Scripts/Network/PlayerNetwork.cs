@@ -5,6 +5,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using Object = UnityEngine.Object;
 
 public class PlayerNetwork : NetworkBehaviour
 {
@@ -27,7 +28,6 @@ public class PlayerNetwork : NetworkBehaviour
     {
         // Get the Hunger component
         Hunger = GetComponent<Hunger>();
-
         // Check if Hunger component exists
         if (Hunger != null)
         {
@@ -107,7 +107,11 @@ public class PlayerNetwork : NetworkBehaviour
     
     void UpdateSpeed(int currentHunger, int maxHunger)
     {
-        CheckHunger(currentHunger); // Pass the current hunger received as parameter
+        if (!IsOwner)return;
+        {
+            CheckHunger(currentHunger); // Pass the current hunger received as parameter
+
+        }
     }
 
     // Method to update the player's speed based on the current hunger level
