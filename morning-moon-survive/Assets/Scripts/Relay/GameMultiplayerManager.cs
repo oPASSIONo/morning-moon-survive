@@ -27,6 +27,9 @@ public class GameMultiplayerManager : NetworkBehaviour
     private NetworkVariable<int> playerNum = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone);
     [SerializeField] private TextMeshProUGUI playerCount;
     
+    private List<ulong> connectedClientIds = new List<ulong>();
+
+    
 
     private void Awake()
     {
@@ -42,8 +45,19 @@ public class GameMultiplayerManager : NetworkBehaviour
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
         
+        NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
     }
+    
+    private void OnClientDisconnect(ulong clientId)
+    {
+        Debug.Log("Client disconnected: " + clientId);
 
+        if (connectedClientIds.Contains(clientId))
+        {
+            connectedClientIds.Remove(clientId);
+        }
+    }
+    
     public async void StartRelay()
     {
         string joinCode = await StartHostWithRelay();
@@ -146,6 +160,8 @@ public class GameMultiplayerManager : NetworkBehaviour
             return;
         playerNum.Value = NetworkManager.Singleton.ConnectedClients.Count;
     }
+
+   
 }
     
 

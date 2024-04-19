@@ -7,14 +7,17 @@ using UnityEngine;
 
 public class Item : NetworkBehaviour
 {
+    
+    public static Item Instance { get; private set; }
+    
     [field: SerializeField] public ItemSO InventoryItem { get; private set; }
     [field: SerializeField] public int Quantity { get; set; } = 1;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private float duration = 0.3f;
 
-    private void Start()
+    private void Awake()
     {
-        //GetComponent<SpriteRenderer>().sprite = InventoryItem.ItemImage;
+        Instance = this;
     }
 
     public void DestroyItem()

@@ -15,12 +15,12 @@ public class PlayerNetwork : NetworkBehaviour
     [SerializeField] private Camera cm;
     private PlayerInput playerInput;
     private InputAction moveAction;
-    private float speed = 5f;
+    private float speed = 3f;
     
       
     //private float baseSpeed = 5f; // Base movement speed
     private float currentSpeed; // Current movement speed
-    
+  
     // Reference to the Hunger component
     public Hunger Hunger { private get; set; }
     
@@ -28,14 +28,13 @@ public class PlayerNetwork : NetworkBehaviour
     {
         // Get the Hunger component
         Hunger = GetComponent<Hunger>();
+
         // Check if Hunger component exists
         if (Hunger != null)
         {
             // Subscribe to the OnHungerChanged event
             Hunger.OnHungerChanged += UpdateSpeed;
 
-            UpdateSpeed(Hunger.CurrentHunger, Hunger.MaxHunger);
-            
         }
         else
         {
@@ -76,6 +75,7 @@ public class PlayerNetwork : NetworkBehaviour
         if (!IsOwner) return;
         {
             MovePlayer();
+            UpdateSpeed(Hunger.CurrentHunger , Hunger.MaxHunger);
         }
     }
     
@@ -110,7 +110,6 @@ public class PlayerNetwork : NetworkBehaviour
         if (!IsOwner)return;
         {
             CheckHunger(currentHunger); // Pass the current hunger received as parameter
-
         }
     }
 
@@ -118,22 +117,24 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void CheckHunger(int currentHunger)
     {
-        // If hunger is greater than or equal to 75, decrease the speed
-        if (currentHunger >= 75)
+        if (!IsOwner) return;
         {
-            currentSpeed = speed * 0.5f; // Reduce the speed to 50%
-            Debug.Log(currentSpeed);
-            
-        }
-        else
-        {
-            // If hunger is below 75, reset the speed to the base speed
-            currentSpeed = speed;
+            if (currentHunger >= 75)
+            {
+                currentSpeed = speed * 0.5f; // Reduce the speed to 50%
+                Debug.Log(currentSpeed);
+            }
+            else
+            {
+                // If hunger is below 75, reset the speed to the base speed
+                currentSpeed = speed;
+            }
         }
     }
+   
 
     // Unsubscribe from the OnHungerChanged event when the script is destroyed
-    void OnDestroy()
+    private void OnDestroy()
     {
         if (Hunger != null)
         {
