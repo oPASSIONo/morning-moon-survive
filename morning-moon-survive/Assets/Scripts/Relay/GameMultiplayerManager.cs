@@ -25,6 +25,8 @@ public class GameMultiplayerManager : NetworkBehaviour
     [SerializeField] private int maxConnection = 2;
     
     private NetworkVariable<int> playerNum = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone);
+    
+    [Header("Status")]
     [SerializeField] private TextMeshProUGUI playerCount;
     
     private List<ulong> connectedClientIds = new List<ulong>();
@@ -55,6 +57,8 @@ public class GameMultiplayerManager : NetworkBehaviour
         if (connectedClientIds.Contains(clientId))
         {
             connectedClientIds.Remove(clientId);
+            NetworkManager.Singleton.Shutdown();
+            AuthenticationService.Instance.SignOut();
         }
     }
     
@@ -152,6 +156,7 @@ public class GameMultiplayerManager : NetworkBehaviour
     private void Update()
     {
         PlayerCount();
+        
     }
     private void PlayerCount()
     {
@@ -160,6 +165,7 @@ public class GameMultiplayerManager : NetworkBehaviour
             return;
         playerNum.Value = NetworkManager.Singleton.ConnectedClients.Count;
     }
+
 
    
 }

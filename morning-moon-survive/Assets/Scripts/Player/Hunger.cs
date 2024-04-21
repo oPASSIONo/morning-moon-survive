@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.Netcode;
 
-public class Hunger : MonoBehaviour
+public class Hunger : NetworkBehaviour
 {
     public int MaxHunger { get; private set; } = 100;
     public int CurrentHunger { get; private set; }
@@ -23,6 +24,7 @@ public class Hunger : MonoBehaviour
 
     void Start()
     {
+        if (IsServer)
         // Initialize current hunger to 0
         CurrentHunger = 0;
 
@@ -71,4 +73,5 @@ public class Hunger : MonoBehaviour
         // Trigger hunger changed event
         OnHungerChanged?.Invoke(CurrentHunger, MaxHunger);
     }
+    
 }

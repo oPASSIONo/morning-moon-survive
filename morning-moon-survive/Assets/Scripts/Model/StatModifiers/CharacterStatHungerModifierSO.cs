@@ -10,5 +10,6 @@ public class CharacterStatHungerModifierSO : CharacterStatModifierSO
         Hunger hunger = character.GetComponent<Hunger>();
         if (hunger!=null)
             hunger.DecreaseHunger((int)val);
+        
     }
 }

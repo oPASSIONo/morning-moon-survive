@@ -24,15 +24,12 @@ public class AnimationStateController : NetworkBehaviour
     
     private void Update()
     {
-        if (!IsOwner) return;
-
-        // Detect player input
+        if (!IsOwner) {return;}
         bool forwardPressed = Input.GetKey(KeyCode.W);
         bool leftPressed = Input.GetKey(KeyCode.A);
         bool backwardPressed = Input.GetKey(KeyCode.S);
         bool rightPressed = Input.GetKey(KeyCode.D);
 
-        // Call the server RPC to update walking state
         UpdateWalkingStateServerRpc(Hunger.CurrentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
     }
 
@@ -40,7 +37,6 @@ public class AnimationStateController : NetworkBehaviour
     [ServerRpc]
     private void UpdateWalkingStateServerRpc(int currentHunger, bool forwardPressed, bool leftPressed, bool backwardPressed, bool rightPressed)
     {
-        UpdateWalkingState(Hunger.CurrentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
         UpdateWalkingStateClientRpc(currentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
     }
 
@@ -53,6 +49,7 @@ public class AnimationStateController : NetworkBehaviour
 
     private void UpdateWalkingState(int currentHunger, bool forwardPressed, bool leftPressed, bool backwardPressed, bool rightPressed)
     {
+        
         bool isWalking = animator.GetBool(isWalkingHash);
         bool isTried = animator.GetBool(isTriedHash);
     
