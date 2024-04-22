@@ -18,7 +18,7 @@ public class GameManager : NetworkBehaviour
     private bool isLocalGamePaused = false;
     private NetworkVariable<bool> isGamePaused = new NetworkVariable<bool>(false);
 
-    private bool autoGamepausedstate;
+    private bool autoGamePausedState;
 
     private void Awake()
     {
@@ -44,7 +44,7 @@ public class GameManager : NetworkBehaviour
 
     private void NetworkManager_OnClientDisconnectCallback(ulong clientId)
     {
-        autoGamepausedstate = true;
+        autoGamePausedState = true;
     }
 
     private void IsGamePaused_OnValueChanged(bool previousValue, bool newValue)
@@ -84,9 +84,9 @@ public class GameManager : NetworkBehaviour
 
     private void LateUpdate()
     {
-        if (autoGamepausedstate)
+        if (autoGamePausedState)
         {
-            autoGamepausedstate = false;
+            autoGamePausedState = false;
             GamePauseState();
         }
     }

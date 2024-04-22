@@ -6,54 +6,44 @@ using UnityEngine;
 
 public class AnimationStateController : NetworkBehaviour
 {
-     public static AnimationStateController Instance { get; private set; }
-        
-    private Animator animator;
+    public static AnimationStateController Instance { get; private set; }
+
+    [SerializeField] private Hunger Hunger;
+    [SerializeField] private Animator animator;
+
     private int isWalkingHash;
     private int isTriedHash;
 
-    [SerializeField] private Hunger Hunger;
-
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        if (animator == null)
+        {
+            Debug.LogError("Animator reference is not set.");
+            return;
+        }
 
         isWalkingHash = Animator.StringToHash("isWalking");
         isTriedHash = Animator.StringToHash("isTried");
     }
-    
+
     private void Update()
     {
-        if (!IsOwner) {return;}
+        if (!IsOwner) 
+            return;
+
         bool forwardPressed = Input.GetKey(KeyCode.W);
         bool leftPressed = Input.GetKey(KeyCode.A);
         bool backwardPressed = Input.GetKey(KeyCode.S);
         bool rightPressed = Input.GetKey(KeyCode.D);
 
-        UpdateWalkingStateServerRpc(Hunger.CurrentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
-    }
-
-
-    [ServerRpc]
-    private void UpdateWalkingStateServerRpc(int currentHunger, bool forwardPressed, bool leftPressed, bool backwardPressed, bool rightPressed)
-    {
-        UpdateWalkingStateClientRpc(currentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
-    }
-
-    [ClientRpc]
-    private void UpdateWalkingStateClientRpc(int currentHunger, bool forwardPressed, bool leftPressed, bool backwardPressed, bool rightPressed)
-    {
-        if (!IsOwner) return;
-        UpdateWalkingState(currentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
+        UpdateWalkingState(Hunger.CurrentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
     }
 
     private void UpdateWalkingState(int currentHunger, bool forwardPressed, bool leftPressed, bool backwardPressed, bool rightPressed)
     {
-        
         bool isWalking = animator.GetBool(isWalkingHash);
         bool isTried = animator.GetBool(isTriedHash);
-    
-        // Check if any movement key is pressed
+
         bool anyMovementKeyPressed = forwardPressed || leftPressed || backwardPressed || rightPressed;
 
         if (currentHunger >= 75)
@@ -63,7 +53,7 @@ public class AnimationStateController : NetworkBehaviour
                 animator.SetBool(isTriedHash, true);
                 animator.SetBool(isWalkingHash, false);
             }
-    
+
             if (isTried && !anyMovementKeyPressed)
             {
                 animator.SetBool(isTriedHash, false);
@@ -75,12 +65,11 @@ public class AnimationStateController : NetworkBehaviour
             {
                 animator.SetBool(isWalkingHash, true);
             }
-    
+
             if (isWalking && !anyMovementKeyPressed)
             {
                 animator.SetBool(isWalkingHash, false);
             }
         }
-    }
-   
+    }  
 }
