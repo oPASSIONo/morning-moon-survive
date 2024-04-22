@@ -1,15 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
-using Object = UnityEngine.Object;
 
 public class PlayerNetwork : NetworkBehaviour
 {
-    public static PlayerNetwork Instance { get; private set; }
     
     [SerializeField] private CinemachineVirtualCamera vc;
     [SerializeField] private Camera cm;
@@ -40,7 +35,6 @@ public class PlayerNetwork : NetworkBehaviour
     {
         if (IsOwner)
         {
-            Instance = this;
             vc.Priority = 1;
         }
         else

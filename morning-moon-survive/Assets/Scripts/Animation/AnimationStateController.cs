@@ -1,27 +1,17 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
 public class AnimationStateController : NetworkBehaviour
 {
-    public static AnimationStateController Instance { get; private set; }
-
-    [SerializeField] private Hunger Hunger;
-    [SerializeField] private Animator animator;
+    [SerializeField] private Hunger hunger;
+    private Animator animator;
 
     private int isWalkingHash;
     private int isTriedHash;
-
-    private void Start()
-    {
-        if (animator == null)
-        {
-            Debug.LogError("Animator reference is not set.");
-            return;
-        }
-
+    
+   private void Start()
+   {
+        animator = GetComponent<Animator>();
         isWalkingHash = Animator.StringToHash("isWalking");
         isTriedHash = Animator.StringToHash("isTried");
     }
@@ -36,9 +26,12 @@ public class AnimationStateController : NetworkBehaviour
         bool backwardPressed = Input.GetKey(KeyCode.S);
         bool rightPressed = Input.GetKey(KeyCode.D);
 
-        UpdateWalkingState(Hunger.CurrentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
-    }
+        UpdateWalkingState(hunger.CurrentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
+        
+        UpdateWalkingStateServerRpc(hunger.CurrentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
 
+    }
+    
     private void UpdateWalkingState(int currentHunger, bool forwardPressed, bool leftPressed, bool backwardPressed, bool rightPressed)
     {
         bool isWalking = animator.GetBool(isWalkingHash);
@@ -64,6 +57,7 @@ public class AnimationStateController : NetworkBehaviour
             if (!isWalking && anyMovementKeyPressed)
             {
                 animator.SetBool(isWalkingHash, true);
+                animator.SetBool(isTriedHash, false);
             }
 
             if (isWalking && !anyMovementKeyPressed)
@@ -72,4 +66,17 @@ public class AnimationStateController : NetworkBehaviour
             }
         }
     }  
+
+    [ServerRpc]
+    private void UpdateWalkingStateServerRpc(int currentHunger, bool forwardPressed, bool leftPressed, bool backwardPressed, bool rightPressed)
+    {
+        UpdateWalkingStateClientRpc(currentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
+    }
+
+    [ClientRpc]
+    private void UpdateWalkingStateClientRpc(int currentHunger, bool forwardPressed, bool leftPressed, bool backwardPressed, bool rightPressed)
+    {
+        UpdateWalkingState(currentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
+    }
+    
 }
