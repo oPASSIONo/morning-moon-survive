@@ -1,20 +1,36 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
 public class AnimationStateController : NetworkBehaviour
 {
-    [SerializeField] private Hunger hunger;
-    private Animator animator;
+    public static AnimationStateController Instance { get; private set; }
+
+    [SerializeField] private Hunger Hunger;
+    [SerializeField] private Animator animator;
 
     private AgentTool agenTool;
 
     private int isWalkingHash;
     private int isTriedHash;
+<<<<<<< HEAD
     private int isIdleWeapon;
     
     private void Start()
     {
         animator = GetComponent<Animator>();
+=======
+
+    private void Start()
+    {
+        if (animator == null)
+        {
+            Debug.LogError("Animator reference is not set.");
+            return;
+        }
+>>>>>>> parent of e20685a (Fix animation but client cant pick up item)
 
         isWalkingHash = Animator.StringToHash("isWalking");
         isTriedHash = Animator.StringToHash("isTried");
@@ -32,6 +48,7 @@ public class AnimationStateController : NetworkBehaviour
         bool backwardPressed = Input.GetKey(KeyCode.S);
         bool rightPressed = Input.GetKey(KeyCode.D);
 
+<<<<<<< HEAD
         UpdateWalkingState(hunger.CurrentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
         
         UpdateWalkingStateServerRpc(hunger.CurrentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
@@ -48,6 +65,11 @@ public class AnimationStateController : NetworkBehaviour
         }
     }
     
+=======
+        UpdateWalkingState(Hunger.CurrentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
+    }
+
+>>>>>>> parent of e20685a (Fix animation but client cant pick up item)
     private void UpdateWalkingState(int currentHunger, bool forwardPressed, bool leftPressed, bool backwardPressed, bool rightPressed)
     {
         bool isWalking = animator.GetBool(isWalkingHash);
@@ -75,7 +97,6 @@ public class AnimationStateController : NetworkBehaviour
             {
                
                 animator.SetBool(isWalkingHash, true);
-                animator.SetBool(isTriedHash, false);
             }
 
             if (isWalking && !anyMovementKeyPressed)
@@ -92,17 +113,4 @@ public class AnimationStateController : NetworkBehaviour
             }
         }
     }  
-
-    [ServerRpc]
-    private void UpdateWalkingStateServerRpc(int currentHunger, bool forwardPressed, bool leftPressed, bool backwardPressed, bool rightPressed)
-    {
-        UpdateWalkingStateClientRpc(currentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
-    }
-
-    [ClientRpc]
-    private void UpdateWalkingStateClientRpc(int currentHunger, bool forwardPressed, bool leftPressed, bool backwardPressed, bool rightPressed)
-    {
-        UpdateWalkingState(currentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
-    }
-    
 }
