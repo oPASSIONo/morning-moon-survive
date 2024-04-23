@@ -6,8 +6,23 @@ using UnityEngine.InputSystem;
 public class AnimationStateController : NetworkBehaviour
 {
     [SerializeField] private Hunger Hunger;
+
+    private Animator animator; 
+    private Rigidbody rb;
+    private float maxSpeed = 3f;
     
-    private Animator animator;
+    private void Start()
+    {
+        animator = this.GetComponent<Animator>();
+        rb = this.GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        animator.SetFloat("speed", rb.velocity.magnitude / maxSpeed);
+    }
+
+    /*private Animator animator;
     private PlayerInput playerInput;
 
     private int isWalkingHash;
@@ -81,6 +96,6 @@ public class AnimationStateController : NetworkBehaviour
     private void UpdateWalkingStateClientRpc(int currentHunger, bool forwardPressed, bool leftPressed, bool backwardPressed, bool rightPressed)
     {
         UpdateWalkingState(currentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
-    }
+    }*/
 
 }
