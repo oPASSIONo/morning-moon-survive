@@ -43,7 +43,6 @@ public class PlayerNetwork : NetworkBehaviour
         }
         
     }
-    
     void Update()
     {
 

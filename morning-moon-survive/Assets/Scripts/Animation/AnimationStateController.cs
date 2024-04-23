@@ -4,11 +4,16 @@ using UnityEngine;
 public class AnimationStateController : NetworkBehaviour
 {
     [SerializeField] private Hunger hunger;
-    private Animator animator;
-
-    private int isWalkingHash;
-    private int isTriedHash;
     
+    private Animator animator;
+    private StateMachine movementSM;
+    private PlayerInput playerInput;
+
+
+
+    /*private int isWalkingHash;
+    private int isTriedHash;
+
    private void Start()
    {
         animator = GetComponent<Animator>();
@@ -18,7 +23,7 @@ public class AnimationStateController : NetworkBehaviour
 
     private void Update()
     {
-        if (!IsOwner) 
+        if (!IsOwner)
             return;
 
         bool forwardPressed = Input.GetKey(KeyCode.W);
@@ -27,11 +32,11 @@ public class AnimationStateController : NetworkBehaviour
         bool rightPressed = Input.GetKey(KeyCode.D);
 
         UpdateWalkingState(hunger.CurrentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
-        
+
         UpdateWalkingStateServerRpc(hunger.CurrentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
 
     }
-    
+
     private void UpdateWalkingState(int currentHunger, bool forwardPressed, bool leftPressed, bool backwardPressed, bool rightPressed)
     {
         bool isWalking = animator.GetBool(isWalkingHash);
@@ -65,7 +70,7 @@ public class AnimationStateController : NetworkBehaviour
                 animator.SetBool(isWalkingHash, false);
             }
         }
-    }  
+    }
 
     [ServerRpc]
     private void UpdateWalkingStateServerRpc(int currentHunger, bool forwardPressed, bool leftPressed, bool backwardPressed, bool rightPressed)
@@ -77,6 +82,6 @@ public class AnimationStateController : NetworkBehaviour
     private void UpdateWalkingStateClientRpc(int currentHunger, bool forwardPressed, bool leftPressed, bool backwardPressed, bool rightPressed)
     {
         UpdateWalkingState(currentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
-    }
-    
+    }*/
+
 }
