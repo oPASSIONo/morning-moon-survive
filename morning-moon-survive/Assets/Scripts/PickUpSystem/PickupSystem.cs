@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Inventory.Model;
 using UnityEngine;
@@ -10,30 +11,35 @@ public class PickupSystem : NetworkBehaviour
 
     [SerializeField] private InventorySO inventoryData;
     [SerializeField] private float duration = 0.3f;
-
-    private bool isInRange = false;
-    private PlayerInput playerInput;
     private InputAction pickup;
+    private bool isInRange = false;
     private Collider enteredCollider;
+    private PlayerInput playerInput;
 
-    private void Awake()
+      private void Awake()
     {
         Instance = this;
         playerInput = new PlayerInput();
         playerInput.PlayerControls.Enable();
-            
+
         pickup = playerInput.PlayerControls.Interaction;
-    }
-    
-    public override void OnNetworkSpawn()
-    {
-        if (!base.IsOwner)
-        {
-            enabled = false;
-        }
+        pickup.performed += OnPickupPerformed;
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnDisable()
+    {
+        pickup.performed -= OnPickupPerformed;
+    }
+
+    private void OnPickupPerformed(InputAction.CallbackContext context)
+    {
+        if (!IsOwner || !isInRange)
+            return;
+
+        PerformPickupServerRpc();
+    }
+
+    private void OnTriggerEnter(Collider other)
     {
         if (!IsOwner)
             return;
@@ -41,12 +47,11 @@ public class PickupSystem : NetworkBehaviour
         Item item = other.GetComponent<Item>();
         if (item != null)
         {
-            Debug.Log("Step on Item");
             isInRange = true;
             enteredCollider = other;
         }
     }
-    
+
     private void OnTriggerExit(Collider other)
     {
         if (!IsOwner)
@@ -55,40 +60,14 @@ public class PickupSystem : NetworkBehaviour
         Item item = other.GetComponent<Item>();
         if (item != null)
         {
-            Debug.Log("Step out of Item");
             isInRange = false;
             enteredCollider = null;
-        }
-    }
-    
-    private void Update()
-    {
-        if (!IsOwner)
-            return;
-
-        if (isInRange && pickup.triggered)
-        { 
-            PerformPickupServerRpc();
         }
     }
 
     [ServerRpc(RequireOwnership = false)]
     private void PerformPickupServerRpc()
     {
-        if (IsOwner)
-        {
-            PerformPickup();
-        }
-        else
-        {
-            PerformPickupClientRpc();
-        }
-    }
-
-    [ClientRpc(RequireOwnership = false)]
-    private void PerformPickupClientRpc()
-    {
-        if (!IsOwner) return;
         PerformPickup();
     }
     
@@ -99,11 +78,12 @@ public class PickupSystem : NetworkBehaviour
             Item item = enteredCollider.GetComponent<Item>();
             if (item != null)
             {
+                item.NetworkObject.ChangeOwnership(OwnerClientId);
+                
                 int reminder = inventoryData.AddItem(item.InventoryItem, item.Quantity);
                 if (reminder == 0)
                 {
-                    // Call the network synchronized method to destroy the item
-                    item.DestroyItem();
+                    item.DestroyItemServerRpc();
                 }
                 else
                 {

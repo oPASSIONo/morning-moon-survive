@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Inventory.Model;
@@ -10,7 +11,6 @@ public class AgentTool : MonoBehaviour
     //[SerializeField] private GameObject shovel;
     // Add other tool GameObject references as needed
 
-<<<<<<< HEAD
     [SerializeField] private Animator animator;
 
     public bool onWeapon = false;
@@ -21,8 +21,6 @@ public class AgentTool : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-=======
->>>>>>> parent of e20685a (Fix animation but client cant pick up item)
     // Method to activate the appropriate tool based on parameters
     public void ActivateTool(ToolItemSO toolItemSo,List<ItemParameter> itemState)
     {
