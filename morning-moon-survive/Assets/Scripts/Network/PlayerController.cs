@@ -8,21 +8,23 @@ public class PlayerController : NetworkBehaviour
     
     [SerializeField] private CinemachineVirtualCamera vc;
     [SerializeField] private Camera cm;
+    
+    private Animator animator;
     private PlayerInput playerInput;
     private InputAction moveAction;
-   
-    private AnimationStateController playerController;
-    private Animator animator;
-    
     private float speed = 3f;
-    
     private float currentSpeed; 
     public Hunger Hunger { private get; set; }
     
     void Start()
     {
         Hunger = GetComponent<Hunger>();
+        
+        animator = GetComponent<Animator>();
+        playerInput = new PlayerInput();
+        playerInput.PlayerControls.Enable();
 
+        
         if (Hunger != null)
         {
             // Subscribe to the OnHungerChanged event
@@ -31,7 +33,6 @@ public class PlayerController : NetworkBehaviour
         }
         else
         {
-            playerController = GetComponent<AnimationStateController>();
             Debug.LogWarning("Hunger component not found.");
         }
     }
@@ -46,8 +47,8 @@ public class PlayerController : NetworkBehaviour
         {
             vc.Priority = 0;
         }
-        
     }
+    
     void Update()
     {
 
@@ -57,21 +58,11 @@ public class PlayerController : NetworkBehaviour
         if (IsClient && IsOwner)
         {
             MovePlayer();
-            
-            UpdateAnimatorParameters();
         }
         UpdateSpeed(Hunger.CurrentHunger, Hunger.MaxHunger);
 
     }
-    
-    void UpdateAnimatorParameters()
-    {
-        Vector2 inputVector = GameInput.Instance.GetMovement();
-        bool isMoving = inputVector.magnitude > 0.1f; // Check if there is significant movement
 
-        // Set the "isWalking" parameter in the animator based on movement
-        animator.SetBool("isWalking", isMoving);
-    }
     void MovePlayer()
     {
         Vector2 inputVector = GameInput.Instance.GetMovement();
@@ -96,7 +87,7 @@ public class PlayerController : NetworkBehaviour
             transform.LookAt(targetPosition);
         }
     }
-
+    
     void UpdateSpeed(int currentHunger, int maxHunger)
     {
         if (!IsOwner)
