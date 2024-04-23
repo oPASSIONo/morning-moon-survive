@@ -3,13 +3,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 
-public class PlayerNetwork : NetworkBehaviour
+public class PlayerController : NetworkBehaviour
 {
     
     [SerializeField] private CinemachineVirtualCamera vc;
     [SerializeField] private Camera cm;
     private PlayerInput playerInput;
     private InputAction moveAction;
+   
+    private AnimationStateController playerController;
+    private Animator animator;
+    
     private float speed = 3f;
     
     private float currentSpeed; 
@@ -27,6 +31,7 @@ public class PlayerNetwork : NetworkBehaviour
         }
         else
         {
+            playerController = GetComponent<AnimationStateController>();
             Debug.LogWarning("Hunger component not found.");
         }
     }
@@ -52,16 +57,27 @@ public class PlayerNetwork : NetworkBehaviour
         if (IsClient && IsOwner)
         {
             MovePlayer();
+            
+            UpdateAnimatorParameters();
         }
         UpdateSpeed(Hunger.CurrentHunger, Hunger.MaxHunger);
 
+    }
+    
+    void UpdateAnimatorParameters()
+    {
+        Vector2 inputVector = GameInput.Instance.GetMovement();
+        bool isMoving = inputVector.magnitude > 0.1f; // Check if there is significant movement
+
+        // Set the "isWalking" parameter in the animator based on movement
+        animator.SetBool("isWalking", isMoving);
     }
     void MovePlayer()
     {
         Vector2 inputVector = GameInput.Instance.GetMovement();
 
         // Get the main camera's transform
-        Transform cameraTransform = cm.transform;
+        Transform cameraTransform = cm.transform;   
 
         // Calculate movement direction relative to the camera's forward direction
         Vector3 movement = cameraTransform.forward * inputVector.y + cameraTransform.right * inputVector.x;

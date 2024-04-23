@@ -1,15 +1,60 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class AnimationStateController : NetworkBehaviour
 {
-    [SerializeField] private Hunger hunger;
+    
+    private Animator animator;
+    private PlayerInput playerInput;
+    
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+        playerInput = new PlayerInput();
+        playerInput.PlayerControls.Enable();
+        // Subscribe to the movement input events
+        playerInput.PlayerControls.Move.performed += OnMovePerformed;
+        playerInput.PlayerControls.Move.performed += OnMoveCancelled;
+    }
+
+    private void OnDestroy()
+    {
+        playerInput.PlayerControls.Move.performed -= OnMovePerformed;
+        playerInput.PlayerControls.Move.performed -= OnMoveCancelled;
+    }
+
+    private void OnMovePerformed(InputAction.CallbackContext context)
+    {
+        Vector2 movementInput = context.ReadValue<Vector2>();
+        
+        // Set the "Speed" parameter based on the magnitude of movement input
+        float speed = movementInput.magnitude;
+        animator.SetFloat("Speed", speed);
+    }
+
+    private void OnMoveCancelled(InputAction.CallbackContext context)
+    {
+        // Reset the "Speed" parameter when movement input is cancelled
+        animator.SetFloat("Speed", 0f);
+    }
+    /*[SerializeField] private Hunger hunger;
     
     private Animator animator;
     private StateMachine movementSM;
-    private PlayerInput playerInput;
+    public PlayerInput playerInput { get; private set; }
 
+    private void Start()
+    {
+        playerInput = new PlayerInput();
+        playerInput.PlayerControls.Enable();
+        animator = GetComponent<Animator>();
 
+        movementSM = new StateMachine();
+        
+        
+    }*/
 
     /*private int isWalkingHash;
     private int isTriedHash;
