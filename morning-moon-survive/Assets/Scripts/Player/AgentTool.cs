@@ -13,6 +13,8 @@ public class AgentTool : MonoBehaviour
 
     [SerializeField] private Animator animator;
 
+    public bool onWeapon = false;
+
 
     private void Awake()
     {
@@ -45,6 +47,7 @@ public class AgentTool : MonoBehaviour
         if (tool != null)
         {
             tool.SetActive(true);
+            onWeapon = true;
         }
     }
 
