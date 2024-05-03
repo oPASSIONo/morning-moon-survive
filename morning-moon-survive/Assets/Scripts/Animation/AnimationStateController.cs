@@ -6,29 +6,12 @@ using UnityEngine.InputSystem;
 public class AnimationStateController : NetworkBehaviour
 {
     [SerializeField] private Hunger Hunger;
-
-    /*private Animator animator; 
-    private Rigidbody rb;
-    private float maxSpeed = 3f;
     
-    private void Start()
-    {
-        animator = this.GetComponent<Animator>();
-        rb = this.GetComponent<Rigidbody>();
-    }
-
-    private void Update()
-    {
-        animator.SetFloat("speed", rb.velocity.magnitude / maxSpeed);
-    }*/
-
     private Animator animator;
     private PlayerInput playerInput;
 
-    private int isWalkingHash;
-    private int isTriedHash;
-
-   private void Start()
+    
+   /*private void Start()
    {
         animator = GetComponent<Animator>();
         isWalkingHash = Animator.StringToHash("isWalking");
@@ -96,6 +79,76 @@ public class AnimationStateController : NetworkBehaviour
     private void UpdateWalkingStateClientRpc(int currentHunger, bool forwardPressed, bool leftPressed, bool backwardPressed, bool rightPressed)
     {
         UpdateWalkingState(currentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
-    }
+    }*/
 
+   private void Start()
+   {
+       animator = GetComponent<Animator>();
+
+       if (IsOwner)
+       {
+           playerInput = new PlayerInput();
+           playerInput.PlayerControls.Enable();
+           playerInput.PlayerControls.Move.performed += OnMovePerformed;
+           playerInput.PlayerControls.Move.canceled += OnMoveCancelled;
+       }
+       
+   }
+
+   private void OnDestroy()
+    {
+        if (playerInput != null)
+        {
+            playerInput.PlayerControls.Move.performed -= OnMovePerformed;
+            playerInput.PlayerControls.Move.canceled -= OnMoveCancelled;
+            playerInput.PlayerControls.Disable();
+        }
+    }
+   
+   [ServerRpc(RequireOwnership = false)]
+   private void UpdateAnimationStateServerRpc(float speed)
+   {
+       UpdateAnimationStateClientRpc(speed);
+   }
+   
+   [ClientRpc]
+   private void UpdateAnimationStateClientRpc(float speed)
+   {
+       animator.SetFloat("Speed", speed);
+   }
+
+   private void OnMovePerformed(InputAction.CallbackContext context)
+   {
+       Vector2 movementInput = context.ReadValue<Vector2>();
+       float speed = movementInput.magnitude;
+
+       if (IsOwner)
+       {
+           animator.SetFloat("Speed", speed);
+           UpdateAnimationStateServerRpc(speed);
+       }
+   }
+   private void OnMoveCancelled(InputAction.CallbackContext context)
+   {
+       if (IsOwner)
+       {
+           animator.SetFloat("Speed", 0f);
+           UpdateAnimationStateServerRpc(0f);
+       }
+   }
+    
+   private void Update()
+   {
+       if (!IsOwner)
+           return;
+
+       Vector2 moveInput = playerInput.PlayerControls.Move.ReadValue<Vector2>();
+       float speed = moveInput.magnitude;
+
+       if (speed != animator.GetFloat("Speed"))
+       {
+           animator.SetFloat("Speed", speed);
+           UpdateAnimationStateServerRpc(speed);
+       }
+   }
 }
