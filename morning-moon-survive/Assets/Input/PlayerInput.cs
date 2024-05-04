@@ -152,6 +152,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""f10403c0-542e-440b-b25c-0d186e6d1c0d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DrawWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""dfb577f8-5885-48bb-8c3d-0f7a3aab32d3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -352,6 +370,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""SelectSlot10"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cd326953-5461-449e-b99d-5b89c622d04e"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""93c7591b-092f-44c6-8565-127425babd9f"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DrawWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -374,6 +414,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_PlayerControls_SelectSlot8 = m_PlayerControls.FindAction("SelectSlot8", throwIfNotFound: true);
         m_PlayerControls_SelectSlot9 = m_PlayerControls.FindAction("SelectSlot9", throwIfNotFound: true);
         m_PlayerControls_SelectSlot10 = m_PlayerControls.FindAction("SelectSlot10", throwIfNotFound: true);
+        m_PlayerControls_Attack = m_PlayerControls.FindAction("Attack", throwIfNotFound: true);
+        m_PlayerControls_DrawWeapon = m_PlayerControls.FindAction("DrawWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -449,6 +491,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_SelectSlot8;
     private readonly InputAction m_PlayerControls_SelectSlot9;
     private readonly InputAction m_PlayerControls_SelectSlot10;
+    private readonly InputAction m_PlayerControls_Attack;
+    private readonly InputAction m_PlayerControls_DrawWeapon;
     public struct PlayerControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -467,6 +511,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @SelectSlot8 => m_Wrapper.m_PlayerControls_SelectSlot8;
         public InputAction @SelectSlot9 => m_Wrapper.m_PlayerControls_SelectSlot9;
         public InputAction @SelectSlot10 => m_Wrapper.m_PlayerControls_SelectSlot10;
+        public InputAction @Attack => m_Wrapper.m_PlayerControls_Attack;
+        public InputAction @DrawWeapon => m_Wrapper.m_PlayerControls_DrawWeapon;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -518,6 +564,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SelectSlot10.started += instance.OnSelectSlot10;
             @SelectSlot10.performed += instance.OnSelectSlot10;
             @SelectSlot10.canceled += instance.OnSelectSlot10;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
+            @DrawWeapon.started += instance.OnDrawWeapon;
+            @DrawWeapon.performed += instance.OnDrawWeapon;
+            @DrawWeapon.canceled += instance.OnDrawWeapon;
         }
 
         private void UnregisterCallbacks(IPlayerControlsActions instance)
@@ -564,6 +616,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SelectSlot10.started -= instance.OnSelectSlot10;
             @SelectSlot10.performed -= instance.OnSelectSlot10;
             @SelectSlot10.canceled -= instance.OnSelectSlot10;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
+            @DrawWeapon.started -= instance.OnDrawWeapon;
+            @DrawWeapon.performed -= instance.OnDrawWeapon;
+            @DrawWeapon.canceled -= instance.OnDrawWeapon;
         }
 
         public void RemoveCallbacks(IPlayerControlsActions instance)
@@ -597,5 +655,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnSelectSlot8(InputAction.CallbackContext context);
         void OnSelectSlot9(InputAction.CallbackContext context);
         void OnSelectSlot10(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
+        void OnDrawWeapon(InputAction.CallbackContext context);
     }
 }

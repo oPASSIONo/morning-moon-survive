@@ -91,6 +91,9 @@ public class AnimationStateController : NetworkBehaviour
            playerInput.PlayerControls.Enable();
            playerInput.PlayerControls.Move.performed += OnMovePerformed;
            playerInput.PlayerControls.Move.canceled += OnMoveCancelled;
+           playerInput.PlayerControls.DrawWeapon.performed += OnDrawWeaponPerformed;
+           playerInput.PlayerControls.DrawWeapon.Enable(); 
+
        }
        
    }
@@ -101,6 +104,8 @@ public class AnimationStateController : NetworkBehaviour
         {
             playerInput.PlayerControls.Move.performed -= OnMovePerformed;
             playerInput.PlayerControls.Move.canceled -= OnMoveCancelled;
+            playerInput.PlayerControls.DrawWeapon.performed -= OnDrawWeaponPerformed;
+            playerInput.PlayerControls.DrawWeapon.Disable(); 
             playerInput.PlayerControls.Disable();
         }
     }
@@ -134,6 +139,15 @@ public class AnimationStateController : NetworkBehaviour
        {
            animator.SetFloat("Speed", 0f);
            UpdateAnimationStateServerRpc(0f);
+       }
+   }
+   
+   private void OnDrawWeaponPerformed(InputAction.CallbackContext context)
+   {
+       if (IsOwner)
+       {
+           animator.SetTrigger("drawWeapon");
+           // You can add additional logic here if needed
        }
    }
     
