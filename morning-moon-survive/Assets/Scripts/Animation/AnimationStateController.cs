@@ -7,10 +7,12 @@ public class AnimationStateController : NetworkBehaviour
 {
     [SerializeField] private Hunger Hunger;
     
-    private Animator animator;
-    private PlayerInput playerInput;
+    public Animator animator;
+    public PlayerInput playerInput;
 
-    
+    public StateMachine movementSM;
+    public AttackState attacking;
+        
    /*private void Start()
    {
         animator = GetComponent<Animator>();
@@ -85,15 +87,20 @@ public class AnimationStateController : NetworkBehaviour
    {
        animator = GetComponent<Animator>();
 
+       movementSM = new StateMachine();
+       attacking = new AttackState(this, movementSM);
+       
        if (IsOwner)
        {
            playerInput = new PlayerInput();
            playerInput.PlayerControls.Enable();
            playerInput.PlayerControls.Move.performed += OnMovePerformed;
            playerInput.PlayerControls.Move.canceled += OnMoveCancelled;
-           playerInput.PlayerControls.DrawWeapon.performed += OnDrawWeaponPerformed;
-           playerInput.PlayerControls.DrawWeapon.Enable(); 
+           //playerInput.PlayerControls.DrawWeapon.performed += OnDrawWeaponPerformed;
+           playerInput.PlayerControls.DrawWeapon.performed += ctx => OnDrawWeaponPerformed();
+           playerInput.PlayerControls.DrawWeapon.Enable();
 
+           SubscribeToDrawWeaponEvent();
        }
        
    }
@@ -104,11 +111,24 @@ public class AnimationStateController : NetworkBehaviour
         {
             playerInput.PlayerControls.Move.performed -= OnMovePerformed;
             playerInput.PlayerControls.Move.canceled -= OnMoveCancelled;
-            playerInput.PlayerControls.DrawWeapon.performed -= OnDrawWeaponPerformed;
+            //playerInput.PlayerControls.DrawWeapon.performed -= OnDrawWeaponPerformed;
+            playerInput.PlayerControls.DrawWeapon.performed -= ctx => OnDrawWeaponPerformed();
             playerInput.PlayerControls.DrawWeapon.Disable(); 
             playerInput.PlayerControls.Disable();
+
+            UnsubscribeFromDrawWeaponEvent();
         }
     }
+   
+   private void SubscribeToDrawWeaponEvent()
+   {
+       AgentTool.OnDrawWeapon += OnDrawWeaponPerformed;
+   }
+
+   private void UnsubscribeFromDrawWeaponEvent()
+   {
+       AgentTool.OnDrawWeapon -= OnDrawWeaponPerformed;
+   }
    
    [ServerRpc(RequireOwnership = false)]
    private void UpdateAnimationStateServerRpc(float speed)
@@ -119,7 +139,7 @@ public class AnimationStateController : NetworkBehaviour
    [ClientRpc]
    private void UpdateAnimationStateClientRpc(float speed)
    {
-       animator.SetFloat("Speed", speed);
+       animator.SetFloat("speed", speed);
    }
 
    private void OnMovePerformed(InputAction.CallbackContext context)
@@ -129,7 +149,7 @@ public class AnimationStateController : NetworkBehaviour
 
        if (IsOwner)
        {
-           animator.SetFloat("Speed", speed);
+           animator.SetFloat("speed", speed);
            UpdateAnimationStateServerRpc(speed);
        }
    }
@@ -137,17 +157,24 @@ public class AnimationStateController : NetworkBehaviour
    {
        if (IsOwner)
        {
-           animator.SetFloat("Speed", 0f);
+           animator.SetFloat("speed", 0f);
            UpdateAnimationStateServerRpc(0f);
        }
    }
    
-   private void OnDrawWeaponPerformed(InputAction.CallbackContext context)
+   /*private void OnDrawWeaponPerformed(InputAction.CallbackContext context)
    {
        if (IsOwner)
        {
            animator.SetTrigger("drawWeapon");
            // You can add additional logic here if needed
+       }
+   }*/
+   private void OnDrawWeaponPerformed()
+   {
+       if (IsOwner)
+       {
+           animator.SetTrigger("drawWeapon");
        }
    }
     
@@ -159,9 +186,9 @@ public class AnimationStateController : NetworkBehaviour
        Vector2 moveInput = playerInput.PlayerControls.Move.ReadValue<Vector2>();
        float speed = moveInput.magnitude;
 
-       if (speed != animator.GetFloat("Speed"))
+       if (speed != animator.GetFloat("speed"))
        {
-           animator.SetFloat("Speed", speed);
+           animator.SetFloat("speed", speed);
            UpdateAnimationStateServerRpc(speed);
        }
    }

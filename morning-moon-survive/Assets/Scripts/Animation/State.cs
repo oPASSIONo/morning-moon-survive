@@ -9,6 +9,7 @@ public class State
     public StateMachine stateMachine;
 
     public InputAction moveAction;
+    public InputAction attackAction;
     protected Vector3 velocity;
     protected Vector2 input;
 
@@ -19,6 +20,9 @@ public class State
 
         //moveAction = stateControl.playerInput.PlayerControls.Move;
 
+        stateControl.playerInput = new PlayerInput();
+        stateControl.playerInput.PlayerControls.Enable();
+        attackAction = stateControl.playerInput.PlayerControls.Attack;
     }
     
     public virtual void Enter()
@@ -28,6 +32,11 @@ public class State
     
     
     public virtual void HandleInput()
+    {
+        
+    } 
+    
+    public virtual void LogicUpdate()
     {
         
     }
