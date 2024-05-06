@@ -6,6 +6,7 @@ public class StandingState : State
 {
     private bool grounded;
 
+    private Vector3 currentVeclocity;
     public StandingState(AnimationStateController _stateControl, StateMachine _stateMachine) : base(_stateControl,
         _stateMachine)
     {
@@ -19,6 +20,7 @@ public class StandingState : State
         
         input = Vector2.zero;
         velocity = Vector3.zero;
+        currentVeclocity = Vector3.zero;
     }
 
     public override void HandleInput()
@@ -29,4 +31,13 @@ public class StandingState : State
         velocity = new Vector3(input.x, 0, input.y);
 
     }
+
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
+        
+        //stateControl.animator.SetFloat("speed" , input.magnitude, stateControl.speedDampTime * Time.deltaTime);
+        
+    }
+    
 }

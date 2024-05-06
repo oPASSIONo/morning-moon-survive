@@ -3573,7 +3573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2428481562
+  GlobalObjectIdHash: 3817571480
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -8311,6 +8311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hunger: {fileID: 1097097579386993423}
   animator: {fileID: 6567007587564142270}
+  speedDampTime: 0.1
 --- !u!114 &172576927747610011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8452,7 +8453,7 @@ PrefabInstance:
     - target: {fileID: 878781342276113558, guid: 49192fe1044bba545b86ab067cf43707,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2428481562
+      value: 3069966077
       objectReference: {fileID: 0}
     - target: {fileID: 1609434783327077437, guid: 49192fe1044bba545b86ab067cf43707,
         type: 3}
@@ -10859,22 +10860,22 @@ PrefabInstance:
     - target: {fileID: 8827250473896342728, guid: 565d0f4f62340a84b833872d0228c164,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8827250473896342728, guid: 565d0f4f62340a84b833872d0228c164,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8827250473896342728, guid: 565d0f4f62340a84b833872d0228c164,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8827250473896342728, guid: 565d0f4f62340a84b833872d0228c164,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -20
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

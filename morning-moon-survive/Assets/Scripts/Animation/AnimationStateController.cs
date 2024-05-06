@@ -10,8 +10,18 @@ public class AnimationStateController : NetworkBehaviour
     public Animator animator;
     public PlayerInput playerInput;
 
+    private InputAction attackAction;
+    private bool attack;
+
     public StateMachine movementSM;
+    
+    [Header("State Control")] 
     public AttackState attacking;
+    public StandingState standing;
+
+    [Header("Animation Smooth")] 
+    public float speedDampTime = 0.1f;
+    
         
    /*private void Start()
    {
@@ -85,13 +95,16 @@ public class AnimationStateController : NetworkBehaviour
 
    private void Start()
    {
-       animator = GetComponent<Animator>();
-
-       movementSM = new StateMachine();
-       attacking = new AttackState(this, movementSM);
        
        if (IsOwner)
        {
+           animator = GetComponent<Animator>();
+
+           
+           movementSM = new StateMachine();
+           
+           attacking = new AttackState(this, movementSM);
+           
            playerInput = new PlayerInput();
            playerInput.PlayerControls.Enable();
            playerInput.PlayerControls.Move.performed += OnMovePerformed;
@@ -99,6 +112,11 @@ public class AnimationStateController : NetworkBehaviour
            //playerInput.PlayerControls.DrawWeapon.performed += OnDrawWeaponPerformed;
            playerInput.PlayerControls.DrawWeapon.performed += ctx => OnDrawWeaponPerformed();
            playerInput.PlayerControls.DrawWeapon.Enable();
+
+           /*playerInput.PlayerControls.Attack.performed += OnAttackPerformed;
+           attackAction = playerInput.PlayerControls.Attack;*/
+           
+
 
            SubscribeToDrawWeaponEvent();
        }
@@ -114,11 +132,21 @@ public class AnimationStateController : NetworkBehaviour
             //playerInput.PlayerControls.DrawWeapon.performed -= OnDrawWeaponPerformed;
             playerInput.PlayerControls.DrawWeapon.performed -= ctx => OnDrawWeaponPerformed();
             playerInput.PlayerControls.DrawWeapon.Disable(); 
+            
             playerInput.PlayerControls.Disable();
 
             UnsubscribeFromDrawWeaponEvent();
         }
     }
+
+   private void OnAttackPerformed(InputAction.CallbackContext context)
+   {
+       if (attackAction.triggered)
+       {
+           attack = true;
+       }
+   }
+   
    
    private void SubscribeToDrawWeaponEvent()
    {
@@ -183,6 +211,9 @@ public class AnimationStateController : NetworkBehaviour
        if (!IsOwner)
            return;
 
+       movementSM.currentState.HandleInput();
+       movementSM.currentState.LogicUpdate();
+       
        Vector2 moveInput = playerInput.PlayerControls.Move.ReadValue<Vector2>();
        float speed = moveInput.magnitude;
 

@@ -22,6 +22,7 @@ public class State
 
         stateControl.playerInput = new PlayerInput();
         stateControl.playerInput.PlayerControls.Enable();
+        
         attackAction = stateControl.playerInput.PlayerControls.Attack;
     }
     
