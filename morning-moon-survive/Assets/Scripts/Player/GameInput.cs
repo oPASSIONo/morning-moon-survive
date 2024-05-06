@@ -13,26 +13,35 @@ public class GameInput : MonoBehaviour
     private InputAction pause;
 
     public event EventHandler OnPauseAction;
+    public event EventHandler OnInventoryAction;
     private void Awake()
     {
         Instance = this;
         playerInput = new PlayerInput();
         playerInput.PlayerControls.Enable();
 
-        playerInput.PlayerControls.Pause.performed += Pause_performed;
-        
+        playerInput.PlayerControls.Pause.performed += Pause_Performed;
+
+        playerInput.PlayerControls.Inventory.performed += Inventory_Performed;
+
     }
 
     private void OnDestroy()
     {
-        playerInput.PlayerControls.Pause.performed -= Pause_performed;
+        playerInput.PlayerControls.Pause.performed -= Pause_Performed;
+        playerInput.PlayerControls.Inventory.performed -= Inventory_Performed;
         
         playerInput.Dispose();
     }
 
-    private void Pause_performed(InputAction.CallbackContext obj)
+    private void Pause_Performed(InputAction.CallbackContext obj)
     {
         OnPauseAction?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void Inventory_Performed(InputAction.CallbackContext obj)
+    {
+        OnInventoryAction?.Invoke(this, EventArgs.Empty);
     }
     
     public Vector2 GetMovement()

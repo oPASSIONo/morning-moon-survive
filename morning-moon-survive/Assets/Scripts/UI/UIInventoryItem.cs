@@ -30,7 +30,7 @@ namespace Inventory.UI
 
         public void ResetData()
         {
-            this.itemImage.gameObject.SetActive(false);
+            itemImage.gameObject.SetActive(false);
             empty = true;
         }
 

@@ -9,6 +9,8 @@ namespace Inventory.UI
 {
     public class UIInventoryPage : MonoBehaviour
     {
+        public static UIInventoryPage Instance { get; private set; }
+        
         [SerializeField] private UIInventoryItem itemPrefab;
         [SerializeField] private RectTransform contentPanel;
         [SerializeField] private UIInventoryDescription itemDescription;
@@ -28,6 +30,7 @@ namespace Inventory.UI
 
         private void Awake()
         {
+            Instance = this;
             Hide();
             mouseFollower.Toggle(false);
             itemDescription.ResetDescription();

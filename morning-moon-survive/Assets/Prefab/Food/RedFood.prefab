@@ -75,6 +75,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c51af3abf1e787745904c2b133fc4daa,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 141558465059444}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c51af3abf1e787745904c2b133fc4daa,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 2456813497169145894}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c51af3abf1e787745904c2b133fc4daa,
         type: 3}
@@ -84,10 +88,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1816194434984189943}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c51af3abf1e787745904c2b133fc4daa,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 141558465059444}
   m_SourcePrefab: {fileID: 100100000, guid: c51af3abf1e787745904c2b133fc4daa, type: 3}
 --- !u!1 &3978168034203898316 stripped
 GameObject:
@@ -95,6 +95,27 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4320116898235985053}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &141558465059444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3978168034203898316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 408428138
+  InScenePlacedSourceGlobalObjectIdHash: 4267266751
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &2456813497169145894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <InventoryItem>k__BackingField: {fileID: 11400000, guid: 067d8f8b8ce33db439ad68e4cfc9262f,
     type: 2}
-  <Quantity>k__BackingField: 1
+  <Quantity>k__BackingField: 99
   audioSource: {fileID: 6918365627033466973}
   duration: 0.3
 --- !u!82 &6918365627033466973
@@ -229,24 +250,3 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.51055366
   m_Center: {x: 0.012666002, y: 0.0052723153, z: 0.16216189}
---- !u!114 &141558465059444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3978168034203898316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4267266751
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1

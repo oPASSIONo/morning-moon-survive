@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Inventory.Model;
@@ -8,7 +9,15 @@ public class AgentTool : MonoBehaviour
 {
     [SerializeField] private GameObject pickaxe;
     //[SerializeField] private GameObject shovel;
-    // Add other tool GameObject references as needed
+    
+    public static event Action OnDrawWeapon;
+
+
+    private void Start()
+    {
+        DeactivateAllTools();
+        
+    }
 
     // Method to activate the appropriate tool based on parameters
     public void ActivateTool(ToolItemSO toolItemSo,List<ItemParameter> itemState)
@@ -19,6 +28,7 @@ public class AgentTool : MonoBehaviour
         switch (toolItemSo.Name)
         {
             case "Pickaxe":
+                OnDrawWeapon?.Invoke();
                 ActivateTool(pickaxe);
                 Debug.Log(pickaxe);
                 break;

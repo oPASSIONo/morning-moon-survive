@@ -9,6 +9,7 @@ public class HostDisconnectUI : MonoBehaviour
 {
     [SerializeField] private Button playAgain;
 
+
     private void Start()
     {
         NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;

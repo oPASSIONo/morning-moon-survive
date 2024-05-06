@@ -7,10 +7,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Inventory.Model;
 using UnityEngine.UI;
+using Unity.Netcode;
 
 namespace Inventory
 {
-    public class InventoryController : MonoBehaviour
+    public class InventoryController : NetworkBehaviour
     {
         [SerializeField] private UIInventoryPage inventoryUI;
         [SerializeField] private InventorySO inventoryData;
@@ -29,23 +30,34 @@ namespace Inventory
             playerInput = new PlayerInput();
             playerInput.PlayerControls.Enable();
             
-            openInventoryAction = playerInput.PlayerControls.Inventory;
+            //openInventoryAction = playerInput.PlayerControls.Inventory;
         }
 
         void Start()
         {
             PrepareUI();
             PrepareInventoryData();
+
+            GameInput.Instance.OnInventoryAction += GameInput_OnInventoryAction;
         }
         
         void Update()
         {
-            if (openInventoryAction.triggered)
+            /*if (openInventoryAction.triggered)
+            {
+                OpenInventoryUI();
+            }
+            */
+            
+        }
+        
+        private void GameInput_OnInventoryAction(object sender, EventArgs e)
+        {
+            if (!IsOwner) return;
             {
                 OpenInventoryUI();
             }
         }
-        
 
         private void PrepareInventoryData()
         {

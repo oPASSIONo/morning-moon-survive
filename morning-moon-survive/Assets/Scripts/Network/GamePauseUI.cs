@@ -14,13 +14,15 @@ public class GamePauseUI : MonoBehaviour
     {
         mainMenuButton.onClick.AddListener(() =>
         {
-            NetworkManager.Singleton.Shutdown();
-            Loader.Load(Loader.Scene.MainMenu);
+           // NetworkManager.Singleton.Shutdown();
+           GameMultiplayerManager.Instance.OnDisconnect();
+           Loader.Load(Loader.Scene.MainMenu);
         });
         resumeButton.onClick.AddListener(() =>
         {
             GameManager.Instance.TogglePauseGame();
         });
+        
     }
     private void Start()
     {

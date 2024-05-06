@@ -2,24 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Inventory.Model;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class Item : NetworkBehaviour
 {
     [field: SerializeField] public ItemSO InventoryItem { get; private set; }
     [field: SerializeField] public int Quantity { get; set; } = 1;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private float duration = 0.3f;
 
-    private void Start()
+    private void DestroyItem()
     {
-        //GetComponent<SpriteRenderer>().sprite = InventoryItem.ItemImage;
-    }
-
-    public void DestroyItem()
-    {
+  
         GetComponent<Collider>().enabled = false;
         StartCoroutine(AnimateItemPickup());
+        
     }
 
     private IEnumerator AnimateItemPickup()
@@ -35,5 +33,18 @@ public class Item : MonoBehaviour
             yield return null;
         }
         Destroy(gameObject);
+        
+    }
+    
+    [ServerRpc]
+    public void DestroyItemServerRpc()
+    {
+        DestroyItemClientRpc();
+    }
+
+    [ClientRpc]
+    private void DestroyItemClientRpc()
+    {
+        DestroyItem();
     }
 }

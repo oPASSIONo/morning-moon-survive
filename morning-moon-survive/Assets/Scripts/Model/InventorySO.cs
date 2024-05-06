@@ -54,7 +54,8 @@ namespace Inventory.Model
         {
             InventoryItem newItem = new InventoryItem
             {
-                item = item, quantity = quantity,itemState = new List<ItemParameter>(itemState==null?item.DefaultParametersList:itemState)
+                item = item, quantity = quantity,
+                itemState = new List<ItemParameter>(itemState == null ? item.DefaultParametersList : itemState)
             };
             for (int i = 0; i < inventoryItems.Count; i++)
             {
