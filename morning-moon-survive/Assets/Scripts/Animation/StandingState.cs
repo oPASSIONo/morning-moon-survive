@@ -7,6 +7,9 @@ public class StandingState : State
     private bool grounded;
 
     private Vector3 currentVeclocity;
+    
+    
+    private Vector3 cVeclocity;
     public StandingState(AnimationStateController _stateControl, StateMachine _stateMachine) : base(_stateControl,
         _stateMachine)
     {
@@ -36,8 +39,21 @@ public class StandingState : State
     {
         base.LogicUpdate();
         
-        //stateControl.animator.SetFloat("speed" , input.magnitude, stateControl.speedDampTime * Time.deltaTime);
+        stateControl.animator.SetFloat("speed" , input.magnitude, stateControl.speedDampTime , Time.deltaTime);
         
     }
-    
+
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
+
+        currentVeclocity =
+            Vector3.SmoothDamp(currentVeclocity, velocity, ref cVeclocity, stateControl.velocityDampTime);
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        
+    }
 }

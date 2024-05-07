@@ -9,6 +9,8 @@ public class AgentTool : MonoBehaviour
 {
     [SerializeField] private GameObject pickaxe;
     //[SerializeField] private GameObject shovel;
+
+    private AnimationStateController animationController;
     
     public static event Action OnDrawWeapon;
 
@@ -29,6 +31,7 @@ public class AgentTool : MonoBehaviour
         {
             case "Pickaxe":
                 OnDrawWeapon?.Invoke();
+                animationController.draw = true;
                 ActivateTool(pickaxe);
                 Debug.Log(pickaxe);
                 break;

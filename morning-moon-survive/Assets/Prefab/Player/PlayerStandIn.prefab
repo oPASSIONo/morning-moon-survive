@@ -3573,7 +3573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3817571480
+  GlobalObjectIdHash: 2428481562
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -8311,7 +8311,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hunger: {fileID: 1097097579386993423}
   animator: {fileID: 6567007587564142270}
+  control: {fileID: 0}
   speedDampTime: 0.1
+  velocityDampTime: 0.9
 --- !u!114 &172576927747610011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8453,7 +8455,7 @@ PrefabInstance:
     - target: {fileID: 878781342276113558, guid: 49192fe1044bba545b86ab067cf43707,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3069966077
+      value: 2428481562
       objectReference: {fileID: 0}
     - target: {fileID: 1609434783327077437, guid: 49192fe1044bba545b86ab067cf43707,
         type: 3}
