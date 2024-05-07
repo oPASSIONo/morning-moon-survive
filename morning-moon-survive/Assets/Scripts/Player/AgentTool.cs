@@ -31,8 +31,8 @@ public class AgentTool : MonoBehaviour
         {
             case "Pickaxe":
                 OnDrawWeapon?.Invoke();
-                animationController.draw = true;
                 ActivateTool(pickaxe);
+                animationController.draw = true;
                 Debug.Log(pickaxe);
                 break;
             case "Shovel":
@@ -53,7 +53,7 @@ public class AgentTool : MonoBehaviour
     }
 
     // Helper method to deactivate all tool game objects
-    private void DeactivateAllTools()
+    public void DeactivateAllTools()
     {
         pickaxe.SetActive(false);
         //shovel.SetActive(false);

@@ -10,6 +10,9 @@ public class State
 
     public InputAction moveAction;
     public InputAction attackAction;
+    public InputAction drawAction;
+    public InputAction sheathAction;
+    
     protected Vector3 velocity;
     protected Vector2 input;
 
@@ -24,6 +27,8 @@ public class State
         stateControl.playerInput.PlayerControls.Enable();
         
         attackAction = stateControl.playerInput.PlayerControls.Attack;
+        drawAction = stateControl.playerInput.PlayerControls.DrawWeapon;
+        sheathAction = stateControl.playerInput.PlayerControls.SheathWeapon;
     }
     
     public virtual void Enter()
@@ -39,7 +44,7 @@ public class State
     
     public virtual void LogicUpdate()
     {
-        
+
     }
     
     public virtual void PhysicsUpdate()

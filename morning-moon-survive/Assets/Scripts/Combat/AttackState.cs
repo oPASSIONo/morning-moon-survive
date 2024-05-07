@@ -13,9 +13,9 @@ public class AttackState : State
 
     private bool attack;
 
-    public AttackState(AnimationStateController _a, StateMachine _stateMachine) : base(_a, _stateMachine)
+    public AttackState(AnimationStateController _stateControl, StateMachine _stateMachine) : base(_stateControl, _stateMachine)
     {
-        stateControl = _a;
+        stateControl = _stateControl;
         stateMachine = _stateMachine;
     }
 
@@ -23,6 +23,7 @@ public class AttackState : State
     {
         base.Enter();
 
+   
         attack = false;
         stateControl.animator.applyRootMotion = true;
         timePassed = 0f;
@@ -48,15 +49,20 @@ public class AttackState : State
         clipLength = stateControl.animator.GetCurrentAnimatorClipInfo(1)[0].clip.length;
         clipSpeed = stateControl.animator.GetCurrentAnimatorStateInfo(1).speed;
 
-        if (timePassed >= clipLength / clipSpeed && attack) 
+        if (stateControl.draw == true)
         {
-            stateMachine.ChangeState(stateControl.attacking);
-        }
+            if (timePassed >= clipLength / clipSpeed && attack) 
+            {
+                stateMachine.ChangeState(stateControl.attacking);
+            }
         
-        if (timePassed >= clipLength / clipSpeed ) 
-        {
-            stateControl.animator.SetTrigger("move");
+            if (timePassed >= clipLength / clipSpeed ) 
+            {
+                stateMachine.ChangeState(stateControl.combatting);
+                stateControl.animator.SetTrigger("move");
+            }
         }
+       
     }
 
     public override void Exit()

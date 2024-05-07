@@ -7,6 +7,7 @@ public class StandingState : State
     private bool grounded;
 
     private Vector3 currentVeclocity;
+    private bool drawWeapon;
     
     
     private Vector3 cVeclocity;
@@ -20,6 +21,10 @@ public class StandingState : State
     public override void Enter()
     {
         base.Enter();
+
+
+        stateControl.draw = false;
+        drawWeapon = false;
         
         input = Vector2.zero;
         velocity = Vector3.zero;
@@ -30,7 +35,12 @@ public class StandingState : State
     {
         base.HandleInput();
 
-        input = moveAction.ReadValue<Vector2>();
+        if (drawAction.triggered)
+        {
+            stateControl.draw = true;
+        }
+
+        
         velocity = new Vector3(input.x, 0, input.y);
 
     }
@@ -40,6 +50,12 @@ public class StandingState : State
         base.LogicUpdate();
         
         stateControl.animator.SetFloat("speed" , input.magnitude, stateControl.speedDampTime , Time.deltaTime);
+
+        if (stateControl.draw == true)
+        {
+            stateMachine.ChangeState(stateControl.combatting);
+            stateControl.animator.SetTrigger("drawWeapon");
+        }
         
     }
 
