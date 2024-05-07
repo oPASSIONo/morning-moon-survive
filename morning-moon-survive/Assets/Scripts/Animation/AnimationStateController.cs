@@ -120,19 +120,15 @@ public class AnimationStateController : NetworkBehaviour
            playerInput.PlayerControls.Enable();
            playerInput.PlayerControls.Move.performed += OnMovePerformed;
            playerInput.PlayerControls.Move.canceled += OnMoveCancelled;
-           //playerInput.PlayerControls.DrawWeapon.performed += OnDrawWeaponPerformed;
            playerInput.PlayerControls.DrawWeapon.performed += ctx => OnDrawWeaponPerformed();
            playerInput.PlayerControls.DrawWeapon.Enable();
-           //playerInput.PlayerControls.Attack.performed += OnAttackPerformed;
-           //playerInput.PlayerControls.Attack.Enable();
-
            sheathAction = playerInput.PlayerControls.SheathWeapon;
            attackAction = playerInput.PlayerControls.Attack;
            drawAction = playerInput.PlayerControls.DrawWeapon;
            
            movementSM = new StateMachine();
            standing = new StandingState(this, movementSM);
-           combatting = new CombatState(this, movementSM);
+           combatting = new CombatState(this, movementSM, agentTool);
            attacking = new AttackState(this, movementSM);
            
            movementSM.Initialize(standing);
@@ -149,11 +145,8 @@ public class AnimationStateController : NetworkBehaviour
         {
             playerInput.PlayerControls.Move.performed -= OnMovePerformed;
             playerInput.PlayerControls.Move.canceled -= OnMoveCancelled;
-            //playerInput.PlayerControls.DrawWeapon.performed -= OnDrawWeaponPerformed;
             playerInput.PlayerControls.DrawWeapon.performed -= ctx => OnDrawWeaponPerformed();
             playerInput.PlayerControls.DrawWeapon.Disable(); 
-            //playerInput.PlayerControls.Attack.performed -= OnAttackPerformed;
-            //playerInput.PlayerControls.Attack.Disable();
             playerInput.PlayerControls.Disable();
 
             UnsubscribeFromDrawWeaponEvent();
@@ -206,11 +199,9 @@ public class AnimationStateController : NetworkBehaviour
    {
        if (IsOwner)
        {
-           movementSM.ChangeState(new CombatState(this, movementSM));
-           
+           movementSM.ChangeState(new CombatState(this, movementSM, agentTool));
        }
    }
-   
    
    private void Update()
    {

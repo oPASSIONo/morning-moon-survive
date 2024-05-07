@@ -22,8 +22,7 @@ public class AttackState : State
     public override void Enter()
     {
         base.Enter();
-
-   
+        
         attack = false;
         stateControl.animator.applyRootMotion = true;
         timePassed = 0f;
@@ -53,13 +52,14 @@ public class AttackState : State
         {
             if (timePassed >= clipLength / clipSpeed && attack) 
             {
+                stateControl.animator.SetFloat("speed", 0f);
                 stateMachine.ChangeState(stateControl.attacking);
             }
         
             if (timePassed >= clipLength / clipSpeed ) 
             {
-                stateMachine.ChangeState(stateControl.combatting);
                 stateControl.animator.SetTrigger("move");
+                stateMachine.ChangeState(stateControl.combatting);
             }
         }
        

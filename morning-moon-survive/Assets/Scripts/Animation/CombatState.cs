@@ -10,23 +10,24 @@ public class CombatState : State
     private bool drawWeapon;
 
     private bool attack;
+    private AgentTool agentTool;
 
     private Vector3 cVelocity;
+    
+    public CombatState(AnimationStateController _stateControl, StateMachine _stateMachine, AgentTool _agentTool) : base(_stateControl,_stateMachine)
 
-    public CombatState(AnimationStateController _stateControl, StateMachine _stateMachine) : base(_stateControl,_stateMachine)
     {
         stateControl = _stateControl;
         stateMachine = _stateMachine;
+        agentTool = _agentTool;
     }
-
+    
     public override void Enter()
     {
         base.Enter();
-
-        //sheathWeapon = false;
+        
         stateControl.draw = true;
         attack = false;
-        //drawWeapon = true;
         input = Vector2.zero;
         currentVelocity = Vector3.zero;
         
@@ -41,8 +42,7 @@ public class CombatState : State
         
         if (sheathAction.triggered)
         {
-            //drawWeapon = false;
-            stateControl.draw = false; // Set drawWeapon to false if sheathing the weapon
+            stateControl.draw = false;
         }
 
         if (attackAction.triggered)
@@ -62,15 +62,19 @@ public class CombatState : State
 
         if (attack == true)
         {
-            Debug.Log("Here");
             stateMachine.ChangeState(stateControl.attacking);
         }
         
         if (stateControl.draw == false)
         {
-            // Sheathe the weapon and transition to standing state
+            stateControl.animator.SetFloat("speed", 0f);
             stateControl.animator.SetTrigger("sheathWeapon");
             stateMachine.ChangeState(stateControl.standing);
+            if (agentTool != null)
+            {
+                agentTool.DeactivateAllTools();
+                Debug.Log("HERERERERERERRERER");
+            }
         }
      
     }
@@ -80,6 +84,12 @@ public class CombatState : State
 
         currentVelocity =
             Vector3.SmoothDamp(currentVelocity, velocity, ref cVelocity, stateControl.velocityDampTime);
+    }
+    
+    public override void Exit()
+    {
+        base.Exit();
+        
     }
     
 }
