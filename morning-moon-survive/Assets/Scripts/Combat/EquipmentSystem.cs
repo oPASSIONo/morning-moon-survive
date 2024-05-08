@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class EquipmentSystem : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> weaponHolder;
 
-    private GameObject currentWeaponInHand;
-
-    public void DrawWeapon()
-    {
-       // currentWeaponInHand = Instantiate()
-    }
+    public GameObject currentWeaponInHand;
+    
 
     public void StartDealDamage()
     {

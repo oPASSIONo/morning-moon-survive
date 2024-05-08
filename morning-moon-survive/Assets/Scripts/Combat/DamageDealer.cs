@@ -27,9 +27,10 @@ public class DamageDealer : MonoBehaviour
             int layerMask = 1 << 9;
             if (Physics.Raycast(transform.position, -transform.up, out hit , weaponLength, layerMask))
             {
-                if (!hasDealDamage.Contains(hit.transform.gameObject))
+                if (hit.transform.TryGetComponent(out Tree tree) &&!hasDealDamage.Contains(hit.transform.gameObject))
                 {
-                    print("Damage");
+                    Debug.Log("DAMAGE");
+                    tree.TakeDamage(weaponDamage);
                     hasDealDamage.Add(hit.transform.gameObject);
                 }
             }

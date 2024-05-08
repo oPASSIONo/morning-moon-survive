@@ -32,7 +32,7 @@ public class AgentTool : MonoBehaviour
             case "Pickaxe":
                 OnDrawWeapon?.Invoke();
                 ActivateTool(pickaxe);
-                Debug.Log(pickaxe);
+                //Debug.Log(pickaxe);
                 break;
             case "Shovel":
                 //ActivateTool(shovel);

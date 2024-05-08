@@ -10,16 +10,14 @@ public class CombatState : State
     private bool drawWeapon;
 
     private bool attack;
-    private AgentTool agentTool;
 
     private Vector3 cVelocity;
     
-    public CombatState(AnimationStateController _stateControl, StateMachine _stateMachine, AgentTool _agentTool) : base(_stateControl,_stateMachine)
+    public CombatState(AnimationStateController _stateControl, StateMachine _stateMachine) : base(_stateControl,_stateMachine)
 
     {
         stateControl = _stateControl;
         stateMachine = _stateMachine;
-        agentTool = _agentTool;
     }
     
     public override void Enter()
@@ -32,6 +30,8 @@ public class CombatState : State
         currentVelocity = Vector3.zero;
         
         stateControl.animator.SetTrigger("drawWeapon"); 
+        stateControl.animator.SetFloat("speed" , 0f);
+
  
     }
 
@@ -60,22 +60,17 @@ public class CombatState : State
         
         stateControl.animator.SetFloat("speed" , input.magnitude, stateControl.speedDampTime, Time.deltaTime);
 
-        if (attack == true)
+        if (stateControl.draw == false)
         {
+            stateControl.animator.SetTrigger("sheathWeapon");
+            stateMachine.ChangeState(stateControl.standing);
+        }
+        if (attack)
+        {
+            stateControl.animator.SetTrigger("attack");
             stateMachine.ChangeState(stateControl.attacking);
         }
         
-        if (stateControl.draw == false)
-        {
-            stateControl.animator.SetFloat("speed", 0f);
-            stateControl.animator.SetTrigger("sheathWeapon");
-            stateMachine.ChangeState(stateControl.standing);
-            if (agentTool != null)
-            {
-                agentTool.DeactivateAllTools();
-                Debug.Log("HERERERERERERRERER");
-            }
-        }
      
     }
     public override void PhysicsUpdate()

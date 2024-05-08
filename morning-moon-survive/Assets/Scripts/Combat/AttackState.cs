@@ -28,6 +28,7 @@ public class AttackState : State
         timePassed = 0f;
         stateControl.animator.SetTrigger("attack");
         stateControl.animator.SetFloat("speed" , 0f);
+    
     }
 
     public override void HandleInput()
@@ -48,19 +49,17 @@ public class AttackState : State
         clipLength = stateControl.animator.GetCurrentAnimatorClipInfo(1)[0].clip.length;
         clipSpeed = stateControl.animator.GetCurrentAnimatorStateInfo(1).speed;
 
-        if (stateControl.draw == true)
-        {
-            if (timePassed >= clipLength / clipSpeed && attack) 
-            {
-                stateControl.animator.SetFloat("speed", 0f);
-                stateMachine.ChangeState(stateControl.attacking);
-            }
+        //if (stateControl.draw == true)
         
-            if (timePassed >= clipLength / clipSpeed ) 
-            {
-                stateControl.animator.SetTrigger("move");
-                stateMachine.ChangeState(stateControl.combatting);
-            }
+        if (timePassed >= clipLength / clipSpeed && attack) 
+        {
+            stateMachine.ChangeState(stateControl.attacking);
+        }
+        
+        if (timePassed >= clipLength / clipSpeed ) 
+        {
+            stateMachine.ChangeState(stateControl.combatting);
+            stateControl.animator.SetTrigger("move");
         }
        
     }
