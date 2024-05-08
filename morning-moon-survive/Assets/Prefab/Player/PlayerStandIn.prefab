@@ -8290,6 +8290,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 172576927747610011}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8ff8c360639cc864b809a9687802c473,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2559166755428524178}
   m_SourcePrefab: {fileID: 100100000, guid: 8ff8c360639cc864b809a9687802c473, type: 3}
 --- !u!1 &470994374541688446 stripped
 GameObject:
@@ -8312,7 +8316,7 @@ MonoBehaviour:
   Hunger: {fileID: 1097097579386993423}
   animator: {fileID: 6567007587564142270}
   sheathAction:
-    m_Name: 
+    m_Name: Sheath
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: 727612d5-8ac5-4507-a785-603a751c20b4
@@ -8321,7 +8325,7 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   drawAction:
-    m_Name: 
+    m_Name: Draw
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: 5fb7dea1-e023-458c-9d4b-c680c32208fd
@@ -8445,6 +8449,19 @@ MonoBehaviour:
     TriggerNameHash: -237099426
     TransitionIndex: 1
   m_Animator: {fileID: 6567007587564142270}
+--- !u!114 &2559166755428524178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470994374541688446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc8b69f6b4ce9be45bb53b37150f7cee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponHolder: []
 --- !u!4 &991528934333211844 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8ff8c360639cc864b809a9687802c473,
