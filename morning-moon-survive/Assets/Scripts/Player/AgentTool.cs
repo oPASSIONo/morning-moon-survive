@@ -9,12 +9,14 @@ public class AgentTool : MonoBehaviour
 {
     [SerializeField] private GameObject pickaxe;
     //[SerializeField] private GameObject shovel;
+
     
     public static event Action OnDrawWeapon;
 
-
+    
     private void Start()
     {
+        
         DeactivateAllTools();
         
     }
@@ -30,7 +32,7 @@ public class AgentTool : MonoBehaviour
             case "Pickaxe":
                 OnDrawWeapon?.Invoke();
                 ActivateTool(pickaxe);
-                Debug.Log(pickaxe);
+                //Debug.Log(pickaxe);
                 break;
             case "Shovel":
                 //ActivateTool(shovel);
@@ -50,7 +52,7 @@ public class AgentTool : MonoBehaviour
     }
 
     // Helper method to deactivate all tool game objects
-    private void DeactivateAllTools()
+    public void DeactivateAllTools()
     {
         pickaxe.SetActive(false);
         //shovel.SetActive(false);

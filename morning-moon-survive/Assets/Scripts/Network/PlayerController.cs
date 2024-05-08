@@ -13,7 +13,12 @@ public class PlayerController : NetworkBehaviour
     private PlayerInput playerInput;
     private InputAction moveAction;
     private float speed = 3f;
-    private float currentSpeed; 
+    private float currentSpeed;
+
+    private Vector2 inputVector;
+    private Vector3 movement;
+
+    
     public Hunger Hunger { private get; set; }
     
     void Start()
@@ -65,13 +70,13 @@ public class PlayerController : NetworkBehaviour
 
     void MovePlayer()
     {
-        Vector2 inputVector = GameInput.Instance.GetMovement();
+        inputVector = GameInput.Instance.GetMovement();
 
         // Get the main camera's transform
         Transform cameraTransform = cm.transform;   
 
         // Calculate movement direction relative to the camera's forward direction
-        Vector3 movement = cameraTransform.forward * inputVector.y + cameraTransform.right * inputVector.x;
+        movement = cameraTransform.forward * inputVector.y + cameraTransform.right * inputVector.x;
         movement.y = 0f; // Ensure the movement stays in the horizontal plane
 
         // Apply speed and deltaTime

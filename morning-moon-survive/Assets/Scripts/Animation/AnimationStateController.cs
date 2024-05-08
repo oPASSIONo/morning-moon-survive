@@ -10,20 +10,138 @@ public class AnimationStateController : NetworkBehaviour
     public Animator animator;
     public PlayerInput playerInput;
 
-    private InputAction attackAction;
+   
     private bool attack;
+    public bool draw = false ;
+    public bool sheath;
 
     public StateMachine movementSM;
+
+    private AgentTool agentTool;
+    
+    [Header("Attack State")] 
+    private float timePassed;
+    private float clipLength;
+    private float clipSpeed;
     
     [Header("State Control")] 
     public AttackState attacking;
     public StandingState standing;
-
-    [Header("Animation Smooth")] 
-    public float speedDampTime = 0.1f;
+    public CombatState combatting;
     
-        
-   /*private void Start()
+    [Header("Animation Smooth")] 
+    [Range(0,1)]
+    public float speedDampTime = 0.1f;
+    [Range(0,1)]
+    public float velocityDampTime = 0.9f;
+    
+   private void Start()
+   {
+       if (IsOwner)
+       {
+           agentTool = GetComponent<AgentTool>();
+           animator = GetComponent<Animator>();
+           playerInput = new PlayerInput();
+           playerInput.PlayerControls.Enable();
+           playerInput.PlayerControls.Move.performed += OnMovePerformed;
+           playerInput.PlayerControls.Move.canceled += OnMoveCancelled;
+           playerInput.PlayerControls.DrawWeapon.performed += ctx => OnDrawWeaponPerformed();
+           playerInput.PlayerControls.DrawWeapon.Enable();
+          
+           movementSM = new StateMachine();
+           standing = new StandingState(this, movementSM);
+           combatting = new CombatState(this, movementSM);
+           attacking = new AttackState(this, movementSM);
+           
+           movementSM.Initialize(standing);
+           
+           
+           SubscribeToDrawWeaponEvent();
+       }
+       
+   }
+
+   private void OnDestroy()
+    {
+        if (playerInput != null)
+        {
+            playerInput.PlayerControls.Move.performed -= OnMovePerformed;
+            playerInput.PlayerControls.Move.canceled -= OnMoveCancelled;
+            playerInput.PlayerControls.DrawWeapon.performed -= ctx => OnDrawWeaponPerformed();
+            playerInput.PlayerControls.DrawWeapon.Disable(); 
+            playerInput.PlayerControls.Disable();
+
+            UnsubscribeFromDrawWeaponEvent();
+        }
+    }
+   
+   private void SubscribeToDrawWeaponEvent()
+   {
+       AgentTool.OnDrawWeapon += OnDrawWeaponPerformed;
+   }
+
+   private void UnsubscribeFromDrawWeaponEvent()
+   {
+       AgentTool.OnDrawWeapon -= OnDrawWeaponPerformed;
+   }
+   
+   [ServerRpc(RequireOwnership = false)]
+   private void UpdateAnimationStateServerRpc(float speed)
+   {
+       UpdateAnimationStateClientRpc(speed);
+   }
+   
+   [ClientRpc]
+   private void UpdateAnimationStateClientRpc(float speed)
+   {
+       animator.SetFloat("speed", speed);
+   }
+
+   private void OnMovePerformed(InputAction.CallbackContext context)
+   {
+       Vector2 movementInput = context.ReadValue<Vector2>();
+       float speed = movementInput.magnitude;
+
+       if (IsOwner)
+       {
+           animator.SetFloat("speed", speed);
+           UpdateAnimationStateServerRpc(speed);
+       }
+   }
+   private void OnMoveCancelled(InputAction.CallbackContext context)
+   {
+       if (IsOwner)
+       {
+           animator.SetFloat("speed", 0f);
+           UpdateAnimationStateServerRpc(0f);
+       }
+   }
+ 
+   private void OnDrawWeaponPerformed()
+   {
+       if (IsOwner)
+       {
+           movementSM.ChangeState(new CombatState(this, movementSM));
+       }
+   }
+   
+   private void Update()
+   {
+       if (!IsOwner)
+           return;
+       movementSM.currentState.HandleInput();
+       movementSM.currentState.LogicUpdate();
+       
+       Vector2 moveInput = playerInput.PlayerControls.Move.ReadValue<Vector2>();
+       float speed = moveInput.magnitude;
+
+       if (speed != animator.GetFloat("speed"))
+       {
+           animator.SetFloat("speed", speed);
+           UpdateAnimationStateServerRpc(speed);
+       }
+   }
+    /*private void Start()
    {
         animator = GetComponent<Animator>();
         isWalkingHash = Animator.StringToHash("isWalking");
@@ -93,134 +211,5 @@ public class AnimationStateController : NetworkBehaviour
         UpdateWalkingState(currentHunger, forwardPressed, leftPressed, backwardPressed, rightPressed);
     }*/
 
-   private void Start()
-   {
-       
-       if (IsOwner)
-       {
-           animator = GetComponent<Animator>();
-
-           
-           movementSM = new StateMachine();
-           
-           attacking = new AttackState(this, movementSM);
-           
-           playerInput = new PlayerInput();
-           playerInput.PlayerControls.Enable();
-           playerInput.PlayerControls.Move.performed += OnMovePerformed;
-           playerInput.PlayerControls.Move.canceled += OnMoveCancelled;
-           //playerInput.PlayerControls.DrawWeapon.performed += OnDrawWeaponPerformed;
-           playerInput.PlayerControls.DrawWeapon.performed += ctx => OnDrawWeaponPerformed();
-           playerInput.PlayerControls.DrawWeapon.Enable();
-
-           /*playerInput.PlayerControls.Attack.performed += OnAttackPerformed;
-           attackAction = playerInput.PlayerControls.Attack;*/
-           
-
-
-           SubscribeToDrawWeaponEvent();
-       }
-       
-   }
-
-   private void OnDestroy()
-    {
-        if (playerInput != null)
-        {
-            playerInput.PlayerControls.Move.performed -= OnMovePerformed;
-            playerInput.PlayerControls.Move.canceled -= OnMoveCancelled;
-            //playerInput.PlayerControls.DrawWeapon.performed -= OnDrawWeaponPerformed;
-            playerInput.PlayerControls.DrawWeapon.performed -= ctx => OnDrawWeaponPerformed();
-            playerInput.PlayerControls.DrawWeapon.Disable(); 
-            
-            playerInput.PlayerControls.Disable();
-
-            UnsubscribeFromDrawWeaponEvent();
-        }
-    }
-
-   private void OnAttackPerformed(InputAction.CallbackContext context)
-   {
-       if (attackAction.triggered)
-       {
-           attack = true;
-       }
-   }
-   
-   
-   private void SubscribeToDrawWeaponEvent()
-   {
-       AgentTool.OnDrawWeapon += OnDrawWeaponPerformed;
-   }
-
-   private void UnsubscribeFromDrawWeaponEvent()
-   {
-       AgentTool.OnDrawWeapon -= OnDrawWeaponPerformed;
-   }
-   
-   [ServerRpc(RequireOwnership = false)]
-   private void UpdateAnimationStateServerRpc(float speed)
-   {
-       UpdateAnimationStateClientRpc(speed);
-   }
-   
-   [ClientRpc]
-   private void UpdateAnimationStateClientRpc(float speed)
-   {
-       animator.SetFloat("speed", speed);
-   }
-
-   private void OnMovePerformed(InputAction.CallbackContext context)
-   {
-       Vector2 movementInput = context.ReadValue<Vector2>();
-       float speed = movementInput.magnitude;
-
-       if (IsOwner)
-       {
-           animator.SetFloat("speed", speed);
-           UpdateAnimationStateServerRpc(speed);
-       }
-   }
-   private void OnMoveCancelled(InputAction.CallbackContext context)
-   {
-       if (IsOwner)
-       {
-           animator.SetFloat("speed", 0f);
-           UpdateAnimationStateServerRpc(0f);
-       }
-   }
-   
-   /*private void OnDrawWeaponPerformed(InputAction.CallbackContext context)
-   {
-       if (IsOwner)
-       {
-           animator.SetTrigger("drawWeapon");
-           // You can add additional logic here if needed
-       }
-   }*/
-   private void OnDrawWeaponPerformed()
-   {
-       if (IsOwner)
-       {
-           animator.SetTrigger("drawWeapon");
-       }
-   }
-    
-   private void Update()
-   {
-       if (!IsOwner)
-           return;
-
-       movementSM.currentState.HandleInput();
-       movementSM.currentState.LogicUpdate();
-       
-       Vector2 moveInput = playerInput.PlayerControls.Move.ReadValue<Vector2>();
-       float speed = moveInput.magnitude;
-
-       if (speed != animator.GetFloat("speed"))
-       {
-           animator.SetFloat("speed", speed);
-           UpdateAnimationStateServerRpc(speed);
-       }
-   }
 }
+

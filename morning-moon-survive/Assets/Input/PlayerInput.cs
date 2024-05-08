@@ -170,6 +170,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SheathWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""754495d8-d954-4040-9c22-d9eabbe5fbc0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -392,6 +401,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""DrawWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1901aa77-ef94-4f90-9289-8438dbc66291"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SheathWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -416,6 +436,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_PlayerControls_SelectSlot10 = m_PlayerControls.FindAction("SelectSlot10", throwIfNotFound: true);
         m_PlayerControls_Attack = m_PlayerControls.FindAction("Attack", throwIfNotFound: true);
         m_PlayerControls_DrawWeapon = m_PlayerControls.FindAction("DrawWeapon", throwIfNotFound: true);
+        m_PlayerControls_SheathWeapon = m_PlayerControls.FindAction("SheathWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -493,6 +514,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_SelectSlot10;
     private readonly InputAction m_PlayerControls_Attack;
     private readonly InputAction m_PlayerControls_DrawWeapon;
+    private readonly InputAction m_PlayerControls_SheathWeapon;
     public struct PlayerControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -513,6 +535,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @SelectSlot10 => m_Wrapper.m_PlayerControls_SelectSlot10;
         public InputAction @Attack => m_Wrapper.m_PlayerControls_Attack;
         public InputAction @DrawWeapon => m_Wrapper.m_PlayerControls_DrawWeapon;
+        public InputAction @SheathWeapon => m_Wrapper.m_PlayerControls_SheathWeapon;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -570,6 +593,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @DrawWeapon.started += instance.OnDrawWeapon;
             @DrawWeapon.performed += instance.OnDrawWeapon;
             @DrawWeapon.canceled += instance.OnDrawWeapon;
+            @SheathWeapon.started += instance.OnSheathWeapon;
+            @SheathWeapon.performed += instance.OnSheathWeapon;
+            @SheathWeapon.canceled += instance.OnSheathWeapon;
         }
 
         private void UnregisterCallbacks(IPlayerControlsActions instance)
@@ -622,6 +648,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @DrawWeapon.started -= instance.OnDrawWeapon;
             @DrawWeapon.performed -= instance.OnDrawWeapon;
             @DrawWeapon.canceled -= instance.OnDrawWeapon;
+            @SheathWeapon.started -= instance.OnSheathWeapon;
+            @SheathWeapon.performed -= instance.OnSheathWeapon;
+            @SheathWeapon.canceled -= instance.OnSheathWeapon;
         }
 
         public void RemoveCallbacks(IPlayerControlsActions instance)
@@ -657,5 +686,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnSelectSlot10(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnDrawWeapon(InputAction.CallbackContext context);
+        void OnSheathWeapon(InputAction.CallbackContext context);
     }
 }

@@ -42,7 +42,7 @@ public class HealthController : MonoBehaviour
     // Method to take damage
     public void TakeDamage(int damageAmount)
     {
-        Debug.Log("TakeDamage");
+        //Debug.Log("TakeDamage");
         currentHealth -= damageAmount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
