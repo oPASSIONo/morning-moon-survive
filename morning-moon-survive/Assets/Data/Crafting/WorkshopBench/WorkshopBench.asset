@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2b2eed9bbfabc94cafad63773aebf49, type: 3}
   m_Name: WorkshopBench
   m_EditorClassIdentifier: 
-  recipes: []
+  recipes:
+  - {fileID: 11400000, guid: 96529e80061cc5345959f2895db394e2, type: 2}
+  - {fileID: 11400000, guid: 96529e80061cc5345959f2895db394e2, type: 2}
+  - {fileID: 11400000, guid: 96529e80061cc5345959f2895db394e2, type: 2}
+  - {fileID: 11400000, guid: c676bc0c4b8cdfe48bac9fc18a9e22ed, type: 2}

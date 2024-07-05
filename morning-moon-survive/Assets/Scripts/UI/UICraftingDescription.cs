@@ -38,4 +38,5 @@ public class UICraftingDescription : MonoBehaviour
             ingredientUIObjects.Add(ingredientUI);
         }
     }
+    
 }

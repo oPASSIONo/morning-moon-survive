@@ -7,8 +7,11 @@ public class UICraftingPage : MonoBehaviour
     [SerializeField] private UICraftingItem craftingItemPrefab;
     [SerializeField] private RectTransform contentPanel;
     [SerializeField] private UICraftingDescription craftingDescription;
+    [SerializeField] private CraftButtonHandler craftButtonHandler;
+    
 
     private List<UICraftingItem> listOfUICraftingItems = new List<UICraftingItem>();
+    private Dictionary<UICraftingItem, Recipe> craftingItemToRecipeMap = new Dictionary<UICraftingItem, Recipe>();
 
     public void PopulateCraftingUI(CraftingSO craftingSO)
     {
@@ -16,8 +19,9 @@ public class UICraftingPage : MonoBehaviour
         foreach (Recipe recipe in craftingSO.recipes)
         {
             UICraftingItem craftingItem = Instantiate(craftingItemPrefab, contentPanel);
-            craftingItem.SetData(recipe.CraftedItem.ItemImage,recipe.CraftedItem.Name); // Example: SetData method to display icon
+            craftingItem.SetData(recipe.CraftedItem.ItemImage, recipe.CraftedItem.Name);
             craftingItem.OnItemClicked += OnCraftingItemClicked;
+            craftingItemToRecipeMap[craftingItem] = recipe;
             listOfUICraftingItems.Add(craftingItem);
         }
     }
@@ -29,11 +33,30 @@ public class UICraftingPage : MonoBehaviour
             Destroy(item.gameObject);
         }
         listOfUICraftingItems.Clear();
+        craftingItemToRecipeMap.Clear();
     }
 
     private void OnCraftingItemClicked(UICraftingItem item)
     {
-        // Handle crafting item click
-        Debug.Log("Crafting item clicked: " + item.name);
+        if (craftingItemToRecipeMap.TryGetValue(item, out Recipe recipe))
+        {
+            Debug.Log("Crafting item clicked: " + recipe.CraftedItem.Name);
+            SetDescription(recipe);
+            craftButtonHandler.SetSelectedRecipe(recipe); // Set the selected recipe for crafting
+        }
+        else
+        {
+            Debug.LogError("Recipe not found for the clicked item.");
+        }
+    }
+
+    private void SetDescription(Recipe recipe)
+    {
+        craftingDescription.SetDescription(
+            recipe.CraftedItem.ItemImage,
+            recipe.CraftedItem.Name,
+            recipe.CraftedItem.ItemAbility,
+            recipe.RequiredIngredients
+        );
     }
 }
