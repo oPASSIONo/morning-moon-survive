@@ -4,53 +4,93 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class DamageDealer : MonoBehaviour
+namespace CombatSystem
 {
-    private bool canDealDamage;
-    private List<GameObject> hasDealDamage;
 
-    [SerializeField] private float weaponLength;
-    [SerializeField] private float weaponDamage;
-
-    private void Start()
+    public class DamageDealer : MonoBehaviour
     {
-        canDealDamage = false;
-        hasDealDamage = new List<GameObject>();
-    }
+        //private bool canDealDamage;
+        //private List<GameObject> hasDealDamage;
+        private HashSet<GameObject> hasDealtDamage;
 
-    private void Update()
-    {
-        if (canDealDamage)
+
+        [SerializeField] private float weaponLength = 1.5f;
+        [SerializeField] private float weaponDamage = 10f;
+        [SerializeField] private LayerMask targetLayerMask;
+
+        private void Start()
         {
-            RaycastHit hit;
+            //canDealDamage = false;
+            //hasDealDamage = new List<GameObject>();
+            hasDealtDamage = new HashSet<GameObject>();
 
-            int layerMask = 1 << 9;
-            if (Physics.Raycast(transform.position, -transform.up, out hit , weaponLength, layerMask))
+        }
+
+        private void Update()
+        {
+            /*if (canDealDamage)
             {
-                if (hit.transform.TryGetComponent(out Tree tree) &&!hasDealDamage.Contains(hit.transform.gameObject))
+                RaycastHit hit;
+
+                int layerMask = 1 << 9;
+                if (Physics.Raycast(transform.position, -transform.up, out hit , weaponLength, layerMask))
+                {
+                    if (hit.transform.TryGetComponent(out Tree tree) &&!hasDealDamage.Contains(hit.transform.gameObject))
+                    {
+                        Debug.Log("DAMAGE");
+                        tree.TakeDamage(weaponDamage);
+                        hasDealDamage.Add(hit.transform.gameObject);
+                    }
+                }
+            }*/
+            /*if (canDealDamage)
+            {
+                PerformRaycast();
+            }*/
+        }
+
+        public void PerformAttack()
+        {
+            hasDealtDamage.Clear();  // Clear previous attack records
+
+            RaycastHit hit;
+            bool hitSomething = Physics.Raycast(transform.position, transform.forward, out hit, weaponLength, targetLayerMask);
+
+            Debug.DrawRay(transform.position, transform.forward * weaponLength, Color.red, 0.5f);
+
+            if (hitSomething)
+            {
+                var damageable = hit.transform.GetComponent<IDamageable>();
+                if (damageable != null && !hasDealtDamage.Contains(hit.transform.gameObject))
                 {
                     Debug.Log("DAMAGE");
-                    tree.TakeDamage(weaponDamage);
-                    hasDealDamage.Add(hit.transform.gameObject);
+                    damageable.TakeDamage(weaponDamage);
+                    hasDealtDamage.Add(hit.transform.gameObject);
                 }
             }
+            else
+            {
+                Debug.Log("No hit detected.");
+            }
         }
-    }
 
-    public void StartDealDamage()
-    {
-        canDealDamage = true;
-        hasDealDamage.Clear();
-    }
 
-    public void EndDealDamage()
-    {
-        canDealDamage = false;
-    }
+        /*public void StartDealDamage()
+        {
+            canDealDamage = true;
+            hasDealDamage.Clear();
+        }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position - transform.up * weaponLength);
+        public void EndDealDamage()
+        {
+            canDealDamage = false;
+        }*/
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            //Gizmos.DrawLine(transform.position, transform.position - transform.up * weaponLength);
+            Gizmos.DrawLine(transform.position, transform.position + transform.forward * weaponLength);
+        }
     }
 }

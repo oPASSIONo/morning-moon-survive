@@ -15,7 +15,7 @@ MonoBehaviour:
   requiredIngredients:
   - item: {fileID: 11400000, guid: 957b8439c73f78042be041d268dede03, type: 2}
     quantity: 1
-  - item: {fileID: 11400000, guid: dde295f7be7fd8149afbe797b6c0b3d4, type: 2}
+  - item: {fileID: 0}
     quantity: 1
-  craftedItem: {fileID: 11400000, guid: 0410a16b4f401e140bdc3c734667e1bf, type: 2}
+  craftedItem: {fileID: 0}
   craftedQuantity: 1

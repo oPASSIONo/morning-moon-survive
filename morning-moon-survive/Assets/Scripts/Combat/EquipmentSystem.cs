@@ -8,7 +8,7 @@ public class EquipmentSystem : MonoBehaviour
     public GameObject currentWeaponInHand;
     
 
-    public void StartDealDamage()
+    /*public void StartDealDamage()
     {
         currentWeaponInHand.GetComponentInChildren<DamageDealer>().StartDealDamage();
     }
@@ -16,5 +16,5 @@ public class EquipmentSystem : MonoBehaviour
     public void EndDealDamage()
     {
         currentWeaponInHand.GetComponentInChildren<DamageDealer>().EndDealDamage();
-    }
+    }*/
 }

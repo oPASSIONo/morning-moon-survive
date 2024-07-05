@@ -6,7 +6,7 @@ public class Pickaxe : MonoBehaviour
 {
     public int damageAmount = 10; // Amount of damage the pickaxe deals
 
-    void OnTriggerEnter(Collider other)
+    /*void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Tree"))
         {
@@ -17,5 +17,5 @@ public class Pickaxe : MonoBehaviour
                 tree.TakeDamage(damageAmount);
             }
         }
-    }
+    }*/
 }
