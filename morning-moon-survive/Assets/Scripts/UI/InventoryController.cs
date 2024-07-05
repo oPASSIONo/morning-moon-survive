@@ -136,7 +136,7 @@ namespace Inventory
                 return;
 
             IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
-            if (destroyableItem != null && !(inventoryItem.item is ToolItemSO))
+            if (destroyableItem != null && !(inventoryItem.item is ToolItemSO) && !(inventoryItem.item is IngredientItemSO))
             {
                 inventoryData.RemoveItem(itemIndex, quantity);
             }

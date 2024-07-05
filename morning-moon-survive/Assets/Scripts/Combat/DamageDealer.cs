@@ -54,11 +54,15 @@ namespace CombatSystem
             hasDealtDamage.Clear();  // Clear previous attack records
 
             RaycastHit hit;
-            bool hitSomething = Physics.Raycast(transform.position, transform.forward, out hit, weaponLength, targetLayerMask);
 
-            Debug.DrawRay(transform.position, transform.forward * weaponLength, Color.red, 0.5f);
+            // Calculate raycast direction based on player's facing direction (or any desired direction)
+            Vector3 raycastDirection = transform.forward;
 
-            if (hitSomething)
+            // Adjust raycast distance based on weapon length or interaction range
+            float maxDistance = weaponLength; // Adjust this based on your game's mechanics
+        
+            // Raycast from the player's position in the calculated direction
+            if (Physics.Raycast(transform.position, raycastDirection, out hit, maxDistance, targetLayerMask))
             {
                 var damageable = hit.transform.GetComponent<IDamageable>();
                 if (damageable != null && !hasDealtDamage.Contains(hit.transform.gameObject))
@@ -72,6 +76,9 @@ namespace CombatSystem
             {
                 Debug.Log("No hit detected.");
             }
+
+            // Debug visualization
+            Debug.DrawRay(transform.position, raycastDirection * maxDistance, Color.red, 0.5f);
         }
 
 

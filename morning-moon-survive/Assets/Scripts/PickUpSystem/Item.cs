@@ -19,7 +19,8 @@ public class Item : MonoBehaviour
     public void DestroyItem()
     {
         GetComponent<Collider>().enabled = false;
-        StartCoroutine(AnimateItemPickup());
+        //StartCoroutine(AnimateItemPickup());
+        Destroy(gameObject);
     }
 
     private IEnumerator AnimateItemPickup()
