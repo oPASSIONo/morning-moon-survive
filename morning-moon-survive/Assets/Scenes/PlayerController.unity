@@ -4770,6 +4770,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6749042635302779190, guid: fe3dd6cdbc248d847a32af2f51a679d2,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7685,6 +7690,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryData: {fileID: 11400000, guid: 5747cb1644aa57c4bbbafb0b0312d6d9, type: 2}
+  pickupRange: 2
 --- !u!114 &1655586975
 MonoBehaviour:
   m_ObjectHideFlags: 0

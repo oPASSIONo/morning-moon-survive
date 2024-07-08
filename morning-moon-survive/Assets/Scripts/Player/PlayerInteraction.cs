@@ -1,9 +1,19 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Handles player interaction with nearby interactable objects.
+/// </summary>
 public class PlayerInteraction : MonoBehaviour
 {
+    /// <summary>
+    /// The maximum distance within which the player can interact with objects.
+    /// </summary>
     public float interactionDistance = 3f;
+
+    /// <summary>
+    /// The layer mask used to identify interactable objects.
+    /// </summary>
     public LayerMask interactableLayerMask;
 
     private IInteractable currentInteractable;
@@ -19,31 +29,56 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Detects interactable objects within the interaction distance using a sphere cast.
+    /// </summary>
     private void DetectInteractable()
     {
-        Ray ray = new Ray(transform.position, transform.forward);
-        RaycastHit hit;
+        // Detect all colliders within the interaction distance that are on the interactable layer
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionDistance, interactableLayerMask);
 
-        if (Physics.Raycast(ray, out hit, interactionDistance, interactableLayerMask))
+        IInteractable nearestInteractable = null;
+        float nearestDistance = interactionDistance;
+
+        // Find the nearest interactable object
+        foreach (var hitCollider in hitColliders)
         {
-            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-            if (interactable != null && interactable != currentInteractable)
+            IInteractable interactable = hitCollider.GetComponent<IInteractable>();
+            if (interactable != null)
             {
-                if (currentInteractable != null)
+                float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
+                if (distance < nearestDistance)
                 {
-                    currentInteractable.HideInteractPrompt();
+                    nearestInteractable = interactable;
+                    nearestDistance = distance;
                 }
-                currentInteractable = interactable;
-                currentInteractable.ShowInteractPrompt();
             }
         }
-        else
+
+        // If a new interactable object is detected, update the current interactable and show the prompt
+        if (nearestInteractable != null && nearestInteractable != currentInteractable)
         {
             if (currentInteractable != null)
             {
                 currentInteractable.HideInteractPrompt();
-                currentInteractable = null;
             }
+            currentInteractable = nearestInteractable;
+            currentInteractable.ShowInteractPrompt();
         }
+        // If no interactable object is detected, hide the prompt and reset the current interactable
+        else if (nearestInteractable == null && currentInteractable != null)
+        {
+            currentInteractable.HideInteractPrompt();
+            currentInteractable = null;
+        }
+    }
+
+    /// <summary>
+    /// Visualizes the interaction range in the Unity Editor.
+    /// </summary>
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, interactionDistance);
     }
 }

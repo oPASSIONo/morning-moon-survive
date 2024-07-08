@@ -21,7 +21,9 @@ MonoBehaviour:
   <ItemCategory>k__BackingField: 1
   <ItemSubCategory>k__BackingField: 
   <ItemRarity>k__BackingField: 0
-  <DefaultParametersList>k__BackingField: []
+  <DefaultParametersList>k__BackingField:
+  - itemParameter: {fileID: 11400000, guid: 507af2d111d353844ba0d356fa56b6f8, type: 2}
+    value: 100
   <ItemPrefab>k__BackingField: {fileID: 2013428251187169110, guid: 9127b6c254cf0de40b1ac6dd1205709e,
     type: 3}
   <actionSFX>k__BackingField: {fileID: 0}
