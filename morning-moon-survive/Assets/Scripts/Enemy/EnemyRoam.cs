@@ -9,7 +9,7 @@ public class EnemyRoam : MonoBehaviour
     public float roamRadius; // Radius for enemy roaming
     public float chaseRadius; // Radius for chasing player
     public float moveSpeed; // Enemy movement speed
-    public Transform playerTransform; // Reference to player transform
+    public bool isFriendly;
 
     private Vector3 startPosition; // Enemy's starting position
     private bool isChasing = false; // Flag to check if chasing player
@@ -59,7 +59,7 @@ public class EnemyRoam : MonoBehaviour
         }
 
         // Check if player is within chase radius
-        if (Vector3.Distance(transform.position, playerTransform.position) <= chaseRadius)
+        if (IsPlayerInRange() && !isFriendly)
         {
             isChasing = true;
         }
@@ -69,15 +69,40 @@ public class EnemyRoam : MonoBehaviour
 
     void ChasePlayer()
     {
-        // Move towards player
-        agent.SetDestination(playerTransform.position);
+        // Find player using tag
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
 
+        if (player != null)
+        {
+            // Move towards player
+            agent.SetDestination(player.transform.position);
+        }
+        
         // Check if player is outside chase radius (stop chasing)
-        if (Vector3.Distance(transform.position, playerTransform.position) > chaseRadius)
+        
+        if (IsPlayerInRange(chaseRadius) == false)
         {
             isChasing = false;
             agent.SetDestination(transform.position);
         }
+    }
+    
+    bool IsPlayerInRange()
+    {
+        return IsPlayerInRange(chaseRadius);
+    }
+    
+    bool IsPlayerInRange(float radius)
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null)
+        {
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+            return distance <= radius;
+        }
+
+        return false;
     }
 
     private void OnDrawGizmosSelected()
