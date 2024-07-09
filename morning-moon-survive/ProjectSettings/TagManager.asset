@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Weapon
   - Tree
+  - Head
+  - Enemy
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX
@@ -17,7 +20,7 @@ TagManager:
   - 
   - Player
   - Enemy
-  - 
+  - Interactable
   - 
   - 
   - 

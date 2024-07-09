@@ -128,3 +128,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
+  duration: 0.3
+  itemToDrop: {fileID: 6134128950265947312, guid: 05a3256b3cb37ee40b7a70e7709e528b,
+    type: 3}

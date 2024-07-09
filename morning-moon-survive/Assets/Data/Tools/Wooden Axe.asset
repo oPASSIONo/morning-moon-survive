@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11c19e9011524054b911d7e289d03941, type: 3}
+  m_Name: Wooden Axe
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 0
+  <MaxStackSize>k__BackingField: 1
+  <Name>k__BackingField: Wooden Axe
+  <ItemAbility>k__BackingField: Wooden Axe for testing
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: cae43ef6f5e08e34597c24a49af41bab,
+    type: 3}
+  <ItemCategory>k__BackingField: 1
+  <ItemSubCategory>k__BackingField: 
+  <ItemRarity>k__BackingField: 0
+  <DefaultParametersList>k__BackingField:
+  - itemParameter: {fileID: 11400000, guid: 507af2d111d353844ba0d356fa56b6f8, type: 2}
+    value: 100
+  <ItemPrefab>k__BackingField: {fileID: 2866290701125998117, guid: 60466a695b96a26468d9f3706dd4e02b,
+    type: 3}
+  <actionSFX>k__BackingField: {fileID: 0}

@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class AgentTool : MonoBehaviour
 {
-    [SerializeField] private GameObject pickaxe;
-    //[SerializeField] private GameObject shovel;
+    [SerializeField] private GameObject woodenAxe;
+    [SerializeField] private GameObject boneAxe;
 
     
     public static event Action OnDrawWeapon;
@@ -29,13 +29,13 @@ public class AgentTool : MonoBehaviour
         DeactivateAllTools();
         switch (toolItemSo.Name)
         {
-            case "Pickaxe":
+            case "Wooden Axe":
                 OnDrawWeapon?.Invoke();
-                ActivateTool(pickaxe);
-                //Debug.Log(pickaxe);
+                ActivateTool(woodenAxe);
                 break;
-            case "Shovel":
-                //ActivateTool(shovel);
+            case "Bone Axe":
+                OnDrawWeapon?.Invoke();
+                ActivateTool(boneAxe);
                 break;
             // Add more cases for other tool types as needed
         }
@@ -54,8 +54,8 @@ public class AgentTool : MonoBehaviour
     // Helper method to deactivate all tool game objects
     public void DeactivateAllTools()
     {
-        pickaxe.SetActive(false);
-        //shovel.SetActive(false);
+        woodenAxe.SetActive(false);
+        boneAxe.SetActive(false);
         // Deactivate other tool game objects as needed
     }
 }

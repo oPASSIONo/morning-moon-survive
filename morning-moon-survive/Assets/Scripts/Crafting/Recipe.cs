@@ -9,6 +9,7 @@ public class Recipe : ScriptableObject
     [SerializeField] private List<RequiredIngredient> requiredIngredients = new List<RequiredIngredient>();
     [SerializeField] private ItemSO craftedItem;
     [SerializeField] private int craftedQuantity;
+    
 
     public List<RequiredIngredient> RequiredIngredients => requiredIngredients;
     public ItemSO CraftedItem => craftedItem;
