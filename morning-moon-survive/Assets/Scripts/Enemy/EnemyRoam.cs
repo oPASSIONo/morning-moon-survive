@@ -13,12 +13,14 @@ public class EnemyRoam : MonoBehaviour
 
     private Vector3 startPosition; // Enemy's starting position
     private bool isChasing = false; // Flag to check if chasing player
+    private GameObject player;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         startPosition = transform.position;
         agent.speed = moveSpeed; // Set agent speed
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
@@ -69,17 +71,13 @@ public class EnemyRoam : MonoBehaviour
 
     void ChasePlayer()
     {
-        // Find player using tag
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-
         if (player != null)
         {
             // Move towards player
             agent.SetDestination(player.transform.position);
         }
-        
+
         // Check if player is outside chase radius (stop chasing)
-        
         if (IsPlayerInRange(chaseRadius) == false)
         {
             isChasing = false;
@@ -94,8 +92,6 @@ public class EnemyRoam : MonoBehaviour
     
     bool IsPlayerInRange(float radius)
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-
         if (player != null)
         {
             float distance = Vector3.Distance(transform.position, player.transform.position);
