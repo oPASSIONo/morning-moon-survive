@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private PlayerInput playerInput;
+    /*private PlayerInput playerInput;
 
-    private InputAction moveAction;
+    private InputAction moveAction;*/
     
     private float baseSpeed = 5f; // Base movement speed
     private float currentSpeed; // Current movement speed

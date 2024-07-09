@@ -1,10 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Manages player inputs using the Input System.
+/// </summary>
 public class GameInput : MonoBehaviour
 {
     
@@ -14,15 +14,31 @@ public class GameInput : MonoBehaviour
 
     public event EventHandler OnPauseAction;
     public event EventHandler OnInventoryAction;
+    public event EventHandler OnAttackAction;
+    //public event EventHandler OnSwitchWeaponAction;
+
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
         playerInput = new PlayerInput();
         playerInput.PlayerControls.Enable();
 
         playerInput.PlayerControls.Pause.performed += Pause_Performed;
 
         playerInput.PlayerControls.Inventory.performed += Inventory_Performed;
+        
+        playerInput.PlayerControls.Attack.performed += Attack_Performed;
+       // playerInput.PlayerControls.SwitchWeapon.performed += SwitchWeapon_Performed;
 
     }
 
@@ -30,7 +46,9 @@ public class GameInput : MonoBehaviour
     {
         playerInput.PlayerControls.Pause.performed -= Pause_Performed;
         playerInput.PlayerControls.Inventory.performed -= Inventory_Performed;
-        
+        playerInput.PlayerControls.Attack.performed -= Attack_Performed;
+        //playerInput.PlayerControls.SwitchWeapon.performed -= SwitchWeapon_Performed;
+
         playerInput.Dispose();
     }
 
@@ -43,13 +61,21 @@ public class GameInput : MonoBehaviour
     {
         OnInventoryAction?.Invoke(this, EventArgs.Empty);
     }
-    
+
+    private void Attack_Performed(InputAction.CallbackContext obj)
+    {
+        OnAttackAction?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void SwitchWeapon_Performed(InputAction.CallbackContext obj)
+    {
+        //OnSwitchWeaponAction?.Invoke(this, EventArgs.Empty);
+    }
+
     public Vector2 GetMovement()
     {
         Vector2 inputVector = playerInput.PlayerControls.Move.ReadValue<Vector2>();
-
-        inputVector = inputVector.normalized;
-        return inputVector;
-    }   
+        return inputVector.normalized;
+    }
     
 }

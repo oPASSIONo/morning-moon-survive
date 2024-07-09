@@ -6,7 +6,6 @@ using Inventory.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Inventory.Model;
-using UnityEngine.UI;
 using Unity.Netcode;
 
 namespace Inventory
