@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1077621666364841430}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.3, y: 1.39, z: 23.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -63,8 +63,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.69, z: 0}
-  m_LocalScale: {x: 2.9711, y: 2.9711, z: 2.9711}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 664772110162115030}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 5142187353263412305}
-  roamRadius: 20
-  chaseRadius: 30
-  moveSpeed: 5
-  playerTransform: {fileID: 0}
+  roamRadius: 10
+  chaseRadius: 12
+  moveSpeed: 3
+  isFriendly: 0
