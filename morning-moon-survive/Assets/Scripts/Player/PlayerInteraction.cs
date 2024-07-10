@@ -9,7 +9,7 @@ public class PlayerInteraction : MonoBehaviour
     /// <summary>
     /// The maximum distance within which the player can interact with objects.
     /// </summary>
-    public float interactionDistance = 3f;
+    private float interactionDistance = 3f;
 
     /// <summary>
     /// The layer mask used to identify interactable objects.
@@ -17,13 +17,24 @@ public class PlayerInteraction : MonoBehaviour
     public LayerMask interactableLayerMask;
 
     private IInteractable currentInteractable;
+    
+    private PlayerInput playerInput;
+    private InputAction interact;
 
+    
+    private void Awake()
+    {
+        playerInput = new PlayerInput();
+        playerInput.PlayerControls.Enable();
+        interact = playerInput.PlayerControls.Interaction;
+    }
+    
     private void Update()
     {
         DetectInteractable();
 
-        // Check for interaction using Input System
-        if (Keyboard.current.eKey.wasPressedThisFrame && currentInteractable != null)
+        
+        if (interact.triggered)
         {
             currentInteractable.Interact();
         }
