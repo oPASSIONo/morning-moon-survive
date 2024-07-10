@@ -7312,6 +7312,7 @@ MonoBehaviour:
     itemState: []
   dropClip: {fileID: 0}
   audioSource: {fileID: 0}
+  amountController: {fileID: 0}
 --- !u!114 &8923256357134711184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7360,8 +7361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f849a24741c98424b86a4d898dcfd6a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recipes:
-  - {fileID: 11400000, guid: 96529e80061cc5345959f2895db394e2, type: 2}
   playerInventory: {fileID: 11400000, guid: 5747cb1644aa57c4bbbafb0b0312d6d9, type: 2}
 --- !u!114 &7163362280025868819
 MonoBehaviour:
@@ -7375,7 +7374,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90e55977fa5be4f4ab655c41fbd1ab60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickaxe: {fileID: 367809315443114237}
+  woodenAxe: {fileID: 0}
+  boneAxe: {fileID: 0}
 --- !u!114 &8892103401777109490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7389,7 +7389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryData: {fileID: 11400000, guid: 5747cb1644aa57c4bbbafb0b0312d6d9, type: 2}
-  duration: 0.3
+  pickupRange: 2
 --- !u!54 &453272303569232261
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11450,22 +11450,22 @@ PrefabInstance:
     - target: {fileID: 8827250473896342728, guid: 565d0f4f62340a84b833872d0228c164,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8827250473896342728, guid: 565d0f4f62340a84b833872d0228c164,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8827250473896342728, guid: 565d0f4f62340a84b833872d0228c164,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8827250473896342728, guid: 565d0f4f62340a84b833872d0228c164,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -20
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
