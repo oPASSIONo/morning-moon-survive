@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8911262597105187763}
   - component: {fileID: 316658130132135536}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tree_RoundTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 577512966065713227}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TreeModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,10 +164,35 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -6117694839177512477, guid: 1e299c43b09a90244b03dfb8c6be80f3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -3931884750339270514, guid: 1e299c43b09a90244b03dfb8c6be80f3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1e299c43b09a90244b03dfb8c6be80f3,
         type: 3}
       propertyPath: m_Name
       value: TreeGreen1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1e299c43b09a90244b03dfb8c6be80f3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2096299440548616584, guid: 1e299c43b09a90244b03dfb8c6be80f3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265450168619215504, guid: 1e299c43b09a90244b03dfb8c6be80f3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
