@@ -15,7 +15,7 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnPauseAction;
     public event EventHandler OnInventoryAction;
     public event EventHandler OnAttackAction;
-    //public event EventHandler OnSwitchWeaponAction;
+    public event EventHandler OnInteractionAction;
 
     private void Awake()
     {
@@ -38,19 +38,19 @@ public class GameInput : MonoBehaviour
         playerInput.PlayerControls.Inventory.performed += Inventory_Performed;
         
         playerInput.PlayerControls.Attack.performed += Attack_Performed;
-       // playerInput.PlayerControls.SwitchWeapon.performed += SwitchWeapon_Performed;
-
+        
+        playerInput.PlayerControls.Interaction.performed += Interaction_Performed;
+        
     }
 
-    private void OnDestroy()
+    /*private void OnDestroy()
     {
         playerInput.PlayerControls.Pause.performed -= Pause_Performed;
         playerInput.PlayerControls.Inventory.performed -= Inventory_Performed;
         playerInput.PlayerControls.Attack.performed -= Attack_Performed;
-        //playerInput.PlayerControls.SwitchWeapon.performed -= SwitchWeapon_Performed;
 
         playerInput.Dispose();
-    }
+    }*/
 
     private void Pause_Performed(InputAction.CallbackContext obj)
     {
@@ -66,10 +66,10 @@ public class GameInput : MonoBehaviour
     {
         OnAttackAction?.Invoke(this, EventArgs.Empty);
     }
-
-    private void SwitchWeapon_Performed(InputAction.CallbackContext obj)
+    
+    public void Interaction_Performed(InputAction.CallbackContext obj)
     {
-        //OnSwitchWeaponAction?.Invoke(this, EventArgs.Empty);
+        OnInteractionAction?.Invoke(this,EventArgs.Empty);
     }
 
     public Vector2 GetMovement()
@@ -77,5 +77,7 @@ public class GameInput : MonoBehaviour
         Vector2 inputVector = playerInput.PlayerControls.Move.ReadValue<Vector2>();
         return inputVector.normalized;
     }
+
+    
     
 }

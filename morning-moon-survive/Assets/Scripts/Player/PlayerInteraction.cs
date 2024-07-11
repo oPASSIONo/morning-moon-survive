@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,29 +18,22 @@ public class PlayerInteraction : MonoBehaviour
     public LayerMask interactableLayerMask;
 
     private IInteractable currentInteractable;
-    
-    private PlayerInput playerInput;
-    private InputAction interact;
 
-    
     private void Awake()
     {
-        playerInput = new PlayerInput();
-        playerInput.PlayerControls.Enable();
-        interact = playerInput.PlayerControls.Interaction;
+        GameInput.Instance.OnInteractionAction += GameInput_OnInterctionAction;
     }
     
     private void Update()
     {
         DetectInteractable();
-
-        
-        if (interact.triggered)
-        {
-            currentInteractable.Interact();
-        }
     }
-
+    private void GameInput_OnInterctionAction(object sender, EventArgs e)
+    {
+        currentInteractable.Interact();
+    }
+    
+    
     /// <summary>
     /// Detects interactable objects within the interaction distance using a sphere cast.
     /// </summary>
