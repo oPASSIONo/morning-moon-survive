@@ -6,12 +6,11 @@ using Inventory.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Inventory.Model;
-using UnityEngine.UI;
 using Unity.Netcode;
 
 namespace Inventory
 {
-    public class InventoryController : NetworkBehaviour
+    public class InventoryController : MonoBehaviour
     {
         [SerializeField] private UIInventoryPage inventoryUI;
         [SerializeField] private InventorySO inventoryData;
@@ -31,8 +30,10 @@ namespace Inventory
             playerInput.PlayerControls.Enable();
             
             //openInventoryAction = playerInput.PlayerControls.Inventory;
+
         }
 
+        
         void Start()
         {
             PrepareUI();
@@ -41,22 +42,9 @@ namespace Inventory
             GameInput.Instance.OnInventoryAction += GameInput_OnInventoryAction;
         }
         
-        void Update()
-        {
-            /*if (openInventoryAction.triggered)
-            {
-                OpenInventoryUI();
-            }
-            */
-            
-        }
-        
         private void GameInput_OnInventoryAction(object sender, EventArgs e)
         {
-            if (!IsOwner) return;
-            {
-                OpenInventoryUI();
-            }
+            OpenInventoryUI();
         }
 
         private void PrepareInventoryData()
@@ -227,6 +215,8 @@ namespace Inventory
             playerInput.FindAction("SelectSlot10").performed += ctx => SelectSlot(10);
 
         }
+        
+        
         private void OnDisable()
         {
             // Unsubscribe from hotbar selection actions

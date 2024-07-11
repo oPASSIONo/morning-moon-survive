@@ -1,10 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Manages player inputs using the Input System.
+/// </summary>
 public class GameInput : MonoBehaviour
 {
     
@@ -14,25 +14,43 @@ public class GameInput : MonoBehaviour
 
     public event EventHandler OnPauseAction;
     public event EventHandler OnInventoryAction;
+    public event EventHandler OnAttackAction;
+    public event EventHandler OnInteractionAction;
+
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
         playerInput = new PlayerInput();
         playerInput.PlayerControls.Enable();
 
         playerInput.PlayerControls.Pause.performed += Pause_Performed;
 
         playerInput.PlayerControls.Inventory.performed += Inventory_Performed;
-
+        
+        playerInput.PlayerControls.Attack.performed += Attack_Performed;
+        
+        playerInput.PlayerControls.Interaction.performed += Interaction_Performed;
+        
     }
 
-    private void OnDestroy()
+    /*private void OnDestroy()
     {
         playerInput.PlayerControls.Pause.performed -= Pause_Performed;
         playerInput.PlayerControls.Inventory.performed -= Inventory_Performed;
-        
+        playerInput.PlayerControls.Attack.performed -= Attack_Performed;
+
         playerInput.Dispose();
-    }
+    }*/
 
     private void Pause_Performed(InputAction.CallbackContext obj)
     {
@@ -43,13 +61,23 @@ public class GameInput : MonoBehaviour
     {
         OnInventoryAction?.Invoke(this, EventArgs.Empty);
     }
+
+    private void Attack_Performed(InputAction.CallbackContext obj)
+    {
+        OnAttackAction?.Invoke(this, EventArgs.Empty);
+    }
     
+    public void Interaction_Performed(InputAction.CallbackContext obj)
+    {
+        OnInteractionAction?.Invoke(this,EventArgs.Empty);
+    }
+
     public Vector2 GetMovement()
     {
         Vector2 inputVector = playerInput.PlayerControls.Move.ReadValue<Vector2>();
+        return inputVector.normalized;
+    }
 
-        inputVector = inputVector.normalized;
-        return inputVector;
-    }   
+    
     
 }

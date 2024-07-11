@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +10,7 @@ public class PlayerInteraction : MonoBehaviour
     /// <summary>
     /// The maximum distance within which the player can interact with objects.
     /// </summary>
-    public float interactionDistance = 3f;
+    private float interactionDistance = 3f;
 
     /// <summary>
     /// The layer mask used to identify interactable objects.
@@ -18,17 +19,21 @@ public class PlayerInteraction : MonoBehaviour
 
     private IInteractable currentInteractable;
 
+    private void Awake()
+    {
+        GameInput.Instance.OnInteractionAction += GameInput_OnInterctionAction;
+    }
+    
     private void Update()
     {
         DetectInteractable();
-
-        // Check for interaction using Input System
-        if (Keyboard.current.eKey.wasPressedThisFrame && currentInteractable != null)
-        {
-            currentInteractable.Interact();
-        }
     }
-
+    private void GameInput_OnInterctionAction(object sender, EventArgs e)
+    {
+        currentInteractable.Interact();
+    }
+    
+    
     /// <summary>
     /// Detects interactable objects within the interaction distance using a sphere cast.
     /// </summary>

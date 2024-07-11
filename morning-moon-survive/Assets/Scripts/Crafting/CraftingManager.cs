@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CraftingManager : MonoBehaviour
 {
-    [SerializeField] private UICraftingPage craftingPage;
+    /*[SerializeField] private UICraftingPage craftingPage;
     [SerializeField] private CraftingSO[] craftingSOs;
     private int currentCraftingIndex = 0;
 
@@ -22,17 +22,5 @@ public class CraftingManager : MonoBehaviour
 
         currentCraftingIndex = index;
         craftingPage.PopulateCraftingUI(craftingSOs[currentCraftingIndex]);
-    }
-
-    public void NextCraftingCategory()
-    {
-        currentCraftingIndex = (currentCraftingIndex + 1) % craftingSOs.Length;
-        craftingPage.PopulateCraftingUI(craftingSOs[currentCraftingIndex]);
-    }
-
-    public void PreviousCraftingCategory()
-    {
-        currentCraftingIndex = (currentCraftingIndex - 1 + craftingSOs.Length) % craftingSOs.Length;
-        craftingPage.PopulateCraftingUI(craftingSOs[currentCraftingIndex]);
-    }
+    }*/
 }

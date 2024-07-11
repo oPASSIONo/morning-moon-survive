@@ -5,7 +5,7 @@ using System;
 
 public class HealthController : MonoBehaviour
 {
-    // Singleton instance
+    /*// Singleton instance
     private static HealthController instance;
 
     // Accessor for the singleton instance
@@ -48,14 +48,6 @@ public class HealthController : MonoBehaviour
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
-    // Method to restore health
-    /*public void RestoreHealth(int restoreAmount)
-    {
-        currentHealth += restoreAmount;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        OnHealthChanged?.Invoke(currentHealth, maxHealth);
-    }*/
-
     // Getters for health data
     public int GetCurrentHealth()
     {
@@ -72,5 +64,5 @@ public class HealthController : MonoBehaviour
         currentHealth += val;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
-    }
+    }*/
 }
