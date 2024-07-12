@@ -1,51 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1609434783327077437
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7074679168059362437}
-  - component: {fileID: 3642966267991274796}
-  m_Layer: 0
-  m_Name: DamageDealer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7074679168059362437
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1609434783327077437}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0.0088856425}
-  m_LocalScale: {x: 0.049364656, y: 0.04936465, z: 0.04936465}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 2519034478219936432}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3642966267991274796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1609434783327077437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 662b0191516c9324c961fee454871ec6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponLength: 2.11
-  weaponDamage: 1
 --- !u!1001 &1229051060535082558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -183,11 +137,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 65702495048144492, guid: 2682e6a68f120b5439445d0fad5d4874, type: 3}
     - {fileID: -8700617353114198275, guid: 2682e6a68f120b5439445d0fad5d4874, type: 3}
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: -5477749408508380018, guid: 2682e6a68f120b5439445d0fad5d4874,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7074679168059362437}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2682e6a68f120b5439445d0fad5d4874,
         type: 3}
@@ -342,9 +292,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!4 &2519034478219936432 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -5477749408508380018, guid: 2682e6a68f120b5439445d0fad5d4874,
-    type: 3}
-  m_PrefabInstance: {fileID: 1229051060535082558}
-  m_PrefabAsset: {fileID: 0}
