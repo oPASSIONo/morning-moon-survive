@@ -6,7 +6,7 @@ public class SinglePlayModeGameController : MonoBehaviour
     public static SinglePlayModeGameController Instance { get; private set; }
 
     //public GameObject playerPrefab;
-    private GameObject player;
+    [SerializeField] private GameObject player;
 
     private void Awake()
     {
@@ -21,7 +21,8 @@ public class SinglePlayModeGameController : MonoBehaviour
             return;
         }
 
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = player;
+        //player = GameObject.FindGameObjectWithTag("Player");
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 

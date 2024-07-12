@@ -21,14 +21,14 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Awake()
     {
-        GameInput.Instance.OnInteractionAction += GameInput_OnInterctionAction;
+        GameInput.Instance.OnInteractionAction += GameInput_OnInteractionAction;
     }
     
     private void Update()
     {
         DetectInteractable();
     }
-    private void GameInput_OnInterctionAction(object sender, EventArgs e)
+    private void GameInput_OnInteractionAction(object sender, EventArgs e)
     {
         currentInteractable.Interact();
     }
