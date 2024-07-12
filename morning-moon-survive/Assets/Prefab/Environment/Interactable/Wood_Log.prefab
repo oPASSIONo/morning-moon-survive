@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 103738725999825624}
   - component: {fileID: 6437802009166037114}
+  - component: {fileID: 7331092244940637221}
   m_Layer: 0
   m_Name: LogModel
   m_TagString: Untagged
@@ -54,6 +55,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1814449, y: 0.8924073, z: 1.1707032}
   m_Center: {x: 0.09072256, y: 0.40611726, z: 0.04167211}
+--- !u!114 &7331092244940637221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2356190323992172303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80ac48d55f08a62419ea01276cf9d119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <InventoryItem>k__BackingField: {fileID: 11400000, guid: 957b8439c73f78042be041d268dede03,
+    type: 2}
+  <Quantity>k__BackingField: 1
+  audioSource: {fileID: 0}
+  duration: 0.3
 --- !u!1 &9027762958247691069
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,7 +81,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5708954408428089291}
-  - component: {fileID: 1018362530749353015}
   m_Layer: 0
   m_Name: Wood_Log
   m_TagString: Untagged
@@ -87,23 +104,6 @@ Transform:
   - {fileID: 103738725999825624}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1018362530749353015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9027762958247691069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80ac48d55f08a62419ea01276cf9d119, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <InventoryItem>k__BackingField: {fileID: 11400000, guid: 957b8439c73f78042be041d268dede03,
-    type: 2}
-  <Quantity>k__BackingField: 1
-  audioSource: {fileID: 0}
-  duration: 0.3
 --- !u!1001 &3803620671381999638
 PrefabInstance:
   m_ObjectHideFlags: 0
