@@ -1,31 +1,26 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Tree : MonoBehaviour
+public class Rock : MonoBehaviour
 {
     [SerializeField] private float initialHealth = 100f; // Store the initial health value
     private float health;
-    public GameObject[] dropItems; // Array of items to drop when the tree falls
-    [SerializeField] private GameObject[] leaf;
+    [SerializeField] private GameObject[] dropItems; // Array of items to drop when the tree falls
+    [SerializeField] private GameObject[] rocks;
 
-    
     private void Start()
     {
         health = initialHealth; // Initialize health to the initial value
     }
-    
+
     public void TakeDamage(float amount)
     {
         health -= amount;
-        Debug.Log($"Tree took {amount} damage. Remaining health: {health}");
+        Debug.Log($"Rock took {amount} damage. Remaining health: {health}");
         
         CheckState();
-        /*if (health <= 0)
-        {
-            DropItem();
-            Destroy(gameObject);
-        }*/
     }
-
     private void DropItem()
     {
         if (dropItems != null && dropItems.Length > 0)
@@ -39,12 +34,11 @@ public class Tree : MonoBehaviour
             }
         }
     }
-
     private void CheckState()
     {
         if (health <= (initialHealth / 2)) // Compare with half of the initial health
         {
-            SetLeavesActive(false);
+            //SetRockActive(false);
         }
         if (health <= 0)
         {
@@ -52,14 +46,14 @@ public class Tree : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void SetLeavesActive(bool isActive)
+    /*private void SetRockActive(bool isActive)
     {
-        foreach (GameObject leafObject in leaf)
+        foreach (GameObject  in )
         {
-            if (leafObject != null)
+            if ( != null)
             {
-                leafObject.SetActive(isActive);
+                .SetActive(isActive);
             }
         }
-    }
+    }*/
 }

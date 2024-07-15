@@ -7,7 +7,6 @@ public class MeleeWeapon : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         DamageZone damageZone = other.GetComponent<DamageZone>();
-        
         if (damageZone != null)
         {
             damageZone.ApplyDamage(baseDamage);

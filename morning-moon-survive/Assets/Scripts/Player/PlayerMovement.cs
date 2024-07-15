@@ -2,29 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private float baseSpeed = 5f; // Base movement speed
-    private float currentSpeed; // Current movement speed
-    
-    // Reference to the Hunger component
-    public Hunger Hunger { private get; set; } // Reference to the Health component for the player
+    public float MaxSpeed { get; private set; }
+    public float MinSpeed { get; private set; }
+    public float CurrentSpeed { get; private set; }
+    public float BaseSpeed { get; private set; }
+    public event Action<float, float> OnSpeedChanged;
 
-    // Start is called before the first frame update
+    
+    private Satiety satietyComponent;
+    
     void Start()
     {
-        // Get the Hunger component
-        Hunger = GetComponent<Hunger>();
 
-        // Check if Hunger component exists
-        if (Hunger != null)
+        satietyComponent = GetComponent<Satiety>();
+        if (satietyComponent != null)
         {
-            // Subscribe to the OnHungerChanged event
-            Hunger.OnHungerChanged += UpdateSpeed;
+            satietyComponent.OnSatietyChanged += UpdateSpeed;
 
-            // Initialize the player speed
-            UpdateSpeed(Hunger.CurrentHunger, Hunger.MaxHunger);
+            UpdateSpeed(satietyComponent.CurrentSatiety, satietyComponent.MaxSatiety);
             
         }
         else
@@ -54,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         movement.y = 0f; // Ensure the movement stays in the horizontal plane
 
         // Apply speed and deltaTime
-        Vector3 moveDirection = movement.normalized * currentSpeed * Time.deltaTime; // Use currentSpeed here
+        Vector3 moveDirection = movement.normalized * CurrentSpeed * Time.deltaTime; // Use currentSpeed here
 
         // Apply movement
         transform.position += moveDirection;
@@ -68,35 +67,32 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    void UpdateSpeed(int currentHunger, int maxHunger)
+    void UpdateSpeed(float currentHunger, float maxHunger)
     {
-        CheckHunger(currentHunger); // Pass the current hunger received as parameter
+        CheckSatiety(satietyComponent.CurrentSatiety); // Pass the current hunger received as parameter
     }
 
     // Method to update the player's speed based on the current hunger level
 
-    private void CheckHunger(int currentHunger)
+    private void CheckSatiety(float currentSatiety)
     {
-        // If hunger is greater than or equal to 75, decrease the speed
-        if (currentHunger >= 75)
+        if (satietyComponent.CurrentSatiety <= 25)
         {
-            currentSpeed = baseSpeed * 0.5f; // Reduce the speed to 50%
-            Debug.Log(currentSpeed);
-            
+            CurrentSpeed = BaseSpeed * 0.5f; // Reduce the speed to 50%
         }
         else
         {
-            // If hunger is below 75, reset the speed to the base speed
-            currentSpeed = baseSpeed;
+            CurrentSpeed = BaseSpeed;
         }
     }
+    
 
-    // Unsubscribe from the OnHungerChanged event when the script is destroyed
-    void OnDestroy()
+    public void Initialize(float maxSpeed, float minSpeed, float initialSpeed)
     {
-        if (Hunger != null)
-        {
-            Hunger.OnHungerChanged -= UpdateSpeed;
-        }
+        MaxSpeed = maxSpeed;
+        MinSpeed = minSpeed;
+        BaseSpeed = initialSpeed;
+        
+        OnSpeedChanged?.Invoke(CurrentSpeed,MaxSpeed);
     }
 }
