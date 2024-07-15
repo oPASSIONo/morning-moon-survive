@@ -9,8 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8911262597105187763}
-  - component: {fileID: 316658130132135536}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: Tree_RoundTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,27 +32,6 @@ Transform:
   - {fileID: 577512966065713227}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &316658130132135536
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128570399479048021}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.3632393, y: 5.5772505, z: 3.9104733}
-  m_Center: {x: 0.0056415796, y: 2.2886257, z: 0.11038065}
 --- !u!1 &1697840441382948277
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,7 +41,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 577512966065713227}
-  m_Layer: 6
+  - component: {fileID: 611740590549276207}
+  - component: {fileID: 7574748770641806365}
+  m_Layer: 10
   m_Name: TreeModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,11 +61,48 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 264614016349674179}
   m_Father: {fileID: 8911262597105187763}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &611740590549276207
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697840441382948277}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.3632393, y: 5.5772505, z: 3.9104733}
+  m_Center: {x: 0.0056415796, y: 2.2886257, z: 0.11038065}
+--- !u!208 &7574748770641806365
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697840441382948277}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.1816194, y: 2.788625, z: 1.9552366}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.00564158, y: 2.288626, z: 0.1103806}
+  m_TimeToStationary: 0.5
 --- !u!1001 &299102857181920552
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -167,12 +184,12 @@ PrefabInstance:
     - target: {fileID: -6117694839177512477, guid: 1e299c43b09a90244b03dfb8c6be80f3,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -3931884750339270514, guid: 1e299c43b09a90244b03dfb8c6be80f3,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1e299c43b09a90244b03dfb8c6be80f3,
         type: 3}
@@ -182,17 +199,17 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1e299c43b09a90244b03dfb8c6be80f3,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2096299440548616584, guid: 1e299c43b09a90244b03dfb8c6be80f3,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2265450168619215504, guid: 1e299c43b09a90244b03dfb8c6be80f3,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
