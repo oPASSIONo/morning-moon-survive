@@ -12,7 +12,7 @@ public class Satiety : MonoBehaviour
     public float SatietyBleeding { get; private set; }
     private float damageInterval = 1f; // Time interval between damage ticks
     private float damageAmount = 1; // Amount of damage per tick
-
+    private Coroutine damageCoroutine;
     public event Action<float, float> OnSatietyChanged; // Event to notify hunger changes
 
     private Health healthComponent; // Reference to the Health component for the player
@@ -26,25 +26,31 @@ public class Satiety : MonoBehaviour
     void Start()
     {
         // Initialize the time of the next damage tick
-        nextDamageTime = Time.time + damageInterval;
-    }
+        damageCoroutine = StartCoroutine(SatietyCheck());
 
-    void Update()
+    }
+    
+    private IEnumerator SatietyCheck()
     {
-        // Check if hunger has reached the maximum value
-        if (CurrentSatiety <= SatietyBleeding&&healthComponent.CurrentHealth>0)
+        while (true)
         {
-            // Check if it's time for the next damage tick
-            if (Time.time >= nextDamageTime)
+            if (CurrentSatiety <= 0)
             {
-                // Apply damage to the player's health
-                if (healthComponent != null)
-                {
-                    healthComponent.TakeDamage(damageAmount);
-                }
-                // Update the time of the next damage tick
-                nextDamageTime = Time.time + damageInterval;
+                healthComponent.Die();
+                yield break; // Stop the coroutine
             }
+            else if (CurrentSatiety <= SatietyBleeding)
+            {
+                if (healthComponent.CurrentHealth > healthComponent.MinHealth)
+                {
+                    // Apply damage to the player's health
+                    if (healthComponent != null)
+                    {
+                        healthComponent.TakeDamage(damageAmount);
+                    }
+                }
+            }
+            yield return new WaitForSeconds(damageInterval); // Wait for the next damage tick
         }
     }
 
@@ -72,7 +78,10 @@ public class Satiety : MonoBehaviour
     public void IncreaseSatiety(float amount)
     {
         CurrentSatiety += amount;
-
+        if (CurrentSatiety > MaxSatiety)
+        {
+            CurrentSatiety = MaxSatiety;
+        }
         // Trigger hunger changed event
         OnSatietyChanged?.Invoke(CurrentSatiety, MaxSatiety);
     }

@@ -21,7 +21,7 @@ public class Health : MonoBehaviour
     
     public void TakeDamage(float damageAmount)
     {
-        Debug.Log($"Current Health before damage: {CurrentHealth}");
+        //Debug.Log($"Current Health before damage: {CurrentHealth}");
         
         CurrentHealth -= damageAmount;
         
@@ -30,7 +30,7 @@ public class Health : MonoBehaviour
             SetCurrentHealth(MinHealth);
         }
 
-        Debug.Log($"Current Health after damage: {CurrentHealth}");
+        //Debug.Log($"Current Health after damage: {CurrentHealth}");
 
         // Trigger health changed event
         OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
@@ -60,6 +60,14 @@ public class Health : MonoBehaviour
     {
         CurrentHealth = value;
     }
+    
+    public void Die()
+    {
+        CurrentHealth = MinHealth;
+        OnHealthChanged?.Invoke(CurrentHealth,MaxHealth);
+        Debug.Log($"Entity has died.Current Health : {CurrentHealth}");
+    }
+    
     public void SetMaxHealth(float value)
     {
         MaxHealth = value;
@@ -70,8 +78,5 @@ public class Health : MonoBehaviour
         MinHealth = value;
     }
 
-    private void Die()
-    {
-        Debug.Log("Entity has died.");
-    }
+    
 }

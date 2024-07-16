@@ -108,87 +108,22 @@ public class Player : MonoBehaviour
 
     private void UpdatePlayerSpeed(float currentSpeed, float maxSpeed)
     {
-        SetSpeed(currentSpeed);
+        Speed = currentSpeed;
         Debug.Log($"Speed From Player Script : {Speed}");
     }
     private void UpdatePlayerSatiety(float currentSatiety,float maxSatiety)
     {
-        SetSatiety(currentSatiety);
+        Satiety = currentSatiety;
         Debug.Log($"Satiety From Player Script : {Satiety}");
     }
     private void UpdatePlayerStamina(float currentStamina, float maxStamina)
     {
-        SetStamina(currentStamina);
+        Stamina = currentStamina;
     }
     private void UpdatePlayerHealth(float currentHealth, float maxHealth)
     {
-        SetHP(currentHealth);
+        HP = currentHealth;
         Debug.Log($"HP From Player Script : {HP}"); 
     }
     
-    public void SetHP(float value)
-    {
-        HP = value;
-    }
-
-    public void SetMaxHealth(float value)
-    {
-        MaxHP = value;
-    }
-
-    public void SetStamina(float value)
-    {
-        Stamina = value;
-    }
-
-    public void SetSatiety(float value)
-    {
-        Satiety = value;
-    }
-
-    public void SetDefense(int value)
-    {
-        Defense = value;
-    }
-
-    public void SetResistant(int index, int value)
-    {
-        if (index >= 0 && index < Resistant.Length)
-        {
-            Resistant[index] = value;
-        }
-    }
-    
-    public void SetAttack(int value)
-    {
-        Attack = value;
-    }
-    
-    public void SetElement(int value)
-    {
-        Element = value;
-    }
-    
-    public void SetEXP(int index, int value)
-    {
-        if (index >= 0 && index < EXP.Length)
-        {
-            EXP[index] = value;
-        }
-    }
-    
-    public void SetSpeed(float value)
-    {
-        Speed = value;
-    }
-    
-    public void SetWeight(int value)
-    {
-        Weight = value;
-    }
-
-    public void SetInventorySlot(int value)
-    {
-        InventorySlot = value;
-    }
 }
