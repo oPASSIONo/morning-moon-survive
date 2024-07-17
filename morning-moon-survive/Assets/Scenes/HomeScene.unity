@@ -14880,6 +14880,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 419008342}
     m_Modifications:
+    - target: {fileID: 1228260462824395242, guid: 7ae0f206ce4c5274fbf79e792bea7666,
+        type: 3}
+      propertyPath: DashForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1228260462824395242, guid: 7ae0f206ce4c5274fbf79e792bea7666,
+        type: 3}
+      propertyPath: DashDuration
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1682555962863197356, guid: 7ae0f206ce4c5274fbf79e792bea7666,
         type: 3}
       propertyPath: GlobalObjectIdHash

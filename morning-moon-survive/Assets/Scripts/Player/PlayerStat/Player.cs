@@ -5,22 +5,26 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float HP { get; private set; } = 100;
-    public float MaxHP { get; private set; } = 100;
-    public float MinHP { get; private set; } = 0;
-    public float Stamina { get; private set; } = 100;
-    public float MaxStamina { get; private set; } = 100;
-    public float MinStamina { get; private set; } = 0;
-    public float Satiety { get; private set; } = 50;
-    public float SatietyBleeding { get; private set; } = 10;
-    public float MaxSatiety { get; private set; } = 100;
-    public float MinSatiety { get; private set; } = 0;
-    public float Defense { get; private set; } = 10;
-    public float[] Resistant { get; private set; } = new float[6] { 0, 0, 0, 0, 0, 0 };
-    public float Attack { get; private set; } = 0;
-    public float Element { get; private set; } = 0;
-    public float[] EXP { get; private set; } = new float[5] { 0, 0, 0, 0, 0 };
-    public float Speed { get; private set; } = 5;
+    public float HP { get; private set; } = 100f;
+    public float MaxHP { get; private set; } = 100f;
+    public float MinHP { get; private set; } = 0f;
+    public float Stamina { get; private set; } = 100f;
+    public float MaxStamina { get; private set; } = 100f;
+    public float MinStamina { get; private set; } = 0f;
+    public float StaminaRegenRate { get; private set; } = 25f;
+    public float BaseActionCost { get; private set; } = 20f; 
+    public float Satiety { get; private set; } = 50f;
+    public float SatietyBleeding { get; private set; } = 10f;
+    public float SatietyConsumePoint { get; private set; } = 1f;
+    public float SatietyConsumeRate { get; private set; } = 5f;
+    public float MaxSatiety { get; private set; } = 100f;
+    public float MinSatiety { get; private set; } = 0f;
+    public float Defense { get; private set; } = 10f;
+    public float[] Resistant { get; private set; } = new float[6] { 0f, 0f, 0f, 0f, 0f, 0f };
+    public float Attack { get; private set; } = 0f;
+    public float Element { get; private set; } = 0f;
+    public float[] EXP { get; private set; } = new float[5] { 0f, 0f, 0f, 0f, 0f };
+    public float Speed { get; private set; } = 5f;
     public float MaxSpeed { get; private set; }
     public float MinSpeed { get; private set; }
     public List<float> Buff { get; private set; }
@@ -69,7 +73,7 @@ public class Player : MonoBehaviour
         staminaComponent = GetComponent<Stamina>();
         if (staminaComponent!=null)
         {
-            staminaComponent.Initialize(MaxStamina,MinStamina,Stamina);
+            staminaComponent.Initialize(MaxStamina,MinStamina,Stamina,BaseActionCost,StaminaRegenRate);
             staminaComponent.OnStaminaChanged += UpdatePlayerStamina;
         }
         else
@@ -97,7 +101,7 @@ public class Player : MonoBehaviour
         satietyComponent = GetComponent<Satiety>();
         if (satietyComponent!=null)
         {
-            satietyComponent.Initialize(MaxSatiety,MinSatiety,Satiety,SatietyBleeding);
+            satietyComponent.Initialize(MaxSatiety,MinSatiety,Satiety,SatietyBleeding,SatietyConsumePoint,SatietyConsumeRate);
             satietyComponent.OnSatietyChanged += UpdatePlayerSatiety;
         }
         else

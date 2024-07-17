@@ -47,13 +47,13 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            //Debug.LogError("Health component not found on Enemy GameObject.");
+            Debug.LogError("Health component not found on Enemy GameObject.");
         }
     }
     private void UpdateEnemyHealth(float currentHealth, float maxHealth)
     {
-        SetHP(currentHealth);
-        Debug.Log($"HP From Player Script : {HP}"); 
+        HP=currentHealth;
+        Debug.Log($"HP From Enemy Script : {HP}"); 
     }
 
     public void TakeDamage(float damage)
@@ -84,9 +84,5 @@ public class Enemy : MonoBehaviour
                 Instantiate(itemToDrop, transform.position, Quaternion.identity);
             }
         }
-    }
-    public void SetHP(float value)
-    {
-        HP = value;
     }
 }

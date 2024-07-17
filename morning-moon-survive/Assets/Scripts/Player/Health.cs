@@ -31,7 +31,6 @@ public class Health : MonoBehaviour
         }
 
         //Debug.Log($"Current Health after damage: {CurrentHealth}");
-
         // Trigger health changed event
         OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
 
@@ -77,6 +76,4 @@ public class Health : MonoBehaviour
     {
         MinHealth = value;
     }
-
-    
 }

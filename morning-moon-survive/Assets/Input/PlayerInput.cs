@@ -179,6 +179,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""6f448770-a8f2-423c-999a-2f422afdcdb3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -412,6 +421,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""SheathWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad94e61a-fac2-46d6-ac1f-4ca95afeec98"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -437,6 +457,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_PlayerControls_Attack = m_PlayerControls.FindAction("Attack", throwIfNotFound: true);
         m_PlayerControls_DrawWeapon = m_PlayerControls.FindAction("DrawWeapon", throwIfNotFound: true);
         m_PlayerControls_SheathWeapon = m_PlayerControls.FindAction("SheathWeapon", throwIfNotFound: true);
+        m_PlayerControls_Dash = m_PlayerControls.FindAction("Dash", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -515,6 +536,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_Attack;
     private readonly InputAction m_PlayerControls_DrawWeapon;
     private readonly InputAction m_PlayerControls_SheathWeapon;
+    private readonly InputAction m_PlayerControls_Dash;
     public struct PlayerControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -536,6 +558,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Attack => m_Wrapper.m_PlayerControls_Attack;
         public InputAction @DrawWeapon => m_Wrapper.m_PlayerControls_DrawWeapon;
         public InputAction @SheathWeapon => m_Wrapper.m_PlayerControls_SheathWeapon;
+        public InputAction @Dash => m_Wrapper.m_PlayerControls_Dash;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -596,6 +619,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SheathWeapon.started += instance.OnSheathWeapon;
             @SheathWeapon.performed += instance.OnSheathWeapon;
             @SheathWeapon.canceled += instance.OnSheathWeapon;
+            @Dash.started += instance.OnDash;
+            @Dash.performed += instance.OnDash;
+            @Dash.canceled += instance.OnDash;
         }
 
         private void UnregisterCallbacks(IPlayerControlsActions instance)
@@ -651,6 +677,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SheathWeapon.started -= instance.OnSheathWeapon;
             @SheathWeapon.performed -= instance.OnSheathWeapon;
             @SheathWeapon.canceled -= instance.OnSheathWeapon;
+            @Dash.started -= instance.OnDash;
+            @Dash.performed -= instance.OnDash;
+            @Dash.canceled -= instance.OnDash;
         }
 
         public void RemoveCallbacks(IPlayerControlsActions instance)
@@ -687,5 +716,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnDrawWeapon(InputAction.CallbackContext context);
         void OnSheathWeapon(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
     }
 }
