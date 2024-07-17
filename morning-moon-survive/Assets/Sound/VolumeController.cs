@@ -5,24 +5,38 @@ public class VolumeController : MonoBehaviour
 {
     public Slider BGMSlider;
     public Slider SoundEffectSlider;
-    
+
     void Start()
     {
-        // ตั้งค่า slider เริ่มต้น
+        // Set initial slider values
         if (SoundEffectSlider != null)
         {
-            SoundEffectSlider.value = SoundManager.Instance.globalVolume;
+            SoundEffectSlider.value = SoundManager.Instance.sfxVolume;
         }
 
-        // เพิ่ม listener ให้ slider
-        SoundEffectSlider.onValueChanged.AddListener(SetVolume);
+        if (BGMSlider != null)
+        {
+            BGMSlider.value = SoundManager.Instance.bgmVolume;
+        }
+
+        // Add listeners to sliders
+        SoundEffectSlider.onValueChanged.AddListener(SetSFXVolume);
+        BGMSlider.onValueChanged.AddListener(SetBGMVolume);
     }
 
-    public void SetVolume(float volume)
+    public void SetSFXVolume(float volume)
     {
         if (SoundManager.Instance != null)
         {
-            SoundManager.Instance.globalVolume = volume;
+            SoundManager.Instance.sfxVolume = volume;
+        }
+    }
+
+    public void SetBGMVolume(float volume)
+    {
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.SetBGMVolume(volume);
         }
     }
 }

@@ -11,9 +11,8 @@ public class PlaySoundEffect : MonoBehaviour
         public AudioClip soundEffect;
         public float startDelay = 0f;
         public float endDelay = 0f;
-        public bool loop = false;
     }
-    
+
     public List<SoundSettings> objectSoundSettings = new List<SoundSettings>();
     public SoundSettings bgmSettings;
     public bool loopBGM = true;
@@ -29,12 +28,11 @@ public class PlaySoundEffect : MonoBehaviour
         {
             PlaySound(0);
         }
-        
+
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             PlaySound(1);
         }
-
     }
 
     public void AddSoundSettings(SoundSettings settings)
@@ -51,14 +49,8 @@ public class PlaySoundEffect : MonoBehaviour
             // Create an AudioSource dynamically
             if (settings.targetObject != null)
             {
-                AudioSource audioSource = CreateAudioSource(settings.targetObject, settings.soundEffect, settings.loop);
-                
+                AudioSource audioSource = CreateAudioSource(settings.targetObject, settings.soundEffect);
                 audioSource.Play();
-                
-                if (!settings.loop)
-                {
-                    Destroy(audioSource.gameObject, settings.soundEffect.length + settings.endDelay);
-                }
             }
             else
             {
@@ -67,20 +59,15 @@ public class PlaySoundEffect : MonoBehaviour
         }
     }
 
-    /*public void StopSound(int index)
-    {
-        
-    }*/
-
     private void PlayBGM()
     {
         if (bgmSettings != null && bgmSettings.soundEffect != null)
         {
-            SoundManager.Instance.PlaySound(bgmSettings.soundEffect, transform, bgmSettings.startDelay, bgmSettings.endDelay, loopBGM);
+            SoundManager.Instance.PlayBGM(bgmSettings.soundEffect, bgmSettings.startDelay, bgmSettings.endDelay, loopBGM);
         }
     }
 
-    private AudioSource CreateAudioSource(GameObject parent, AudioClip clip, bool loop)
+    private AudioSource CreateAudioSource(GameObject parent, AudioClip clip)
     {
         GameObject audioObject = new GameObject("AudioSource_" + clip.name);
         audioObject.transform.SetParent(parent.transform);
@@ -88,9 +75,8 @@ public class PlaySoundEffect : MonoBehaviour
 
         AudioSource audioSource = audioObject.AddComponent<AudioSource>();
         audioSource.clip = clip;
-        audioSource.volume = SoundManager.Instance.globalVolume;
-        audioSource.spatialBlend = 1.0f;
-        audioSource.loop = loop;
+        audioSource.volume = SoundManager.Instance.sfxVolume;
+        audioSource.spatialBlend = 1.0f; // Spatial blend for 3D audio effect
 
         return audioSource;
     }

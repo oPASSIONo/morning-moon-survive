@@ -10488,7 +10488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86f04b6502e529b4e984c400eee1ca17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BGMSlider: {fileID: 0}
+  BGMSlider: {fileID: 698622007}
   SoundEffectSlider: {fileID: 1955114836}
 --- !u!114 &1374785656
 MonoBehaviour:
@@ -10507,18 +10507,15 @@ MonoBehaviour:
     soundEffect: {fileID: 8300000, guid: 93c06529e82aae24b93df3d85982694e, type: 3}
     startDelay: 0
     endDelay: 0
-    loop: 0
   - targetObject: {fileID: 1330970487}
     soundEffect: {fileID: 8300000, guid: 32ac57fa67fad864aade66b40ff40126, type: 3}
     startDelay: 0
     endDelay: 0
-    loop: 0
   bgmSettings:
     targetObject: {fileID: 0}
-    soundEffect: {fileID: 0}
+    soundEffect: {fileID: 8300000, guid: 5a047e056089f8740935121489c8d400, type: 3}
     startDelay: 0
     endDelay: 0
-    loop: 0
   loopBGM: 1
 --- !u!114 &1374785657
 MonoBehaviour:
@@ -10532,7 +10529,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8c27402b937584a92407f2f3dfc1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  globalVolume: 1
+  sfxVolume: 1
+  bgmVolume: 1
 --- !u!1 &1385726158
 GameObject:
   m_ObjectHideFlags: 0

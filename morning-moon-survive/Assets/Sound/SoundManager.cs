@@ -5,7 +5,10 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
 
-    public float globalVolume = 1f;
+    public float sfxVolume = 1f;
+    public float bgmVolume = 1f;
+
+    private AudioSource bgmAudioSource;
 
     void Awake()
     {
@@ -17,6 +20,37 @@ public class SoundManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    public void PlayBGM(AudioClip clip, float startDelay = 0f, float endDelay = 0f, bool loop = true)
+    {
+        StartCoroutine(PlayBGMCoroutine(clip, startDelay, endDelay, loop));
+    }
+
+    private IEnumerator PlayBGMCoroutine(AudioClip clip, float startDelay, float endDelay, bool loop)
+    {
+        yield return new WaitForSeconds(startDelay);
+
+        if (bgmAudioSource == null)
+        {
+            GameObject bgmObject = new GameObject("BGM_AudioSource");
+            bgmObject.transform.SetParent(transform);
+            bgmAudioSource = bgmObject.AddComponent<AudioSource>();
+        }
+
+        bgmAudioSource.clip = clip;
+        bgmAudioSource.volume = bgmVolume;
+        bgmAudioSource.loop = loop;
+        bgmAudioSource.Play();
+    }
+
+    public void SetBGMVolume(float volume)
+    {
+        bgmVolume = volume;
+        if (bgmAudioSource != null)
+        {
+            bgmAudioSource.volume = bgmVolume;
         }
     }
 
@@ -35,8 +69,7 @@ public class SoundManager : MonoBehaviour
 
         AudioSource audioSource = audioObject.AddComponent<AudioSource>();
         audioSource.clip = clip;
-        audioSource.volume = globalVolume;
-        //audioSource.spatialBlend = 1.0f; // ทำให้เสียงเป็น 3D
+        audioSource.volume = sfxVolume;
         audioSource.loop = loop;
         audioSource.Play();
 
