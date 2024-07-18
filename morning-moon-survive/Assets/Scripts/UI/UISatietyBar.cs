@@ -6,25 +6,25 @@ using TMPro;
 
 public class UISatietyBar : MonoBehaviour
 {
-    [SerializeField] private Satiety Satiety; // Reference to the Hunger component
+    public Satiety satietyComponent; // Reference to the Hunger component
     [SerializeField] private Slider slider; // Reference to the Slider UI component
     [SerializeField] private TMP_Text hungerText; // Reference to the TextMeshPro text element
 
     void Start()
     {
-        // Ensure that the hunger component, slider, and text references are set
-        if (Satiety == null || slider == null || hungerText == null)
+        /*// Ensure that the hunger component, slider, and text references are set
+        if (satietyComponent == null || slider == null || hungerText == null)
         {
             Debug.LogError("Hunger component, Slider, or TextMeshPro text reference not set.");
             enabled = false; // Disable the script if references are not set
             return;
-        }
+        }*/
 
         // Subscribe to the hunger changed event
-        Satiety.OnSatietyChanged += UpdateHungerBar;
+        satietyComponent.OnSatietyChanged += UpdateHungerBar;
 
         // Initialize the hunger bar
-        UpdateHungerBar(Satiety.CurrentSatiety, Satiety.MaxSatiety);
+        UpdateHungerBar(satietyComponent.CurrentSatiety, satietyComponent.MaxSatiety);
     }
 
     void UpdateHungerBar(float currentHunger, float maxHunger)
@@ -39,9 +39,9 @@ public class UISatietyBar : MonoBehaviour
     void OnDestroy()
     {
         // Unsubscribe from the hunger changed event when the script is destroyed
-        if (Satiety != null)
+        if (satietyComponent != null)
         {
-            Satiety.OnSatietyChanged -= UpdateHungerBar;
+            satietyComponent.OnSatietyChanged -= UpdateHungerBar;
         }
     }
 }

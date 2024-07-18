@@ -4,7 +4,7 @@ using TMPro;
 
 public class UIHealthBar : MonoBehaviour
 {
-    [SerializeField] private Health healthComponent; // Reference to the Health component
+    public Health healthComponent; // Reference to the Health component
     [SerializeField] private Slider slider; // Reference to the Slider UI component
     [SerializeField] private TMP_Text healthText; // Reference to the TextMeshPro text element
 

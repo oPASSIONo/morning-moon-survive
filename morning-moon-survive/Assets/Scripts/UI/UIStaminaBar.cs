@@ -6,7 +6,7 @@ using TMPro;
 
 public class UIStaminaBar : MonoBehaviour
 {
-    [SerializeField] private Stamina staminaComponent;
+    public Stamina staminaComponent;
     [SerializeField] private Slider slider;
     [SerializeField] private TMP_Text staminaText; // Reference to the TextMeshPro text component
 

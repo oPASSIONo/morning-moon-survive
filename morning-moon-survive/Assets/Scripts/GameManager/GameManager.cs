@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using Inventory;
+using Inventory.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,12 +10,22 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager Instance { get; private set; }
-
+    
     [SerializeField] private GameObject mainCamera;
     [SerializeField] private GameObject playerFollowCamera;
     [SerializeField] private GameObject player;
-    [SerializeField] private CraftingSystem craftingSystem;
     
+    //[SerializeField] private GameObject craftingSystem;
+    
+    [SerializeField] private GameObject gameCanvas;
+    private UIInventoryPage uiInventoryPage;
+    private Health playerHealth;
+    private Stamina playerStamina;
+    private Satiety playerSatiety;
+    
+    private UIHealthBar uiHealthBar;
+    private UIStaminaBar uiStaminaBar;
+    private UISatietyBar uiSatietyBar;
     private void Awake()
     {
         if (Instance == null)
@@ -37,10 +49,40 @@ public class GameManager : MonoBehaviour
     {
         InitializePlayer();
         InitializeCamera();
+        InitializeGameCanvas();
         InitializeCraftingSystem();
         PersistentObject();
     }
 
+    private void InitializeGameCanvas()
+    {
+        gameCanvas = Instantiate(gameCanvas);
+        uiInventoryPage = gameCanvas.GetComponentInChildren<UIInventoryPage>(true);
+        
+        
+        List<UIHealthBar> uiHealthBarList = FindSpecificComponentsInChildrenBFS<UIHealthBar>(gameCanvas.transform, component => component.name.Contains("HealthBar"));
+        if (uiHealthBarList.Count > 0)
+        {
+            uiHealthBar = uiHealthBarList[0]; // Directly assigning the component
+        }
+        List<UIStaminaBar> uiStaminaBarList = FindSpecificComponentsInChildrenBFS<UIStaminaBar>(gameCanvas.transform, component => component.name.Contains("StaminaBar"));
+        if (uiStaminaBarList.Count > 0)
+        {
+            uiStaminaBar = uiStaminaBarList[0]; // Directly assigning the component
+        }
+        List<UISatietyBar> uiSatietyBarList = FindSpecificComponentsInChildrenBFS<UISatietyBar>(gameCanvas.transform, component => component.name.Contains("SatietyBar"));
+        if (uiSatietyBarList.Count > 0)
+        {
+            uiSatietyBar = uiSatietyBarList[0]; // Directly assigning the component
+        }
+        
+        
+        player.GetComponent<InventoryController>().inventoryUI = uiInventoryPage;
+        
+        uiHealthBar.healthComponent = playerHealth;
+        uiStaminaBar.staminaComponent = playerStamina;
+        uiSatietyBar.satietyComponent = playerSatiety;
+    }
     private void InitializeCraftingSystem()
     {
         //craftingSystem = Instantiate(craftingSystem);
@@ -56,6 +98,9 @@ public class GameManager : MonoBehaviour
     private void InitializePlayer()
     {
         player = Instantiate(player);
+        playerHealth = player.GetComponent<Health>();
+        playerStamina = player.GetComponent<Stamina>();
+        playerSatiety = player.GetComponent<Satiety>();
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -106,10 +151,34 @@ public class GameManager : MonoBehaviour
 
     private void PersistentObject()
     {
-        DontDestroyOnLoad(craftingSystem.gameObject);
+        //DontDestroyOnLoad(craftingSystem.gameObject);
+
         DontDestroyOnLoad(mainCamera);
         DontDestroyOnLoad(playerFollowCamera);
         DontDestroyOnLoad(player);
+        DontDestroyOnLoad(gameCanvas);
+    }
+    
+    public static List<T> FindSpecificComponentsInChildrenBFS<T>(Transform parent, System.Func<T, bool> criteria) where T : Component
+    {
+        Queue<Transform> queue = new Queue<Transform>();
+        List<T> components = new List<T>();
+        queue.Enqueue(parent);
+        
+        while (queue.Count > 0)
+        {
+            Transform current = queue.Dequeue();
+            T component = current.GetComponent<T>();
+            if (component != null && criteria(component))
+            {
+                components.Add(component);
+            }
+            foreach (Transform child in current)
+            {
+                queue.Enqueue(child);
+            }
+        }
+        return components;
     }
 }
 

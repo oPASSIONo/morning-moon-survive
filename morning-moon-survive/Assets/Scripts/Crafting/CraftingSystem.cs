@@ -68,7 +68,4 @@ public class CraftingSystem : MonoBehaviour
             }
         }
     }
-    
-
-
 }
