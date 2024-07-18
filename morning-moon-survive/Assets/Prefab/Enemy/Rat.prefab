@@ -246,6 +246,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Head
       objectReference: {fileID: 0}
+    - target: {fileID: -7214715418266911863, guid: 1aca965f3f4eb3141b28ecd56f0271f3,
+        type: 3}
+      propertyPath: m_Name
+      value: Body
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1aca965f3f4eb3141b28ecd56f0271f3,
         type: 3}
       propertyPath: m_Name
@@ -283,10 +288,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -7214715418266911863, guid: 1aca965f3f4eb3141b28ecd56f0271f3,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7213808605059413527}
-    - targetCorrespondingSourceObject: {fileID: -7214715418266911863, guid: 1aca965f3f4eb3141b28ecd56f0271f3,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2125597571271886719}
   m_SourcePrefab: {fileID: 100100000, guid: 1aca965f3f4eb3141b28ecd56f0271f3, type: 3}
 --- !u!1 &569670346116079248 stripped
@@ -295,20 +296,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2019810162641478937}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7213808605059413527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 569670346116079248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 730be99ec21a9a2478b3d91448052aa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  zoneType: 1
-  damageMultiplier: 1
 --- !u!65 &2125597571271886719
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -369,8 +356,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730be99ec21a9a2478b3d91448052aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneType: 0
   damageMultiplier: 1
+  weakPointCollider: {fileID: 0}
+  bodyCollider: {fileID: 0}
 --- !u!1 &1208837674672396360 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1aca965f3f4eb3141b28ecd56f0271f3,
@@ -443,5 +431,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730be99ec21a9a2478b3d91448052aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneType: 2
   damageMultiplier: 1
+  weakPointCollider: {fileID: 0}
+  bodyCollider: {fileID: 0}

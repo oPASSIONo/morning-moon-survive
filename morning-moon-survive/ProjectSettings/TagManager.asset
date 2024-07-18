@@ -7,8 +7,8 @@ TagManager:
   - Weapon
   - Tree
   - Enemy
-  - SpawnPoint
-  - Head
+  - WeakPoint
+  - PlayerSpawnPoint
   layers:
   - Default
   - TransparentFX

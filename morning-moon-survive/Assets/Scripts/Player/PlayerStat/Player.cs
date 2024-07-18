@@ -39,6 +39,9 @@ public class Player : MonoBehaviour
     private Satiety satietyComponent;
     private PlayerMovement playerMovementComponent;
     
+    [SerializeField]
+    private Transform rootTransform; // Assign the root GameObject in the inspector
+    public Transform RootTransform => rootTransform;
 
     private void Awake()
     {
@@ -118,7 +121,6 @@ public class Player : MonoBehaviour
     private void UpdatePlayerSatiety(float currentSatiety,float maxSatiety)
     {
         Satiety = currentSatiety;
-        Debug.Log($"Satiety From Player Script : {Satiety}");
     }
     private void UpdatePlayerStamina(float currentStamina, float maxStamina)
     {

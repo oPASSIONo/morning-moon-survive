@@ -12,8 +12,8 @@ public class PlayerMovement : MonoBehaviour
     public float MinSpeed { get; private set; }
     public float CurrentSpeed { get; private set; }
     public float BaseSpeed { get; private set; }
-    private float dashForce = 10;
-    private float dashDuration = 1;
+    private float dashForce = 10f;
+    private float dashDuration = 0.5f;
     private bool isDashing;
     private float dashTimeRemaining;
     private Rigidbody rb;
@@ -109,18 +109,23 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isDashing)
         {
-            staminaComponent.TakeAction();
             isDashing = true;
             dashTimeRemaining = dashDuration;
 
             Vector2 inputVector = GameInput.Instance.GetMovement();
-            Transform cameraTransform = Camera.main.transform;
+            Debug.Log(inputVector);
+            if (inputVector!=Vector2.zero)
+            {
+                staminaComponent.TakeAction();
+                Transform cameraTransform = Camera.main.transform;
 
-            Vector3 dashDirection = cameraTransform.forward * inputVector.y + cameraTransform.right * inputVector.x;
-            dashDirection.y = 0f;
-            dashDirection.Normalize();
+                Vector3 dashDirection = cameraTransform.forward * inputVector.y + cameraTransform.right * inputVector.x;
+                dashDirection.y = 0f;
+                dashDirection.Normalize();
 
-            rb.AddForce(dashDirection * dashForce, ForceMode.VelocityChange);
+                rb.AddForce(dashDirection * dashForce, ForceMode.VelocityChange);
+            }
+            
         }
     }
 }

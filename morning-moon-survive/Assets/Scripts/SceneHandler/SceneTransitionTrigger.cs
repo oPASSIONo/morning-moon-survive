@@ -8,7 +8,8 @@ public class SceneTransitionTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            SceneTransitionManager.Instance.TransitionToScene(targetScene);
+            //SceneTransitionManager.Instance.TransitionToScene(targetScene);
+            GameManager.Instance.LoadScene(targetScene);
         }
     }
 }

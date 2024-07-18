@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     
     public GameObject[] dropItems; // Array of items to drop upon death
     
-    private Health healthComponent;
+    public Health healthComponent;
     
     private void Awake()
     {
@@ -56,12 +56,12 @@ public class Enemy : MonoBehaviour
         Debug.Log($"HP From Enemy Script : {HP}"); 
     }
 
-    public void TakeDamage(float damage)
+    /*public void TakeDamage(float damage)
     {
         HP -= damage;
         Debug.Log($"Health: {HP}");
         IsDead();
-    }
+    }*/
 
     private void IsDead()
     {
