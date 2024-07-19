@@ -6764,7 +6764,8 @@ MonoBehaviour:
   mouseFollower: {fileID: 0}
   hotbarPanel: {fileID: 0}
   actionPanel: {fileID: 0}
-  quickUseButton: {fileID: 1750115509777643459}
+  previousButton: {fileID: 0}
+  nextButton: {fileID: 0}
 --- !u!1 &7058952581191323945
 GameObject:
   m_ObjectHideFlags: 0

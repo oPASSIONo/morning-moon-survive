@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6590717989431654337}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Smelting_Furnace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 7813671441333191776}
   - component: {fileID: 5677868321653580812}
   - component: {fileID: 176657606260548498}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FurnaceModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,10 +220,30 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -8513424388201257645, guid: e60907c65820bda4a962e91cfec58610,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -344004081357383697, guid: e60907c65820bda4a962e91cfec58610,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e60907c65820bda4a962e91cfec58610,
         type: 3}
       propertyPath: m_Name
       value: SmeltingZone_NEW
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e60907c65820bda4a962e91cfec58610,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3779745573541866595, guid: e60907c65820bda4a962e91cfec58610,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

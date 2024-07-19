@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9124615211130649814}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CraftingTable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 7579100445047853485}
   - component: {fileID: 929452719255834091}
   - component: {fileID: 8169816319093282776}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TableModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,10 +181,20 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -6359452356577084435, guid: 7dedc0bd95d9fa04fb9b22ccf7c0c954,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7dedc0bd95d9fa04fb9b22ccf7c0c954,
         type: 3}
       propertyPath: m_Name
       value: Desk_Square
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7dedc0bd95d9fa04fb9b22ccf7c0c954,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

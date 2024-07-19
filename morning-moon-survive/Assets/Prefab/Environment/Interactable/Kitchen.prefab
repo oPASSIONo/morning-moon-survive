@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6820597747363771573}
   - component: {fileID: 8519440998640002381}
   - component: {fileID: 7141283835067984732}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KitchenModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 9188921627278346527}
@@ -80,7 +80,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9002499065684308353}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Kitchen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,6 +185,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Kitchen_Sink
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4dc679b8fa75c374e8a1502f6f8c249d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
