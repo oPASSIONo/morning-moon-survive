@@ -1476,7 +1476,6 @@ GameObject:
   - component: {fileID: 3679551564710459902}
   - component: {fileID: 5717686180353942190}
   - component: {fileID: 2714925039502792690}
-  - component: {fileID: 7950732213245431524}
   m_Layer: 5
   m_Name: ItemPanel
   m_TagString: Untagged
@@ -1569,23 +1568,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &7950732213245431524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2260548815976775588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b2180c508d2af54180865834ac5f463, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  craftingItemPrefab: {fileID: 990275143648217471, guid: 5e101385ef1e8114aa4bfb65327800ae,
-    type: 3}
-  contentPanel: {fileID: 6591001417371211089}
-  craftingDescription: {fileID: 744093535326204580}
-  craftButtonHandler: {fileID: 8893289611514948335}
 --- !u!1 &2282055271778089852
 GameObject:
   m_ObjectHideFlags: 0
@@ -2096,8 +2078,9 @@ GameObject:
   - component: {fileID: 5763294377445816062}
   - component: {fileID: 5684579170713011417}
   - component: {fileID: 2462511710675310055}
+  - component: {fileID: 7929580604280267888}
   m_Layer: 5
-  m_Name: Crafting Panel
+  m_Name: PlayerCrafting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2190,6 +2173,23 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &7929580604280267888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2738280625108242546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b2180c508d2af54180865834ac5f463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  craftingItemPrefab: {fileID: 990275143648217471, guid: 5e101385ef1e8114aa4bfb65327800ae,
+    type: 3}
+  contentPanel: {fileID: 6591001417371211089}
+  craftingDescription: {fileID: 744093535326204580}
+  craftButtonHandler: {fileID: 8893289611514948335}
 --- !u!1 &2810967953788442423
 GameObject:
   m_ObjectHideFlags: 0
@@ -5213,14 +5213,14 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2349465155034607251}
+  - {fileID: 7465786266970375904}
   - {fileID: 8896855171575917793}
-  - {fileID: 8302501231612953158}
   - {fileID: 1103575249280202757}
   - {fileID: 5751133847076359359}
   - {fileID: 505975491721727903}
   - {fileID: 4709854180551732042}
   - {fileID: 148049960011445667}
-  - {fileID: 7465786266970375904}
+  - {fileID: 8302501231612953158}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5355,7 +5355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3063a5fc4ed8094ebff2656e5024f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 0}
+  canvas: {fileID: 2297931800577972753}
   item: {fileID: 0}
 --- !u!1 &7434215216466733311
 GameObject:
@@ -7100,7 +7100,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 7950732213245431524}
+      - m_Target: {fileID: 7929580604280267888}
         m_TargetAssemblyTypeName: UICraftingPage, Assembly-CSharp
         m_MethodName: PopulateCraftingUI
         m_Mode: 2

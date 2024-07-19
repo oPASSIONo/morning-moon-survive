@@ -6,7 +6,6 @@ using Inventory.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Inventory.Model;
-using Unity.Netcode;
 
 namespace Inventory
 {
@@ -88,9 +87,19 @@ namespace Inventory
 
         private void HandleItemActionRequest(int itemIndex)
         {
-            InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
-            if (inventoryItem.IsEmpty)
+            if (inventoryData == null)
+            {
+                Debug.LogError("inventoryData is null. Please assign it in the inspector.");
                 return;
+            }
+            InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+
+
+            if (inventoryItem.IsEmpty)
+            {
+                Debug.LogWarning("Inventory item is null or empty.");
+                return;
+            }
 
             IItemAction itemAction = inventoryItem.item as IItemAction;
             if(itemAction != null)

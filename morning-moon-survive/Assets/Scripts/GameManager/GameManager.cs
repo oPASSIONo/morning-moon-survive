@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject playerFollowCamera;
     [SerializeField] private GameObject player;
     
-    //[SerializeField] private GameObject craftingSystem;
+    [SerializeField] private GameObject craftingSystem;
+    private UICraftingPage craftingUI;
     
     [SerializeField] private GameObject gameCanvas;
     private UIInventoryPage uiInventoryPage;
@@ -26,6 +27,8 @@ public class GameManager : MonoBehaviour
     private UIHealthBar uiHealthBar;
     private UIStaminaBar uiStaminaBar;
     private UISatietyBar uiSatietyBar;
+
+    private CraftButtonHandler craftButtonHandler;
     private void Awake()
     {
         if (Instance == null)
@@ -59,6 +62,7 @@ public class GameManager : MonoBehaviour
         gameCanvas = Instantiate(gameCanvas);
         uiInventoryPage = gameCanvas.GetComponentInChildren<UIInventoryPage>(true);
         
+        player.GetComponent<InventoryController>().inventoryUI = uiInventoryPage;
         
         List<UIHealthBar> uiHealthBarList = FindSpecificComponentsInChildrenBFS<UIHealthBar>(gameCanvas.transform, component => component.name.Contains("HealthBar"));
         if (uiHealthBarList.Count > 0)
@@ -77,15 +81,26 @@ public class GameManager : MonoBehaviour
         }
         
         
-        player.GetComponent<InventoryController>().inventoryUI = uiInventoryPage;
         
         uiHealthBar.healthComponent = playerHealth;
         uiStaminaBar.staminaComponent = playerStamina;
         uiSatietyBar.satietyComponent = playerSatiety;
+        
     }
     private void InitializeCraftingSystem()
     {
-        //craftingSystem = Instantiate(craftingSystem);
+        craftingSystem = Instantiate(craftingSystem);
+        List<CraftButtonHandler> craftButtonList = FindSpecificComponentsInChildrenBFS<CraftButtonHandler>(gameCanvas.transform, component => component.name.Contains("CraftBtn"));
+        if (craftButtonList.Count > 0)
+        {
+            craftButtonHandler = craftButtonList[0]; // Directly assigning the component
+        }
+        List<UICraftingPage> craftingUIList = FindSpecificComponentsInChildrenBFS<UICraftingPage>(gameCanvas.transform, component => component.name.Contains("PlayerCrafting"));
+        if (craftingUIList.Count > 0)
+        {
+            craftingUI = craftingUIList[0]; // Directly assigning the component
+        }
+        craftButtonHandler.craftingSystem = craftingSystem.GetComponent<CraftingSystem>();
     }
 
     private void InitializeCamera()
@@ -151,8 +166,8 @@ public class GameManager : MonoBehaviour
 
     private void PersistentObject()
     {
-        //DontDestroyOnLoad(craftingSystem.gameObject);
-
+        DontDestroyOnLoad(craftingSystem);
+        
         DontDestroyOnLoad(mainCamera);
         DontDestroyOnLoad(playerFollowCamera);
         DontDestroyOnLoad(player);

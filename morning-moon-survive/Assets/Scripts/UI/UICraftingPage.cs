@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,13 @@ public class UICraftingPage : MonoBehaviour
 
     private List<UICraftingItem> listOfUICraftingItems = new List<UICraftingItem>();
     private Dictionary<UICraftingItem, Recipe> craftingItemToRecipeMap = new Dictionary<UICraftingItem, Recipe>();
-
+    
+    
+    private void Start()
+    {
+        
+    }
+    
     public void PopulateCraftingUI(CraftingSO craftingSO)
     {
         ClearCraftingUI();

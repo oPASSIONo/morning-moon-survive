@@ -18,18 +18,20 @@ public class PlayerInteraction : MonoBehaviour
     public LayerMask interactableLayerMask;
 
     private IInteractable currentInteractable;
-
+    
     private void Awake()
     {
         GameInput.Instance.OnInteractionAction += GameInput_OnInteractionAction;
     }
     
-    private void Update()
+    /*private void Update()
     {
         DetectInteractable();
-    }
+    }*/
+    
     private void GameInput_OnInteractionAction(object sender, EventArgs e)
     {
+        DetectInteractable();
         currentInteractable.Interact();
     }
     
