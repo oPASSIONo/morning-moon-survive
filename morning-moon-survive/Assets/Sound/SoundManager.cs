@@ -1,21 +1,37 @@
-using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;  // ใช้สำหรับการอ้างอิง Slider
+
+[System.Serializable]
+public class BGMSetting
+{
+    public AudioClip bgmClip;
+    public float volume = 1.0f;
+    public bool loop = true;
+}
 
 public class SoundManager : MonoBehaviour
 {
-    public static SoundManager Instance;
+    public static SoundManager Instance { get; private set; }
 
-    public float sfxVolume = 1f;
-    public float bgmVolume = 1f;
+    [SerializeField]
+    private BGMSetting defaultBGMSetting;
 
-    private AudioSource bgmAudioSource;
+    [SerializeField]
+    private BGMSetting[] bgmSettings;  // Array สำหรับเก็บการตั้งค่า BGM ตาม Scene
 
-    void Awake()
+    [SerializeField]
+    private Slider volumeSlider;  // ฟิลด์สำหรับอ้างอิง Slider
+
+    private AudioSource bgmSource;
+
+    private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            bgmSource = gameObject.AddComponent<AudioSource>();
         }
         else
         {
@@ -23,74 +39,83 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlayBGM(AudioClip clip, float startDelay = 0f, float endDelay = 0f, bool loop = true)
+    private void Start()
     {
-        StartCoroutine(PlayBGMCoroutine(clip, startDelay, endDelay, loop));
+        // ตั้งค่า BGM เริ่มต้นตาม Scene ปัจจุบัน
+        ChangeBGMForScene(SceneManager.GetActiveScene().name);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        // ตั้งค่า Slider และเพิ่ม event listener
+        if (volumeSlider != null)
+        {
+            volumeSlider.value = GetBGMVolume();  // ตั้งค่าเริ่มต้นของ Slider จากระดับเสียงปัจจุบัน
+            volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
+        }
     }
 
-    private IEnumerator PlayBGMCoroutine(AudioClip clip, float startDelay, float endDelay, bool loop)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        yield return new WaitForSeconds(startDelay);
+        ChangeBGMForScene(scene.name);
+    }
 
-        if (bgmAudioSource == null)
+    private void ChangeBGMForScene(string sceneName)
+    {
+        BGMSetting setting = System.Array.Find(bgmSettings, bgm => bgm.bgmClip.name == sceneName);
+
+        if (setting != null)
         {
-            GameObject bgmObject = new GameObject("BGM_AudioSource");
-            bgmObject.transform.SetParent(transform);
-            bgmAudioSource = bgmObject.AddComponent<AudioSource>();
+            PlayBGM(setting);
+        }
+    }
+
+    public void PlayBGM(AudioClip bgmClip, float volume = 1.0f, bool loop = true)
+    {
+        if (bgmSource.isPlaying && bgmSource.clip == bgmClip)
+            return;
+
+        bgmSource.clip = bgmClip;
+        bgmSource.volume = volume;
+        bgmSource.loop = loop;
+        bgmSource.Play();
+    }
+
+    public void PlayBGM(BGMSetting setting = null)
+    {
+        if (setting == null)
+        {
+            setting = defaultBGMSetting;
         }
 
-        bgmAudioSource.clip = clip;
-        bgmAudioSource.volume = bgmVolume;
-        bgmAudioSource.loop = loop;
-        bgmAudioSource.Play();
+        PlayBGM(setting.bgmClip, setting.volume, setting.loop);
+    }
+
+    public void StopBGM()
+    {
+        bgmSource.Stop();
     }
 
     public void SetBGMVolume(float volume)
     {
-        bgmVolume = volume;
-        if (bgmAudioSource != null)
-        {
-            bgmAudioSource.volume = bgmVolume;
-        }
+        bgmSource.volume = volume;
     }
 
-    public void PlaySound(AudioClip clip, Transform parent, float startDelay = 0f, float endDelay = 0f, bool loop = false)
+    public float GetBGMVolume()
     {
-        StartCoroutine(PlaySoundCoroutine(clip, parent, startDelay, endDelay, loop));
+        return bgmSource.volume;
     }
 
-    private IEnumerator PlaySoundCoroutine(AudioClip clip, Transform parent, float startDelay, float endDelay, bool loop)
+    private void OnVolumeChanged(float value)
     {
-        yield return new WaitForSeconds(startDelay);
-
-        GameObject audioObject = new GameObject("AudioSource_" + clip.name);
-        audioObject.transform.SetParent(parent);
-        audioObject.transform.localPosition = Vector3.zero;
-
-        AudioSource audioSource = audioObject.AddComponent<AudioSource>();
-        audioSource.clip = clip;
-        audioSource.volume = sfxVolume;
-        audioSource.loop = loop;
-        audioSource.Play();
-
-        if (!loop)
-        {
-            yield return new WaitForSeconds(clip.length + endDelay);
-            Destroy(audioObject);
-        }
+        SetBGMVolume(value);
     }
 
-    public void StopLoopingSound(AudioClip clip)
+    public void PauseBGM()
     {
-        AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
-        foreach (AudioSource source in allAudioSources)
-        {
-            if (source.clip == clip && source.loop)
-            {
-                source.Stop();
-                Destroy(source.gameObject);
-                break;
-            }
-        }
+        bgmSource.Pause();
+    }
+
+    public void UnPauseBGM()
+    {
+        bgmSource.UnPause();
     }
 }
