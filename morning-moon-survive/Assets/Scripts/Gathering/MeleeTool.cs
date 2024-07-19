@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class MeleeTool : MonoBehaviour
 {
-    private float baseDamage = 10f;
-
+    
+    public float Name { get; private set; }
+    public float BaseDamage { get; private set; }
+    public float Weight { get; private set; }
+    public enum AttackType
+    {
+        Chop,
+        Blunt,
+        Pierce,
+        Slash,
+        Ammo
+    }
     private void OnTriggerEnter(Collider other)
     {
         GameObject hitObject = other.gameObject;
         Tree tree = hitObject.GetComponent<Tree>();
         if (tree != null)
         {
-            tree.TakeDamage(baseDamage);
+            tree.TakeDamage(BaseDamage);
         }
     }
 }

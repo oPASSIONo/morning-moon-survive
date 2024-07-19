@@ -1,18 +1,15 @@
+using System;
 using UnityEngine;
 
 public class DamageZone : MonoBehaviour
 {
-    public enum ZoneType
-    {
-        Head,
-        Body,
-        Tail
-    }
-
-    public ZoneType zoneType;
+    
     public float damageMultiplier = 1f; // Adjust this for different damage multipliers
-
+    
     private Enemy enemy; // Reference to the parent Enemy component
+    private Health healthComponent;
+
+    
 
     private void Start()
     {
@@ -21,15 +18,21 @@ public class DamageZone : MonoBehaviour
         {
             Debug.LogError("DamageZone script must be attached to a child GameObject of an Enemy.");
         }
+
+        healthComponent = GetComponentInParent<Health>();
+        if (healthComponent==null)
+        {
+            Debug.LogError("DamageZone script must be attached to a child GameObject of an Health.");
+        }
     }
 
     // Method to apply damage based on the zone type
-    public void ApplyDamage(float baseDamage)
+    public void ApplyDamageToEnemy(float baseDamage)
     {
         float totalDamage = baseDamage * damageMultiplier;
         // Apply damage to the enemy's health
-        enemy.TakeDamage(totalDamage);
+        healthComponent.TakeDamage(totalDamage);
         // Optionally, you can add effects or animations specific to this zone here
-        Debug.Log($"Dealing {totalDamage} damage to {zoneType}");
     }
+    
 }

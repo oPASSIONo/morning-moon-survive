@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class CraftButtonHandler : MonoBehaviour
 {
-    [SerializeField] private Button craftButton;
-    [SerializeField] private CraftingSystem craftingSystem;
+    public Button craftButton;
+    public CraftingSystem craftingSystem;
 
     private Recipe selectedRecipe;
 

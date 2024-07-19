@@ -16,6 +16,7 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnInventoryAction;
     public event EventHandler OnAttackAction;
     public event EventHandler OnInteractionAction;
+    public event EventHandler OnDashAction;
 
     private void Awake()
     {
@@ -40,7 +41,9 @@ public class GameInput : MonoBehaviour
         playerInput.PlayerControls.Attack.performed += Attack_Performed;
         
         playerInput.PlayerControls.Interaction.performed += Interaction_Performed;
-        
+        playerInput.PlayerControls.Dash.performed += Dash_Performed;
+
+
     }
 
     /*private void OnDestroy()
@@ -70,6 +73,10 @@ public class GameInput : MonoBehaviour
     public void Interaction_Performed(InputAction.CallbackContext obj)
     {
         OnInteractionAction?.Invoke(this,EventArgs.Empty);
+    }
+    private void Dash_Performed(InputAction.CallbackContext obj)
+    {
+        OnDashAction?.Invoke(this, EventArgs.Empty);
     }
 
     public Vector2 GetMovement()

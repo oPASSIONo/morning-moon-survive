@@ -7,9 +7,9 @@ public class CharacterStatHungerModifierSO : CharacterStatModifierSO
 {
     public override void AffectCharacter(GameObject character, float val)
     {
-        Hunger hunger = character.GetComponent<Hunger>();
+        Satiety hunger = character.GetComponent<Satiety>();
         if (hunger!=null)
-            hunger.DecreaseHunger((int)val);
+            hunger.IncreaseSatiety((float)val);
         
     }
 }

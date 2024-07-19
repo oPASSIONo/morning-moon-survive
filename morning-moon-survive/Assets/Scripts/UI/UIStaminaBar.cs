@@ -6,32 +6,23 @@ using TMPro;
 
 public class UIStaminaBar : MonoBehaviour
 {
-    [SerializeField] private Stamina stamina;
+    public Stamina staminaComponent;
     [SerializeField] private Slider slider;
     [SerializeField] private TMP_Text staminaText; // Reference to the TextMeshPro text component
 
     // Start is called before the first frame update
     void Start()
     {
-        
-        // Initialize the slider value to represent the player's current stamina
-        UpdateStaminaBar();
+        staminaComponent.OnStaminaChanged += UpdateStaminaBar;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Update the stamina bar if the player's stamina changes
-        UpdateStaminaBar();
-    }
-
-    void UpdateStaminaBar()
+    
+    private void UpdateStaminaBar(float currentStamina,float maxStamina)
     {
         // Ensure the stamina and slider references are set
-        if (stamina != null && slider != null)
+        if (staminaComponent != null && slider != null)
         {
             // Calculate the normalized stamina value (between 0 and 1)
-            float normalizedStamina = stamina.CurrentStamina / stamina.MaxStamina;
+            float normalizedStamina = currentStamina / maxStamina;
 
             // Set the slider value to represent the normalized stamina value
             slider.value = normalizedStamina;
@@ -40,7 +31,7 @@ public class UIStaminaBar : MonoBehaviour
             if (staminaText != null)
             {
                 // Display the current stamina value as text
-                staminaText.text = "Stamina: " + Mathf.RoundToInt(stamina.CurrentStamina).ToString();
+                staminaText.text = "Stamina: " + Mathf.RoundToInt(currentStamina).ToString();
             }
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Inventory.Model;
 using UnityEngine;
@@ -68,7 +69,4 @@ public class CraftingSystem : MonoBehaviour
             }
         }
     }
-    
-
-
 }

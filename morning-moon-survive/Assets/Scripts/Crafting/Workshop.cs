@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Workshop : MonoBehaviour, IInteractable
@@ -5,10 +6,12 @@ public class Workshop : MonoBehaviour, IInteractable
     [SerializeField] private GameObject UIWorkshop;
     [SerializeField] private CraftingSO craftingSO;
     [SerializeField] private UICraftingPage craftingPage;
-
+    
+    //public event Action<bool> OnWorkshopInteract;
     public void Interact()
     {
         Debug.Log("Interacting with workshop");
+        //OnWorkshopInteract?.Invoke(true);
         UIWorkshop.SetActive(true);
         craftingPage.PopulateCraftingUI(craftingSO);
     }

@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class AnimationStateController : NetworkBehaviour
 {
-    [SerializeField] private Hunger Hunger;
+    [SerializeField] private Satiety Hunger;
     
     public Animator animator;
     public PlayerInput playerInput;
