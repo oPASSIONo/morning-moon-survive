@@ -179,7 +179,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9b26db5f24765f341b67e45b64235910,
         type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5365949894285169726, guid: 9b26db5f24765f341b67e45b64235910,
         type: 3}
@@ -189,7 +189,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b26db5f24765f341b67e45b64235910,
         type: 3}
       propertyPath: m_Name
-      value: PineTree1 (1)
+      value: PineTree1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9b26db5f24765f341b67e45b64235910,
         type: 3}

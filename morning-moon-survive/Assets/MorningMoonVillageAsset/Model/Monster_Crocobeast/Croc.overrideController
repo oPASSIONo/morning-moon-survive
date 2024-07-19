@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Croc
+  m_Controller: {fileID: 9100000, guid: f196ca70a8a47504495320ca745b00f0, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 9067093048684652814, guid: aca8065404f813d44b029cd4b6e87f91,
+      type: 3}
+    m_OverrideClip: {fileID: 9067093048684652814, guid: aca8065404f813d44b029cd4b6e87f91,
+      type: 3}
+  - m_OriginalClip: {fileID: 6641085478485924818, guid: aca8065404f813d44b029cd4b6e87f91,
+      type: 3}
+    m_OverrideClip: {fileID: 6641085478485924818, guid: aca8065404f813d44b029cd4b6e87f91,
+      type: 3}
+  - m_OriginalClip: {fileID: 1827226128182048838, guid: aca8065404f813d44b029cd4b6e87f91,
+      type: 3}
+    m_OverrideClip: {fileID: 1827226128182048838, guid: aca8065404f813d44b029cd4b6e87f91,
+      type: 3}
+  - m_OriginalClip: {fileID: 3060872287085348379, guid: aca8065404f813d44b029cd4b6e87f91,
+      type: 3}
+    m_OverrideClip: {fileID: 3060872287085348379, guid: aca8065404f813d44b029cd4b6e87f91,
+      type: 3}
