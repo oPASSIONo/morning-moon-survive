@@ -24,21 +24,9 @@ public class Enemy : MonoBehaviour
     public Element ElementATK { get; private set; }
     public float ElementATKDMG { get; private set; }
     
-    public int ChopWeakness { get; set; }
-    public int BluntWeakness { get; set; }
-    public int PierceWeakness { get; set; }
-    public int SlashWeakness { get; set; }
-    public int AmmoWeakness { get; set; }
+    private EnemyStatsSO.AttackTypeWeaknesses _attackWeaknesses;
+    private EnemyStatsSO.ElementTypeWeaknesses _elementWeaknesses;
     
-    public int ThunderWeakness { get; set; }
-    public int FireWeakness { get; set; }
-    public int IceWeakness { get; set; }
-    public int ToxicWeakness { get; set; }
-    public int DarkWeakness { get; set; }
-    public int UnholyWeakness { get; set; }
-
-    //public Collider bodyCollider;
-    //public Collider weakPointCollider;
     
     private void Awake()
     {
@@ -70,20 +58,10 @@ public class Enemy : MonoBehaviour
         IsMonster = enemyStatsSO.IsMonster;
         ElementATK = enemyStatsSO.ElementATK;
         ElementATKDMG = enemyStatsSO.ElementATKDMG;
+
+        _attackWeaknesses = enemyStatsSO.AttackWeaknesses;
+        _elementWeaknesses = enemyStatsSO.ElementWeaknesses;
         
-        ChopWeakness = enemyStatsSO.ChopWeakness;
-        BluntWeakness = enemyStatsSO.BluntWeakness;
-        PierceWeakness = enemyStatsSO.PierceWeakness;
-        SlashWeakness = enemyStatsSO.SlashWeakness;
-        AmmoWeakness = enemyStatsSO.AmmoWeakness;
-
-        ThunderWeakness = enemyStatsSO.ThunderWeakness;
-        FireWeakness = enemyStatsSO.FireWeakness;
-        IceWeakness = enemyStatsSO.IceWeakness;
-        ToxicWeakness = enemyStatsSO.ToxicWeakness;
-        DarkWeakness = enemyStatsSO.DarkWeakness;
-        UnholyWeakness = enemyStatsSO.UnholyWeakness;
-
     }
     private void InitializeHealthComponent()
     {
@@ -102,6 +80,7 @@ public class Enemy : MonoBehaviour
     {
         HP=currentHealth;
         Debug.Log($"HP From Enemy Script : {HP}"); 
+        IsDead();
     }
 
     private void IsDead()
@@ -127,66 +106,37 @@ public class Enemy : MonoBehaviour
         }
     }
     
-    public void TakeDamage(float amount)
+    /*public void TakeDamage(float amount)
     {
         HP -= amount;
-        Debug.Log($"Tree took {amount} damage. Remaining health: {HP}");
+        Debug.Log($"{Name} took {amount} damage. Remaining health: {HP}");
         IsDead();
-    }
-
+    }*/
     public int GetAttackTypeWeaknessRank(AttackType attackType)
     {
-        int weaknessRank = 0;
         switch (attackType)
         {
-            case AttackType.Chop:
-                weaknessRank = ChopWeakness;
-                break;
-            case AttackType.Blunt:
-                weaknessRank = BluntWeakness;
-                break;
-            case AttackType.Pierce:
-                weaknessRank = PierceWeakness;
-                break;
-            case AttackType.Slash:
-                weaknessRank = SlashWeakness;
-                break;
-            case AttackType.Ammo:
-                weaknessRank = AmmoWeakness;
-                break;
-                
+            case AttackType.Chop: return _attackWeaknesses.Chop;
+            case AttackType.Blunt: return _attackWeaknesses.Blunt;
+            case AttackType.Pierce: return _attackWeaknesses.Pierce;
+            case AttackType.Slash: return _attackWeaknesses.Slash;
+            case AttackType.Ammo: return _attackWeaknesses.Ammo;
+            default: return 0;
         }
-        return weaknessRank;
     }
-    
+
     public int GetElementTypeWeaknessRank(Element element)
     {
-        int weaknessRank = 0;
         switch (element)
         {
-            case Element.Thunder:
-                weaknessRank = ThunderWeakness;
-                break;
-            case Element.Fire:
-                weaknessRank = FireWeakness;
-                break;
-            case Element.Ice:
-                weaknessRank = IceWeakness;
-                break;
-            case Element.Toxic:
-                weaknessRank = ToxicWeakness;
-                break;
-            case Element.Dark:
-                weaknessRank = DarkWeakness;
-                break;
-            case Element.Unholy:
-                weaknessRank = UnholyWeakness;
-                break;
-            case Element.None:
-                weaknessRank = 1;
-                break;
-                
+            case Element.Thunder: return _elementWeaknesses.Thunder;
+            case Element.Fire: return _elementWeaknesses.Fire;
+            case Element.Ice: return _elementWeaknesses.Ice;
+            case Element.Toxic: return _elementWeaknesses.Toxic;
+            case Element.Dark: return _elementWeaknesses.Dark;
+            case Element.Unholy: return _elementWeaknesses.Unholy;
+            case Element.None: return 1;
+            default: return 0;
         }
-        return weaknessRank;
     }
 }

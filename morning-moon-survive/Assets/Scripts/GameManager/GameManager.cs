@@ -198,7 +198,7 @@ public class GameManager : MonoBehaviour
         
         if (enemy!=null)
         {
-            enemy.TakeDamage(damage);
+            enemy.healthComponent.TakeDamage(damage);
         }
 
     }

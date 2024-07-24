@@ -16,17 +16,28 @@ public class EnemyStatsSO : ScriptableObject
     [field: SerializeField] public float BaseATK { get; set; }
     [field: SerializeField] public Element ElementATK { get; set; }
     [field: SerializeField] public float ElementATKDMG { get; set; }
-    [field: SerializeField] public int ChopWeakness { get; set; }
-    [field: SerializeField] public int BluntWeakness { get; set; }
-    [field: SerializeField] public int PierceWeakness { get; set; }
-    [field: SerializeField] public int SlashWeakness { get; set; }
-    [field: SerializeField] public int AmmoWeakness { get; set; }
-    [field: SerializeField] public int ThunderWeakness { get; set; }
-    [field: SerializeField] public int FireWeakness { get; set; }
-    [field: SerializeField] public int IceWeakness { get; set; }
-    [field: SerializeField] public int ToxicWeakness { get; set; }
-    [field: SerializeField] public int DarkWeakness { get; set; }
-    [field: SerializeField] public int UnholyWeakness { get; set; }
+    [field: SerializeField] public AttackTypeWeaknesses AttackWeaknesses { get; set; }
+    [field: SerializeField] public ElementTypeWeaknesses ElementWeaknesses { get; set; }
     
     
+    [System.Serializable]
+    public struct AttackTypeWeaknesses
+    {
+        public int Chop;
+        public int Blunt;
+        public int Pierce;
+        public int Slash;
+        public int Ammo;
+    }
+
+    [System.Serializable]
+    public struct ElementTypeWeaknesses
+    {
+        public int Thunder;
+        public int Fire;
+        public int Ice;
+        public int Toxic;
+        public int Dark;
+        public int Unholy;
+    }
 }
