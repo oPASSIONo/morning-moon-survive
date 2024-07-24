@@ -882,6 +882,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 177259798}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &306733277 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 2293247825055258852, guid: 95976e319e731ab4fbddb00564cc81db,
+    type: 3}
+  m_PrefabInstance: {fileID: 324780238}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &317193614
 GameObject:
   m_ObjectHideFlags: 0
@@ -1062,6 +1068,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6846252856400631385, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
+      propertyPath: weakPoint
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6846252856400631385, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: boydyPoint
+      value: 
+      objectReference: {fileID: 306733277}
+    - target: {fileID: 6846252856400631385, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
       propertyPath: enemyStatsSO
       value: 
       objectReference: {fileID: 11400000, guid: 2ee366e35f6e62246854b941704a583c,
@@ -1233,6 +1249,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1445716263405035702, guid: fe2bb00afeb18ce479b7cb6732155b93,
         type: 3}
+      propertyPath: weakPoint
+      value: 
+      objectReference: {fileID: 340857155}
+    - target: {fileID: 1445716263405035702, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: boydyPoint
+      value: 
+      objectReference: {fileID: 340857154}
+    - target: {fileID: 1445716263405035702, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
       propertyPath: enemyStatsSO
       value: 
       objectReference: {fileID: 11400000, guid: 6c1d8c3da67066742ba957120ee2c2d9,
@@ -1242,6 +1268,16 @@ PrefabInstance:
       propertyPath: healthComponent
       value: 
       objectReference: {fileID: 340857151}
+    - target: {fileID: 4870368770384935153, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412864361142168746, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1269,6 +1305,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 916b0767f21f80f4e8929a330acffe04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &340857154 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 4870368770384935153, guid: fe2bb00afeb18ce479b7cb6732155b93,
+    type: 3}
+  m_PrefabInstance: {fileID: 340857149}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &340857155 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 5412864361142168746, guid: fe2bb00afeb18ce479b7cb6732155b93,
+    type: 3}
+  m_PrefabInstance: {fileID: 340857149}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &350741572
 PrefabInstance:
   m_ObjectHideFlags: 0

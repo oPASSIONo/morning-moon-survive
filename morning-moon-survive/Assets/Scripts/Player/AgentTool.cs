@@ -33,7 +33,6 @@ public class AgentTool : MonoBehaviour
             case "Stone Axe":
                 OnDrawWeapon?.Invoke();
                 ActivateTool(stoneAxe);
-                Debug.Log(currentTool);
                 break;
             case "Bone Axe":
                 OnDrawWeapon?.Invoke();

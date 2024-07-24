@@ -242,7 +242,6 @@ namespace Inventory
         }
         private void SelectSlot(int slot)
         {
-            Debug.Log("Selected slot " + slot);
             PerformAction(slot-1,1);
             /*InventoryItem inventoryItem = inventoryData.GetItemAt(slot - 1);
             inventoryUI.HandleItemSelectionExternally(inventoryItem);*/

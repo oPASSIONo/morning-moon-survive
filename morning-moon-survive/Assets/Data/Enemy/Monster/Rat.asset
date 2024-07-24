@@ -21,16 +21,29 @@ MonoBehaviour:
   <BaseATK>k__BackingField: 50
   <ElementATK>k__BackingField: 0
   <ElementATKDMG>k__BackingField: 0
-  <AttackWeaknesses>k__BackingField:
+  <BodyPointWeaknesses>k__BackingField:
     Chop: 0
     Blunt: 0
     Pierce: 0
     Slash: 1
     Ammo: 0
-  <ElementWeaknesses>k__BackingField:
-    Thunder: 3
+  <WeakPointWeaknesses>k__BackingField:
+    Chop: 1
+    Blunt: 3
+    Pierce: 1
+    Slash: 2
+    Ammo: 1
+  <BodyPointElementWeaknesses>k__BackingField:
+    Thunder: 0
     Fire: 0
-    Ice: -1
-    Toxic: -1
+    Ice: 0
+    Toxic: 0
+    Dark: 0
+    Unholy: 0
+  <WeakPointElementWeaknesses>k__BackingField:
+    Thunder: 0
+    Fire: 0
+    Ice: 0
+    Toxic: 0
     Dark: 0
     Unholy: 0

@@ -21,7 +21,6 @@ public class Combat : MonoBehaviour
     {
         if (GetComponent<AgentTool>().currentTool != null)
         {
-            Debug.Log("Action Performed");
             staminaComponent.TakeAction();
 
             // Reset the hasHit flag
@@ -36,18 +35,16 @@ public class Combat : MonoBehaviour
         GameInput.Instance.OnAction -= PerformAction;
         // Enable the collider
         attackCollider.enabled = true;
-        Debug.Log("ATK Collider enabled");
 
         // Wait for the specified duration
         yield return new WaitForSeconds(enableDuration);
 
         // Disable the collider
         attackCollider.enabled = false;
-        Debug.Log("ATK Collider disabled");
         GameInput.Instance.OnAction += PerformAction;
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         Enemy enemy = other.GetComponent<Enemy>();
         if (attackCollider.enabled && !hasHit)
@@ -61,8 +58,25 @@ public class Combat : MonoBehaviour
                     GameManager.Instance.PlayerDealDamage(enemy.gameObject);
                     break;
                 case false:
+                    //calculate method for not monster enemy
                     GameManager.Instance.PlayerDealDamage(enemy.gameObject);
                     break;
+            }
+        }
+    }*/
+    private void OnTriggerEnter(Collider other)
+    {
+        if (attackCollider.enabled && !hasHit)
+        {
+            Enemy enemy = other.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                Debug.Log("Collider triggered by: " + enemy.gameObject.name);
+                // Mark as hit to ignore subsequent collisions
+                hasHit = true;
+                Debug.Log(other.name);
+                // Call GameManager to handle damage calculation and application
+                GameManager.Instance.PlayerDealDamage(enemy.gameObject, other);
             }
         }
     }

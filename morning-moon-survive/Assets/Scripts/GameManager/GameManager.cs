@@ -174,7 +174,7 @@ public class GameManager : MonoBehaviour
     }
     
     
-    public void PlayerDealDamage(GameObject target)
+    public void PlayerDealDamage(GameObject target, Collider hitCollider)
     {
         Enemy enemy = target.GetComponent<Enemy>();
         AttackType playerATKType = playerAgentTool.currentTool.AttackType;
@@ -183,24 +183,30 @@ public class GameManager : MonoBehaviour
         weaponATKBaseDMG = playerAgentTool.currentTool.AttackDamage;
         sharpnessOfWeapon = playerAgentTool.currentTool.Sharpness;
         enemyDEF = enemy.Defense;
-
-        enemyWeaponWeaknessDMG = GetAttackTypeWeaknessMultiplier(playerATKType,enemy.GetAttackTypeWeaknessRank(playerATKType));
         weaponElementATKBaseDMG = playerAgentTool.currentTool.ElementAttackDamage;
-        enemyElementWeaknessDMG =
-            GetElementTypeWeaknessMultiplier(playerElementType, enemy.GetElementTypeWeaknessRank(playerElementType));
         bonusATK = 0f;
-        
-        Debug.Log($"ATK Type {enemyWeaponWeaknessDMG}");
-        Debug.Log($"Element {enemyElementWeaknessDMG}");
-
-        float damage = (playerATKBaseDMG + (weaponATKBaseDMG * sharpnessOfWeapon * enemyWeaponWeaknessDMG) - enemyDEF) +
-                 (weaponElementATKBaseDMG * enemyElementWeaknessDMG) + (bonusATK);
         
         if (enemy!=null)
         {
+            if (hitCollider == enemy.weakPoint)
+            {
+                enemyWeaponWeaknessDMG = GetAttackTypeWeaknessMultiplier(playerATKType,
+                    enemy.GetWeakPointAttackTypeWeaknessRank(playerATKType));
+                enemyElementWeaknessDMG = GetElementTypeWeaknessMultiplier(playerElementType,
+                    enemy.GetWeakPointElementTypeWeaknessRank(playerElementType));
+                Debug.Log("Hit WeakPoint");
+            }
+            else if(hitCollider==enemy.boydyPoint)
+            {
+                enemyWeaponWeaknessDMG = GetAttackTypeWeaknessMultiplier(playerATKType,enemy.GetBodyPointAttackTypeWeaknessRank(playerATKType));
+                enemyElementWeaknessDMG =
+                    GetElementTypeWeaknessMultiplier(playerElementType, enemy.GetBodyPointElementTypeWeaknessRank(playerElementType));
+                Debug.Log("Hit BodyPoint");
+            }
+            float damage = (playerATKBaseDMG + (weaponATKBaseDMG * sharpnessOfWeapon * enemyWeaponWeaknessDMG) - enemyDEF) +
+                           (weaponElementATKBaseDMG * enemyElementWeaknessDMG) + (bonusATK);
             enemy.healthComponent.TakeDamage(damage);
         }
-
     }
 
     public float GetAttackTypeWeaknessMultiplier(AttackType attackType, int weaknessRank)

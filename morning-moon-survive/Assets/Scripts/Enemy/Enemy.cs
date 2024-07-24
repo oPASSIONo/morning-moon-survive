@@ -24,13 +24,19 @@ public class Enemy : MonoBehaviour
     public Element ElementATK { get; private set; }
     public float ElementATKDMG { get; private set; }
     
-    private EnemyStatsSO.AttackTypeWeaknesses _attackWeaknesses;
-    private EnemyStatsSO.ElementTypeWeaknesses _elementWeaknesses;
+    /*private EnemyStatsSO.AttackTypeWeaknesses _attackWeaknesses;
+    private EnemyStatsSO.ElementTypeWeaknesses _elementWeaknesses;*/
     
+    private EnemyStatsSO.AttackTypeWeaknesses _bodyPointAttackWeaknesses;
+    private EnemyStatsSO.AttackTypeWeaknesses _weakPointAttackWeaknesses;
+    private EnemyStatsSO.ElementTypeWeaknesses _bodyPointElementWeaknesses;
+    private EnemyStatsSO.ElementTypeWeaknesses _weakPointElementWeaknesses;
+
+    public Collider boydyPoint;
+    public Collider weakPoint;
     
     private void Awake()
     {
-        
         Initialize();
     }
     private void Start()
@@ -59,8 +65,10 @@ public class Enemy : MonoBehaviour
         ElementATK = enemyStatsSO.ElementATK;
         ElementATKDMG = enemyStatsSO.ElementATKDMG;
 
-        _attackWeaknesses = enemyStatsSO.AttackWeaknesses;
-        _elementWeaknesses = enemyStatsSO.ElementWeaknesses;
+        _bodyPointAttackWeaknesses = enemyStatsSO.BodyPointWeaknesses;
+        _weakPointAttackWeaknesses = enemyStatsSO.WeakPointWeaknesses;
+        _bodyPointElementWeaknesses = enemyStatsSO.BodyPointElementWeaknesses;
+        _weakPointElementWeaknesses = enemyStatsSO.WeakPointElementWeaknesses;
         
     }
     private void InitializeHealthComponent()
@@ -105,38 +113,60 @@ public class Enemy : MonoBehaviour
             }
         }
     }
-    
-    /*public void TakeDamage(float amount)
-    {
-        HP -= amount;
-        Debug.Log($"{Name} took {amount} damage. Remaining health: {HP}");
-        IsDead();
-    }*/
-    public int GetAttackTypeWeaknessRank(AttackType attackType)
+    public int GetWeakPointAttackTypeWeaknessRank(AttackType attackType)
     {
         switch (attackType)
         {
-            case AttackType.Chop: return _attackWeaknesses.Chop;
-            case AttackType.Blunt: return _attackWeaknesses.Blunt;
-            case AttackType.Pierce: return _attackWeaknesses.Pierce;
-            case AttackType.Slash: return _attackWeaknesses.Slash;
-            case AttackType.Ammo: return _attackWeaknesses.Ammo;
+            case AttackType.Chop: return _weakPointAttackWeaknesses.Chop;
+            case AttackType.Blunt: return _weakPointAttackWeaknesses.Blunt;
+            case AttackType.Pierce: return _weakPointAttackWeaknesses.Pierce;
+            case AttackType.Slash: return _weakPointAttackWeaknesses.Slash;
+            case AttackType.Ammo: return _weakPointAttackWeaknesses.Ammo;
             default: return 0;
         }
     }
 
-    public int GetElementTypeWeaknessRank(Element element)
+    public int GetWeakPointElementTypeWeaknessRank(Element element)
     {
         switch (element)
         {
-            case Element.Thunder: return _elementWeaknesses.Thunder;
-            case Element.Fire: return _elementWeaknesses.Fire;
-            case Element.Ice: return _elementWeaknesses.Ice;
-            case Element.Toxic: return _elementWeaknesses.Toxic;
-            case Element.Dark: return _elementWeaknesses.Dark;
-            case Element.Unholy: return _elementWeaknesses.Unholy;
+            case Element.Thunder: return _weakPointElementWeaknesses.Thunder;
+            case Element.Fire: return _weakPointElementWeaknesses.Fire;
+            case Element.Ice: return _weakPointElementWeaknesses.Ice;
+            case Element.Toxic: return _weakPointElementWeaknesses.Toxic;
+            case Element.Dark: return _weakPointElementWeaknesses.Dark;
+            case Element.Unholy: return _weakPointElementWeaknesses.Unholy;
             case Element.None: return 1;
             default: return 0;
         }
     }
+
+    public int GetBodyPointAttackTypeWeaknessRank(AttackType attackType)
+    {
+        switch (attackType)
+        {
+            case AttackType.Chop: return _bodyPointAttackWeaknesses.Chop;
+            case AttackType.Blunt: return _bodyPointAttackWeaknesses.Blunt;
+            case AttackType.Pierce: return _bodyPointAttackWeaknesses.Pierce;
+            case AttackType.Slash: return _bodyPointAttackWeaknesses.Slash;
+            case AttackType.Ammo: return _bodyPointAttackWeaknesses.Ammo;
+            default: return 0;
+        }
+    }
+
+    public int GetBodyPointElementTypeWeaknessRank(Element element)
+    {
+        switch (element)
+        {
+            case Element.Thunder: return _bodyPointElementWeaknesses.Thunder;
+            case Element.Fire: return _bodyPointElementWeaknesses.Fire;
+            case Element.Ice: return _bodyPointElementWeaknesses.Ice;
+            case Element.Toxic: return _bodyPointElementWeaknesses.Toxic;
+            case Element.Dark: return _bodyPointElementWeaknesses.Dark;
+            case Element.Unholy: return _bodyPointElementWeaknesses.Unholy;
+            case Element.None: return 1;
+            default: return 0;
+        }
+    }
+    
 }
