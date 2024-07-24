@@ -178,21 +178,27 @@ public class GameManager : MonoBehaviour
     {
         Enemy enemy = target.GetComponent<Enemy>();
         AttackType playerATKType = playerAgentTool.currentTool.AttackType;
+        Element playerElementType = playerAgentTool.currentTool.Element;
         playerATKBaseDMG = playerComponent.Attack;
         weaponATKBaseDMG = playerAgentTool.currentTool.AttackDamage;
         sharpnessOfWeapon = playerAgentTool.currentTool.Sharpness;
         enemyDEF = enemy.Defense;
 
         enemyWeaponWeaknessDMG = GetAttackTypeWeaknessMultiplier(playerATKType,enemy.GetAttackTypeWeaknessRank(playerATKType));
-        weaponElementATKBaseDMG = 1f;
-        enemyElementWeaknessDMG = 1f;
+        weaponElementATKBaseDMG = playerAgentTool.currentTool.ElementAttackDamage;
+        enemyElementWeaknessDMG =
+            GetElementTypeWeaknessMultiplier(playerElementType, enemy.GetElementTypeWeaknessRank(playerElementType));
         bonusATK = 0f;
+        
+        Debug.Log($"ATK Type {enemyWeaponWeaknessDMG}");
+        Debug.Log($"Element {enemyElementWeaknessDMG}");
+
         float damage = (playerATKBaseDMG + (weaponATKBaseDMG * sharpnessOfWeapon * enemyWeaponWeaknessDMG) - enemyDEF) +
                  (weaponElementATKBaseDMG * enemyElementWeaknessDMG) + (bonusATK);
         
-        if (target.GetComponent<Enemy>())
+        if (enemy!=null)
         {
-            target.GetComponent<Enemy>().TakeDamage(damage);
+            enemy.TakeDamage(damage);
         }
 
     }
@@ -205,6 +211,18 @@ public class GameManager : MonoBehaviour
             { 2, 1.4f },
             { 1, 1.2f },
             { 0, 1f },
+            { -1, 0f }
+        };
+        return rankToMultiplier.TryGetValue(weaknessRank, out float multiplier) ? multiplier : 0f;
+    }
+    public float GetElementTypeWeaknessMultiplier(Element element, int weaknessRank)
+    {
+        var rankToMultiplier = new Dictionary<int, float>
+        {
+            { 3, 1.5f },
+            { 2, 1.2f },
+            { 1, 1f },
+            { 0, 0.5f },
             { -1, 0f }
         };
         return rankToMultiplier.TryGetValue(weaknessRank, out float multiplier) ? multiplier : 0f;

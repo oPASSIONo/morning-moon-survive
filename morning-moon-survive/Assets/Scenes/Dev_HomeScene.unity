@@ -1163,6 +1163,112 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 722865788}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &340857149
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 664772110162115030, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.956759
+      objectReference: {fileID: 0}
+    - target: {fileID: 664772110162115030, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0000009536743
+      objectReference: {fileID: 0}
+    - target: {fileID: 664772110162115030, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.7494602
+      objectReference: {fileID: 0}
+    - target: {fileID: 664772110162115030, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 664772110162115030, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 664772110162115030, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 664772110162115030, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 664772110162115030, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 664772110162115030, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 664772110162115030, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1077621666364841430, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_Name
+      value: Rat
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181951237977279973, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445716263405035702, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: enemyStatsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6c1d8c3da67066742ba957120ee2c2d9,
+        type: 2}
+    - target: {fileID: 1445716263405035702, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: healthComponent
+      value: 
+      objectReference: {fileID: 340857151}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8127275509051746041, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 340857151}
+  m_SourcePrefab: {fileID: 100100000, guid: fe2bb00afeb18ce479b7cb6732155b93, type: 3}
+--- !u!1 &340857150 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8127275509051746041, guid: fe2bb00afeb18ce479b7cb6732155b93,
+    type: 3}
+  m_PrefabInstance: {fileID: 340857149}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &340857151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340857150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 916b0767f21f80f4e8929a330acffe04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &350741572
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4911,3 +5017,4 @@ SceneRoots:
   - {fileID: 683797900}
   - {fileID: 1014004288}
   - {fileID: 513189350}
+  - {fileID: 340857149}

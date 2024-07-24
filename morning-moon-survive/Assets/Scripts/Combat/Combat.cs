@@ -58,8 +58,7 @@ public class Combat : MonoBehaviour
             switch (enemy.enemyStatsSO.IsMonster)
             {
                 case true:
-                    // Call the GameManager's DealDamage method
-                    //GameManager.Instance.PlayerDealDamage(enemy.gameObject);
+                    GameManager.Instance.PlayerDealDamage(enemy.gameObject);
                     break;
                 case false:
                     GameManager.Instance.PlayerDealDamage(enemy.gameObject);

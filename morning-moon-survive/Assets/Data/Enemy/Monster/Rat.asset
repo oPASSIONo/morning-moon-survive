@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 506dd388b935ae64ca2ce0625f775bca, type: 3}
-  m_Name: PineTree
+  m_Name: Rat
   m_EditorClassIdentifier: 
-  <IsMonster>k__BackingField: 0
-  <Name>k__BackingField: Pine Tree
-  <HP>k__BackingField: 100
-  <MaxHP>k__BackingField: 100
+  <IsMonster>k__BackingField: 1
+  <Name>k__BackingField: Rat
+  <HP>k__BackingField: 200
+  <MaxHP>k__BackingField: 200
   <MinHP>k__BackingField: 0
   <Defense>k__BackingField: 10
-  <BaseATK>k__BackingField: 0
+  <BaseATK>k__BackingField: 50
   <ElementATK>k__BackingField: 0
   <ElementATKDMG>k__BackingField: 0
-  <ChopWeakness>k__BackingField: 3
-  <BluntWeakness>k__BackingField: -1
-  <PierceWeakness>k__BackingField: -1
-  <SlashWeakness>k__BackingField: -1
-  <AmmoWeakness>k__BackingField: -1
-  <ThunderWeakness>k__BackingField: 0
+  <ChopWeakness>k__BackingField: 0
+  <BluntWeakness>k__BackingField: 0
+  <PierceWeakness>k__BackingField: 0
+  <SlashWeakness>k__BackingField: 1
+  <AmmoWeakness>k__BackingField: 0
+  <ThunderWeakness>k__BackingField: 3
   <FireWeakness>k__BackingField: 0
-  <IceWeakness>k__BackingField: 0
-  <ToxicWeakness>k__BackingField: 0
-  <DarkWeakness>k__BackingField: 0
+  <IceWeakness>k__BackingField: -1
+  <ToxicWeakness>k__BackingField: -1
+  <DarkWeakness>k__BackingField: -1
   <UnholyWeakness>k__BackingField: 0

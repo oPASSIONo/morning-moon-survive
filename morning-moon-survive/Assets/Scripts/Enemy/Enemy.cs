@@ -24,17 +24,25 @@ public class Enemy : MonoBehaviour
     public Element ElementATK { get; private set; }
     public float ElementATKDMG { get; private set; }
     
-    public int chopWeakness { get; set; }
-    public int bluntWeakness { get; set; }
-    public int pierceWeakness { get; set; }
-    public int slashWeakness { get; set; }
-    public int ammoWeakness { get; set; }
+    public int ChopWeakness { get; set; }
+    public int BluntWeakness { get; set; }
+    public int PierceWeakness { get; set; }
+    public int SlashWeakness { get; set; }
+    public int AmmoWeakness { get; set; }
+    
+    public int ThunderWeakness { get; set; }
+    public int FireWeakness { get; set; }
+    public int IceWeakness { get; set; }
+    public int ToxicWeakness { get; set; }
+    public int DarkWeakness { get; set; }
+    public int UnholyWeakness { get; set; }
 
     //public Collider bodyCollider;
     //public Collider weakPointCollider;
     
     private void Awake()
     {
+        
         Initialize();
     }
     private void Start()
@@ -44,10 +52,10 @@ public class Enemy : MonoBehaviour
         {
             healthComponent.OnHealthChanged += UpdateEnemyHealth;
         }
-        InitialzeStat();
     }
     private void Initialize()
     {
+        InitialzeStat();
         InitializeHealthComponent();
     }
 
@@ -62,11 +70,20 @@ public class Enemy : MonoBehaviour
         IsMonster = enemyStatsSO.IsMonster;
         ElementATK = enemyStatsSO.ElementATK;
         ElementATKDMG = enemyStatsSO.ElementATKDMG;
-        chopWeakness = enemyStatsSO.chopWeakness;
-        bluntWeakness = enemyStatsSO.bluntWeakness;
-        pierceWeakness = enemyStatsSO.pierceWeakness;
-        slashWeakness = enemyStatsSO.slashWeakness;
-        ammoWeakness = enemyStatsSO.ammoWeakness;
+        
+        ChopWeakness = enemyStatsSO.ChopWeakness;
+        BluntWeakness = enemyStatsSO.BluntWeakness;
+        PierceWeakness = enemyStatsSO.PierceWeakness;
+        SlashWeakness = enemyStatsSO.SlashWeakness;
+        AmmoWeakness = enemyStatsSO.AmmoWeakness;
+
+        ThunderWeakness = enemyStatsSO.ThunderWeakness;
+        FireWeakness = enemyStatsSO.FireWeakness;
+        IceWeakness = enemyStatsSO.IceWeakness;
+        ToxicWeakness = enemyStatsSO.ToxicWeakness;
+        DarkWeakness = enemyStatsSO.DarkWeakness;
+        UnholyWeakness = enemyStatsSO.UnholyWeakness;
+
     }
     private void InitializeHealthComponent()
     {
@@ -123,19 +140,50 @@ public class Enemy : MonoBehaviour
         switch (attackType)
         {
             case AttackType.Chop:
-                weaknessRank = chopWeakness;
+                weaknessRank = ChopWeakness;
                 break;
             case AttackType.Blunt:
-                weaknessRank = bluntWeakness;
+                weaknessRank = BluntWeakness;
                 break;
             case AttackType.Pierce:
-                weaknessRank = pierceWeakness;
+                weaknessRank = PierceWeakness;
                 break;
             case AttackType.Slash:
-                weaknessRank = slashWeakness;
+                weaknessRank = SlashWeakness;
                 break;
             case AttackType.Ammo:
-                weaknessRank = ammoWeakness;
+                weaknessRank = AmmoWeakness;
+                break;
+                
+        }
+        return weaknessRank;
+    }
+    
+    public int GetElementTypeWeaknessRank(Element element)
+    {
+        int weaknessRank = 0;
+        switch (element)
+        {
+            case Element.Thunder:
+                weaknessRank = ThunderWeakness;
+                break;
+            case Element.Fire:
+                weaknessRank = FireWeakness;
+                break;
+            case Element.Ice:
+                weaknessRank = IceWeakness;
+                break;
+            case Element.Toxic:
+                weaknessRank = ToxicWeakness;
+                break;
+            case Element.Dark:
+                weaknessRank = DarkWeakness;
+                break;
+            case Element.Unholy:
+                weaknessRank = UnholyWeakness;
+                break;
+            case Element.None:
+                weaknessRank = 1;
                 break;
                 
         }
