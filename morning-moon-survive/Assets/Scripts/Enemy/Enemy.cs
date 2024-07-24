@@ -1,25 +1,37 @@
 using System.Collections.Generic;
+using Inventory.Model;
 using UnityEngine;
+
 
 public class Enemy : MonoBehaviour
 {
-    public string Name { get; private set; }
-    public int LV { get; private set; }
-    public float EXP { get; private set; }
-    public bool IsMonster { get; private set; }
-    public float HP { get; private set; } = 200;
-    public float MaxHP { get; private set; } = 200;
-    public float MinHP { get; private set; } = 0;
-    public float Defense { get; private set; }
-    public float BaseAttack { get; private set; }
-    public string[] Element { get; private set; } = new string[6] {"Fire","Ice","Thunder","Toxic","Dark","Unholy" };
-    public float[] ElementAttack { get; private set; } = new float[6] { 0, 0, 0, 0, 0, 0 };
+    public EnemyStatsSO enemyStatsSO;
     
     public List<GameObject> PoolDrop { get; private set; }
     
     public GameObject[] dropItems; // Array of items to drop upon death
     
     public Health healthComponent;
+    
+    public bool IsMonster { get; private set; }
+    
+    public string Name { get; private set; }
+    public float HP { get; private set; }
+    public float MaxHP { get; private set; }
+    public float MinHP { get; private set; }
+    public float Defense { get; private set; }
+    public float BaseATK { get; private set; }
+    public Element ElementATK { get; private set; }
+    public float ElementATKDMG { get; private set; }
+    
+    public int chopWeakness { get; set; }
+    public int bluntWeakness { get; set; }
+    public int pierceWeakness { get; set; }
+    public int slashWeakness { get; set; }
+    public int ammoWeakness { get; set; }
+
+    //public Collider bodyCollider;
+    //public Collider weakPointCollider;
     
     private void Awake()
     {
@@ -32,10 +44,29 @@ public class Enemy : MonoBehaviour
         {
             healthComponent.OnHealthChanged += UpdateEnemyHealth;
         }
+        InitialzeStat();
     }
     private void Initialize()
     {
         InitializeHealthComponent();
+    }
+
+    private void InitialzeStat()
+    {
+        HP = enemyStatsSO.HP;
+        MinHP = enemyStatsSO.MinHP;
+        MaxHP = enemyStatsSO.MaxHP;
+        Defense = enemyStatsSO.Defense;
+        BaseATK = enemyStatsSO.BaseATK;
+        Name = enemyStatsSO.Name;
+        IsMonster = enemyStatsSO.IsMonster;
+        ElementATK = enemyStatsSO.ElementATK;
+        ElementATKDMG = enemyStatsSO.ElementATKDMG;
+        chopWeakness = enemyStatsSO.chopWeakness;
+        bluntWeakness = enemyStatsSO.bluntWeakness;
+        pierceWeakness = enemyStatsSO.pierceWeakness;
+        slashWeakness = enemyStatsSO.slashWeakness;
+        ammoWeakness = enemyStatsSO.ammoWeakness;
     }
     private void InitializeHealthComponent()
     {
@@ -55,13 +86,6 @@ public class Enemy : MonoBehaviour
         HP=currentHealth;
         Debug.Log($"HP From Enemy Script : {HP}"); 
     }
-
-    /*public void TakeDamage(float damage)
-    {
-        HP -= damage;
-        Debug.Log($"Health: {HP}");
-        IsDead();
-    }*/
 
     private void IsDead()
     {
@@ -84,5 +108,37 @@ public class Enemy : MonoBehaviour
                 Instantiate(itemToDrop, transform.position, Quaternion.identity);
             }
         }
+    }
+    
+    public void TakeDamage(float amount)
+    {
+        HP -= amount;
+        Debug.Log($"Tree took {amount} damage. Remaining health: {HP}");
+        IsDead();
+    }
+
+    public int GetAttackTypeWeaknessRank(AttackType attackType)
+    {
+        int weaknessRank = 0;
+        switch (attackType)
+        {
+            case AttackType.Chop:
+                weaknessRank = chopWeakness;
+                break;
+            case AttackType.Blunt:
+                weaknessRank = bluntWeakness;
+                break;
+            case AttackType.Pierce:
+                weaknessRank = pierceWeakness;
+                break;
+            case AttackType.Slash:
+                weaknessRank = slashWeakness;
+                break;
+            case AttackType.Ammo:
+                weaknessRank = ammoWeakness;
+                break;
+                
+        }
+        return weaknessRank;
     }
 }

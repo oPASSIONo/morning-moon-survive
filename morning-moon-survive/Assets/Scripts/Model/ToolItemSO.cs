@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,11 @@ namespace Inventory.Model
     {
         public string ActionName => "USE";
         [field: SerializeField] public AudioClip actionSFX { get; private set; }
+        [field: SerializeField] public float AttackDamage { get; set; }
+        [field: SerializeField] public AttackType AttackType { get; set; }
+        [field: SerializeField] public Element Element { get; set; }
+        [field: SerializeField] public float ElementAttackDamage { get; set; }
+        [field: SerializeField] public float Sharpness { get; set; }
         public bool PerformAction(GameObject character, List<ItemParameter> itemState,int amount)
         {
             // Get the AgentTool component attached to the character
@@ -29,5 +35,27 @@ namespace Inventory.Model
                 return false;
             }
         }
+    }
+
+    [Serializable]
+    public enum AttackType
+    {
+        None,
+        Chop,
+        Blunt,
+        Pierce,
+        Slash,
+        Ammo
+    }
+
+    public enum Element
+    {
+        None,
+        Thunder,
+        Fire,
+        Ice,
+        Toxic,
+        Dark,
+        Unholy
     }
 }

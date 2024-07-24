@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 7579100445047853485}
   - component: {fileID: 929452719255834091}
   - component: {fileID: 8169816319093282776}
+  - component: {fileID: 7443052628524516798}
   m_Layer: 10
   m_Name: TableModel
   m_TagString: Untagged
@@ -103,6 +104,21 @@ MonoBehaviour:
   m_Center: {x: 0.408082, y: 0.54408383, z: -0.10353422}
   m_Area: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &7443052628524516798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8638514961218979098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2ef2bd3d10633c4ea293b330581c4b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIWorkshop: {fileID: 0}
+  craftingSO: {fileID: 11400000, guid: f5dbcc629738abd4dac77ece3e6b5e1b, type: 2}
+  craftingPage: {fileID: 0}
 --- !u!1001 &6067360317040682310
 PrefabInstance:
   m_ObjectHideFlags: 0

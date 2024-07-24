@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 506dd388b935ae64ca2ce0625f775bca, type: 3}
+  m_Name: PineTree
+  m_EditorClassIdentifier: 
+  <IsMonster>k__BackingField: 0
+  <Name>k__BackingField: Pine Tree
+  <HP>k__BackingField: 100
+  <MaxHP>k__BackingField: 100
+  <MinHP>k__BackingField: 0
+  <Defense>k__BackingField: 10
+  <BaseATK>k__BackingField: 0
+  <ElementATK>k__BackingField: 0
+  <ElementATKDMG>k__BackingField: 0
+  <chopWeakness>k__BackingField: 3
+  <bluntWeakness>k__BackingField: -1
+  <pierceWeakness>k__BackingField: -1
+  <slashWeakness>k__BackingField: -1
+  <ammoWeakness>k__BackingField: -1

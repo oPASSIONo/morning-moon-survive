@@ -40,6 +40,10 @@ public class Health : MonoBehaviour
     public void AddHealth(float amount)
     {
         SetCurrentHealth(CurrentHealth + amount);
+        if (CurrentHealth>=MaxHealth)
+        {
+            SetCurrentHealth(MaxHealth);
+        }
         // Trigger health changed event
         OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
         Debug.Log("Entity add health");

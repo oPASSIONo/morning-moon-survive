@@ -1,5 +1,58 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1858052712517435133
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8345675997724294302}
+  - component: {fileID: 8810583160624716799}
+  m_Layer: 0
+  m_Name: AttackCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8345675997724294302
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858052712517435133}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.493, z: 0.791}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7349270680054110889}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8810583160624716799
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858052712517435133}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 1.7562422, y: 2.0255103, z: 1.3895789}
+  m_Center: {x: 0.0057290196, y: 0.51275504, z: -0.011458099}
 --- !u!1 &4770661126664566695
 GameObject:
   m_ObjectHideFlags: 0
@@ -27,7 +80,7 @@ GameObject:
   - component: {fileID: 793363140232541257}
   - component: {fileID: 9025921128899043440}
   m_Layer: 0
-  m_Name: Player SinglePlayMode 1
+  m_Name: Player SinglePlayMode
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,6 +102,7 @@ Transform:
   - {fileID: 7275733596934581493}
   - {fileID: 3100739088050912956}
   - {fileID: 4001189492024479477}
+  - {fileID: 8345675997724294302}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3952197967684843631
@@ -162,6 +216,9 @@ MonoBehaviour:
     itemState: []
   - quantity: 1
     item: {fileID: 11400000, guid: 19f17fafa8512c3449bbc4506e62afa2, type: 2}
+    itemState: []
+  - quantity: 1
+    item: {fileID: 11400000, guid: a21bf9d39daadfa428985e4dd1a240ce, type: 2}
     itemState: []
   dropClip: {fileID: 0}
   audioSource: {fileID: 6167863316026148137}
@@ -370,8 +427,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90e55977fa5be4f4ab655c41fbd1ab60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  woodenAxe: {fileID: 9172808739993189078}
+  stoneAxe: {fileID: 9172808739993189078}
   boneAxe: {fileID: 2216033249263258944}
+  currentTool: {fileID: 0}
 --- !u!114 &3680696280563213248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -434,7 +492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ea3ef16cc317f4fb4b5d1d32829dfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCollider: {fileID: 0}
+  attackCollider: {fileID: 8810583160624716799}
 --- !u!1 &5057764305931775667
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,11 +639,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7385034447837216655, guid: 9127b6c254cf0de40b1ac6dd1205709e,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 244563774791903615}
-    - targetCorrespondingSourceObject: {fileID: 7385034447837216655, guid: 9127b6c254cf0de40b1ac6dd1205709e,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7505994941067237167}
+      addedObject: {fileID: 2687050072989117874}
   m_SourcePrefab: {fileID: 100100000, guid: 9127b6c254cf0de40b1ac6dd1205709e, type: 3}
 --- !u!4 &1552403573902071802 stripped
 Transform:
@@ -605,7 +659,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 374304735084530198}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &244563774791903615
+--- !u!114 &2687050072989117874
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -614,21 +668,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7155416749958624665}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e751aa4ad4047bb4aa1582369dc7a086, type: 3}
+  m_Script: {fileID: 11500000, guid: 80ac48d55f08a62419ea01276cf9d119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7505994941067237167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7155416749958624665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cc70f7952aea8647960d1437ed9841a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  <InventoryItem>k__BackingField: {fileID: 11400000, guid: a21bf9d39daadfa428985e4dd1a240ce,
+    type: 2}
+  <Quantity>k__BackingField: 1
+  audioSource: {fileID: 0}
+  duration: 0.3
 --- !u!1001 &2892045552736807607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -741,7 +788,7 @@ PrefabInstance:
     - target: {fileID: 2866290701125998117, guid: 60466a695b96a26468d9f3706dd4e02b,
         type: 3}
       propertyPath: m_Name
-      value: Wooden Axe
+      value: Stone Axe
       objectReference: {fileID: 0}
     - target: {fileID: 2866290701125998117, guid: 60466a695b96a26468d9f3706dd4e02b,
         type: 3}
@@ -815,11 +862,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2866290701125998117, guid: 60466a695b96a26468d9f3706dd4e02b,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4691591556746724708}
-    - targetCorrespondingSourceObject: {fileID: 2866290701125998117, guid: 60466a695b96a26468d9f3706dd4e02b,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6250689556540687519}
+      addedObject: {fileID: 2234103888513518827}
   m_SourcePrefab: {fileID: 100100000, guid: 60466a695b96a26468d9f3706dd4e02b, type: 3}
 --- !u!4 &8360805575324606572 stripped
 Transform:
@@ -854,7 +897,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.6527739, y: 1.6456532, z: 0.101169825}
   m_Center: {x: 0.18883161, y: -0.6425624, z: -0.00036594653}
---- !u!114 &4691591556746724708
+--- !u!114 &2234103888513518827
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -863,21 +906,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 9172808739993189078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e751aa4ad4047bb4aa1582369dc7a086, type: 3}
+  m_Script: {fileID: 11500000, guid: 80ac48d55f08a62419ea01276cf9d119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6250689556540687519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9172808739993189078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cc70f7952aea8647960d1437ed9841a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  <InventoryItem>k__BackingField: {fileID: 11400000, guid: 19f17fafa8512c3449bbc4506e62afa2,
+    type: 2}
+  <Quantity>k__BackingField: 1
+  audioSource: {fileID: 0}
+  duration: 0.3
 --- !u!1001 &7165825506864286494
 PrefabInstance:
   m_ObjectHideFlags: 0

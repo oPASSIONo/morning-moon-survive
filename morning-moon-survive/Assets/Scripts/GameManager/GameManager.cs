@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using Inventory;
+using Inventory.Model;
 using Inventory.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,10 +16,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject mainCamera;
     [SerializeField] private GameObject playerFollowCamera;
     [SerializeField] private GameObject player;
+
+    private Player playerComponent;
+    private AgentTool playerAgentTool;
+    private float playerATKBaseDMG;
+    private float weaponATKBaseDMG;
+    private float sharpnessOfWeapon;
+    private float enemyWeaponWeaknessDMG;
+    private float enemyDEF;
+    private float weaponElementATKBaseDMG;
+    private float enemyElementWeaknessDMG;
+    private float bonusATK;
+    
     
     [SerializeField] private GameObject craftingSystem;
     private UICraftingPage craftingUI;
-    
+    private CraftButtonHandler craftButtonHandler;
+
     [SerializeField] private GameObject gameCanvas;
     private UIInventoryPage uiInventoryPage;
     private Health playerHealth;
@@ -28,7 +43,8 @@ public class GameManager : MonoBehaviour
     private UIStaminaBar uiStaminaBar;
     private UISatietyBar uiSatietyBar;
 
-    private CraftButtonHandler craftButtonHandler;
+    
+    
     private void Awake()
     {
         if (Instance == null)
@@ -64,23 +80,11 @@ public class GameManager : MonoBehaviour
         
         player.GetComponent<InventoryController>().inventoryUI = uiInventoryPage;
         
-        List<UIHealthBar> uiHealthBarList = FindSpecificComponentsInChildrenBFS<UIHealthBar>(gameCanvas.transform, component => component.name.Contains("HealthBar"));
-        if (uiHealthBarList.Count > 0)
-        {
-            uiHealthBar = uiHealthBarList[0]; // Directly assigning the component
-        }
-        List<UIStaminaBar> uiStaminaBarList = FindSpecificComponentsInChildrenBFS<UIStaminaBar>(gameCanvas.transform, component => component.name.Contains("StaminaBar"));
-        if (uiStaminaBarList.Count > 0)
-        {
-            uiStaminaBar = uiStaminaBarList[0]; // Directly assigning the component
-        }
-        List<UISatietyBar> uiSatietyBarList = FindSpecificComponentsInChildrenBFS<UISatietyBar>(gameCanvas.transform, component => component.name.Contains("SatietyBar"));
-        if (uiSatietyBarList.Count > 0)
-        {
-            uiSatietyBar = uiSatietyBarList[0]; // Directly assigning the component
-        }
         
-        
+
+        uiHealthBar = gameCanvas.GetComponent<GameCanvasRef>().healthBar;
+        uiStaminaBar = gameCanvas.GetComponent<GameCanvasRef>().staminaBar;
+        uiSatietyBar = gameCanvas.GetComponent<GameCanvasRef>().satietyBar;
         
         uiHealthBar.healthComponent = playerHealth;
         uiStaminaBar.staminaComponent = playerStamina;
@@ -90,16 +94,9 @@ public class GameManager : MonoBehaviour
     private void InitializeCraftingSystem()
     {
         craftingSystem = Instantiate(craftingSystem);
-        List<CraftButtonHandler> craftButtonList = FindSpecificComponentsInChildrenBFS<CraftButtonHandler>(gameCanvas.transform, component => component.name.Contains("CraftBtn"));
-        if (craftButtonList.Count > 0)
-        {
-            craftButtonHandler = craftButtonList[0]; // Directly assigning the component
-        }
-        List<UICraftingPage> craftingUIList = FindSpecificComponentsInChildrenBFS<UICraftingPage>(gameCanvas.transform, component => component.name.Contains("PlayerCrafting"));
-        if (craftingUIList.Count > 0)
-        {
-            craftingUI = craftingUIList[0]; // Directly assigning the component
-        }
+        
+        craftButtonHandler = gameCanvas.GetComponent<GameCanvasRef>().craftButtonHandler;
+        craftingUI = gameCanvas.GetComponent<GameCanvasRef>().craftingPage;
         craftButtonHandler.craftingSystem = craftingSystem.GetComponent<CraftingSystem>();
     }
 
@@ -116,6 +113,8 @@ public class GameManager : MonoBehaviour
         playerHealth = player.GetComponent<Health>();
         playerStamina = player.GetComponent<Stamina>();
         playerSatiety = player.GetComponent<Satiety>();
+        playerAgentTool = player.GetComponent<AgentTool>();
+        playerComponent = player.GetComponent<Player>();
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -174,26 +173,42 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameCanvas);
     }
     
-    public static List<T> FindSpecificComponentsInChildrenBFS<T>(Transform parent, System.Func<T, bool> criteria) where T : Component
+    
+    public void PlayerDealDamage(GameObject target)
     {
-        Queue<Transform> queue = new Queue<Transform>();
-        List<T> components = new List<T>();
-        queue.Enqueue(parent);
+        Enemy enemy = target.GetComponent<Enemy>();
+        AttackType playerATKType = playerAgentTool.currentTool.AttackType;
+        playerATKBaseDMG = playerComponent.Attack;
+        weaponATKBaseDMG = playerAgentTool.currentTool.AttackDamage;
+        sharpnessOfWeapon = playerAgentTool.currentTool.Sharpness;
+        enemyDEF = enemy.Defense;
+
+        enemyWeaponWeaknessDMG = GetAttackTypeWeaknessMultiplier(playerATKType,enemy.GetAttackTypeWeaknessRank(playerATKType));
+        weaponElementATKBaseDMG = 1f;
+        enemyElementWeaknessDMG = 1f;
+        bonusATK = 0f;
+        float damage = (playerATKBaseDMG + (weaponATKBaseDMG * sharpnessOfWeapon * enemyWeaponWeaknessDMG) - enemyDEF) +
+                 (weaponElementATKBaseDMG * enemyElementWeaknessDMG) + (bonusATK);
         
-        while (queue.Count > 0)
+        if (target.GetComponent<Enemy>())
         {
-            Transform current = queue.Dequeue();
-            T component = current.GetComponent<T>();
-            if (component != null && criteria(component))
-            {
-                components.Add(component);
-            }
-            foreach (Transform child in current)
-            {
-                queue.Enqueue(child);
-            }
+            target.GetComponent<Enemy>().TakeDamage(damage);
         }
-        return components;
+
     }
+
+    public float GetAttackTypeWeaknessMultiplier(AttackType attackType, int weaknessRank)
+    {
+        var rankToMultiplier = new Dictionary<int, float>
+        {
+            { 3, 1.6f },
+            { 2, 1.4f },
+            { 1, 1.2f },
+            { 0, 1f },
+            { -1, 0f }
+        };
+        return rankToMultiplier.TryGetValue(weaknessRank, out float multiplier) ? multiplier : 0f;
+    }
+   
 }
 

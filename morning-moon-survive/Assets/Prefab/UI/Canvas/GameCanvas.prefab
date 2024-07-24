@@ -5193,6 +5193,7 @@ GameObject:
   - component: {fileID: 2297931800577972753}
   - component: {fileID: 2720803557437939236}
   - component: {fileID: 608072237922491383}
+  - component: {fileID: 13203782413032241}
   m_Layer: 5
   m_Name: GameCanvas
   m_TagString: Untagged
@@ -5291,6 +5292,23 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &13203782413032241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7283545287059905685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6d4ea73b5fbb50479f1689e1f4c36d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 4266108047034389317}
+  staminaBar: {fileID: 2676860354879604141}
+  satietyBar: {fileID: 851370292681921544}
+  craftButtonHandler: {fileID: 8893289611514948335}
+  craftingPage: {fileID: 7929580604280267888}
 --- !u!1 &7302398081824930442
 GameObject:
   m_ObjectHideFlags: 0

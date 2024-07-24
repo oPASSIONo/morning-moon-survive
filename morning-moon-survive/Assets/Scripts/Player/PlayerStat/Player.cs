@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Transform rootTransform; // Assign the root GameObject in the inspector
     public Transform RootTransform => rootTransform;
-
+    
     private void Awake()
     {
         Initialize();
@@ -131,5 +131,4 @@ public class Player : MonoBehaviour
         HP = currentHealth;
         Debug.Log($"HP From Player Script : {HP}"); 
     }
-    
 }
