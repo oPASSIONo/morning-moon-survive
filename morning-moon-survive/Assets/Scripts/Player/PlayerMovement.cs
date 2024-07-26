@@ -113,7 +113,6 @@ public class PlayerMovement : MonoBehaviour
             dashTimeRemaining = dashDuration;
 
             Vector2 inputVector = GameInput.Instance.GetMovement();
-            Debug.Log(inputVector);
             if (inputVector!=Vector2.zero)
             {
                 staminaComponent.TakeAction();

@@ -154,7 +154,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack"",
+                    ""name"": ""Action"",
                     ""type"": ""Button"",
                     ""id"": ""f10403c0-542e-440b-b25c-0d186e6d1c0d"",
                     ""expectedControlType"": ""Button"",
@@ -396,7 +396,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack"",
+                    ""action"": ""Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -454,7 +454,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_PlayerControls_SelectSlot8 = m_PlayerControls.FindAction("SelectSlot8", throwIfNotFound: true);
         m_PlayerControls_SelectSlot9 = m_PlayerControls.FindAction("SelectSlot9", throwIfNotFound: true);
         m_PlayerControls_SelectSlot10 = m_PlayerControls.FindAction("SelectSlot10", throwIfNotFound: true);
-        m_PlayerControls_Attack = m_PlayerControls.FindAction("Attack", throwIfNotFound: true);
+        m_PlayerControls_Action = m_PlayerControls.FindAction("Action", throwIfNotFound: true);
         m_PlayerControls_DrawWeapon = m_PlayerControls.FindAction("DrawWeapon", throwIfNotFound: true);
         m_PlayerControls_SheathWeapon = m_PlayerControls.FindAction("SheathWeapon", throwIfNotFound: true);
         m_PlayerControls_Dash = m_PlayerControls.FindAction("Dash", throwIfNotFound: true);
@@ -533,7 +533,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_SelectSlot8;
     private readonly InputAction m_PlayerControls_SelectSlot9;
     private readonly InputAction m_PlayerControls_SelectSlot10;
-    private readonly InputAction m_PlayerControls_Attack;
+    private readonly InputAction m_PlayerControls_Action;
     private readonly InputAction m_PlayerControls_DrawWeapon;
     private readonly InputAction m_PlayerControls_SheathWeapon;
     private readonly InputAction m_PlayerControls_Dash;
@@ -555,7 +555,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @SelectSlot8 => m_Wrapper.m_PlayerControls_SelectSlot8;
         public InputAction @SelectSlot9 => m_Wrapper.m_PlayerControls_SelectSlot9;
         public InputAction @SelectSlot10 => m_Wrapper.m_PlayerControls_SelectSlot10;
-        public InputAction @Attack => m_Wrapper.m_PlayerControls_Attack;
+        public InputAction @Action => m_Wrapper.m_PlayerControls_Action;
         public InputAction @DrawWeapon => m_Wrapper.m_PlayerControls_DrawWeapon;
         public InputAction @SheathWeapon => m_Wrapper.m_PlayerControls_SheathWeapon;
         public InputAction @Dash => m_Wrapper.m_PlayerControls_Dash;
@@ -610,9 +610,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SelectSlot10.started += instance.OnSelectSlot10;
             @SelectSlot10.performed += instance.OnSelectSlot10;
             @SelectSlot10.canceled += instance.OnSelectSlot10;
-            @Attack.started += instance.OnAttack;
-            @Attack.performed += instance.OnAttack;
-            @Attack.canceled += instance.OnAttack;
+            @Action.started += instance.OnAction;
+            @Action.performed += instance.OnAction;
+            @Action.canceled += instance.OnAction;
             @DrawWeapon.started += instance.OnDrawWeapon;
             @DrawWeapon.performed += instance.OnDrawWeapon;
             @DrawWeapon.canceled += instance.OnDrawWeapon;
@@ -668,9 +668,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SelectSlot10.started -= instance.OnSelectSlot10;
             @SelectSlot10.performed -= instance.OnSelectSlot10;
             @SelectSlot10.canceled -= instance.OnSelectSlot10;
-            @Attack.started -= instance.OnAttack;
-            @Attack.performed -= instance.OnAttack;
-            @Attack.canceled -= instance.OnAttack;
+            @Action.started -= instance.OnAction;
+            @Action.performed -= instance.OnAction;
+            @Action.canceled -= instance.OnAction;
             @DrawWeapon.started -= instance.OnDrawWeapon;
             @DrawWeapon.performed -= instance.OnDrawWeapon;
             @DrawWeapon.canceled -= instance.OnDrawWeapon;
@@ -713,7 +713,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnSelectSlot8(InputAction.CallbackContext context);
         void OnSelectSlot9(InputAction.CallbackContext context);
         void OnSelectSlot10(InputAction.CallbackContext context);
-        void OnAttack(InputAction.CallbackContext context);
+        void OnAction(InputAction.CallbackContext context);
         void OnDrawWeapon(InputAction.CallbackContext context);
         void OnSheathWeapon(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);

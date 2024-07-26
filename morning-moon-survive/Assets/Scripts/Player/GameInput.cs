@@ -14,7 +14,7 @@ public class GameInput : MonoBehaviour
 
     public event EventHandler OnPauseAction;
     public event EventHandler OnInventoryAction;
-    public event EventHandler OnAttackAction;
+    public event EventHandler OnAction;
     public event EventHandler OnInteractionAction;
     public event EventHandler OnDashAction;
 
@@ -38,7 +38,7 @@ public class GameInput : MonoBehaviour
 
         playerInput.PlayerControls.Inventory.performed += Inventory_Performed;
         
-        playerInput.PlayerControls.Attack.performed += Attack_Performed;
+        playerInput.PlayerControls.Action.performed += Action_Performed;
         
         playerInput.PlayerControls.Interaction.performed += Interaction_Performed;
         playerInput.PlayerControls.Dash.performed += Dash_Performed;
@@ -65,9 +65,9 @@ public class GameInput : MonoBehaviour
         OnInventoryAction?.Invoke(this, EventArgs.Empty);
     }
 
-    private void Attack_Performed(InputAction.CallbackContext obj)
+    private void Action_Performed(InputAction.CallbackContext obj)
     {
-        OnAttackAction?.Invoke(this, EventArgs.Empty);
+        OnAction?.Invoke(this, EventArgs.Empty);
     }
     
     public void Interaction_Performed(InputAction.CallbackContext obj)

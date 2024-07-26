@@ -7,11 +7,12 @@ using UnityEngine;
 
 public class AgentTool : MonoBehaviour
 {
-    [SerializeField] private GameObject woodenAxe;
+    [SerializeField] private GameObject stoneAxe;
     [SerializeField] private GameObject boneAxe;
-
     
     public static event Action OnDrawWeapon;
+
+    public ToolItemSO currentTool;
 
     
     private void Start()
@@ -24,14 +25,14 @@ public class AgentTool : MonoBehaviour
     // Method to activate the appropriate tool based on parameters
     public void ActivateTool(ToolItemSO toolItemSo,List<ItemParameter> itemState)
     {
-        
         // Deactivate all tool game objects first
         DeactivateAllTools();
+        currentTool = toolItemSo;
         switch (toolItemSo.Name)
         {
-            case "Wooden Axe":
+            case "Stone Axe":
                 OnDrawWeapon?.Invoke();
-                ActivateTool(woodenAxe);
+                ActivateTool(stoneAxe);
                 break;
             case "Bone Axe":
                 OnDrawWeapon?.Invoke();
@@ -54,7 +55,7 @@ public class AgentTool : MonoBehaviour
     // Helper method to deactivate all tool game objects
     public void DeactivateAllTools()
     {
-        woodenAxe.SetActive(false);
+        stoneAxe.SetActive(false);
         boneAxe.SetActive(false);
         // Deactivate other tool game objects as needed
     }

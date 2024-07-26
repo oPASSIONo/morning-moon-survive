@@ -12,6 +12,7 @@ namespace Inventory.Model
         public int ID => GetInstanceID();
 
         [field: SerializeField] public int MaxStackSize { get; set; } = 1;
+        [field: SerializeField] public float Weight { get; set; }
         [field: SerializeField] public string Name { get; set; }
 
         [field: SerializeField]
@@ -46,7 +47,6 @@ namespace Inventory.Model
         Consumable,
         Treasure,
         ResourceAndFarm,
-
         Fishing
         // Add more categories as needed
     }
@@ -57,7 +57,6 @@ namespace Inventory.Model
         Rare,
         Epic,
         Legend,
-
         Relic
         // Add more rarities as needed
     }

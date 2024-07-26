@@ -43,7 +43,8 @@ GameObject:
   - component: {fileID: 8760357413098984268}
   - component: {fileID: 2293247825055258852}
   - component: {fileID: 6030687895799971760}
-  - component: {fileID: 4063506059754886352}
+  - component: {fileID: 6846252856400631385}
+  - component: {fileID: 1824564028410722077}
   m_Layer: 10
   m_Name: TreeModel
   m_TagString: Tree
@@ -104,7 +105,7 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.2049253, y: 2.963067, z: 0.1363229}
   m_TimeToStationary: 0.5
---- !u!114 &4063506059754886352
+--- !u!114 &6846252856400631385
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -113,16 +114,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 5922380696111865993}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff587c0faa2157847828f0a3d46fbd14, type: 3}
+  m_Script: {fileID: 11500000, guid: 1583236543420b244ba28207c156af99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialHealth: 100
   dropItems:
   - {fileID: 9027762958247691069, guid: 0881efc69b39b7d4483a8727fc0265bf, type: 3}
-  leaf:
-  - {fileID: 7890322120504855163}
-  - {fileID: 5852371513882713258}
-  - {fileID: 8570288953476927737}
+  healthComponent: {fileID: 1824564028410722077}
+--- !u!114 &1824564028410722077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5922380696111865993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 916b0767f21f80f4e8929a330acffe04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4857019382664280891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -249,24 +258,6 @@ PrefabInstance:
 --- !u!4 &4966661253194407120 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9b26db5f24765f341b67e45b64235910,
-    type: 3}
-  m_PrefabInstance: {fileID: 4857019382664280891}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5852371513882713258 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1319648730747250577, guid: 9b26db5f24765f341b67e45b64235910,
-    type: 3}
-  m_PrefabInstance: {fileID: 4857019382664280891}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7890322120504855163 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3379836402047742272, guid: 9b26db5f24765f341b67e45b64235910,
-    type: 3}
-  m_PrefabInstance: {fileID: 4857019382664280891}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8570288953476927737 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -5365949894285169726, guid: 9b26db5f24765f341b67e45b64235910,
     type: 3}
   m_PrefabInstance: {fileID: 4857019382664280891}
   m_PrefabAsset: {fileID: 0}

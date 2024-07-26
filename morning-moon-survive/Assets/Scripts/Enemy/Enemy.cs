@@ -1,25 +1,38 @@
 using System.Collections.Generic;
+using Inventory.Model;
 using UnityEngine;
+
 
 public class Enemy : MonoBehaviour
 {
-    public string Name { get; private set; }
-    public int LV { get; private set; }
-    public float EXP { get; private set; }
-    public bool IsMonster { get; private set; }
-    public float HP { get; private set; } = 200;
-    public float MaxHP { get; private set; } = 200;
-    public float MinHP { get; private set; } = 0;
-    public float Defense { get; private set; }
-    public float BaseAttack { get; private set; }
-    public string[] Element { get; private set; } = new string[6] {"Fire","Ice","Thunder","Toxic","Dark","Unholy" };
-    public float[] ElementAttack { get; private set; } = new float[6] { 0, 0, 0, 0, 0, 0 };
+    public EnemyStatsSO enemyStatsSO;
     
     public List<GameObject> PoolDrop { get; private set; }
     
     public GameObject[] dropItems; // Array of items to drop upon death
     
     public Health healthComponent;
+    
+    public bool IsMonster { get; private set; }
+    
+    public string Name { get; private set; }
+    public float HP { get; private set; }
+    public float MaxHP { get; private set; }
+    public float MinHP { get; private set; }
+    public float Defense { get; private set; }
+    public float BaseATK { get; private set; }
+    public Element ElementATK { get; private set; }
+    public float ElementATKDMG { get; private set; }
+
+    public List<EnemyStatsSO.MovesetStat> MovesetStats { get; private set; }
+    
+    private EnemyStatsSO.AttackTypeWeaknesses _bodyPointAttackWeaknesses;
+    private EnemyStatsSO.AttackTypeWeaknesses _weakPointAttackWeaknesses;
+    private EnemyStatsSO.ElementTypeWeaknesses _bodyPointElementWeaknesses;
+    private EnemyStatsSO.ElementTypeWeaknesses _weakPointElementWeaknesses;
+
+    public Collider boydyPoint;
+    public Collider weakPoint;
     
     private void Awake()
     {
@@ -35,7 +48,29 @@ public class Enemy : MonoBehaviour
     }
     private void Initialize()
     {
+        InitialzeStat();
         InitializeHealthComponent();
+    }
+
+    private void InitialzeStat()
+    {
+        HP = enemyStatsSO.HP;
+        MinHP = enemyStatsSO.MinHP;
+        MaxHP = enemyStatsSO.MaxHP;
+        Defense = enemyStatsSO.Defense;
+        BaseATK = enemyStatsSO.BaseATK;
+        Name = enemyStatsSO.Name;
+        IsMonster = enemyStatsSO.IsMonster;
+        ElementATK = enemyStatsSO.ElementATK;
+        ElementATKDMG = enemyStatsSO.ElementATKDMG;
+
+        MovesetStats = enemyStatsSO.movesetDMG;
+
+        _bodyPointAttackWeaknesses = enemyStatsSO.BodyPointWeaknesses;
+        _weakPointAttackWeaknesses = enemyStatsSO.WeakPointWeaknesses;
+        _bodyPointElementWeaknesses = enemyStatsSO.BodyPointElementWeaknesses;
+        _weakPointElementWeaknesses = enemyStatsSO.WeakPointElementWeaknesses;
+        
     }
     private void InitializeHealthComponent()
     {
@@ -54,14 +89,8 @@ public class Enemy : MonoBehaviour
     {
         HP=currentHealth;
         Debug.Log($"HP From Enemy Script : {HP}"); 
-    }
-
-    /*public void TakeDamage(float damage)
-    {
-        HP -= damage;
-        Debug.Log($"Health: {HP}");
         IsDead();
-    }*/
+    }
 
     private void IsDead()
     {
@@ -83,6 +112,61 @@ public class Enemy : MonoBehaviour
             {
                 Instantiate(itemToDrop, transform.position, Quaternion.identity);
             }
+        }
+    }
+    public int GetWeakPointAttackTypeWeaknessRank(AttackType attackType)
+    {
+        switch (attackType)
+        {
+            case AttackType.Chop: return _weakPointAttackWeaknesses.Chop;
+            case AttackType.Blunt: return _weakPointAttackWeaknesses.Blunt;
+            case AttackType.Pierce: return _weakPointAttackWeaknesses.Pierce;
+            case AttackType.Slash: return _weakPointAttackWeaknesses.Slash;
+            case AttackType.Ammo: return _weakPointAttackWeaknesses.Ammo;
+            default: return 0;
+        }
+    }
+
+    public int GetWeakPointElementTypeWeaknessRank(Element element)
+    {
+        switch (element)
+        {
+            case Element.Thunder: return _weakPointElementWeaknesses.Thunder;
+            case Element.Fire: return _weakPointElementWeaknesses.Fire;
+            case Element.Ice: return _weakPointElementWeaknesses.Ice;
+            case Element.Toxic: return _weakPointElementWeaknesses.Toxic;
+            case Element.Dark: return _weakPointElementWeaknesses.Dark;
+            case Element.Unholy: return _weakPointElementWeaknesses.Unholy;
+            case Element.None: return 1;
+            default: return 0;
+        }
+    }
+
+    public int GetBodyPointAttackTypeWeaknessRank(AttackType attackType)
+    {
+        switch (attackType)
+        {
+            case AttackType.Chop: return _bodyPointAttackWeaknesses.Chop;
+            case AttackType.Blunt: return _bodyPointAttackWeaknesses.Blunt;
+            case AttackType.Pierce: return _bodyPointAttackWeaknesses.Pierce;
+            case AttackType.Slash: return _bodyPointAttackWeaknesses.Slash;
+            case AttackType.Ammo: return _bodyPointAttackWeaknesses.Ammo;
+            default: return 0;
+        }
+    }
+
+    public int GetBodyPointElementTypeWeaknessRank(Element element)
+    {
+        switch (element)
+        {
+            case Element.Thunder: return _bodyPointElementWeaknesses.Thunder;
+            case Element.Fire: return _bodyPointElementWeaknesses.Fire;
+            case Element.Ice: return _bodyPointElementWeaknesses.Ice;
+            case Element.Toxic: return _bodyPointElementWeaknesses.Toxic;
+            case Element.Dark: return _bodyPointElementWeaknesses.Dark;
+            case Element.Unholy: return _bodyPointElementWeaknesses.Unholy;
+            case Element.None: return 1;
+            default: return 0;
         }
     }
 }

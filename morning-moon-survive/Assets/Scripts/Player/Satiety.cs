@@ -45,6 +45,7 @@ public class Satiety : MonoBehaviour
 
         while (CurrentSatiety > SatietyConsumePoint)
         {
+            
             DecreaseSatiety(SatietyConsumePoint); // Decrease by SatietyConsumeRate amount
 
             yield return new WaitForSeconds(SatietyConsumeRate); // Wait for SatietyConsumeRate seconds before next decrease
@@ -62,18 +63,23 @@ public class Satiety : MonoBehaviour
     public void DecreaseSatiety(float amount)
     {
         CurrentSatiety -= amount;
-        CurrentSatiety = Mathf.Clamp(CurrentSatiety, MinSatiety, MaxSatiety); // Ensure CurrentSatiety stays within bounds
-
-        // Trigger hunger changed event with formatted values
+        if (CurrentSatiety<=MinSatiety)
+        {
+            CurrentSatiety = MinSatiety;
+        }
+        // Trigger hunger changed event
         OnSatietyChanged?.Invoke(CurrentSatiety, MaxSatiety);
     }
 
     public void IncreaseSatiety(float amount)
     {
         CurrentSatiety += amount;
-        CurrentSatiety = Mathf.Clamp(CurrentSatiety, MinSatiety, MaxSatiety); // Ensure CurrentSatiety stays within bounds
 
-        // Trigger hunger changed event with formatted values
+        if (CurrentSatiety > MaxSatiety)
+        {
+            CurrentSatiety = MaxSatiety;
+        }
+        // Trigger hunger changed event
         OnSatietyChanged?.Invoke(CurrentSatiety, MaxSatiety);
     }
 
