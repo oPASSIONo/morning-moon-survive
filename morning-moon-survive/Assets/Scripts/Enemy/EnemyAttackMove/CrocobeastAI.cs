@@ -6,9 +6,11 @@ public class CrocobeastAI : EnemyAI
 {
 
     private EnemyAI enemyAI;
+    private EnemyCombat enemyCombat;
     void Start()
     {
         enemyAI = GetComponent<EnemyAI>();
+        enemyCombat = GetComponent<EnemyCombat>();
     }
 
     
@@ -17,7 +19,7 @@ public class CrocobeastAI : EnemyAI
         anim.Play("Attack1");
         yield return new WaitForSeconds(anim["Attack1"].length);
         anim.CrossFade("Idle");
-
+        enemyCombat.SetMoveset(1);
     }
     
    /* public override IEnumerator AttackMove2() //Charge

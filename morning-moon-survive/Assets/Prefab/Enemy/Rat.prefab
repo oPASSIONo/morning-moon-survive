@@ -71,7 +71,9 @@ MonoBehaviour:
   agent: {fileID: 4872253250352954460}
   roamRadius: 10
   chaseRadius: 12
+  attackRadius: 0
   moveSpeed: 3
+  anim: {fileID: 0}
   isFriendly: 0
 --- !u!1 &8127275509051746041
 GameObject:
@@ -193,8 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbc02d35a9d8a4547b7e6a0440b195f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackColliders:
-  - {fileID: 0}
+  attackParts: []
 --- !u!1001 &2019810162641478937
 PrefabInstance:
   m_ObjectHideFlags: 0
