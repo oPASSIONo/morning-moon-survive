@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 506dd388b935ae64ca2ce0625f775bca, type: 3}
-  m_Name: PineTree
+  m_Name: Round Tree
   m_EditorClassIdentifier: 
   <IsMonster>k__BackingField: 0
-  <Name>k__BackingField: Pine Tree
+  <Name>k__BackingField: Round Tree
   <HP>k__BackingField: 100
   <MaxHP>k__BackingField: 100
   <MinHP>k__BackingField: 0
@@ -21,6 +21,7 @@ MonoBehaviour:
   <BaseATK>k__BackingField: 0
   <ElementATK>k__BackingField: 0
   <ElementATKDMG>k__BackingField: 0
+  movesetDMG: []
   <BodyPointWeaknesses>k__BackingField:
     Chop: 3
     Blunt: -1

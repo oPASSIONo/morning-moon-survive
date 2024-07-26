@@ -43,6 +43,8 @@ GameObject:
   - component: {fileID: 577512966065713227}
   - component: {fileID: 611740590549276207}
   - component: {fileID: 7574748770641806365}
+  - component: {fileID: 5466155049887969251}
+  - component: {fileID: 1008599798040286188}
   m_Layer: 10
   m_Name: TreeModel
   m_TagString: Untagged
@@ -103,6 +105,35 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.00564158, y: 2.288626, z: 0.1103806}
   m_TimeToStationary: 0.5
+--- !u!114 &5466155049887969251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697840441382948277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1583236543420b244ba28207c156af99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyStatsSO: {fileID: 11400000, guid: 2ee366e35f6e62246854b941704a583c, type: 2}
+  dropItems: []
+  healthComponent: {fileID: 1008599798040286188}
+  boydyPoint: {fileID: 611740590549276207}
+  weakPoint: {fileID: 0}
+--- !u!114 &1008599798040286188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697840441382948277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 916b0767f21f80f4e8929a330acffe04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &299102857181920552
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -966,12 +966,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 177259798}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &306733277 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 2293247825055258852, guid: 95976e319e731ab4fbddb00564cc81db,
-    type: 3}
-  m_PrefabInstance: {fileID: 324780238}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &317193614
 GameObject:
   m_ObjectHideFlags: 0
@@ -1089,12 +1083,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree
       objectReference: {fileID: 0}
-    - target: {fileID: 4063506059754886352, guid: 95976e319e731ab4fbddb00564cc81db,
-        type: 3}
-      propertyPath: dropItems.Array.data[0]
-      value: 
-      objectReference: {fileID: 9027762958247691069, guid: 0881efc69b39b7d4483a8727fc0265bf,
-        type: 3}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1145,35 +1133,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6846252856400631385, guid: 95976e319e731ab4fbddb00564cc81db,
-        type: 3}
-      propertyPath: isMonster
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6846252856400631385, guid: 95976e319e731ab4fbddb00564cc81db,
-        type: 3}
-      propertyPath: weakPoint
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6846252856400631385, guid: 95976e319e731ab4fbddb00564cc81db,
-        type: 3}
-      propertyPath: boydyPoint
-      value: 
-      objectReference: {fileID: 306733277}
-    - target: {fileID: 6846252856400631385, guid: 95976e319e731ab4fbddb00564cc81db,
-        type: 3}
-      propertyPath: enemyStatsSO
-      value: 
-      objectReference: {fileID: 11400000, guid: 2ee366e35f6e62246854b941704a583c,
-        type: 2}
-    - target: {fileID: 6846252856400631385, guid: 95976e319e731ab4fbddb00564cc81db,
-        type: 3}
-      propertyPath: enemyStatsSo
-      value: 
-      objectReference: {fileID: 11400000, guid: 2ee366e35f6e62246854b941704a583c,
-        type: 2}
-    m_RemovedComponents:
-    - {fileID: 4063506059754886352, guid: 95976e319e731ab4fbddb00564cc81db, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
