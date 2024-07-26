@@ -5,34 +5,34 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float HP { get; private set; } = 100f;
-    public float MaxHP { get; private set; } = 100f;
-    public float MinHP { get; private set; } = 0f;
-    public float Stamina { get; private set; } = 100f;
-    public float MaxStamina { get; private set; } = 100f;
-    public float MinStamina { get; private set; } = 0f;
-    public float StaminaRegenRate { get; private set; } = 25f;
-    public float BaseActionCost { get; private set; } = 20f; 
-    public float Satiety { get; private set; } = 50f;
-    public float SatietyBleeding { get; private set; } = 10f;
-    public float SatietyConsumePoint { get; private set; } = 1f;
-    public float SatietyConsumeRate { get; private set; } = 5f;
-    public float MaxSatiety { get; private set; } = 100f;
-    public float MinSatiety { get; private set; } = 0f;
-    public float Defense { get; private set; } = 10f;
-    public float[] Resistant { get; private set; } = new float[6] { 0f, 0f, 0f, 0f, 0f, 0f };
-    public float Attack { get; private set; } = 0f;
-    public float Element { get; private set; } = 0f;
-    public float[] EXP { get; private set; } = new float[5] { 0f, 0f, 0f, 0f, 0f };
-    public float Speed { get; private set; } = 5f;
+    [SerializeField] private PlayerStats playerStats;
+    public float HP { get; private set; }
+    public float MaxHP { get; private set; } 
+    public float MinHP { get; private set; }
+    public float Stamina { get; private set; } 
+    public float MaxStamina { get; private set; } 
+    public float MinStamina { get; private set; }
+    public float StaminaRegenRate { get; private set; } 
+    public float BaseActionCost { get; private set; }  
+    public float Satiety { get; private set; }
+    public float SatietyBleeding { get; private set; }
+    public float SatietyConsumePoint { get; private set; }
+    public float SatietyConsumeRate { get; private set; }
+    public float MaxSatiety { get; private set; }
+    public float MinSatiety { get; private set; }
+    public float Defense { get; private set; }
+    public float Resistant { get; private set; } 
+    public float Attack { get; private set; }
+    public float Element { get; private set; }
+    public float[] EXP { get; private set; }
+    public float Speed { get; private set; }
     public float MaxSpeed { get; private set; }
     public float MinSpeed { get; private set; }
     public List<float> Buff { get; private set; }
     public List<float> Debuff { get; private set; }
     public List<float> ItemSlot { get; private set; }
-    //public ... Equipment {get; private set;}
     public int Weight { get; private set; }
-    public int InventorySlot { get; private set; } = 20;
+    public int InventorySlot { get; private set; } 
 
     private Health healthComponent;
     private Stamina staminaComponent;
@@ -51,10 +51,43 @@ public class Player : MonoBehaviour
 
     private void Initialize()
     {
+        InitializePlayerStat();
         InitializeHealthComponent();
         InitializeStaminaComponent();
         InitializedSatietyComponent();
         InitializePlayerMovementComponent();
+    }
+
+    private void InitializePlayerStat()
+    {
+        HP = playerStats.HealthStat.HP;
+        MaxHP = playerStats.HealthStat.MaxHP;
+        MinHP = playerStats.HealthStat.MinHP;
+        Stamina = playerStats.StaminaStat.Stamina;
+        MaxStamina = playerStats.StaminaStat.MaxStamina;
+        MinStamina = playerStats.StaminaStat.MinStamina;
+        StaminaRegenRate = playerStats.StaminaStat.StaminaRegenRate;
+        BaseActionCost = playerStats.BaseActionCost;
+        Satiety = playerStats.SatietyStat.Satiety;
+        SatietyBleeding = playerStats.SatietyStat.SatietyBleeding;
+        SatietyConsumePoint = playerStats.SatietyStat.SatietyConsumePoint;
+        SatietyConsumeRate = playerStats.SatietyStat.SatietyConsumeRate;
+        MaxSatiety = playerStats.SatietyStat.MaxSatiety;
+        MinSatiety = playerStats.SatietyStat.MinSatiety;
+        Defense = playerStats.CombatStat.Defense;
+        Resistant = playerStats.CombatStat.Resistant;
+        Attack = playerStats.CombatStat.Attack;
+        Element = playerStats.CombatStat.Element;
+        EXP = playerStats.EXP;
+        Speed = playerStats.SpeedStat.Speed;
+        MaxSpeed = playerStats.SpeedStat.MaxSpeed;
+        MinSpeed = playerStats.SpeedStat.MinSpeed;
+        Buff = new List<float>(playerStats.Buff);
+        Debuff = new List<float>(playerStats.Debuff);
+        ItemSlot = new List<float>(playerStats.ItemSlot);
+        Weight = playerStats.Weight;
+        InventorySlot = playerStats.InventorySlot;
+        
     }
 
     private void InitializePlayerMovementComponent()
@@ -112,7 +145,6 @@ public class Player : MonoBehaviour
             Debug.LogError("Satiety component not found on Player GameObject.");
         }
     }
-
     private void UpdatePlayerSpeed(float currentSpeed, float maxSpeed)
     {
         Speed = currentSpeed;

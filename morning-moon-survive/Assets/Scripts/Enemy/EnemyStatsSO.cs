@@ -16,8 +16,10 @@ public class EnemyStatsSO : ScriptableObject
     [field: SerializeField] public float BaseATK { get; set; }
     [field: SerializeField] public Element ElementATK { get; set; }
     [field: SerializeField] public float ElementATKDMG { get; set; }
-    /*[field: SerializeField] public AttackTypeWeaknesses AttackWeaknesses { get; set; }
-    [field: SerializeField] public ElementTypeWeaknesses ElementWeaknesses { get; set; }*/
+    
+    [SerializeField] public List<MovesetStat> movesetDMG;
+
+    public List<MovesetStat> MovesetDMG => movesetDMG;
     
     [field: SerializeField] public AttackTypeWeaknesses BodyPointWeaknesses { get; set; }
     [field: SerializeField] public AttackTypeWeaknesses WeakPointWeaknesses { get; set; }
@@ -43,5 +45,12 @@ public class EnemyStatsSO : ScriptableObject
         public int Toxic;
         public int Dark;
         public int Unholy;
+    }
+    
+    [System.Serializable]
+    public class MovesetStat
+    {
+        public float PhysicalDamage;
+        public float ElementDamage;
     }
 }

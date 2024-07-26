@@ -23,9 +23,8 @@ public class Enemy : MonoBehaviour
     public float BaseATK { get; private set; }
     public Element ElementATK { get; private set; }
     public float ElementATKDMG { get; private set; }
-    
-    /*private EnemyStatsSO.AttackTypeWeaknesses _attackWeaknesses;
-    private EnemyStatsSO.ElementTypeWeaknesses _elementWeaknesses;*/
+
+    public List<EnemyStatsSO.MovesetStat> MovesetStats { get; private set; }
     
     private EnemyStatsSO.AttackTypeWeaknesses _bodyPointAttackWeaknesses;
     private EnemyStatsSO.AttackTypeWeaknesses _weakPointAttackWeaknesses;
@@ -64,6 +63,8 @@ public class Enemy : MonoBehaviour
         IsMonster = enemyStatsSO.IsMonster;
         ElementATK = enemyStatsSO.ElementATK;
         ElementATKDMG = enemyStatsSO.ElementATKDMG;
+
+        MovesetStats = enemyStatsSO.movesetDMG;
 
         _bodyPointAttackWeaknesses = enemyStatsSO.BodyPointWeaknesses;
         _weakPointAttackWeaknesses = enemyStatsSO.WeakPointWeaknesses;
@@ -168,5 +169,4 @@ public class Enemy : MonoBehaviour
             default: return 0;
         }
     }
-    
 }

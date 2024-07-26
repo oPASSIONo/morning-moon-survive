@@ -19,14 +19,8 @@ public class GameManager : MonoBehaviour
 
     private Player playerComponent;
     private AgentTool playerAgentTool;
-    private float playerATKBaseDMG;
-    private float weaponATKBaseDMG;
-    private float sharpnessOfWeapon;
     private float enemyWeaponWeaknessDMG;
-    private float enemyDEF;
-    private float weaponElementATKBaseDMG;
     private float enemyElementWeaknessDMG;
-    private float bonusATK;
     
     
     [SerializeField] private GameObject craftingSystem;
@@ -172,19 +166,38 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(player);
         DontDestroyOnLoad(gameCanvas);
     }
-    
-    
+
+    public void EnemyDealDamage(Enemy enemy,int movesetIndex)
+    {
+        float damage = 0f;
+        float playerDEF = playerComponent.Defense;
+        float movesetDMG = enemy.MovesetStats[movesetIndex].PhysicalDamage;
+        float movesetElementDMG = enemy.MovesetStats[movesetIndex].ElementDamage;
+        
+        Debug.Log($"Rat move 1 DMG ATK : {movesetDMG}");
+        Debug.Log($"Rat move 1 DMG Element : {movesetElementDMG}");
+        switch (movesetElementDMG)
+        {
+            case 0:
+                damage = ((movesetDMG*enemy.BaseATK) - playerDEF);
+                break;
+            default:
+                damage = ((movesetDMG*enemy.BaseATK) - playerDEF) + (movesetElementDMG -playerComponent.Resistant);
+                break;
+        }
+        playerHealth.TakeDamage(damage);
+    }
     public void PlayerDealDamage(GameObject target, Collider hitCollider)
     {
         Enemy enemy = target.GetComponent<Enemy>();
         AttackType playerATKType = playerAgentTool.currentTool.AttackType;
         Element playerElementType = playerAgentTool.currentTool.Element;
-        playerATKBaseDMG = playerComponent.Attack;
-        weaponATKBaseDMG = playerAgentTool.currentTool.AttackDamage;
-        sharpnessOfWeapon = playerAgentTool.currentTool.Sharpness;
-        enemyDEF = enemy.Defense;
-        weaponElementATKBaseDMG = playerAgentTool.currentTool.ElementAttackDamage;
-        bonusATK = 0f;
+        float playerATKBaseDMG = playerComponent.Attack;
+        float weaponATKBaseDMG = playerAgentTool.currentTool.AttackDamage;
+        float sharpnessOfWeapon = playerAgentTool.currentTool.Sharpness;
+        float enemyDEF = enemy.Defense;
+        float weaponElementATKBaseDMG = playerAgentTool.currentTool.ElementAttackDamage;
+        float bonusATK = 0f;
         
         if (enemy!=null)
         {
@@ -233,6 +246,6 @@ public class GameManager : MonoBehaviour
         };
         return rankToMultiplier.TryGetValue(weaknessRank, out float multiplier) ? multiplier : 0f;
     }
-   
+    
 }
 

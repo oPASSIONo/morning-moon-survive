@@ -6,7 +6,6 @@ public class Combat : MonoBehaviour
 {
     [SerializeField] private Collider attackCollider;
     private float enableDuration = 0.5f;
-    private float weaponDamage = 10f;
     private bool hasHit = false;
 
     private Stamina staminaComponent;
@@ -44,26 +43,6 @@ public class Combat : MonoBehaviour
         GameInput.Instance.OnAction += PerformAction;
     }
 
-    /*private void OnTriggerEnter(Collider other)
-    {
-        Enemy enemy = other.GetComponent<Enemy>();
-        if (attackCollider.enabled && !hasHit)
-        {
-            Debug.Log("Collider triggered by: " + enemy.gameObject.name);
-            // Mark as hit to ignore subsequent collisions
-            hasHit = true;
-            switch (enemy.enemyStatsSO.IsMonster)
-            {
-                case true:
-                    GameManager.Instance.PlayerDealDamage(enemy.gameObject);
-                    break;
-                case false:
-                    //calculate method for not monster enemy
-                    GameManager.Instance.PlayerDealDamage(enemy.gameObject);
-                    break;
-            }
-        }
-    }*/
     private void OnTriggerEnter(Collider other)
     {
         if (attackCollider.enabled && !hasHit)

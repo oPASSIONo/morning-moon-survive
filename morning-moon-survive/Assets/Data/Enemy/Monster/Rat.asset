@@ -18,9 +18,12 @@ MonoBehaviour:
   <MaxHP>k__BackingField: 200
   <MinHP>k__BackingField: 0
   <Defense>k__BackingField: 10
-  <BaseATK>k__BackingField: 50
+  <BaseATK>k__BackingField: 1
   <ElementATK>k__BackingField: 0
   <ElementATKDMG>k__BackingField: 0
+  movesetDMG:
+  - PhysicalDamage: 50
+    ElementDamage: 0
   <BodyPointWeaknesses>k__BackingField:
     Chop: 0
     Blunt: 0

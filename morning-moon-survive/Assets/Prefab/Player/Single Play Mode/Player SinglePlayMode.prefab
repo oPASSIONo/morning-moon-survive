@@ -479,6 +479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92eb91e2bb85a2e42a4b05a9625ab664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerStats: {fileID: 11400000, guid: 9c571a9f06cd6974cb1bd1b652b818a8, type: 2}
   rootTransform: {fileID: 3100739088050912956}
 --- !u!114 &9025921128899043440
 MonoBehaviour:
@@ -793,7 +794,7 @@ PrefabInstance:
     - target: {fileID: 2866290701125998117, guid: 60466a695b96a26468d9f3706dd4e02b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3210165588910312607, guid: 60466a695b96a26468d9f3706dd4e02b,
         type: 3}
@@ -893,7 +894,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.6527739, y: 1.6456532, z: 0.101169825}
   m_Center: {x: 0.18883161, y: -0.6425624, z: -0.00036594653}
