@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 3513111523263473907}
   - component: {fileID: 1482654137008753539}
   - component: {fileID: 943939725873462425}
+  - component: {fileID: 1853726730801181567}
   m_Layer: 0
   m_Name: Crocobeast
   m_TagString: Untagged
@@ -95,15 +96,36 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8363582561729201969}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e28318dbb0e89454fa5d0b3e0bbfb0a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 1482654137008753539}
   roamRadius: 10
-  chaseRadius: 12
+  chaseRadius: 16
+  attackRadius: 10
   moveSpeed: 2.5
+  anim: {fileID: 1737696693029344147}
+  isFriendly: 0
+--- !u!114 &1853726730801181567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8363582561729201969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17511b88beb40814dba01a032142d9d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 1482654137008753539}
+  roamRadius: 10
+  chaseRadius: 16
+  attackRadius: 10
+  moveSpeed: 2.5
+  anim: {fileID: 1737696693029344147}
   isFriendly: 0
 --- !u!1001 &5714361664804095935
 PrefabInstance:
@@ -195,7 +217,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: aca8065404f813d44b029cd4b6e87f91,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3295802185788293356}
+      addedObject: {fileID: 1737696693029344147}
   m_SourcePrefab: {fileID: 100100000, guid: aca8065404f813d44b029cd4b6e87f91, type: 3}
 --- !u!1 &4867287809767979758 stripped
 GameObject:
@@ -203,27 +225,25 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5714361664804095935}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &3295802185788293356
-Animator:
-  serializedVersion: 5
+--- !u!111 &1737696693029344147
+Animation:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4867287809767979758}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f196ca70a8a47504495320ca745b00f0, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 1de72c4c41edf834a8071dd5d62c6fcf, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 1de72c4c41edf834a8071dd5d62c6fcf, type: 2}
+  - {fileID: 7400000, guid: 837e02362a5e7d9499c274872aab37e0, type: 2}
+  - {fileID: 7400000, guid: 94971438778a0ec48960b3c66636e59a, type: 2}
+  - {fileID: 7400000, guid: ee5027b67c61604409de916723823e81, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!4 &5244376710245212244 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: aca8065404f813d44b029cd4b6e87f91,
