@@ -1,39 +1,41 @@
+using System;
 using UnityEngine;
 using TMPro;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine.UI;
 
-public class DamageDisplay : MonoBehaviour
+public class DamagePopup : MonoBehaviour
 {
-    public GameObject damageTextPrefab; // Prefab ของ TextMeshPro
-    public Transform damageTextPosition; // ตำแหน่งที่จะปรากฏตัวเลข
-    public int damageAmount = 10;
-    public Toggle displayDamageToggle; // Checkbox สำหรับเปิดปิด
+    public static DamagePopup current;
+    public GameObject prefab;
 
-    void Update()
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && displayDamageToggle.isOn)
-        {
-            ShowDamage(damageAmount);
-            Debug.Log("Deal 20 Damage(Partical)");
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Space) && displayDamageToggle)
-        {
-            Debug.Log("Deal 20 Damage");
-        }
+        current = this;
     }
 
-    void ShowDamage(int damage)
+    /*public void Update()
     {
-        GameObject damageTextObject = Instantiate(damageTextPrefab, damageTextPosition.position, Quaternion.identity);
-        TextMeshPro textMesh = damageTextObject.GetComponent<TextMeshPro>();
-        textMesh.text = damage.ToString();
-        StartCoroutine(DestroyAfterSeconds(damageTextObject, 2.0f)); // ลบตัวหนังสือหลังจาก 2 วินาที
-    }
+        if (Input.GetKeyDown(KeyCode.F10))
+        {
+            CreatePopup(Vector3.one, 10.ToString());
+        }
+    }*/
 
-    private System.Collections.IEnumerator DestroyAfterSeconds(GameObject obj, float seconds)
+    /*public void OnTriggerEnter(Collider other)
     {
-        yield return new WaitForSeconds(seconds);
-        Destroy(obj);
+        if (other.CompareTag("Player"))
+        {
+            CreatePopup(Vector3.one, 10.ToString());
+            
+        }
+    }*/
+
+    public void CreatePopup(Vector3 position, string damagePopup)
+    {
+        var popup = Instantiate(prefab, position, quaternion.identity);
+        var temp = popup.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        temp.text = damagePopup;
     }
 }
