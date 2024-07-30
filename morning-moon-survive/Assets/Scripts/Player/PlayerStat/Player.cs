@@ -163,4 +163,9 @@ public class Player : MonoBehaviour
         HP = currentHealth;
         Debug.Log($"HP From Player Script : {HP}"); 
     }
+
+    public void RespawnPlayer()
+    {
+        GameInput.Instance.SetPlayerInput(true);
+    }
 }

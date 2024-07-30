@@ -45,10 +45,13 @@ public class Satiety : MonoBehaviour
 
         while (CurrentSatiety > SatietyConsumePoint)
         {
-            
-            DecreaseSatiety(SatietyConsumePoint); // Decrease by SatietyConsumeRate amount
+            if (healthComponent.CurrentHealth>0)
+            {
+                DecreaseSatiety(SatietyConsumePoint); // Decrease by SatietyConsumeRate amount
 
-            yield return new WaitForSeconds(SatietyConsumeRate); // Wait for SatietyConsumeRate seconds before next decrease
+                yield return new WaitForSeconds(SatietyConsumeRate); // Wait for SatietyConsumeRate seconds before next decrease
+            }
+            
         }
 
         // Ensure CurrentSatiety is not below MinSatiety

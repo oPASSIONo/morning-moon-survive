@@ -6,6 +6,7 @@ using Inventory;
 using Inventory.Model;
 using Inventory.UI;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -73,7 +75,6 @@ public class GameManager : MonoBehaviour
         uiInventoryPage = gameCanvas.GetComponentInChildren<UIInventoryPage>(true);
         
         player.GetComponent<InventoryController>().inventoryUI = uiInventoryPage;
-        
         
 
         uiHealthBar = gameCanvas.GetComponent<GameCanvasRef>().healthBar;
@@ -105,6 +106,7 @@ public class GameManager : MonoBehaviour
     {
         player = Instantiate(player);
         playerHealth = player.GetComponent<Health>();
+        playerHealth.OnEntityDie += OnPlayerDie;
         playerStamina = player.GetComponent<Stamina>();
         playerSatiety = player.GetComponent<Satiety>();
         playerAgentTool = player.GetComponent<AgentTool>();
@@ -132,6 +134,7 @@ public class GameManager : MonoBehaviour
             default:
                 return null;
         }
+        
     }
 
     private void MoveTargetToPoint(string moveTarget,GameObject movePoint)
@@ -141,6 +144,7 @@ public class GameManager : MonoBehaviour
         {
             case "Player":
                 objectToMove = player;
+                player.GetComponent<NavMeshAgent>().Warp(movePoint.transform.position);
                 break;
             default:
                 break;
@@ -186,6 +190,12 @@ public class GameManager : MonoBehaviour
                 break;
         }
         playerHealth.TakeDamage(damage);
+    }
+
+    private void OnPlayerDie()
+    {
+        gameCanvas.GetComponent<GameCanvasRef>().notiBox.SetActive(true);
+        GameInput.Instance.SetPlayerInput(false);
     }
     public void PlayerDealDamage(GameObject target, Collider hitCollider)
     {
@@ -246,6 +256,7 @@ public class GameManager : MonoBehaviour
         };
         return rankToMultiplier.TryGetValue(weaknessRank, out float multiplier) ? multiplier : 0f;
     }
+    
     
 }
 

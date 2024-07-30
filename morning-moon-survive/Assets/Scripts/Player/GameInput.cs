@@ -17,6 +17,11 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnAction;
     public event EventHandler OnInteractionAction;
     public event EventHandler OnDashAction;
+    
+    public event EventHandler<int> OnSelectSlotAction;
+    public InputAction[] slotSelectActions { get; private set; }
+    public const int NumberOfSlots = 10; // Adjust the number of slots as needed
+
 
     private void Awake()
     {
@@ -43,6 +48,21 @@ public class GameInput : MonoBehaviour
         playerInput.PlayerControls.Interaction.performed += Interaction_Performed;
         playerInput.PlayerControls.Dash.performed += Dash_Performed;
 
+        slotSelectActions = new InputAction[NumberOfSlots];
+
+        for (int i = 0; i < NumberOfSlots; i++)
+        {
+            int slotIndex = i; // Local copy for the lambda
+            slotSelectActions[i] = playerInput.FindAction($"SelectSlot{slotIndex + 1}");
+            if (slotSelectActions[i] != null)
+            {
+                slotSelectActions[i].performed += context => OnSelectSlotAction?.Invoke(this, slotIndex);
+            }
+            else
+            {
+                Debug.LogWarning($"Input action 'SelectSlot{slotIndex + 1}' not found.");
+            }
+        }
 
     }
 
@@ -85,6 +105,20 @@ public class GameInput : MonoBehaviour
         return inputVector.normalized;
     }
 
-    
+    public void SetPlayerInput(bool isEnable)
+    {
+        switch (isEnable)
+        {
+            case true:
+                playerInput.PlayerControls.Enable();
+                Debug.Log(isEnable);
+                break;
+            case false:
+                playerInput.PlayerControls.Disable();
+                Debug.Log(isEnable);
+
+                break;
+        }
+    }
     
 }

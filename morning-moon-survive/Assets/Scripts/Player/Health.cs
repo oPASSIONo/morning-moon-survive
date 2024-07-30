@@ -8,6 +8,7 @@ public class Health : MonoBehaviour
     public float CurrentHealth { get; private set; }
 
     public event Action<float, float> OnHealthChanged;
+    public event Action OnEntityDie;
     
     public void Initialize(float maxHealth, float minHealth, float initialHealth)
     {
@@ -65,6 +66,7 @@ public class Health : MonoBehaviour
     {
         CurrentHealth = MinHealth;
         OnHealthChanged?.Invoke(CurrentHealth,MaxHealth);
+        OnEntityDie?.Invoke();
         Debug.Log($"Entity has died.Current Health : {CurrentHealth}");
     }
     
