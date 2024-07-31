@@ -60,6 +60,7 @@ public class Health : MonoBehaviour
     public void SetCurrentHealth(float value)
     {
         CurrentHealth = value;
+        OnHealthChanged?.Invoke(CurrentHealth,MaxHealth);
     }
     
     public void Die()

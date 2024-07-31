@@ -51,7 +51,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -63,29 +62,10 @@ public class GameManager : MonoBehaviour
     private void StartGame()
     {
         InitializePlayer();
-        InitializeCamera();
-        InitializeGameCanvas();
         InitializeCraftingSystem();
         PersistentObject();
     }
-
-    private void InitializeGameCanvas()
-    {
-        gameCanvas = Instantiate(gameCanvas);
-        uiInventoryPage = gameCanvas.GetComponentInChildren<UIInventoryPage>(true);
-        
-        player.GetComponent<InventoryController>().inventoryUI = uiInventoryPage;
-        
-
-        uiHealthBar = gameCanvas.GetComponent<GameCanvasRef>().healthBar;
-        uiStaminaBar = gameCanvas.GetComponent<GameCanvasRef>().staminaBar;
-        uiSatietyBar = gameCanvas.GetComponent<GameCanvasRef>().satietyBar;
-        
-        uiHealthBar.healthComponent = playerHealth;
-        uiStaminaBar.staminaComponent = playerStamina;
-        uiSatietyBar.satietyComponent = playerSatiety;
-        
-    }
+    
     private void InitializeCraftingSystem()
     {
         craftingSystem = Instantiate(craftingSystem);
@@ -94,17 +74,9 @@ public class GameManager : MonoBehaviour
         craftingUI = gameCanvas.GetComponent<GameCanvasRef>().craftingPage;
         craftButtonHandler.craftingSystem = craftingSystem.GetComponent<CraftingSystem>();
     }
-
-    private void InitializeCamera()
-    {
-        mainCamera = Instantiate(mainCamera);
-        playerFollowCamera = Instantiate(playerFollowCamera);
-        playerFollowCamera.GetComponent<CinemachineVirtualCamera>().Follow = player.GetComponent<Player>().RootTransform;
-    }
-
+    
     private void InitializePlayer()
     {
-        player = Instantiate(player);
         playerHealth = player.GetComponent<Health>();
         playerHealth.OnEntityDie += OnPlayerDie;
         playerStamina = player.GetComponent<Stamina>();
@@ -137,7 +109,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    private void MoveTargetToPoint(string moveTarget,GameObject movePoint)
+    public void MoveTargetToPoint(string moveTarget,GameObject movePoint)
     {
         GameObject objectToMove=null;
         switch (moveTarget)
@@ -151,7 +123,7 @@ public class GameManager : MonoBehaviour
         }
         objectToMove.transform.position = movePoint.transform.position;
     }
-
+    
     private void HandlePlayerOnTransitionScene()
     {
         MoveTargetToPoint("Player",TargetSpawnPoint("SpawnPlayer"));
@@ -164,10 +136,8 @@ public class GameManager : MonoBehaviour
     private void PersistentObject()
     {
         DontDestroyOnLoad(craftingSystem);
-        
         DontDestroyOnLoad(mainCamera);
         DontDestroyOnLoad(playerFollowCamera);
-        DontDestroyOnLoad(player);
         DontDestroyOnLoad(gameCanvas);
     }
 
@@ -196,6 +166,14 @@ public class GameManager : MonoBehaviour
     {
         gameCanvas.GetComponent<GameCanvasRef>().notiBox.SetActive(true);
         GameInput.Instance.SetPlayerInput(false);
+    }
+
+    public void RespawnPlayer()
+    {
+        GameInput.Instance.SetPlayerInput(true);
+        playerHealth.SetCurrentHealth(100);
+        playerSatiety.SetCurrentSatiety(50);
+        playerSatiety.InitialSatietyConsumeOvertime();
     }
     public void PlayerDealDamage(GameObject target, Collider hitCollider)
     {
@@ -256,7 +234,5 @@ public class GameManager : MonoBehaviour
         };
         return rankToMultiplier.TryGetValue(weaknessRank, out float multiplier) ? multiplier : 0f;
     }
-    
-    
 }
 

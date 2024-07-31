@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance { get; private set; }
     [SerializeField] private PlayerStats playerStats;
     public float HP { get; private set; }
     public float MaxHP { get; private set; } 
@@ -43,9 +44,27 @@ public class Player : MonoBehaviour
     private Transform rootTransform; // Assign the root GameObject in the inspector
     public Transform RootTransform => rootTransform;
     
+    /*public PlayerState currentState { get; private set; }
+    public enum PlayerState
+    {
+        Normal,
+        OpenningUI,
+        Paused
+    }*/
+    
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         Initialize();
+        //currentState = PlayerState.Normal;
     }
     
 
@@ -163,9 +182,8 @@ public class Player : MonoBehaviour
         HP = currentHealth;
         Debug.Log($"HP From Player Script : {HP}"); 
     }
-
-    public void RespawnPlayer()
+    /*public void SetCurrentState(PlayerState newState)
     {
-        GameInput.Instance.SetPlayerInput(true);
-    }
+        currentState = newState;
+    }*/
 }

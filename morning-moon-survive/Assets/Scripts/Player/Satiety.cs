@@ -24,6 +24,10 @@ public class Satiety : MonoBehaviour
         healthComponent = GetComponent<Health>(); // Initialize the health reference
     }
 
+    public void InitialSatietyConsumeOvertime()
+    {
+        satietyDecreaseCoroutine = StartCoroutine(DecreaseSatietyOverTime());
+    }
     public void Initialize(float maxSatiety, float minSatiety, float initialSatiety, float satietyBleeding, float satietyConsumePoint, float satietyConsumeRate)
     {
         MaxSatiety = maxSatiety;
@@ -43,15 +47,12 @@ public class Satiety : MonoBehaviour
     {
         yield return new WaitForSeconds(InitialDelay);
 
-        while (CurrentSatiety > SatietyConsumePoint)
+        while (CurrentSatiety > SatietyConsumePoint && healthComponent.CurrentHealth>0)
         {
-            if (healthComponent.CurrentHealth>0)
-            {
-                DecreaseSatiety(SatietyConsumePoint); // Decrease by SatietyConsumeRate amount
-
-                yield return new WaitForSeconds(SatietyConsumeRate); // Wait for SatietyConsumeRate seconds before next decrease
-            }
             
+            DecreaseSatiety(SatietyConsumePoint); // Decrease by SatietyConsumeRate amount
+
+            yield return new WaitForSeconds(SatietyConsumeRate); // Wait for SatietyConsumeRate seconds before next decrease
         }
 
         // Ensure CurrentSatiety is not below MinSatiety
@@ -93,4 +94,11 @@ public class Satiety : MonoBehaviour
             StopCoroutine(satietyDecreaseCoroutine);
         }
     }
+
+    public void SetCurrentSatiety(float value)
+    {
+        CurrentSatiety = value;
+        OnSatietyChanged?.Invoke(CurrentSatiety,MaxSatiety);
+    }
+    
 }

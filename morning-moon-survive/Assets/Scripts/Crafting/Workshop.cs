@@ -14,6 +14,7 @@ public class Workshop : MonoBehaviour, IInteractable
         //OnWorkshopInteract?.Invoke(true);
         UIWorkshop.SetActive(true);
         craftingPage.PopulateCraftingUI(craftingSO);
+        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Crafting);
     }
     
     public void ShowInteractPrompt()

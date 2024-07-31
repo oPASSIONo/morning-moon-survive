@@ -66,58 +66,61 @@ public class GameInput : MonoBehaviour
 
     }
 
-    /*private void OnDestroy()
-    {
-        playerInput.PlayerControls.Pause.performed -= Pause_Performed;
-        playerInput.PlayerControls.Inventory.performed -= Inventory_Performed;
-        playerInput.PlayerControls.Attack.performed -= Attack_Performed;
-
-        playerInput.Dispose();
-    }*/
-
     private void Pause_Performed(InputAction.CallbackContext obj)
     {
+        PlayerStateManager.Instance.TogglePause();
         OnPauseAction?.Invoke(this, EventArgs.Empty);
     }
 
     private void Inventory_Performed(InputAction.CallbackContext obj)
     {
+        PlayerStateManager.Instance.ToggleInventory();
         OnInventoryAction?.Invoke(this, EventArgs.Empty);
     }
 
     private void Action_Performed(InputAction.CallbackContext obj)
     {
-        OnAction?.Invoke(this, EventArgs.Empty);
+        if (PlayerStateManager.Instance.currentState == PlayerStateManager.PlayerState.Normal)
+        {
+            OnAction?.Invoke(this, EventArgs.Empty);
+        }
     }
-    
-    public void Interaction_Performed(InputAction.CallbackContext obj)
+
+    private void Interaction_Performed(InputAction.CallbackContext obj)
     {
-        OnInteractionAction?.Invoke(this,EventArgs.Empty);
+        if (PlayerStateManager.Instance.currentState == PlayerStateManager.PlayerState.Normal)
+        {
+            OnInteractionAction?.Invoke(this, EventArgs.Empty);
+        }
     }
+
     private void Dash_Performed(InputAction.CallbackContext obj)
     {
-        OnDashAction?.Invoke(this, EventArgs.Empty);
+        if (PlayerStateManager.Instance.currentState == PlayerStateManager.PlayerState.Normal)
+        {
+            OnDashAction?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public Vector2 GetMovement()
     {
-        Vector2 inputVector = playerInput.PlayerControls.Move.ReadValue<Vector2>();
-        return inputVector.normalized;
+        if (PlayerStateManager.Instance.currentState == PlayerStateManager.PlayerState.Normal)
+        {
+            Vector2 inputVector = playerInput.PlayerControls.Move.ReadValue<Vector2>();
+            return inputVector.normalized;
+        }
+        return Vector2.zero;
     }
 
     public void SetPlayerInput(bool isEnable)
     {
-        switch (isEnable)
+        if (isEnable)
         {
-            case true:
-                playerInput.PlayerControls.Enable();
-                Debug.Log(isEnable);
-                break;
-            case false:
-                playerInput.PlayerControls.Disable();
-                Debug.Log(isEnable);
-
-                break;
+            playerInput.PlayerControls.Enable();
+        }
+        else
+        {
+            playerInput.PlayerControls.Disable();
         }
     }
     

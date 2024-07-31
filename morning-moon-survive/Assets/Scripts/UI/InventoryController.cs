@@ -202,13 +202,22 @@ namespace Inventory
         }
         
 
-        void OpenInventoryUI()
+        public void OpenInventoryUI()
         {
-            inventoryUI.Show();
-            foreach (var item in inventoryData.GetCurrentInventoryState())
+            switch (PlayerStateManager.Instance.currentState)
             {
-                inventoryUI.UpdateData(item.Key,item.Value.item.ItemImage,item.Value.quantity);
+                case PlayerStateManager.PlayerState.Inventory:
+                    inventoryUI.Show(true);
+                    foreach (var item in inventoryData.GetCurrentInventoryState())
+                    {
+                        inventoryUI.UpdateData(item.Key,item.Value.item.ItemImage,item.Value.quantity);
+                    }
+                    break;
+                case PlayerStateManager.PlayerState.Normal:
+                    inventoryUI.Show(false);
+                    break;
             }
+            
         }
         
         
