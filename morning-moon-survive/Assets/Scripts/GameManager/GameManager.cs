@@ -68,8 +68,6 @@ public class GameManager : MonoBehaviour
     
     private void InitializeCraftingSystem()
     {
-        craftingSystem = Instantiate(craftingSystem);
-        
         craftButtonHandler = gameCanvas.GetComponent<GameCanvasRef>().craftButtonHandler;
         craftingUI = gameCanvas.GetComponent<GameCanvasRef>().craftingPage;
         craftButtonHandler.craftingSystem = craftingSystem.GetComponent<CraftingSystem>();
@@ -148,8 +146,8 @@ public class GameManager : MonoBehaviour
         float movesetDMG = enemy.MovesetStats[movesetIndex].PhysicalDamage;
         float movesetElementDMG = enemy.MovesetStats[movesetIndex].ElementDamage;
         
-        Debug.Log($"Rat move 1 DMG ATK : {movesetDMG}");
-        Debug.Log($"Rat move 1 DMG Element : {movesetElementDMG}");
+        Debug.Log($"{enemy.gameObject.name} move 1 DMG ATK : {movesetDMG}");
+        Debug.Log($"{enemy.gameObject.name} move 1 DMG Element : {movesetElementDMG}");
         switch (movesetElementDMG)
         {
             case 0:
@@ -171,8 +169,8 @@ public class GameManager : MonoBehaviour
     public void RespawnPlayer()
     {
         GameInput.Instance.SetPlayerInput(true);
-        playerHealth.SetCurrentHealth(100);
-        playerSatiety.SetCurrentSatiety(50);
+        playerHealth.SetCurrentHealth(Player.Instance.GetPlayerStatSO().HealthStat.HP);
+        playerSatiety.SetCurrentSatiety(Player.Instance.GetPlayerStatSO().SatietyStat.Satiety);
         playerSatiety.InitialSatietyConsumeOvertime();
     }
     public void PlayerDealDamage(GameObject target, Collider hitCollider)

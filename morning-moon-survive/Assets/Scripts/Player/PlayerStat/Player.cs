@@ -186,4 +186,8 @@ public class Player : MonoBehaviour
     {
         currentState = newState;
     }*/
+    public PlayerStats GetPlayerStatSO()
+    {
+        return playerStats;
+    }
 }

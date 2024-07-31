@@ -9,16 +9,10 @@ public class UICraftingPage : MonoBehaviour
     [SerializeField] private RectTransform contentPanel;
     [SerializeField] private UICraftingDescription craftingDescription;
     [SerializeField] private CraftButtonHandler craftButtonHandler;
-    
+        
 
     private List<UICraftingItem> listOfUICraftingItems = new List<UICraftingItem>();
     private Dictionary<UICraftingItem, Recipe> craftingItemToRecipeMap = new Dictionary<UICraftingItem, Recipe>();
-    
-    
-    private void Start()
-    {
-        
-    }
     
     public void PopulateCraftingUI(CraftingSO craftingSO)
     {

@@ -188,6 +188,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crafting"",
+                    ""type"": ""Button"",
+                    ""id"": ""48273641-91e7-40c1-9950-4c8194dc1afc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -432,6 +441,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0eeb76b0-a0a7-4d2e-8f49-b25c4d45dda3"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crafting"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -458,6 +478,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_PlayerControls_DrawWeapon = m_PlayerControls.FindAction("DrawWeapon", throwIfNotFound: true);
         m_PlayerControls_SheathWeapon = m_PlayerControls.FindAction("SheathWeapon", throwIfNotFound: true);
         m_PlayerControls_Dash = m_PlayerControls.FindAction("Dash", throwIfNotFound: true);
+        m_PlayerControls_Crafting = m_PlayerControls.FindAction("Crafting", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -537,6 +558,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_DrawWeapon;
     private readonly InputAction m_PlayerControls_SheathWeapon;
     private readonly InputAction m_PlayerControls_Dash;
+    private readonly InputAction m_PlayerControls_Crafting;
     public struct PlayerControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -559,6 +581,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @DrawWeapon => m_Wrapper.m_PlayerControls_DrawWeapon;
         public InputAction @SheathWeapon => m_Wrapper.m_PlayerControls_SheathWeapon;
         public InputAction @Dash => m_Wrapper.m_PlayerControls_Dash;
+        public InputAction @Crafting => m_Wrapper.m_PlayerControls_Crafting;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -622,6 +645,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Dash.started += instance.OnDash;
             @Dash.performed += instance.OnDash;
             @Dash.canceled += instance.OnDash;
+            @Crafting.started += instance.OnCrafting;
+            @Crafting.performed += instance.OnCrafting;
+            @Crafting.canceled += instance.OnCrafting;
         }
 
         private void UnregisterCallbacks(IPlayerControlsActions instance)
@@ -680,6 +706,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Dash.started -= instance.OnDash;
             @Dash.performed -= instance.OnDash;
             @Dash.canceled -= instance.OnDash;
+            @Crafting.started -= instance.OnCrafting;
+            @Crafting.performed -= instance.OnCrafting;
+            @Crafting.canceled -= instance.OnCrafting;
         }
 
         public void RemoveCallbacks(IPlayerControlsActions instance)
@@ -717,5 +746,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnDrawWeapon(InputAction.CallbackContext context);
         void OnSheathWeapon(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+        void OnCrafting(InputAction.CallbackContext context);
     }
 }

@@ -17,6 +17,7 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnAction;
     public event EventHandler OnInteractionAction;
     public event EventHandler OnDashAction;
+    public event EventHandler OnCraftingAction;
     
     public event EventHandler<int> OnSelectSlotAction;
     public InputAction[] slotSelectActions { get; private set; }
@@ -47,6 +48,7 @@ public class GameInput : MonoBehaviour
         
         playerInput.PlayerControls.Interaction.performed += Interaction_Performed;
         playerInput.PlayerControls.Dash.performed += Dash_Performed;
+        playerInput.PlayerControls.Crafting.performed += Crafting_Performed;
 
         slotSelectActions = new InputAction[NumberOfSlots];
 
@@ -76,6 +78,11 @@ public class GameInput : MonoBehaviour
     {
         PlayerStateManager.Instance.ToggleInventory();
         OnInventoryAction?.Invoke(this, EventArgs.Empty);
+    }
+    private void Crafting_Performed(InputAction.CallbackContext obj)
+    {
+        PlayerStateManager.Instance.ToggleCrafting();
+        OnCraftingAction?.Invoke(this, EventArgs.Empty);
     }
 
     private void Action_Performed(InputAction.CallbackContext obj)

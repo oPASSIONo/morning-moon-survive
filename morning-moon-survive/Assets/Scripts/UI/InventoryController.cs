@@ -23,14 +23,6 @@ namespace Inventory
 
         [SerializeField] private AmountController amountController;
         
-        private void Awake()
-        {
-            playerInput = new PlayerInput();
-            playerInput.PlayerControls.Enable();
-            
-            //openInventoryAction = playerInput.PlayerControls.Inventory;
-
-        }
 
         
         void Start()
