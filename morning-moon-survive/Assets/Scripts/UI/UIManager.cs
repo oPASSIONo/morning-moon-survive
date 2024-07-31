@@ -2,15 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private CraftingSO playerCraftingSO;
     [SerializeField] private GameObject playerCraftingPage;
+    [SerializeField] private Button closeWorkshopBtn;
 
     private void Start()
     {
         GameInput.Instance.OnCraftingAction += GameInput_OnCraftingAction;
+        closeWorkshopBtn.onClick.AddListener(() => PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal));
     }
 
     private void GameInput_OnCraftingAction(object sender, EventArgs e)
