@@ -21,6 +21,9 @@ public class TimeManager : MonoBehaviour
     [Tooltip("The speed at which time passes.")]
     private float timeMultiplier;
 
+    [Tooltip("Multiplier for fast-forwarding time.")]
+    private float fastForwardMultiplier = 100f;
+    
     [Tooltip("Event triggered when the day starts.")]
     public UnityEngine.Events.UnityEvent OnDayStart;
 
@@ -95,5 +98,16 @@ public class TimeManager : MonoBehaviour
     {
         float currentHour = currentTimeOfDay * 24f;
         return currentHour >= nightStartTime || currentHour < dayStartTime;
+    }
+    public void StartFastForward()
+    {
+        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Sleep);
+        timeMultiplier = fastForwardMultiplier / (dayLengthInMinutes * 60f);
+    }
+
+    public void StopFastForward()
+    {
+        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal);
+        timeMultiplier = 1f / (dayLengthInMinutes * 60f);
     }
 }

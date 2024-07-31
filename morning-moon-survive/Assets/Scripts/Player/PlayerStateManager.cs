@@ -13,7 +13,8 @@ public class PlayerStateManager : MonoBehaviour
         Normal,
         Inventory,
         Crafting,
-        Paused
+        Paused,
+        Sleep
     }
 
     public PlayerState currentState { get; private set; }
