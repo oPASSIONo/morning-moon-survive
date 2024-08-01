@@ -19,20 +19,25 @@ public class Bed : MonoBehaviour, IInteractable
             Debug.Log("You can only sleep at night.");
         }
     }
+
     private IEnumerator FastForwardToDay()
     {
-        float elapsedTime = 0f;
+        float targetTimeOfDay = TimeManager.Instance.dayStartTime / 24f;
 
-        while (elapsedTime < fastForwardDuration)
+        while (TimeManager.Instance.currentTimeOfDay < targetTimeOfDay || TimeManager.Instance.currentTimeOfDay > 0.75f)
         {
-            elapsedTime += Time.deltaTime;
+            TimeManager.Instance.UpdateTime();
             yield return null;
         }
 
-        // Stop fast-forwarding time and set to start of the day
+        // Stop fast-forwarding time
         TimeManager.Instance.StopFastForward();
-        TimeManager.Instance.currentTimeOfDay = TimeManager.Instance.dayStartTime / 24f;
+        TimeManager.Instance.currentTimeOfDay = targetTimeOfDay;
+
+        // Ensure the day count updates correctly if the fast forward passes midnight
+        TimeManager.Instance.UpdateTime();
     }
+
     public void ShowInteractPrompt()
     {
         // Implement UI or prompt to indicate interaction (e.g., display "Press E to interact")
