@@ -271,6 +271,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 426083287}
+    - target: {fileID: 5771770504415289793, guid: 7b0a0137b1e287d44b1d943ae5d0f2d7,
+        type: 3}
+      propertyPath: craftingSystem
+      value: 
+      objectReference: {fileID: 1812660518}
     - target: {fileID: 6569440875976114148, guid: 7b0a0137b1e287d44b1d943ae5d0f2d7,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
