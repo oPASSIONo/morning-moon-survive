@@ -90,7 +90,6 @@ GameObject:
   - component: {fileID: 569297417517647297}
   - component: {fileID: 8180259689259321367}
   - component: {fileID: 508118480530468861}
-  - component: {fileID: 2190396493038376618}
   - component: {fileID: 4227607450326155708}
   m_Layer: 8
   m_Name: Player SinglePlayMode
@@ -239,17 +238,29 @@ MonoBehaviour:
   inventoryUI: {fileID: 0}
   inventoryData: {fileID: 11400000, guid: 5747cb1644aa57c4bbbafb0b0312d6d9, type: 2}
   initialItems:
-  - quantity: 10
-    item: {fileID: 11400000, guid: c35d4c4485cc1774c96d2eb14b24e50c, type: 2}
-    itemState: []
-  - quantity: 5
-    item: {fileID: 11400000, guid: 90408da37538a964ba2db3860e930574, type: 2}
-    itemState: []
   - quantity: 1
-    item: {fileID: 11400000, guid: 6316362a60431224d82f421596a1c9ec, type: 2}
+    item: {fileID: 11400000, guid: a21bf9d39daadfa428985e4dd1a240ce, type: 2}
     itemState: []
   - quantity: 1
     item: {fileID: 11400000, guid: 19f17fafa8512c3449bbc4506e62afa2, type: 2}
+    itemState: []
+  - quantity: 50
+    item: {fileID: 11400000, guid: b68dc37e177c8b64682c6ea7c6e4bd07, type: 2}
+    itemState: []
+  - quantity: 50
+    item: {fileID: 11400000, guid: 1065f86bdab24714fb665fea33d283f3, type: 2}
+    itemState: []
+  - quantity: 50
+    item: {fileID: 11400000, guid: 7935636f81fade543bb9673f848f2c08, type: 2}
+    itemState: []
+  - quantity: 50
+    item: {fileID: 11400000, guid: 957b8439c73f78042be041d268dede03, type: 2}
+    itemState: []
+  - quantity: 50
+    item: {fileID: 11400000, guid: afc77a80a3204374ea163168dd0a5767, type: 2}
+    itemState: []
+  - quantity: 50
+    item: {fileID: 11400000, guid: c4a607a8df33f0745902863e489f1f80, type: 2}
     itemState: []
   dropClip: {fileID: 0}
   audioSource: {fileID: 6756713409064365217}
@@ -458,8 +469,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90e55977fa5be4f4ab655c41fbd1ab60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  woodenAxe: {fileID: 7022867471269550189}
+  stoneAxe: {fileID: 0}
   boneAxe: {fileID: 823044636391284240}
+  currentTool: {fileID: 0}
 --- !u!114 &508118480530468861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,24 +488,6 @@ MonoBehaviour:
   interactableLayerMask:
     serializedVersion: 2
     m_Bits: 1024
---- !u!114 &2190396493038376618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5742628419312174404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ed5a64c753425f43bf40d74cf3e8039, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponTransform: {fileID: 7655534895486894807}
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  baseDamage: 10
-  headshotMultiplier: 2
 --- !u!195 &4227607450326155708
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -854,11 +848,7 @@ PrefabInstance:
     - {fileID: 3642966267991274796, guid: 49192fe1044bba545b86ab067cf43707, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1609434783327077437, guid: 49192fe1044bba545b86ab067cf43707,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5060122710060531121}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49192fe1044bba545b86ab067cf43707, type: 3}
 --- !u!4 &515155214753148679 stripped
 Transform:
@@ -866,29 +856,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1270856087216781010}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &573963247115088623 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1609434783327077437, guid: 49192fe1044bba545b86ab067cf43707,
-    type: 3}
-  m_PrefabInstance: {fileID: 1270856087216781010}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5060122710060531121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573963247115088623}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 662b0191516c9324c961fee454871ec6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponLength: 1.5
-  weaponDamage: 10
-  targetLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!1001 &4508495253333904374
 PrefabInstance:
   m_ObjectHideFlags: 0

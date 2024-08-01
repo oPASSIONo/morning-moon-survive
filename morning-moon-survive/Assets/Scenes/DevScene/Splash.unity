@@ -466,6 +466,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8893289611514948335, guid: 7b0a0137b1e287d44b1d943ae5d0f2d7,
+        type: 3}
+      propertyPath: craftingSystem
+      value: 
+      objectReference: {fileID: 1812660518}
     - target: {fileID: 9118899545956796078, guid: 7b0a0137b1e287d44b1d943ae5d0f2d7,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -556,6 +561,44 @@ PrefabInstance:
       propertyPath: inventoryUI
       value: 
       objectReference: {fileID: 225724357}
+    - target: {fileID: 2137510335835960653, guid: 7ae0f206ce4c5274fbf79e792bea7666,
+        type: 3}
+      propertyPath: initialItems.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2137510335835960653, guid: 7ae0f206ce4c5274fbf79e792bea7666,
+        type: 3}
+      propertyPath: initialItems.Array.data[5].item
+      value: 
+      objectReference: {fileID: 11400000, guid: 957b8439c73f78042be041d268dede03,
+        type: 2}
+    - target: {fileID: 2137510335835960653, guid: 7ae0f206ce4c5274fbf79e792bea7666,
+        type: 3}
+      propertyPath: initialItems.Array.data[6].item
+      value: 
+      objectReference: {fileID: 11400000, guid: c4a607a8df33f0745902863e489f1f80,
+        type: 2}
+    - target: {fileID: 2137510335835960653, guid: 7ae0f206ce4c5274fbf79e792bea7666,
+        type: 3}
+      propertyPath: initialItems.Array.data[7].item
+      value: 
+      objectReference: {fileID: 11400000, guid: afc77a80a3204374ea163168dd0a5767,
+        type: 2}
+    - target: {fileID: 2137510335835960653, guid: 7ae0f206ce4c5274fbf79e792bea7666,
+        type: 3}
+      propertyPath: initialItems.Array.data[5].quantity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2137510335835960653, guid: 7ae0f206ce4c5274fbf79e792bea7666,
+        type: 3}
+      propertyPath: initialItems.Array.data[6].quantity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2137510335835960653, guid: 7ae0f206ce4c5274fbf79e792bea7666,
+        type: 3}
+      propertyPath: initialItems.Array.data[7].quantity
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2598738484499578401, guid: 7ae0f206ce4c5274fbf79e792bea7666,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -1514,6 +1557,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1812660516}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1812660518 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5930539034793766272, guid: 8c19581b75c943b4c955d4b3a600a905,
+    type: 3}
+  m_PrefabInstance: {fileID: 1812660516}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812660517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f849a24741c98424b86a4d898dcfd6a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1833015514
 GameObject:
   m_ObjectHideFlags: 0

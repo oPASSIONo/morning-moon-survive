@@ -16,29 +16,21 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private GameObject mainCamera;
     [SerializeField] private GameObject playerFollowCamera;
+    
     [SerializeField] private GameObject player;
-
+    private Health playerHealth;
+    private Stamina playerStamina;
+    private Satiety playerSatiety;
     private Player playerComponent;
     private AgentTool playerAgentTool;
+    
     private float enemyWeaponWeaknessDMG;
     private float enemyElementWeaknessDMG;
     
     
     [SerializeField] private GameObject craftingSystem;
-    private UICraftingPage craftingUI;
-    private CraftButtonHandler craftButtonHandler;
 
     [SerializeField] private GameObject gameCanvas;
-    private UIInventoryPage uiInventoryPage;
-    private Health playerHealth;
-    private Stamina playerStamina;
-    private Satiety playerSatiety;
-    
-    private UIHealthBar uiHealthBar;
-    private UIStaminaBar uiStaminaBar;
-    private UISatietyBar uiSatietyBar;
-
-    
     
     private void Awake()
     {
@@ -62,16 +54,9 @@ public class GameManager : MonoBehaviour
     private void StartGame()
     {
         InitializePlayer();
-        InitializeCraftingSystem();
         PersistentObject();
     }
     
-    private void InitializeCraftingSystem()
-    {
-        craftButtonHandler = gameCanvas.GetComponent<GameCanvasRef>().craftButtonHandler;
-        craftingUI = gameCanvas.GetComponent<GameCanvasRef>().craftingPage;
-        craftButtonHandler.craftingSystem = craftingSystem.GetComponent<CraftingSystem>();
-    }
     
     private void InitializePlayer()
     {
