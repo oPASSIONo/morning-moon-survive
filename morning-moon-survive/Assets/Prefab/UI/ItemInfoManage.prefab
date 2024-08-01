@@ -172,7 +172,6 @@ GameObject:
   - component: {fileID: 8197458956111723691}
   - component: {fileID: 5523857530183187873}
   - component: {fileID: 7021207593163263087}
-  - component: {fileID: 273413531185192375}
   m_Layer: 5
   m_Name: ItemInfoManage
   m_TagString: Untagged
@@ -297,21 +296,6 @@ MonoBehaviour:
   buttonPrefab: {fileID: 2359679875139757299, guid: c418c7a34410e1d40a1a16ee2a4cda9a,
     type: 3}
   actionZone: {fileID: 2637318617241744711}
---- !u!114 &273413531185192375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 784845038865248267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95aa7394519baf54f83f23a4b9a9d4c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonPrefab: {fileID: 2359679875139757299, guid: c418c7a34410e1d40a1a16ee2a4cda9a,
-    type: 3}
-  actionZone: {fileID: 3263774264762666578}
 --- !u!1 &1253699999457517878
 GameObject:
   m_ObjectHideFlags: 0
