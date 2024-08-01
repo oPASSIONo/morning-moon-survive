@@ -154,8 +154,8 @@ public class GameManager : MonoBehaviour
     public void RespawnPlayer()
     {
         GameInput.Instance.SetPlayerInput(true);
-        playerHealth.SetCurrentHealth(Player.Instance.GetPlayerStatSO().HealthStat.HP);
-        playerSatiety.SetCurrentSatiety(Player.Instance.GetPlayerStatSO().SatietyStat.Satiety);
+        playerComponent.SetHP(Player.Instance.GetPlayerStatSO().HealthStat.HP);
+        playerComponent.SetSatiety(Player.Instance.GetPlayerStatSO().SatietyStat.Satiety);
         playerSatiety.InitialSatietyConsumeOvertime();
     }
     public void PlayerDealDamage(GameObject target, Collider hitCollider)

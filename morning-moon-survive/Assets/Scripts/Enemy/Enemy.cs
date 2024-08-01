@@ -85,7 +85,7 @@ public class Enemy : MonoBehaviour
             Debug.LogError("Health component not found on Enemy GameObject.");
         }
     }
-    private void UpdateEnemyHealth(float currentHealth, float maxHealth)
+    private void UpdateEnemyHealth(float currentHealth, float maxHealth,float minHealth)
     {
         HP=currentHealth;
         Debug.Log($"HP From Enemy Script : {HP}"); 

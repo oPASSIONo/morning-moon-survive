@@ -127,4 +127,28 @@ public class PlayerMovement : MonoBehaviour
             
         }
     }
+    public void SetCurrentSpeed(float value)
+    {
+        CurrentSpeed = value;
+        OnSpeedChanged?.Invoke(CurrentSpeed, MaxSpeed);
+    }
+
+    public void SetMaxSpeed(float value)
+    {
+        MaxSpeed = value;
+        OnSpeedChanged?.Invoke(CurrentSpeed, MaxSpeed);
+    }
+
+    public void SetMinSpeed(float value)
+    {
+        MinSpeed = value;
+        OnSpeedChanged?.Invoke(CurrentSpeed, MaxSpeed);
+    }
+
+    public void SetBaseSpeed(float value)
+    {
+        BaseSpeed = value;
+        OnSpeedChanged?.Invoke(CurrentSpeed, MaxSpeed);
+    }
+
 }

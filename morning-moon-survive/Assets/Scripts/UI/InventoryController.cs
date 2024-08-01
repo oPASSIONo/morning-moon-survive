@@ -14,9 +14,6 @@ namespace Inventory
         public UIInventoryPage inventoryUI;
         [SerializeField] private InventorySO inventoryData;
         public List<InventoryItem> initialItems = new List<InventoryItem>();
-    
-        private PlayerInput playerInput;
-        private InputAction openInventoryAction;
 
         [SerializeField] private AudioClip dropClip;
         [SerializeField] private AudioSource audioSource;
