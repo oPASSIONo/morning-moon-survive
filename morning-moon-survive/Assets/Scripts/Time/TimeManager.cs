@@ -110,7 +110,6 @@ public class TimeManager : MonoBehaviour
         dayCountText.text = "Day: " + dayCount;
 
         // Debug log to show the current in-game time
-        Debug.Log("Current Time: " + timeString);
     }
 
     public bool IsNightTime()

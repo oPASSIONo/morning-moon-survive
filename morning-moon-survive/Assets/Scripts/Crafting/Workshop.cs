@@ -11,12 +11,15 @@ public class Workshop : MonoBehaviour, IInteractable
     public void Interact()
     {
         Debug.Log("Interacting with workshop");
-        //OnWorkshopInteract?.Invoke(true);
-        UIWorkshop.SetActive(true);
-        craftingPage.PopulateCraftingUI(craftingSO);
-        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Crafting);
+        SendWorkshopCraftingSO();
+        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Workshop);
+        UICraftingManager.Instance.OpenWorkshopUI();
     }
-    
+
+    public void SendWorkshopCraftingSO()
+    {
+        UICraftingManager.Instance.SetWorkshopCraftingSo(craftingSO);
+    }
     public void ShowInteractPrompt()
     {
         // Implement UI or prompt to indicate interaction (e.g., display "Press E to interact")

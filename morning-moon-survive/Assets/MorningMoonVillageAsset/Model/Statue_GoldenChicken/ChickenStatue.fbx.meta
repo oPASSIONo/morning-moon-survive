@@ -3,7 +3,12 @@ guid: d77247bc48a6b3c4db840f972022bc8c
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_ChickenStatue
+    second: {fileID: 2100000, guid: 4362a8610bfdcd94cbe2e2c21cba74a5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

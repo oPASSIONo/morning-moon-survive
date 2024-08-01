@@ -13,6 +13,7 @@ public class PlayerStateManager : MonoBehaviour
         Normal,
         Inventory,
         Crafting,
+        Workshop,
         Paused,
         Sleep
     }
