@@ -7,26 +7,29 @@ public class SaveManager : MonoBehaviour
 {
     public PlayerStats playerdefault;
     
-    public void SavePlayer(Player player) 
+    public void SavePlayer() 
     {
-        PlayerPrefs.SetFloat("HP",player.HP);
-        PlayerPrefs.SetFloat("MaxHp", player.MaxHP);
-        PlayerPrefs.SetFloat("MinHp", player.MinHP);
-        PlayerPrefs.SetFloat("Stamina", player.Stamina);
-        PlayerPrefs.SetFloat("MaxStamina", player.MaxStamina);
-        PlayerPrefs.SetFloat("MinStamina", player.MinStamina);
-        PlayerPrefs.SetFloat("BaseActionCost", player.BaseActionCost);
-        PlayerPrefs.SetFloat("Satiety", player.Satiety);
-        PlayerPrefs.SetFloat("SatietyBleeding", player.SatietyBleeding);
-        PlayerPrefs.SetFloat("SatietyConsumePoint", player.SatietyConsumePoint);
-        PlayerPrefs.SetFloat("SatietyConsumeRate", player.SatietyConsumeRate);
-        PlayerPrefs.SetFloat("MaxSatiety", player.MaxSatiety);
-        PlayerPrefs.SetFloat("MinSatiety", player.MinSatiety);
+        PlayerPrefs.SetFloat("HP",Player.Instance.HP);
+        PlayerPrefs.SetFloat("MaxHp",Player.Instance.MaxHP);
+        PlayerPrefs.SetFloat("MinHp", Player.Instance.MinHP);
+        PlayerPrefs.SetFloat("Stamina", Player.Instance.Stamina);
+        PlayerPrefs.SetFloat("MaxStamina", Player.Instance.MaxStamina);
+        PlayerPrefs.SetFloat("MinStamina", Player.Instance.MinStamina);
+        PlayerPrefs.SetFloat("BaseActionCost", Player.Instance.BaseActionCost);
+        PlayerPrefs.SetFloat("Satiety", Player.Instance.Satiety);
+        PlayerPrefs.SetFloat("SatietyBleeding", Player.Instance.SatietyBleeding);
+        PlayerPrefs.SetFloat("SatietyConsumePoint", Player.Instance.SatietyConsumePoint);
+        PlayerPrefs.SetFloat("SatietyConsumeRate", Player.Instance.SatietyConsumeRate);
+        PlayerPrefs.SetFloat("MaxSatiety", Player.Instance.MaxSatiety);
+        PlayerPrefs.SetFloat("MinSatiety", Player.Instance.MinSatiety);
         /*PlayerPrefs.SetFloat("Defense", player.Defense);
         PlayerPrefs.SetFloat("Resistant", player.Resistant);
         PlayerPrefs.SetFloat("Attack", player.Attack);
         PlayerPrefs.SetFloat("Element", player.Element);
         PlayerPrefs.SetFloat("EXP", player.EXP);*/
+        
+        //PlayerPrefs.SetFloat("Time", TimeManager.Instance.);
+        PlayerPrefs.SetFloat("Day", TimeManager.Instance.dayCount);
 
         /*for(int i = 0;i< EXP.count;i++)
         {
@@ -34,33 +37,55 @@ public class SaveManager : MonoBehaviour
             Playerperf.setfloat( savekey, EXP[i]);
 
         }*/
-        Debug.Log("HP: " + player.HP);
-        Debug.Log(player.gameObject.name);
-        //Debug.Log(playerdefault.HealthStat.MaxHP);
-        //Debug.Log(playerdefault.HealthStat.MinHP);
+        
+        Debug.Log("Save HP: " + Player.Instance.HP);
+        Debug.Log("Save MaxHP: " + Player.Instance.MaxHP);
+        Debug.Log("Save MinHP: " + Player.Instance.MinHP);
+        Debug.Log("Save Stamina: " + Player.Instance.Stamina);
+        Debug.Log("Save MaxStamina: " + Player.Instance.MaxStamina);
+        Debug.Log("Save MinStamina: " + Player.Instance.MinStamina);
+        Debug.Log("Save Satiety: " + Player.Instance.Satiety);
+        
+        //Debug.Log("Save Time: " + TimeManager.Instance.);
+        Debug.Log("Save Day: " + TimeManager.Instance.dayCount);
+        
     }
 
     public void LoadPlayer()
     {
         PlayerPrefs.GetFloat("HP",playerdefault.HealthStat.HP);
-        PlayerPrefs.GetFloat("MaxHP",playerdefault.HealthStat.MaxHP);
-        PlayerPrefs.GetFloat("MinHP",playerdefault.HealthStat.MinHP);
+        PlayerPrefs.GetFloat("MaxHP");
+        PlayerPrefs.GetFloat("MinHP");
+        PlayerPrefs.GetFloat("Stamina");
+        PlayerPrefs.GetFloat("MaxStamina");
+        PlayerPrefs.GetFloat("MinStamina");
+        PlayerPrefs.GetFloat("Satiety");
+
+        //float time = PlayerPrefs.GetFloat("Time");
+        float day = PlayerPrefs.GetFloat("Day");
 
         /*for(int i = 0;i< EXP.count;i++)
         {
             string savekey = "EXP"+i ;
             Playerperf.setfloat( savekey, EXP[i]);
         }*/
-        Debug.Log(playerdefault);
-        Debug.Log(playerdefault);
-        Debug.Log(playerdefault);
+        Debug.Log("Load HP: ");
+        Debug.Log("Load MaxHP: ");
+        Debug.Log("Load MinHP: ");
+        Debug.Log("Load Stamina: ");
+        Debug.Log("Load MaxStamina: ");
+        Debug.Log("Load minStamina: ");
+        Debug.Log("Load Satiety: ");
+        
+        //Debug.Log("Load Time:" + time);
+        Debug.Log("Load Day:");
+        //Debug.Log(playerdefault.HealthStat.MaxHP);
+        //Debug.Log(playerdefault.HealthStat.MinHP);
     }
 
     public void Delete()
     {
-        PlayerPrefs.DeleteKey("HP");
-        PlayerPrefs.DeleteKey("MaxHP");
-        PlayerPrefs.DeleteKey("MinHP");
+        PlayerPrefs.DeleteAll();
         Debug.Log("Delete");
     }
 }

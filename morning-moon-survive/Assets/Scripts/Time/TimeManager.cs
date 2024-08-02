@@ -38,7 +38,7 @@ public class TimeManager : MonoBehaviour
     [Tooltip("TextMeshPro UI component for displaying the day count.")]
     public TextMeshProUGUI dayCountText;
 
-    private int dayCount = 0;
+    public int dayCount = 0;
 
     private void Awake()
     {
