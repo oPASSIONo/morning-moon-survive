@@ -53,13 +53,13 @@ public class SaveManager : MonoBehaviour
 
     public void LoadPlayer()
     {
-        PlayerPrefs.GetFloat("HP",playerdefault.HealthStat.HP);
-        PlayerPrefs.GetFloat("MaxHP");
-        PlayerPrefs.GetFloat("MinHP");
-        PlayerPrefs.GetFloat("Stamina");
-        PlayerPrefs.GetFloat("MaxStamina");
-        PlayerPrefs.GetFloat("MinStamina");
-        PlayerPrefs.GetFloat("Satiety");
+        Player.Instance.SetHP(Player.Instance.HP); PlayerPrefs.GetFloat("HP",playerdefault.HealthStat.HP);
+        Player.Instance.SetMaxHP(Player.Instance.MaxHP); PlayerPrefs.GetFloat("MaxHP",playerdefault.HealthStat.MaxHP);
+        Player.Instance.SetMinHP(Player.Instance.MinHP); PlayerPrefs.GetFloat("MinHP",playerdefault.HealthStat.MinHP);
+        Player.Instance.SetStamina(Player.Instance.Stamina); PlayerPrefs.GetFloat("Stamina",playerdefault.StaminaStat.Stamina);
+        Player.Instance.SetMaxStamina(Player.Instance.MaxStamina); PlayerPrefs.GetFloat("MaxStamina",playerdefault.StaminaStat.MaxStamina);
+        Player.Instance.SetMinStamina(Player.Instance.MinStamina); PlayerPrefs.GetFloat("MinStamina",playerdefault.StaminaStat.MinStamina);
+        Player.Instance.SetSatiety(Player.Instance.Satiety); PlayerPrefs.GetFloat("Satiety",playerdefault.SatietyStat.Satiety);
 
         //float time = PlayerPrefs.GetFloat("Time");
         float day = PlayerPrefs.GetFloat("Day");
