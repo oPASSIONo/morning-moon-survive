@@ -100,5 +100,30 @@ public class Satiety : MonoBehaviour
         CurrentSatiety = value;
         OnSatietyChanged?.Invoke(CurrentSatiety,MaxSatiety);
     }
-    
+    public void SetMaxSatiety(float value)
+    {
+        MaxSatiety = value;
+        OnSatietyChanged?.Invoke(CurrentSatiety, MaxSatiety);
+    }
+
+    public void SetMinSatiety(float value)
+    {
+        MinSatiety = value;
+        OnSatietyChanged?.Invoke(CurrentSatiety, MaxSatiety);
+    }
+
+    public void SetSatietyBleeding(float value)
+    {
+        SatietyBleeding = value;
+    }
+
+    public void SetSatietyConsumeRate(float value)
+    {
+        SatietyConsumeRate = value;
+    }
+
+    public void SetSatietyConsumePoint(float value)
+    {
+        SatietyConsumePoint = value;
+    }
 }

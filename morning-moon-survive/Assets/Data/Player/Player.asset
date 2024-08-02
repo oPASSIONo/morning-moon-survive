@@ -29,7 +29,8 @@ MonoBehaviour:
     SatietyConsumePoint: 1
     SatietyConsumeRate: 5
   <SpeedStat>k__BackingField:
-    Speed: 5
+    Speed: 0
+    BaseSpeed: 5
     MaxSpeed: 10
     MinSpeed: 0
   <CombatStat>k__BackingField:

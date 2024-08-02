@@ -7,7 +7,7 @@ public class Health : MonoBehaviour
     public float MinHealth { get; private set; }
     public float CurrentHealth { get; private set; }
 
-    public event Action<float, float> OnHealthChanged;
+    public event Action<float, float,float> OnHealthChanged;
     public event Action OnEntityDie;
     
     public void Initialize(float maxHealth, float minHealth, float initialHealth)
@@ -17,7 +17,7 @@ public class Health : MonoBehaviour
         CurrentHealth = initialHealth;
         
         // Trigger health changed event
-        OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
+        OnHealthChanged?.Invoke(CurrentHealth, MaxHealth,MinHealth);
     }
     
     public void TakeDamage(float damageAmount)
@@ -30,7 +30,7 @@ public class Health : MonoBehaviour
         }
 
         // Trigger health changed event
-        OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
+        OnHealthChanged?.Invoke(CurrentHealth, MaxHealth,MinHealth);
 
         IsDie();
     }
@@ -43,7 +43,7 @@ public class Health : MonoBehaviour
             SetCurrentHealth(MaxHealth);
         }
         // Trigger health changed event
-        OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
+        OnHealthChanged?.Invoke(CurrentHealth, MaxHealth,MinHealth);
         Debug.Log("Entity add health");
     }
 
@@ -57,27 +57,32 @@ public class Health : MonoBehaviour
         }
     }
     
-    public void SetCurrentHealth(float value)
-    {
-        CurrentHealth = value;
-        OnHealthChanged?.Invoke(CurrentHealth,MaxHealth);
-    }
-    
     public void Die()
     {
         CurrentHealth = MinHealth;
-        OnHealthChanged?.Invoke(CurrentHealth,MaxHealth);
+        OnHealthChanged?.Invoke(CurrentHealth,MaxHealth,MinHealth);
         OnEntityDie?.Invoke();
         Debug.Log($"Entity has died.Current Health : {CurrentHealth}");
     }
-    
-    public void SetMaxHealth(float value)
+        
+    public void SetCurrentHealth(float hp)
     {
-        MaxHealth = value;
+        CurrentHealth = hp;
+        OnHealthChanged?.Invoke(CurrentHealth,MaxHealth,MinHealth);
     }
 
-    public void SetMinHealth(float value)
+    public void SetMaxHealth(float val)
     {
-        MinHealth = value;
+        MaxHealth = val;
+        OnHealthChanged?.Invoke(CurrentHealth,MaxHealth,MinHealth);
     }
+
+    public void SetMinHealth(float val)
+    {
+        MinHealth = val;
+        OnHealthChanged?.Invoke(CurrentHealth,MaxHealth,MinHealth);
+    }
+    
+    
+    
 }

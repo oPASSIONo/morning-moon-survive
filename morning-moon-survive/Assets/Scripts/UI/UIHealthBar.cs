@@ -14,11 +14,11 @@ public class UIHealthBar : MonoBehaviour
         healthComponent.OnHealthChanged += UpdateHealthBar;
 
         // Call UpdateHealthBar immediately to ensure correct initialization
-        UpdateHealthBar(healthComponent.CurrentHealth, healthComponent.MaxHealth);
+        UpdateHealthBar(healthComponent.CurrentHealth, healthComponent.MaxHealth,healthComponent.MinHealth);
     }
 
 
-    private void UpdateHealthBar(float currentHealth, float maxHealth)
+    private void UpdateHealthBar(float currentHealth, float maxHealth,float minHealth)
     {
         // Update the slider value to reflect the current health
         slider.value = (float)currentHealth / maxHealth;

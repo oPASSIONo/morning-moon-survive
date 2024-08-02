@@ -23,7 +23,6 @@ public class UICraftingManager : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
     }
 

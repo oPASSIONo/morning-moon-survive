@@ -281,6 +281,7 @@ GameObject:
   - component: {fileID: 1725085532447627315}
   - component: {fileID: 6138968646306515519}
   - component: {fileID: 6404082242874568886}
+  - component: {fileID: 3298586985471657401}
   m_Layer: 5
   m_Name: CraftingMaterialUI
   m_TagString: Untagged
@@ -348,6 +349,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3298586985471657401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181784946835178785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c40fffa2723d08c4bb7aa11d397d4368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredientIcon: {fileID: 86220635102741244}
+  ingredientName: {fileID: 1021860099453520484}
+  ingredientQuantity: {fileID: 2902482652989020801}
 --- !u!1 &7490708800517536634
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,6 +495,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemSlot
       objectReference: {fileID: 0}
+    - target: {fileID: 6220262127234315031, guid: d42fcc9f1bbddfe419a85c189897004c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6368816195342214811, guid: d42fcc9f1bbddfe419a85c189897004c,
         type: 3}
       propertyPath: m_Pivot.x
@@ -579,11 +600,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    - target: {fileID: 8295989329047724600, guid: d42fcc9f1bbddfe419a85c189897004c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2537424410959808559, guid: d42fcc9f1bbddfe419a85c189897004c, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 3112408360617418410, guid: d42fcc9f1bbddfe419a85c189897004c, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d42fcc9f1bbddfe419a85c189897004c, type: 3}
+--- !u!114 &86220635102741244 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8232518858592904855, guid: d42fcc9f1bbddfe419a85c189897004c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8290451252462609515}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3129735570517476080 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6368816195342214811, guid: d42fcc9f1bbddfe419a85c189897004c,

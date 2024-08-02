@@ -24,7 +24,7 @@ public class UICraftingItem : MonoBehaviour,IPointerClickHandler
     }
     public void ResetData()
     {
-        itemImage.gameObject.SetActive(false);
+        //itemImage.gameObject.SetActive(false);
         empty = true;
     }
     /*public void Select()
@@ -38,7 +38,7 @@ public class UICraftingItem : MonoBehaviour,IPointerClickHandler
 
     public void SetData(Sprite sprite,string name)
     {
-        itemImage.gameObject.SetActive(true);
+        //itemImage.gameObject.SetActive(true);
         itemImage.sprite = sprite;
         itemName.text = name;
         empty = false;
