@@ -16,18 +16,25 @@ public class CrocobeastAI : EnemyAI
     
     protected override IEnumerator AttackMove1() //TailSlap
     {
+        isAttack = true;
         anim.Play("Attack1");
         yield return new WaitForSeconds(anim["Attack1"].length);
         anim.CrossFade("Idle");
+        isAttack = false;
         enemyCombat.SetMoveset(1);
     }
     
-   /* public override IEnumerator AttackMove2() //Charge
+    protected override IEnumerator AttackMove2() //Stomp
     {
-        yield return new WaitForSeconds(1.0f);
+        isAttack = true;
+        anim.Play("Attack2");
+        yield return new WaitForSeconds(anim["Attack2"].length);
+        anim.CrossFade("Idle");
+        isAttack = false;
+        enemyCombat.SetMoveset(2);
     }
 
-    public override IEnumerator AttackMove3() //Stomp
+    /*protected override IEnumerator AttackMove3() //Charge
     {
         yield return new WaitForSeconds(1.0f);
     }*/

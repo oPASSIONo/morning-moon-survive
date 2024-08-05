@@ -19,6 +19,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float attackRadius; // Radius for attacking player
     [SerializeField] private float moveSpeed; // Enemy movement speed
     [SerializeField] public Animation anim;
+    [SerializeField] public Animator animation;
     [SerializeField] private bool isFriendly;
     
     public float attackDelayTime { get; private set; } = 3f;
@@ -28,9 +29,23 @@ public class EnemyAI : MonoBehaviour
     private GameObject player;
     private EnemyState currentState;
     private bool isWalking;
-    private float lastAttackTime;
+    private float attackTimer = 0;
     private float animationSpeed = 0.5f;
     private bool hasPlayedIdle = false;
+    protected bool isAttack = false;
+    private Coroutine attackcoroutine;
+    
+    #region Animation State Hashes
+
+    private readonly int animHash_Idle = Animator.StringToHash("Idle");
+    private readonly int animHash_Walk = Animator.StringToHash("Walk");
+    private readonly int animHash_Attack1 = Animator.StringToHash("Attack1");
+    private readonly int animHash_Attack2 = Animator.StringToHash("Attack2");
+    private readonly int animHash_Attack3 = Animator.StringToHash("Attack3");
+    private readonly int animHash_Dead = Animator.StringToHash("Dead");
+  
+
+    #endregion
 
     void Awake()
     {
@@ -57,7 +72,10 @@ public class EnemyAI : MonoBehaviour
                 case EnemyState.Fight:
                     FightPlayer();
                     break;
-                
+               /* case  EnemyState.Attacking:
+                    Attacking();
+                    break;*/
+
             }
 
             if (currentState == EnemyState.Roam || currentState == EnemyState.Chase)
@@ -70,7 +88,8 @@ public class EnemyAI : MonoBehaviour
             player = GameObject.FindGameObjectWithTag("Player");
         }
         
-        
+        UnityEngine.Debug.Log(currentState);
+        UnityEngine.Debug.Log(isAttack);
     }
 
     void Roam()
@@ -112,6 +131,12 @@ public class EnemyAI : MonoBehaviour
             if (IsPlayerInRange(attackRadius))
             {
                 currentState = EnemyState.Fight;
+                attackTimer = 0;
+            }
+
+            if (isAttack)
+            {
+                currentState = EnemyState.Fight;
             }
 
         }
@@ -127,6 +152,7 @@ public class EnemyAI : MonoBehaviour
     {
         // Stop movement
         agent.isStopped = true;
+        attackTimer += Time.deltaTime;
 
         Vector3 targetPosition = new Vector3(player.transform.position.x, 0, player.transform.position.z);
         transform.LookAt(targetPosition);
@@ -138,11 +164,16 @@ public class EnemyAI : MonoBehaviour
             anim.CrossFade("Idle");
             hasPlayedIdle = true;
         }
+
+        if (!isAttack && IsPlayerInRange(attackRadius))
+        {
+          //  currentState = EnemyState.Attacking;
+          Attack(attackDelayTime);
+        }
         
-        StartCoroutine(RandomAttackAnim());
         
         // Check if player is outside attack radius (optional)
-        if (IsPlayerInRange(attackRadius) == false)
+        if (IsPlayerInRange(attackRadius) == false && !isAttack)
         {
             currentState = EnemyState.Chase;
             agent.isStopped = false; // Resume movement
@@ -150,6 +181,11 @@ public class EnemyAI : MonoBehaviour
             isWalking = true;
 
         }
+    }
+
+    void Attacking()
+    {
+        
     }
     
     bool IsPlayerInRange()
@@ -174,10 +210,11 @@ public class EnemyAI : MonoBehaviour
         return distance <= maxChaseDistance;
     }
 
-    IEnumerator RandomAttackAnim()
+    void RandomAttackAnim(float attackCD)
     {
-        yield return new WaitForSeconds(attackDelayTime); // Initial delay before first attack
-        while (true)
+       // yield return new WaitForSeconds(attackCD); // Initial delay before first attack
+        
+        /*while (true)
         {
             if (Time.time - lastAttackTime >= attackDelayTime)
             {
@@ -191,15 +228,41 @@ public class EnemyAI : MonoBehaviour
                     case 1:
                         StartCoroutine(AttackMove2());
                         break;
-                    case 2:
+                    case 2: 
                         StartCoroutine(AttackMove3());
                         break;
                 }
             }
             yield return null;
+        }*/
+        if(attackTimer >= attackCD)
+        {
+            int randomAttack = Random.Range(0, 3);
+            switch (randomAttack)
+            {
+                case 0: 
+                    StartCoroutine(AttackMove1());
+                    break;
+                case 1:
+                    StartCoroutine(AttackMove2());
+                    break;
+                case 2:
+                    StartCoroutine(AttackMove3());
+                    break;
+            }
+
+            attackTimer = 0;
         }
     }
 
+    void Attack(float attackCD)
+    {
+        if (!isAttack)
+        {
+            RandomAttackAnim(attackCD);
+        }
+
+    }
     void IdleWalkController()
     {
         isWalking = agent.velocity.magnitude > 0.1f;

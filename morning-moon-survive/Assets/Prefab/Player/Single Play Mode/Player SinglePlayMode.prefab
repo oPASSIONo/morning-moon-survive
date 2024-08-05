@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 7611610067843558548}
   - component: {fileID: 793363140232541257}
   - component: {fileID: 9025921128899043440}
+  - component: {fileID: 4788606198199397572}
   m_Layer: 0
   m_Name: Player SinglePlayMode
   m_TagString: Player
@@ -494,6 +495,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCollider: {fileID: 8810583160624716799}
+  playerAnimation: {fileID: 4788606198199397572}
+--- !u!114 &4788606198199397572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4770661126664566695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b2ece99ba1bed84486ee462c8fb77e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelAnimator: {fileID: 3924816353599901767}
+  playerCombat: {fileID: 9025921128899043440}
 --- !u!1 &5057764305931775667
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,7 +1095,7 @@ Animator:
   m_GameObject: {fileID: 8048857794471360079}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 4bfa5a346a3577245a36029d5a1cfe9a, type: 2}
+  m_Controller: {fileID: 9100000, guid: d52606aaa60ba6244be57dfe41a293fb, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
