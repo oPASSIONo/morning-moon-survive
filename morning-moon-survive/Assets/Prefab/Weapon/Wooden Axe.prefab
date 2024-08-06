@@ -86,5 +86,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6cb1bf0ea0b463543bd0b69e00224499,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1862473337883944201}
   m_SourcePrefab: {fileID: 100100000, guid: 6cb1bf0ea0b463543bd0b69e00224499, type: 3}
+--- !u!1 &2866290701125998117 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6cb1bf0ea0b463543bd0b69e00224499,
+    type: 3}
+  m_PrefabInstance: {fileID: 3100295020764457844}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1862473337883944201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2866290701125998117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80ac48d55f08a62419ea01276cf9d119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <InventoryItem>k__BackingField: {fileID: 11400000, guid: 19f17fafa8512c3449bbc4506e62afa2,
+    type: 2}
+  <Quantity>k__BackingField: 1
+  audioSource: {fileID: 0}
+  duration: 0.3

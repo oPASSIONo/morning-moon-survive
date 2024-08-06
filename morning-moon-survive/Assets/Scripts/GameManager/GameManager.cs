@@ -29,8 +29,9 @@ public class GameManager : MonoBehaviour
     
     
     [SerializeField] private GameObject craftingSystem;
-
     [SerializeField] private GameObject gameCanvas;
+    public LoadingScreenManager loadingScreenManager;
+
     
     private void Awake()
     {
@@ -56,8 +57,6 @@ public class GameManager : MonoBehaviour
         InitializePlayer();
         PersistentObject();
     }
-    
-    
     private void InitializePlayer()
     {
         playerHealth = player.GetComponent<Health>();
@@ -114,6 +113,18 @@ public class GameManager : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+        /*// Load the loading scene first
+        SceneManager.LoadScene("LoadingScene");
+
+        // Ensure the loading screen manager is initialized and ready
+        if (loadingScreenManager != null)
+        {
+            loadingScreenManager.LoadScene(sceneName);
+        }
+        else
+        {
+            Debug.LogError("LoadingScreenManager not assigned!");
+        }*/
     }
 
     private void PersistentObject()

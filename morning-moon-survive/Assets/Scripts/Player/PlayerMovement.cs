@@ -47,11 +47,23 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDashing)
         {
+            switch (PlayerStateManager.Instance.currentState)
+            {
+                case PlayerStateManager.PlayerState.Normal:
+                    PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Dash);
+                    break;
+            }
             dashTimeRemaining -= Time.deltaTime;
             if (dashTimeRemaining <= 0)
             {
                 isDashing = false;
                 rb.velocity = Vector3.zero; // Stop the dash
+                switch (PlayerStateManager.Instance.currentState)
+                {
+                    case PlayerStateManager.PlayerState.Dash:
+                        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal);
+                        break;
+                }
             }
         }
         else

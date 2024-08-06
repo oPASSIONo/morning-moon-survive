@@ -193,32 +193,23 @@ public class Player : MonoBehaviour
     {
         Speed = currentSpeed;
         MaxSpeed = maxSpeed;
-        Debug.Log($"Speed From Player Script : {Speed}");
-        Debug.Log($"Max Speed From Player Script : {MaxSpeed}");
 
     }
     private void UpdatePlayerSatiety(float currentSatiety,float maxSatiety)
     {
         Satiety = currentSatiety;
         MaxSatiety = maxSatiety;
-        Debug.Log($"Satiety : {Satiety}");
-        Debug.Log($"MaxSatiety : {MaxSatiety}");
     }
     private void UpdatePlayerStamina(float currentStamina, float maxStamina)
     {
         Stamina = currentStamina;
         MaxStamina = maxStamina;
-        Debug.Log($"Stamina : {Stamina}");
-        Debug.Log($"Max Stamina : {MaxStamina}");
     }
     private void UpdatePlayerHealth(float currentHealth, float maxHealth,float minHealth)
     {
         HP = currentHealth;
         MaxHP = maxHealth;
         MinHP = minHealth;
-        Debug.Log($"Max : {MaxHP}");
-        Debug.Log($"Min : {MinHP}");
-        Debug.Log($"HP : {HP}");
     }
    
     public PlayerStats GetPlayerStatSO()
