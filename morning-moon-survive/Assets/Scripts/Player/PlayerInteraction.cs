@@ -10,32 +10,29 @@ public class PlayerInteraction : MonoBehaviour
     /// <summary>
     /// The maximum distance within which the player can interact with objects.
     /// </summary>
-    private float interactionDistance = 3f;
+    [SerializeField] private float interactionDistance = 3f;
 
     /// <summary>
     /// The layer mask used to identify interactable objects.
     /// </summary>
-    public LayerMask interactableLayerMask;
+    [SerializeField] private LayerMask interactableLayerMask;
 
     private IInteractable currentInteractable;
-    
+
     private void Awake()
     {
         GameInput.Instance.OnInteractionAction += GameInput_OnInteractionAction;
     }
-    
-    /*private void Update()
-    {
-        DetectInteractable();
-    }*/
-    
+
     private void GameInput_OnInteractionAction(object sender, EventArgs e)
     {
         DetectInteractable();
-        currentInteractable.Interact();
+        if (currentInteractable != null)
+        {
+            currentInteractable.Interact();
+        }
     }
-    
-    
+
     /// <summary>
     /// Detects interactable objects within the interaction distance using a sphere cast.
     /// </summary>
@@ -63,20 +60,17 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         // If a new interactable object is detected, update the current interactable and show the prompt
-        if (nearestInteractable != null && nearestInteractable != currentInteractable)
+        if (nearestInteractable != currentInteractable)
         {
             if (currentInteractable != null)
             {
                 currentInteractable.HideInteractPrompt();
             }
             currentInteractable = nearestInteractable;
-            currentInteractable.ShowInteractPrompt();
-        }
-        // If no interactable object is detected, hide the prompt and reset the current interactable
-        else if (nearestInteractable == null && currentInteractable != null)
-        {
-            currentInteractable.HideInteractPrompt();
-            currentInteractable = null;
+            if (currentInteractable != null)
+            {
+                currentInteractable.ShowInteractPrompt();
+            }
         }
     }
 

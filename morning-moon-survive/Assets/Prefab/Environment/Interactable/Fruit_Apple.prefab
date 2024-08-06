@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4282274896488382697}
   - component: {fileID: 1209494569899434566}
+  - component: {fileID: 7823612692791863219}
   m_Layer: 11
   m_Name: AppleModel
   m_TagString: Untagged
@@ -86,6 +87,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.91687477, y: 0.80494237, z: 0.98096544}
   m_Center: {x: -0.041562617, y: -0.3035288, z: -0.009517282}
+--- !u!114 &7823612692791863219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6055918203321042727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80ac48d55f08a62419ea01276cf9d119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <InventoryItem>k__BackingField: {fileID: 11400000, guid: b68dc37e177c8b64682c6ea7c6e4bd07,
+    type: 2}
+  <Quantity>k__BackingField: 1
+  audioSource: {fileID: 0}
+  duration: 0.3
 --- !u!1001 &3549732790227635848
 PrefabInstance:
   m_ObjectHideFlags: 0

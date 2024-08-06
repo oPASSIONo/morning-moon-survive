@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance { get; private set; }
     [SerializeField] private PlayerStats playerStats;
     public float HP { get; private set; }
     public float MaxHP { get; private set; } 
@@ -26,13 +27,43 @@ public class Player : MonoBehaviour
     public float Element { get; private set; }
     public float[] EXP { get; private set; }
     public float Speed { get; private set; }
+    public float BaseSpeed { get; private set; }
     public float MaxSpeed { get; private set; }
     public float MinSpeed { get; private set; }
     public List<float> Buff { get; private set; }
     public List<float> Debuff { get; private set; }
     public List<float> ItemSlot { get; private set; }
     public int Weight { get; private set; }
-    public int InventorySlot { get; private set; } 
+    public int InventorySlot { get; private set; }
+
+    public void SetHP(float value) => healthComponent.SetCurrentHealth(value);
+    public void SetMaxHP(float value) => healthComponent.SetMaxHealth(value);
+    public void SetMinHP(float value) => healthComponent.SetMinHealth(value);
+    public void SetStamina(float value) => staminaComponent.SetCurrentStamina(value);
+    public void SetMaxStamina(float value) => staminaComponent.SetMaxStamina(value);
+    public void SetMinStamina(float value) => staminaComponent.SetMinStamina(value);
+    public void SetStaminaRegenRate(float value) => staminaComponent.SetRegenRate(value);
+    public void SetBaseActionCost(float value) => staminaComponent.SetBaseActionCost(value);
+    public void SetSatiety(float value) => satietyComponent.SetCurrentSatiety(value);
+    public void SetMaxSatiety(float value) => satietyComponent.SetMaxSatiety(value);
+    public void SetMinSatiety(float value) => satietyComponent.SetMinSatiety(value);
+    public void SetSatietyBleeding(float value) => satietyComponent.SetSatietyBleeding(value);
+    public void SetSatietyConsumeRate(float value) => satietyComponent.SetSatietyConsumeRate(value);
+    public void SetSatietyConsumePoint(float value) => satietyComponent.SetSatietyConsumePoint(value);
+    public void SetDefense(float value) => Defense = value;
+    public void SetResistant(float value) => Resistant = value;
+    public void SetAttack(float value) => Attack = value;
+    public void SetElement(float value) => Element = value;
+    public void SetEXP(float[] value) => EXP = value;
+    public void SetSpeed(float value) => playerMovementComponent.SetCurrentSpeed(value);
+    public void SetBaseSpeed(float value) => playerMovementComponent.SetBaseSpeed(value);
+    public void SetMaxSpeed(float value) =>  playerMovementComponent.SetMaxSpeed(value);
+    public void SetMinSpeed(float value) =>  playerMovementComponent.SetMinSpeed(value);
+    public void SetBuff(List<float> value) => Buff = value;
+    public void SetDebuff(List<float> value) => Debuff = value;
+    public void SetItemSlot(List<float> value) => ItemSlot = value;
+    public void SetWeight(int value) => Weight = value;
+    public void SetInventorySlot(int value) => InventorySlot = value;
 
     private Health healthComponent;
     private Stamina staminaComponent;
@@ -43,9 +74,21 @@ public class Player : MonoBehaviour
     private Transform rootTransform; // Assign the root GameObject in the inspector
     public Transform RootTransform => rootTransform;
     
+   
+    
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         Initialize();
+        //currentState = PlayerState.Normal;
     }
     
 
@@ -80,6 +123,7 @@ public class Player : MonoBehaviour
         Element = playerStats.CombatStat.Element;
         EXP = playerStats.EXP;
         Speed = playerStats.SpeedStat.Speed;
+        BaseSpeed = playerStats.SpeedStat.BaseSpeed;
         MaxSpeed = playerStats.SpeedStat.MaxSpeed;
         MinSpeed = playerStats.SpeedStat.MinSpeed;
         Buff = new List<float>(playerStats.Buff);
@@ -95,7 +139,7 @@ public class Player : MonoBehaviour
         playerMovementComponent = GetComponent<PlayerMovement>();
         if (playerMovementComponent != null)
         {
-            playerMovementComponent.Initialize(MaxSpeed, MinSpeed, Speed);
+            playerMovementComponent.Initialize(MaxSpeed, MinSpeed, BaseSpeed);
             playerMovementComponent.OnSpeedChanged += UpdatePlayerSpeed;
         }
         else
@@ -158,9 +202,19 @@ public class Player : MonoBehaviour
     {
         Stamina = currentStamina;
     }
-    private void UpdatePlayerHealth(float currentHealth, float maxHealth)
+    private void UpdatePlayerHealth(float currentHealth, float maxHealth,float minHealth)
     {
         HP = currentHealth;
+        MaxHP = maxHealth;
+        MinHP = minHealth;
         Debug.Log($"HP From Player Script : {HP}"); 
+    }
+    /*public void SetCurrentState(PlayerState newState)
+    {
+        currentState = newState;
+    }*/
+    public PlayerStats GetPlayerStatSO()
+    {
+        return playerStats;
     }
 }

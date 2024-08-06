@@ -14,23 +14,12 @@ namespace Inventory
         public UIInventoryPage inventoryUI;
         [SerializeField] private InventorySO inventoryData;
         public List<InventoryItem> initialItems = new List<InventoryItem>();
-    
-        private PlayerInput playerInput;
-        private InputAction openInventoryAction;
 
         [SerializeField] private AudioClip dropClip;
         [SerializeField] private AudioSource audioSource;
 
         [SerializeField] private AmountController amountController;
         
-        private void Awake()
-        {
-            playerInput = new PlayerInput();
-            playerInput.PlayerControls.Enable();
-            
-            //openInventoryAction = playerInput.PlayerControls.Inventory;
-
-        }
 
         
         void Start()
@@ -39,8 +28,17 @@ namespace Inventory
             PrepareInventoryData();
 
             GameInput.Instance.OnInventoryAction += GameInput_OnInventoryAction;
+            GameInput.Instance.OnSelectSlotAction += HandleSelectSlotAction;
+
         }
-        
+        private void HandleSelectSlotAction(object sender, int slotIndex)
+        {
+            // Ensure the slotIndex is within the bounds of the inventory
+            if (slotIndex >= 0)
+            {
+                PerformAction(slotIndex, 1); // Assuming quantity 1 for this example
+            }
+        }
         private void GameInput_OnInventoryAction(object sender, EventArgs e)
         {
             OpenInventoryUI();
@@ -193,60 +191,24 @@ namespace Inventory
         }
         
 
-        void OpenInventoryUI()
+        public void OpenInventoryUI()
         {
-            inventoryUI.Show();
-            foreach (var item in inventoryData.GetCurrentInventoryState())
+            switch (PlayerStateManager.Instance.currentState)
             {
-                inventoryUI.UpdateData(item.Key,item.Value.item.ItemImage,item.Value.quantity);
+                case PlayerStateManager.PlayerState.Inventory:
+                    inventoryUI.Show(true);
+                    foreach (var item in inventoryData.GetCurrentInventoryState())
+                    {
+                        inventoryUI.UpdateData(item.Key,item.Value.item.ItemImage,item.Value.quantity);
+                    }
+                    break;
+                case PlayerStateManager.PlayerState.Normal:
+                    inventoryUI.Show(false);
+                    break;
             }
+            
         }
         
-        
-        /*public InventorySO GetInventoryData()
-        {
-            return inventoryData;
-        }*/
-        
-        
-        private void OnEnable()
-        {
-            // Subscribe to hotbar selection actions
-            playerInput.FindAction("SelectSlot1").performed += ctx => SelectSlot(1);
-            playerInput.FindAction("SelectSlot2").performed += ctx => SelectSlot(2);
-            playerInput.FindAction("SelectSlot3").performed += ctx => SelectSlot(3);
-            playerInput.FindAction("SelectSlot4").performed += ctx => SelectSlot(4);
-            playerInput.FindAction("SelectSlot5").performed += ctx => SelectSlot(5);
-            playerInput.FindAction("SelectSlot6").performed += ctx => SelectSlot(6);
-            playerInput.FindAction("SelectSlot7").performed += ctx => SelectSlot(7);
-            playerInput.FindAction("SelectSlot8").performed += ctx => SelectSlot(8);
-            playerInput.FindAction("SelectSlot9").performed += ctx => SelectSlot(9);
-            playerInput.FindAction("SelectSlot10").performed += ctx => SelectSlot(10);
-
-        }
-        
-        
-        private void OnDisable()
-        {
-            // Unsubscribe from hotbar selection actions
-            playerInput.FindAction("SelectSlot1").performed -= ctx => SelectSlot(1);
-            playerInput.FindAction("SelectSlot2").performed -= ctx => SelectSlot(2);
-            playerInput.FindAction("SelectSlot3").performed -= ctx => SelectSlot(3);
-            playerInput.FindAction("SelectSlot4").performed -= ctx => SelectSlot(4);
-            playerInput.FindAction("SelectSlot5").performed -= ctx => SelectSlot(5);
-            playerInput.FindAction("SelectSlot6").performed -= ctx => SelectSlot(6);
-            playerInput.FindAction("SelectSlot7").performed -= ctx => SelectSlot(7);
-            playerInput.FindAction("SelectSlot8").performed -= ctx => SelectSlot(8);
-            playerInput.FindAction("SelectSlot9").performed -= ctx => SelectSlot(9);
-            playerInput.FindAction("SelectSlot10").performed -= ctx => SelectSlot(10);
-        }
-        private void SelectSlot(int slot)
-        {
-            PerformAction(slot-1,1);
-            /*InventoryItem inventoryItem = inventoryData.GetItemAt(slot - 1);
-            inventoryUI.HandleItemSelectionExternally(inventoryItem);*/
-            HandleDescriptionRequest(slot-1);
-        }
         
     }
 }

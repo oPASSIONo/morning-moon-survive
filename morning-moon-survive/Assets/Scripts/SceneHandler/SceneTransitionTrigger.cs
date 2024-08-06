@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneTransitionTrigger : MonoBehaviour
 {
@@ -8,7 +9,6 @@ public class SceneTransitionTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //SceneTransitionManager.Instance.TransitionToScene(targetScene);
             GameManager.Instance.LoadScene(targetScene);
         }
     }

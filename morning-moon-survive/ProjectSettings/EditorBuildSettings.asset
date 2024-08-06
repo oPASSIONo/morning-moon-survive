@@ -6,21 +6,27 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/GameScene.unity
+    path: Assets/Scenes/Multiplayer Scene/GameScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 0
-    path: Assets/Scenes/MainMenu.unity
+    path: Assets/Scenes/Multiplayer Scene/MainMenu.unity
     guid: 13e574acac26b4344a42c0e6c4d2019d
   - enabled: 0
     path: Assets/Scenes/LoadingScene.unity
     guid: 2e9c2ef4328e4694e95ace4a51ef24d5
   - enabled: 0
-    path: Assets/Scenes/PlayScene.unity
+    path: Assets/Scenes/Multiplayer Scene/PlayScene.unity
     guid: 7a972c040ff7273459ac86d2bdf88681
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HomeScene.unity
     guid: 68389a7052810e642b8dfc0dfe195323
   - enabled: 1
-    path: Assets/Scenes/ForestScene.unity
+    path: Assets/Scenes/DevScene/Splash.unity
+    guid: e185855e88218a54c9b65cb2b06f7d78
+  - enabled: 1
+    path: Assets/Scenes/DevScene/Dev_HomeScene.unity
+    guid: 13364b2e08a6d0f41b02472aff5414c0
+  - enabled: 1
+    path: Assets/Scenes/DevScene/Dev_ForestScene.unity
     guid: 0201a410bf761ee42b924a2efca9f550
   m_configObjects: {}

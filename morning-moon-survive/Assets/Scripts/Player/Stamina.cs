@@ -97,4 +97,31 @@ public class Stamina : MonoBehaviour
         // Logic to calculate the Action cost
         return actionCost;
     }
+    public void SetCurrentStamina(float currentStamina)
+    {
+        CurrentStamina = currentStamina;
+        OnStaminaChanged?.Invoke(CurrentStamina, MaxStamina);
+    }
+
+    public void SetMaxStamina(float maxStamina)
+    {
+        MaxStamina = maxStamina;
+        OnStaminaChanged?.Invoke(CurrentStamina, MaxStamina);
+    }
+
+    public void SetMinStamina(float minStamina)
+    {
+        MinStamina = minStamina;
+        OnStaminaChanged?.Invoke(CurrentStamina, MaxStamina);
+    }
+
+    public void SetBaseActionCost(float baseActionCost)
+    {
+        BaseActionCost = baseActionCost;
+    }
+
+    public void SetRegenRate(float regenRate)
+    {
+        RegenRate = regenRate;
+    }
 }

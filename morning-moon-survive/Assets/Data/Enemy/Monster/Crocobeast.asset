@@ -22,11 +22,11 @@ MonoBehaviour:
   <ElementATK>k__BackingField: 0
   <ElementATKDMG>k__BackingField: 0
   movesetDMG:
-  - PhysicalDamage: 100
+  - PhysicalDamage: 50
     ElementDamage: 0
-  - PhysicalDamage: 100
-    ElementDamage: 50
-  - PhysicalDamage: 200
+  - PhysicalDamage: 50
+    ElementDamage: 0
+  - PhysicalDamage: 50
     ElementDamage: 0
   <BodyPointWeaknesses>k__BackingField:
     Chop: 0

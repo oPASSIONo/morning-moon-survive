@@ -6,6 +6,7 @@ using Inventory;
 using Inventory.Model;
 using Inventory.UI;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -15,29 +16,21 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private GameObject mainCamera;
     [SerializeField] private GameObject playerFollowCamera;
+    
     [SerializeField] private GameObject player;
-
+    private Health playerHealth;
+    private Stamina playerStamina;
+    private Satiety playerSatiety;
     private Player playerComponent;
     private AgentTool playerAgentTool;
+    
     private float enemyWeaponWeaknessDMG;
     private float enemyElementWeaknessDMG;
     
     
     [SerializeField] private GameObject craftingSystem;
-    private UICraftingPage craftingUI;
-    private CraftButtonHandler craftButtonHandler;
 
     [SerializeField] private GameObject gameCanvas;
-    private UIInventoryPage uiInventoryPage;
-    private Health playerHealth;
-    private Stamina playerStamina;
-    private Satiety playerSatiety;
-    
-    private UIHealthBar uiHealthBar;
-    private UIStaminaBar uiStaminaBar;
-    private UISatietyBar uiSatietyBar;
-
-    
     
     private void Awake()
     {
@@ -61,50 +54,14 @@ public class GameManager : MonoBehaviour
     private void StartGame()
     {
         InitializePlayer();
-        InitializeCamera();
-        InitializeGameCanvas();
-        InitializeCraftingSystem();
         PersistentObject();
     }
-
-    private void InitializeGameCanvas()
-    {
-        gameCanvas = Instantiate(gameCanvas);
-        uiInventoryPage = gameCanvas.GetComponentInChildren<UIInventoryPage>(true);
-        
-        player.GetComponent<InventoryController>().inventoryUI = uiInventoryPage;
-        
-        
-
-        uiHealthBar = gameCanvas.GetComponent<GameCanvasRef>().healthBar;
-        uiStaminaBar = gameCanvas.GetComponent<GameCanvasRef>().staminaBar;
-        uiSatietyBar = gameCanvas.GetComponent<GameCanvasRef>().satietyBar;
-        
-        uiHealthBar.healthComponent = playerHealth;
-        uiStaminaBar.staminaComponent = playerStamina;
-        uiSatietyBar.satietyComponent = playerSatiety;
-        
-    }
-    private void InitializeCraftingSystem()
-    {
-        craftingSystem = Instantiate(craftingSystem);
-        
-        craftButtonHandler = gameCanvas.GetComponent<GameCanvasRef>().craftButtonHandler;
-        craftingUI = gameCanvas.GetComponent<GameCanvasRef>().craftingPage;
-        craftButtonHandler.craftingSystem = craftingSystem.GetComponent<CraftingSystem>();
-    }
-
-    private void InitializeCamera()
-    {
-        mainCamera = Instantiate(mainCamera);
-        playerFollowCamera = Instantiate(playerFollowCamera);
-        playerFollowCamera.GetComponent<CinemachineVirtualCamera>().Follow = player.GetComponent<Player>().RootTransform;
-    }
-
+    
+    
     private void InitializePlayer()
     {
-        player = Instantiate(player);
         playerHealth = player.GetComponent<Health>();
+        playerHealth.OnEntityDie += OnPlayerDie;
         playerStamina = player.GetComponent<Stamina>();
         playerSatiety = player.GetComponent<Satiety>();
         playerAgentTool = player.GetComponent<AgentTool>();
@@ -132,22 +89,24 @@ public class GameManager : MonoBehaviour
             default:
                 return null;
         }
+        
     }
 
-    private void MoveTargetToPoint(string moveTarget,GameObject movePoint)
+    public void MoveTargetToPoint(string moveTarget,GameObject movePoint)
     {
         GameObject objectToMove=null;
         switch (moveTarget)
         {
             case "Player":
                 objectToMove = player;
+                player.GetComponent<NavMeshAgent>().Warp(movePoint.transform.position);
                 break;
             default:
                 break;
         }
         objectToMove.transform.position = movePoint.transform.position;
     }
-
+    
     private void HandlePlayerOnTransitionScene()
     {
         MoveTargetToPoint("Player",TargetSpawnPoint("SpawnPlayer"));
@@ -160,10 +119,8 @@ public class GameManager : MonoBehaviour
     private void PersistentObject()
     {
         DontDestroyOnLoad(craftingSystem);
-        
         DontDestroyOnLoad(mainCamera);
         DontDestroyOnLoad(playerFollowCamera);
-        DontDestroyOnLoad(player);
         DontDestroyOnLoad(gameCanvas);
     }
 
@@ -174,8 +131,8 @@ public class GameManager : MonoBehaviour
         float movesetDMG = enemy.MovesetStats[movesetIndex].PhysicalDamage;
         float movesetElementDMG = enemy.MovesetStats[movesetIndex].ElementDamage;
         
-        Debug.Log($"Rat move 1 DMG ATK : {movesetDMG}");
-        Debug.Log($"Rat move 1 DMG Element : {movesetElementDMG}");
+        Debug.Log($"{enemy.gameObject.name} move 1 DMG ATK : {movesetDMG}");
+        Debug.Log($"{enemy.gameObject.name} move 1 DMG Element : {movesetElementDMG}");
         switch (movesetElementDMG)
         {
             case 0:
@@ -186,6 +143,20 @@ public class GameManager : MonoBehaviour
                 break;
         }
         playerHealth.TakeDamage(damage);
+    }
+
+    private void OnPlayerDie()
+    {
+        gameCanvas.GetComponent<GameCanvasRef>().notiBox.SetActive(true);
+        GameInput.Instance.SetPlayerInput(false);
+    }
+
+    public void RespawnPlayer()
+    {
+        GameInput.Instance.SetPlayerInput(true);
+        playerComponent.SetHP(Player.Instance.GetPlayerStatSO().HealthStat.HP);
+        playerComponent.SetSatiety(Player.Instance.GetPlayerStatSO().SatietyStat.Satiety);
+        playerSatiety.InitialSatietyConsumeOvertime();
     }
     public void PlayerDealDamage(GameObject target, Collider hitCollider)
     {
@@ -246,6 +217,5 @@ public class GameManager : MonoBehaviour
         };
         return rankToMultiplier.TryGetValue(weaknessRank, out float multiplier) ? multiplier : 0f;
     }
-    
 }
 

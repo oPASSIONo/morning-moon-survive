@@ -31,7 +31,7 @@ public class UIStaminaBar : MonoBehaviour
             if (staminaText != null)
             {
                 // Display the current stamina value as text
-                staminaText.text = "Stamina: " + Mathf.RoundToInt(currentStamina).ToString();
+                staminaText.text = $"{Mathf.RoundToInt(currentStamina).ToString()}/{maxStamina}";
             }
         }
     }

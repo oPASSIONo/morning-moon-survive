@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: Bone
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
-  <MaxStackSize>k__BackingField: 99
+  <MaxStackSize>k__BackingField: 500
+  <Weight>k__BackingField: 1
   <Name>k__BackingField: Bone
-  <ItemAbility>k__BackingField: Bone for testing
+  <ItemAbility>k__BackingField: "\u0E01\u0E23\u0E30\u0E14\u0E39\u0E01 \u0E27\u0E31\u0E16\u0E38\u0E14\u0E34\u0E1A\u0E43\u0E19\u0E01\u0E32\u0E23\u0E2A\u0E23\u0E49\u0E32\u0E07\u0E2A\u0E34\u0E48\u0E07\u0E02\u0E2D\u0E07\r\n\u0E2B\u0E32\u0E44\u0E14\u0E49\u0E08\u0E32\u0E01\u0E01\u0E32\u0E23\u0E1B\u0E23\u0E32\u0E1A\u0E21\u0E2D\u0E19\u0E40\u0E15\u0E2D\u0E23\u0E4C"
   <ItemImage>k__BackingField: {fileID: 21300000, guid: d85caf0b314cb3e4e9de95ecaed7a878,
     type: 3}
   <ItemCategory>k__BackingField: 0
   <ItemSubCategory>k__BackingField: 
   <ItemRarity>k__BackingField: 0
   <DefaultParametersList>k__BackingField: []
-  <ItemPrefab>k__BackingField: {fileID: 4372370123462644625, guid: 512c7f81693b91241be1ba817a7dfe08,
+  <ItemPrefab>k__BackingField: {fileID: 7382413393457835558, guid: cd11386b48fb3cc4e9b2fe94a4cb55a7,
     type: 3}
   <actionSFX>k__BackingField: {fileID: 0}

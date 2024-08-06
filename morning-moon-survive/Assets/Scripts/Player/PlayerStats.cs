@@ -49,6 +49,7 @@ public class PlayerStats : ScriptableObject
     public struct SpeedStats
     {
         public float Speed;
+        public float BaseSpeed;
         public float MaxSpeed;
         public float MinSpeed;
     }

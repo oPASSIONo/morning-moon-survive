@@ -9,7 +9,7 @@ public class EnemyCombat : MonoBehaviour
     private void Start()
     {
         enemy = GetComponent<Enemy>();
-        DisableAllAttackParts();
+        //DisableAllAttackParts();
         InitializeAttackParts();
     }
 
@@ -43,10 +43,10 @@ public class EnemyCombat : MonoBehaviour
         }
 
         // Enable the appropriate attack part and disable others
-        SetActiveAttackParts(colliderIndex);
+        //SetActiveAttackParts(colliderIndex);
     }
 
-    private void SetActiveAttackParts(int activeIndex)
+    /*private void SetActiveAttackParts(int activeIndex)
     {
         for (int i = 0; i < attackParts.Length; i++)
         {
@@ -70,7 +70,7 @@ public class EnemyCombat : MonoBehaviour
                 collider.enabled = false;
             }
         }
-    }
+    }*/
     private void InitializeAttackParts()
     {
         foreach (EnemyPartHitDetector detector in attackParts)

@@ -170,14 +170,25 @@ namespace Inventory.UI
             HandleItemSelection(inventoryItemUI); // Call the private method internally
         }
 
-        public void Show()
+        public void Show(bool isShow)
         {
-            if(!gameObject.activeSelf)
+            switch (isShow)
             {
-                gameObject.SetActive(true);
-                ResetSelection();
+                case true:
+                    if(!gameObject.activeSelf)
+                    {
+                        gameObject.SetActive(true);
+                        ResetSelection();
+                    }
+                    break;
+                case false:
+                    gameObject.SetActive(false);
+                    ResetSelection();
+                    break;
             }
+            
         }
+        
 
         public void ResetSelection()
         {
