@@ -18,6 +18,7 @@ public class Health : MonoBehaviour
         
         // Trigger health changed event
         OnHealthChanged?.Invoke(CurrentHealth, MaxHealth,MinHealth);
+        
     }
     
     public void TakeDamage(float damageAmount)
@@ -45,7 +46,7 @@ public class Health : MonoBehaviour
         }
         // Trigger health changed event
         OnHealthChanged?.Invoke(CurrentHealth, MaxHealth,MinHealth);
-        Debug.Log("Entity add health");
+        Debug.Log($"{name} add health");
     }
 
     private void IsDie()
@@ -63,7 +64,7 @@ public class Health : MonoBehaviour
         CurrentHealth = MinHealth;
         OnHealthChanged?.Invoke(CurrentHealth,MaxHealth,MinHealth);
         OnEntityDie?.Invoke();
-        Debug.Log($"Entity has died.Current Health : {CurrentHealth}");
+        Debug.Log($"{name} has died.Current Health : {CurrentHealth}");
     }
         
     public void SetCurrentHealth(float hp)
@@ -83,7 +84,5 @@ public class Health : MonoBehaviour
         MinHealth = val;
         OnHealthChanged?.Invoke(CurrentHealth,MaxHealth,MinHealth);
     }
-    
-    
     
 }

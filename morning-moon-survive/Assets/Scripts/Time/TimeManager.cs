@@ -39,6 +39,7 @@ public class TimeManager : MonoBehaviour
     public TextMeshProUGUI dayCountText;
 
     public int dayCount { get; private set; } = 0;
+    public void SetDayCount(int value) => dayCount = value;
 
     private void Awake()
     {
@@ -129,4 +130,5 @@ public class TimeManager : MonoBehaviour
         PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal);
         timeMultiplier = 1f / (dayLengthInMinutes * 60f);
     }
+    
 }

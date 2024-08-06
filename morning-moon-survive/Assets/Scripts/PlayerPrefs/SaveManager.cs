@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,13 +6,16 @@ using UnityEngine.UI;
 
 public class SaveManager : MonoBehaviour
 {
-    public PlayerStats playerdefault;
-    
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
+
     public void SavePlayer() 
     {
-        PlayerPrefs.SetFloat("HP",Player.Instance.HP);
-        PlayerPrefs.SetFloat("MaxHp",Player.Instance.MaxHP);
-        PlayerPrefs.SetFloat("MinHp", Player.Instance.MinHP);
+        PlayerPrefs.SetFloat("HP", Player.Instance.HP);
+        PlayerPrefs.SetFloat("MaxHP", Player.Instance.MaxHP);
+        PlayerPrefs.SetFloat("MinHP", Player.Instance.MinHP);
         PlayerPrefs.SetFloat("Stamina", Player.Instance.Stamina);
         PlayerPrefs.SetFloat("MaxStamina", Player.Instance.MaxStamina);
         PlayerPrefs.SetFloat("MinStamina", Player.Instance.MinStamina);
@@ -22,70 +26,53 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.SetFloat("SatietyConsumeRate", Player.Instance.SatietyConsumeRate);
         PlayerPrefs.SetFloat("MaxSatiety", Player.Instance.MaxSatiety);
         PlayerPrefs.SetFloat("MinSatiety", Player.Instance.MinSatiety);
-        /*PlayerPrefs.SetFloat("Defense", player.Defense);
-        PlayerPrefs.SetFloat("Resistant", player.Resistant);
-        PlayerPrefs.SetFloat("Attack", player.Attack);
-        PlayerPrefs.SetFloat("Element", player.Element);
-        PlayerPrefs.SetFloat("EXP", player.EXP);*/
         
-        //PlayerPrefs.SetFloat("Time", TimeManager.Instance.);
-        PlayerPrefs.SetFloat("Day", TimeManager.Instance.dayCount);
-
-        /*for(int i = 0;i< EXP.count;i++)
-        {
-            string savekey = "EXP"+i ;
-            Playerperf.setfloat( savekey, EXP[i]);
-
-        }*/
+        PlayerPrefs.SetInt("Day", TimeManager.Instance.dayCount);
         
-        Debug.Log("Save HP: " + Player.Instance.HP);
-        Debug.Log("Save MaxHP: " + Player.Instance.MaxHP);
-        Debug.Log("Save MinHP: " + Player.Instance.MinHP);
-        Debug.Log("Save Stamina: " + Player.Instance.Stamina);
-        Debug.Log("Save MaxStamina: " + Player.Instance.MaxStamina);
-        Debug.Log("Save MinStamina: " + Player.Instance.MinStamina);
-        Debug.Log("Save Satiety: " + Player.Instance.Satiety);
+        PlayerPrefs.Save(); // Ensure PlayerPrefs data is saved to disk
         
-        //Debug.Log("Save Time: " + TimeManager.Instance.);
-        Debug.Log("Save Day: " + TimeManager.Instance.dayCount);
-        
+        Debug.Log($"Save HP: {PlayerPrefs.GetFloat("HP")}");
+        Debug.Log($"Save MaxHP: {PlayerPrefs.GetFloat("MaxHP")}");
+        Debug.Log($"Save MinHP: {PlayerPrefs.GetFloat("MinHP")}");
+        Debug.Log($"Save Stamina: {PlayerPrefs.GetFloat("Stamina")}");
+        Debug.Log($"Save MaxStamina: {PlayerPrefs.GetFloat("MaxStamina")}");
+        Debug.Log($"Save MinStamina: {PlayerPrefs.GetFloat("MinStamina")}");
+        Debug.Log($"Save Satiety: {PlayerPrefs.GetFloat("Satiety")}");
+        Debug.Log($"Save Day: {PlayerPrefs.GetInt("Day")}");
     }
 
     public void LoadPlayer()
     {
-        Player.Instance.SetHP(Player.Instance.HP); PlayerPrefs.GetFloat("HP",playerdefault.HealthStat.HP);
-        Player.Instance.SetMaxHP(Player.Instance.MaxHP); PlayerPrefs.GetFloat("MaxHP",playerdefault.HealthStat.MaxHP);
-        Player.Instance.SetMinHP(Player.Instance.MinHP); PlayerPrefs.GetFloat("MinHP",playerdefault.HealthStat.MinHP);
-        Player.Instance.SetStamina(Player.Instance.Stamina); PlayerPrefs.GetFloat("Stamina",playerdefault.StaminaStat.Stamina);
-        Player.Instance.SetMaxStamina(Player.Instance.MaxStamina); PlayerPrefs.GetFloat("MaxStamina",playerdefault.StaminaStat.MaxStamina);
-        Player.Instance.SetMinStamina(Player.Instance.MinStamina); PlayerPrefs.GetFloat("MinStamina",playerdefault.StaminaStat.MinStamina);
-        Player.Instance.SetSatiety(Player.Instance.Satiety); PlayerPrefs.GetFloat("Satiety",playerdefault.SatietyStat.Satiety);
-
-        //float time = PlayerPrefs.GetFloat("Time");
-        float day = PlayerPrefs.GetFloat("Day");
-
-        /*for(int i = 0;i< EXP.count;i++)
+        if (PlayerPrefs.HasKey("HP"))
         {
-            string savekey = "EXP"+i ;
-            Playerperf.setfloat( savekey, EXP[i]);
-        }*/
-        Debug.Log("Load HP: ");
-        Debug.Log("Load MaxHP: ");
-        Debug.Log("Load MinHP: ");
-        Debug.Log("Load Stamina: ");
-        Debug.Log("Load MaxStamina: ");
-        Debug.Log("Load minStamina: ");
-        Debug.Log("Load Satiety: ");
+            Player.Instance.SetHP(PlayerPrefs.GetFloat("HP"));
+            Player.Instance.SetMaxHP(PlayerPrefs.GetFloat("MaxHP"));
+            Player.Instance.SetMinHP(PlayerPrefs.GetFloat("MinHP"));
+            Player.Instance.SetStamina(PlayerPrefs.GetFloat("Stamina"));
+            Player.Instance.SetMaxStamina(PlayerPrefs.GetFloat("MaxStamina"));
+            Player.Instance.SetMinStamina(PlayerPrefs.GetFloat("MinStamina"));
+            Player.Instance.SetSatiety(PlayerPrefs.GetFloat("Satiety"));
         
-        //Debug.Log("Load Time:" + time);
-        Debug.Log("Load Day:");
-        //Debug.Log(playerdefault.HealthStat.MaxHP);
-        //Debug.Log(playerdefault.HealthStat.MinHP);
+            TimeManager.Instance.SetDayCount(PlayerPrefs.GetInt("Day"));
+        
+            Debug.Log($"Load HP: {PlayerPrefs.GetFloat("HP")}");
+            Debug.Log($"Load MaxHP: {PlayerPrefs.GetFloat("MaxHP")}");
+            Debug.Log($"Load MinHP: {PlayerPrefs.GetFloat("MinHP")}");
+            Debug.Log($"Load Stamina: {PlayerPrefs.GetFloat("Stamina")}");
+            Debug.Log($"Load MaxStamina: {PlayerPrefs.GetFloat("MaxStamina")}");
+            Debug.Log($"Load MinStamina: {PlayerPrefs.GetFloat("MinStamina")}");
+            Debug.Log($"Load Satiety: {PlayerPrefs.GetFloat("Satiety")}");
+            Debug.Log($"Load Day: {PlayerPrefs.GetInt("Day")}");
+        }
+        else
+        {
+            Debug.LogError("No saved data found!");
+        }
     }
 
     public void Delete()
     {
         PlayerPrefs.DeleteAll();
-        Debug.Log("Delete");
+        Debug.Log("Deleted all PlayerPrefs data.");
     }
 }
