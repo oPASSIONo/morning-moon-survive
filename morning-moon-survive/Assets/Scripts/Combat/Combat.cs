@@ -53,7 +53,6 @@ public class Combat : MonoBehaviour
                 Debug.Log("Collider triggered by: " + enemy.gameObject.name);
                 // Mark as hit to ignore subsequent collisions
                 hasHit = true;
-                Debug.Log(other.name);
                 // Call GameManager to handle damage calculation and application
                 GameManager.Instance.PlayerDealDamage(enemy.gameObject, other);
             }

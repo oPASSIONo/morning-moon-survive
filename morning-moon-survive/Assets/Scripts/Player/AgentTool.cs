@@ -7,13 +7,13 @@ using UnityEngine;
 
 public class AgentTool : MonoBehaviour
 {
-    [SerializeField] private GameObject stoneAxe;
-    [SerializeField] private GameObject boneAxe;
+    [SerializeField] private List<ToolItemSO> toolsList; // List of tool prefabs
+    [SerializeField] private Transform playerHandTransform; // Transform of the player's hand
     
     public static event Action OnDrawWeapon;
 
     public ToolItemSO currentTool;
-
+    private GameObject currentToolInstance; // Instance of the current tool
     
     private void Start()
     {
@@ -22,41 +22,51 @@ public class AgentTool : MonoBehaviour
         
     }
 
-    // Method to activate the appropriate tool based on parameters
-    public void ActivateTool(ToolItemSO toolItemSo,List<ItemParameter> itemState)
+    /// <summary>
+    /// Activates the appropriate tool based on parameters.
+    /// </summary>
+    /// <param name="toolItemSo">The tool item scriptable object.</param>
+    /// <param name="itemState">The list of item parameters.</param>
+    public void ActivateTool(ToolItemSO toolItemSo, List<ItemParameter> itemState)
     {
-        // Deactivate all tool game objects first
+        // Deactivate the current tool instance first
         DeactivateAllTools();
         currentTool = toolItemSo;
-        switch (toolItemSo.Name)
+        
+        foreach (ToolItemSO tool in toolsList)
         {
-            case "Stone Axe":
+            if (currentTool.Name == tool.Name)
+            {
                 OnDrawWeapon?.Invoke();
-                ActivateTool(stoneAxe);
+                InstantiateTool(tool);
                 break;
-            case "Bone Axe":
-                OnDrawWeapon?.Invoke();
-                ActivateTool(boneAxe);
-                break;
-            // Add more cases for other tool types as needed
+            }
         }
-
     }
 
-    // Helper method to activate a specific tool
-    private void ActivateTool(GameObject tool)
+    /// <summary>
+    /// Helper method to instantiate a specific tool.
+    /// </summary>
+    /// <param name="tool">The tool scriptable object.</param>
+    private void InstantiateTool(ToolItemSO tool)
     {
         if (tool != null)
         {
-            tool.SetActive(true);
+            currentToolInstance = Instantiate(tool.ItemPrefab, playerHandTransform);
+            currentToolInstance.transform.localPosition = tool.ToolPositionInHand;
+            currentToolInstance.transform.localRotation = Quaternion.Euler(tool.ToolRotationInHand); // Set the rotation
+            currentToolInstance.transform.localScale = tool.ToolScale; // Set the scale
         }
     }
 
-    // Helper method to deactivate all tool game objects
+    /// <summary>
+    /// Helper method to deactivate all tool instances.
+    /// </summary>
     public void DeactivateAllTools()
     {
-        stoneAxe.SetActive(false);
-        boneAxe.SetActive(false);
-        // Deactivate other tool game objects as needed
+        if (currentToolInstance != null)
+        {
+            Destroy(currentToolInstance);
+        }
     }
 }

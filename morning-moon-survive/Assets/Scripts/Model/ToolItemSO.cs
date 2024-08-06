@@ -16,6 +16,10 @@ namespace Inventory.Model
         [field: SerializeField] public Element Element { get; set; }
         [field: SerializeField] public float ElementAttackDamage { get; set; }
         [field: SerializeField] public float Sharpness { get; set; }
+        [field: SerializeField] public Vector3 ToolPositionInHand { get; set; }
+        [field: SerializeField] public Vector3 ToolRotationInHand { get; set; }
+        [field: SerializeField] public Vector3 ToolScale { get; set; } // Added field for scale
+
         public bool PerformAction(GameObject character, List<ItemParameter> itemState,int amount)
         {
             // Get the AgentTool component attached to the character

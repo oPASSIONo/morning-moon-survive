@@ -88,7 +88,6 @@ public class Enemy : MonoBehaviour
     private void UpdateEnemyHealth(float currentHealth, float maxHealth,float minHealth)
     {
         HP=currentHealth;
-        Debug.Log($"HP From Enemy Script : {HP}"); 
         IsDead();
     }
 

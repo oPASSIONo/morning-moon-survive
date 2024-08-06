@@ -33,6 +33,7 @@ public class Health : MonoBehaviour
         OnHealthChanged?.Invoke(CurrentHealth, MaxHealth,MinHealth);
 
         IsDie();
+        Debug.Log($"{name} Take Damage ! Current HP : {CurrentHealth}");
     }
     
     public void AddHealth(float amount)
