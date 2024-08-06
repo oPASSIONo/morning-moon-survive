@@ -18,8 +18,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float chaseRadius; // Radius for chasing player
     [SerializeField] private float attackRadius; // Radius for attacking player
     [SerializeField] private float moveSpeed; // Enemy movement speed
-    [SerializeField] public Animation anim;
-    [SerializeField] public Animator animation;
+    //[SerializeField] public Animation anim;
+    [SerializeField] public Animator enemyAnimation;
     [SerializeField] private bool isFriendly;
     
     public float attackDelayTime { get; private set; } = 3f;
@@ -37,12 +37,12 @@ public class EnemyAI : MonoBehaviour
     
     #region Animation State Hashes
 
-    private readonly int animHash_Idle = Animator.StringToHash("Idle");
-    private readonly int animHash_Walk = Animator.StringToHash("Walk");
-    private readonly int animHash_Attack1 = Animator.StringToHash("Attack1");
-    private readonly int animHash_Attack2 = Animator.StringToHash("Attack2");
-    private readonly int animHash_Attack3 = Animator.StringToHash("Attack3");
-    private readonly int animHash_Dead = Animator.StringToHash("Dead");
+    protected readonly int animHash_Idle = Animator.StringToHash("Idle");
+    protected readonly int animHash_Walk = Animator.StringToHash("Walk");
+    protected readonly int animHash_Attack1 = Animator.StringToHash("Attack1");
+    protected readonly int animHash_Attack2 = Animator.StringToHash("Attack2");
+    protected readonly int animHash_Attack3 = Animator.StringToHash("Attack3");
+    protected readonly int animHash_Dead = Animator.StringToHash("Dead");
   
 
     #endregion
@@ -161,7 +161,8 @@ public class EnemyAI : MonoBehaviour
         if (!hasPlayedIdle)
         {
             isWalking = false;
-            anim.CrossFade("Idle");
+            //anim.CrossFade("Idle");
+            enemyAnimation.CrossFade(animHash_Idle,1f);
             hasPlayedIdle = true;
         }
 
@@ -212,29 +213,6 @@ public class EnemyAI : MonoBehaviour
 
     void RandomAttackAnim(float attackCD)
     {
-       // yield return new WaitForSeconds(attackCD); // Initial delay before first attack
-        
-        /*while (true)
-        {
-            if (Time.time - lastAttackTime >= attackDelayTime)
-            {
-                lastAttackTime = Time.time;
-                int randomAttack = Random.Range(0, 3);
-                switch (randomAttack)
-                {
-                    case 0:
-                        StartCoroutine(AttackMove1());
-                        break;
-                    case 1:
-                        StartCoroutine(AttackMove2());
-                        break;
-                    case 2: 
-                        StartCoroutine(AttackMove3());
-                        break;
-                }
-            }
-            yield return null;
-        }*/
         if(attackTimer >= attackCD)
         {
             int randomAttack = Random.Range(0, 3);
@@ -267,19 +245,26 @@ public class EnemyAI : MonoBehaviour
     {
         isWalking = agent.velocity.magnitude > 0.1f;
         // Update animation based on movement state
-        if (isWalking && !anim.IsPlaying("Walk"))
+        if (isWalking && !enemyAnimation.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
         {
-            anim.Play("Walk");
+            enemyAnimation.CrossFade(animHash_Walk,0);
+            //anim.Play("Walk");
         }
-        else if (!isWalking && !anim.IsPlaying("Idle"))
+        else if (!isWalking && !enemyAnimation.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            anim.CrossFade("Idle");
+            enemyAnimation.CrossFade(animHash_Idle,0.5f);
+            //anim.CrossFade("Idle");
         }
     }
 
     protected virtual IEnumerator AttackMove1()
     { 
-        yield return new WaitForSeconds(anim["Attack1"].length);
+        isAttack = true;
+        enemyAnimation.CrossFade(animHash_Attack1,0);
+        AnimatorStateInfo stateInfo = enemyAnimation.GetCurrentAnimatorStateInfo(0);
+        yield return new WaitForSeconds(stateInfo.length);
+        enemyAnimation.CrossFade(animHash_Idle,0);
+        isAttack = false;
     }
     
     protected virtual IEnumerator AttackMove2()

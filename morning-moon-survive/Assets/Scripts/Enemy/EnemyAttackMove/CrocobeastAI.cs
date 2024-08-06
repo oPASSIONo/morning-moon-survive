@@ -17,9 +17,13 @@ public class CrocobeastAI : EnemyAI
     protected override IEnumerator AttackMove1() //TailSlap
     {
         isAttack = true;
-        anim.Play("Attack1");
+        enemyAnimation.CrossFade(animHash_Attack1,0);
+        AnimatorStateInfo stateInfo = enemyAnimation.GetCurrentAnimatorStateInfo(0);
+        yield return new WaitForSeconds(stateInfo.length);
+        enemyAnimation.CrossFade(animHash_Idle,0.5f);
+        /*anim.Play("Attack1");
         yield return new WaitForSeconds(anim["Attack1"].length);
-        anim.CrossFade("Idle");
+        anim.CrossFade("Idle");*/
         isAttack = false;
         enemyCombat.SetMoveset(1);
     }
@@ -27,9 +31,13 @@ public class CrocobeastAI : EnemyAI
     protected override IEnumerator AttackMove2() //Stomp
     {
         isAttack = true;
-        anim.Play("Attack2");
+        enemyAnimation.CrossFade(animHash_Attack2,0);
+        AnimatorStateInfo stateInfo = enemyAnimation.GetCurrentAnimatorStateInfo(0);
+        yield return new WaitForSeconds(stateInfo.length);
+        enemyAnimation.CrossFade(animHash_Idle,0.5f);
+        /*anim.Play("Attack2");
         yield return new WaitForSeconds(anim["Attack2"].length);
-        anim.CrossFade("Idle");
+        anim.CrossFade("Idle");*/
         isAttack = false;
         enemyCombat.SetMoveset(2);
     }
