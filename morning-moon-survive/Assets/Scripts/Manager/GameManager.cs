@@ -113,6 +113,7 @@ public class GameManager : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+        SaveManager.Instance.SavePlayer();
         /*// Load the loading scene first
         SceneManager.LoadScene("LoadingScene");
 
@@ -168,6 +169,7 @@ public class GameManager : MonoBehaviour
         playerComponent.SetHP(Player.Instance.GetPlayerStatSO().HealthStat.HP);
         playerComponent.SetSatiety(Player.Instance.GetPlayerStatSO().SatietyStat.Satiety);
         playerSatiety.InitialSatietyConsumeOvertime();
+        SaveManager.Instance.SavePlayer();
     }
     public void PlayerDealDamage(GameObject target, Collider hitCollider)
     {

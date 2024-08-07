@@ -5,9 +5,18 @@ using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
+    public static SaveManager Instance { get; private set; }
     private void Awake()
     {
-        DontDestroyOnLoad(this);
+        if (Instance!=null && Instance !=this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+        }
     }
 
     public void SavePlayer() 

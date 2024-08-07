@@ -9,6 +9,7 @@ public class Portal : MonoBehaviour,IInteractable
     public void Interact()
     {
         GameManager.Instance.MoveTargetToPoint("Player",targetPortal);
+        SaveManager.Instance.SavePlayer();
     }
 
     public void ShowInteractPrompt()
