@@ -38,7 +38,8 @@ public class TimeManager : MonoBehaviour
     [Tooltip("TextMeshPro UI component for displaying the day count.")]
     public TextMeshProUGUI dayCountText;
 
-    public int dayCount = 0;
+    public int dayCount { get; private set; } = 0;
+    public void SetDayCount(int value) => dayCount = value;
 
     private void Awake()
     {
@@ -129,4 +130,5 @@ public class TimeManager : MonoBehaviour
         PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal);
         timeMultiplier = 1f / (dayLengthInMinutes * 60f);
     }
+    
 }

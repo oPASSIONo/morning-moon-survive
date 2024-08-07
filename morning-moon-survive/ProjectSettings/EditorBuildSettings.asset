@@ -11,8 +11,8 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Multiplayer Scene/MainMenu.unity
     guid: 13e574acac26b4344a42c0e6c4d2019d
-  - enabled: 0
-    path: Assets/Scenes/LoadingScene.unity
+  - enabled: 1
+    path: Assets/Scenes/DevScene/LoadingScene.unity
     guid: 2e9c2ef4328e4694e95ace4a51ef24d5
   - enabled: 0
     path: Assets/Scenes/Multiplayer Scene/PlayScene.unity

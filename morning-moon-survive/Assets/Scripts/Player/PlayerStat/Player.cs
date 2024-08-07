@@ -139,8 +139,8 @@ public class Player : MonoBehaviour
         playerMovementComponent = GetComponent<PlayerMovement>();
         if (playerMovementComponent != null)
         {
-            playerMovementComponent.Initialize(MaxSpeed, MinSpeed, BaseSpeed);
             playerMovementComponent.OnSpeedChanged += UpdatePlayerSpeed;
+            playerMovementComponent.Initialize(MaxSpeed, MinSpeed, BaseSpeed);
         }
         else
         {
@@ -153,8 +153,8 @@ public class Player : MonoBehaviour
         staminaComponent = GetComponent<Stamina>();
         if (staminaComponent!=null)
         {
-            staminaComponent.Initialize(MaxStamina,MinStamina,Stamina,BaseActionCost,StaminaRegenRate);
             staminaComponent.OnStaminaChanged += UpdatePlayerStamina;
+            staminaComponent.Initialize(MaxStamina,MinStamina,Stamina,BaseActionCost,StaminaRegenRate);
         }
         else
         {
@@ -167,8 +167,8 @@ public class Player : MonoBehaviour
         healthComponent = GetComponent<Health>(); // Ensure GetComponent is finding the correct component
         if (healthComponent != null)
         {
-            healthComponent.Initialize(MaxHP, MinHP, HP);
             healthComponent.OnHealthChanged += UpdatePlayerHealth; // Subscribe to health changed event
+            healthComponent.Initialize(MaxHP, MinHP, HP);
         }
         else
         {
@@ -181,8 +181,8 @@ public class Player : MonoBehaviour
         satietyComponent = GetComponent<Satiety>();
         if (satietyComponent!=null)
         {
-            satietyComponent.Initialize(MaxSatiety,MinSatiety,Satiety,SatietyBleeding,SatietyConsumePoint,SatietyConsumeRate);
             satietyComponent.OnSatietyChanged += UpdatePlayerSatiety;
+            satietyComponent.Initialize(MaxSatiety,MinSatiety,Satiety,SatietyBleeding,SatietyConsumePoint,SatietyConsumeRate);
         }
         else
         {
@@ -192,27 +192,26 @@ public class Player : MonoBehaviour
     private void UpdatePlayerSpeed(float currentSpeed, float maxSpeed)
     {
         Speed = currentSpeed;
-        Debug.Log($"Speed From Player Script : {Speed}");
+        MaxSpeed = maxSpeed;
+
     }
     private void UpdatePlayerSatiety(float currentSatiety,float maxSatiety)
     {
         Satiety = currentSatiety;
+        MaxSatiety = maxSatiety;
     }
     private void UpdatePlayerStamina(float currentStamina, float maxStamina)
     {
         Stamina = currentStamina;
+        MaxStamina = maxStamina;
     }
     private void UpdatePlayerHealth(float currentHealth, float maxHealth,float minHealth)
     {
         HP = currentHealth;
         MaxHP = maxHealth;
         MinHP = minHealth;
-        Debug.Log($"HP From Player Script : {HP}"); 
     }
-    /*public void SetCurrentState(PlayerState newState)
-    {
-        currentState = newState;
-    }*/
+   
     public PlayerStats GetPlayerStatSO()
     {
         return playerStats;
