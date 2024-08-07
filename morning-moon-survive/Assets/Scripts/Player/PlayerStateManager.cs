@@ -16,7 +16,8 @@ public class PlayerStateManager : MonoBehaviour
         Workshop,
         Paused,
         Sleep,
-        Dash
+        Dash,
+        Attacking
     }
 
     public PlayerState currentState { get; private set; }

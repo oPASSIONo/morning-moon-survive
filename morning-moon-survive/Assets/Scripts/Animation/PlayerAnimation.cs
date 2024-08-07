@@ -71,6 +71,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         playerCombat.isPerformingAction = true;
         isModelUsingAction = true;
+        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Attacking);
         playerCombat.attackCollider.enabled = true;
         playerMovement.enabled = false;
         modelAnimator.CrossFade(animHash_Attack,0);
@@ -79,6 +80,7 @@ public class PlayerAnimation : MonoBehaviour
         playerCombat.attackCollider.enabled = false;
         playerMovement.enabled = true;
         modelAnimator.CrossFade(animHash_Idle,0.25f);
+        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal);
         isModelRunning = false;
         isModelUsingAction = false;
         playerCombat.isPerformingAction = false;

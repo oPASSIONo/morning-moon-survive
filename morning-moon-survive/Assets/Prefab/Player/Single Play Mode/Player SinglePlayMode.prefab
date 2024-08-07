@@ -80,6 +80,7 @@ GameObject:
   - component: {fileID: 793363140232541257}
   - component: {fileID: 9025921128899043440}
   - component: {fileID: 1121488800831802068}
+  - component: {fileID: 5523529474477770740}
   m_Layer: 0
   m_Name: Player SinglePlayMode
   m_TagString: Player
@@ -509,6 +510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCollider: {fileID: 8810583160624716799}
+  isPerformingAction: 0
 --- !u!114 &1121488800831802068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,6 +523,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f776fae6f9a30c42a9fa10ff69b8c76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5523529474477770740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4770661126664566695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b2ece99ba1bed84486ee462c8fb77e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelAnimator: {fileID: 3924816353599901767}
 --- !u!1 &5057764305931775667
 GameObject:
   m_ObjectHideFlags: 0
