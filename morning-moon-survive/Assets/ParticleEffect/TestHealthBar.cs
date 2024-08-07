@@ -16,20 +16,13 @@ public class TestHealthBar : MonoBehaviour
     public GameObject healthBarshow;
     
     public GameObject damageParticlePrefab;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

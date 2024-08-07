@@ -74,7 +74,9 @@ MonoBehaviour:
   agent: {fileID: 4872253250352954460}
   roamRadius: 10
   chaseRadius: 12
+  attackRadius: 0
   moveSpeed: 3
+  enemyAnimation: {fileID: 0}
   isFriendly: 0
 --- !u!65 &2238110230657426380
 BoxCollider:
@@ -201,6 +203,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 664772110162115030}
     m_Modifications:
+    - target: {fileID: 1466471154921993394, guid: 96f0d6acdf921dc40824db48cbbe4d94,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1720119164301821206, guid: 96f0d6acdf921dc40824db48cbbe4d94,
         type: 3}
       propertyPath: m_Name
@@ -329,7 +336,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2441672662126409519, guid: 96f0d6acdf921dc40824db48cbbe4d94,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7111558284131122870}
   m_SourcePrefab: {fileID: 100100000, guid: 96f0d6acdf921dc40824db48cbbe4d94, type: 3}
 --- !u!1 &3574124172471490622 stripped
 GameObject:
@@ -337,6 +348,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1187620605799657233}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7111558284131122870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3574124172471490622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 520f2b196b4113b45b73481796c39674, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 7061260205022162551, guid: e48b617660407be439d2ea3d25a82ccc, type: 3}
 --- !u!114 &4136130637108391788 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2962588178209030269, guid: 96f0d6acdf921dc40824db48cbbe4d94,

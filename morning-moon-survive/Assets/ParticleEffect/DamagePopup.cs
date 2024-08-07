@@ -14,24 +14,7 @@ public class DamagePopup : MonoBehaviour
     {
         current = this;
     }
-
-    /*public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F10))
-        {
-            CreatePopup(Vector3.one, 10.ToString());
-        }
-    }*/
-
-    /*public void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            CreatePopup(Vector3.one, 10.ToString());
-            
-        }
-    }*/
-
+    
     public void CreatePopup(Vector3 position, string damagePopup)
     {
         var popup = Instantiate(prefab, position, quaternion.identity);

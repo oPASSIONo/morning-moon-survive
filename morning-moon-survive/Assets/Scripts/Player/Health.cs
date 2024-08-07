@@ -9,7 +9,7 @@ public class Health : MonoBehaviour
 
     public event Action<float, float,float> OnHealthChanged;
     public event Action OnEntityDie;
-    
+
     public void Initialize(float maxHealth, float minHealth, float initialHealth)
     {
         MaxHealth = maxHealth;
@@ -29,7 +29,9 @@ public class Health : MonoBehaviour
         {
             SetCurrentHealth(MinHealth);
         }
-
+        
+        DamagePopup.current.CreatePopup(transform.position, damageAmount.ToString());
+        
         // Trigger health changed event
         OnHealthChanged?.Invoke(CurrentHealth, MaxHealth,MinHealth);
 
