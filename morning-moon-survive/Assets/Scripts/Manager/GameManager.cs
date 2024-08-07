@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         HandlePlayerOnTransitionScene();
+        SaveManager.Instance.SavePlayer();
     }
 
     private GameObject TargetSpawnPoint(string targetSpawnPoint)
@@ -113,7 +114,6 @@ public class GameManager : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
-        SaveManager.Instance.SavePlayer();
         /*// Load the loading scene first
         SceneManager.LoadScene("LoadingScene");
 
