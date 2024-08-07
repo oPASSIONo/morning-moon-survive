@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,12 +6,19 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private Animator modelAnimator;
-    [SerializeField] private Combat playerCombat;
+    
+    private Combat playerCombat;
+    private PlayerMovement playerMovement;
     private bool isModelRunning;
     private bool isModelUsingAction = false;
-    private bool isPlayerMoving;
-    
+
     private Coroutine coroutine;
+
+    private void Start()
+    {
+        playerCombat = GetComponent<Combat>();
+        playerMovement = GetComponent<PlayerMovement>();
+    }
 
     #region Animation State Hashes
 
@@ -31,7 +39,7 @@ public class PlayerAnimation : MonoBehaviour
     
     private void HandlePlayerMoveAnimation()
     {
-        if (isPlayerMoving && !isModelUsingAction)
+        if (playerMovement.isPlayerMoving && !isModelUsingAction)
         {
             if (!isModelRunning && !isModelUsingAction)
             {
@@ -61,14 +69,19 @@ public class PlayerAnimation : MonoBehaviour
 
     private IEnumerator StepPlayerAttackAnim()
     {
+        playerCombat.isPerformingAction = true;
         isModelUsingAction = true;
         playerCombat.attackCollider.enabled = true;
+        playerMovement.enabled = false;
         modelAnimator.CrossFade(animHash_Attack,0);
         AnimatorStateInfo stateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
-        yield return new WaitForSeconds(stateInfo.length);
+        yield return new WaitForSeconds(stateInfo.length + 0.3f);
         playerCombat.attackCollider.enabled = false;
-        modelAnimator.CrossFade(animHash_Idle,0);
+        playerMovement.enabled = true;
+        modelAnimator.CrossFade(animHash_Idle,0.25f);
+        isModelRunning = false;
         isModelUsingAction = false;
+        playerCombat.isPerformingAction = false;
     }
 
     public void PlayerPickupAnim()
@@ -83,12 +96,53 @@ public class PlayerAnimation : MonoBehaviour
     private IEnumerator StepPlayerPickupAnim()
     {
         isModelUsingAction = true;
+        playerMovement.enabled = false;
         modelAnimator.CrossFade(animHash_Pickup,0);
         AnimatorStateInfo stateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
-        yield return new WaitForSeconds(stateInfo.length);
-        modelAnimator.CrossFade(animHash_Idle,0);
+        yield return new WaitForSeconds(stateInfo.length + 0.5f);
+        modelAnimator.CrossFade(animHash_Idle,0.25f);
+        playerMovement.enabled = true;
+        isModelRunning = false;
         isModelUsingAction = false;
     }
+
     
+    public void PlayerDeadAnim()
+    {
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+            
+        coroutine = StartCoroutine(StepPlayerDeadAnim());
+    }
     
+    private IEnumerator StepPlayerDeadAnim()
+    {
+        isModelUsingAction = true;
+        modelAnimator.CrossFade(animHash_Instant_Dead,0);
+        AnimatorStateInfo stateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
+        yield return new WaitForSeconds(stateInfo.length + 0.5f);
+        modelAnimator.CrossFade(animHash_Dead,0.2f);
+        isModelUsingAction = false;
+    }
+
+    public void PlayerHitAnim()
+    {
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+            
+        coroutine = StartCoroutine(StepPlayerDeadAnim());
+    }
+    private IEnumerator StepPlayerHitAnim()
+    {
+        isModelUsingAction = true;
+        modelAnimator.CrossFade(animHash_Hit,0);
+        AnimatorStateInfo stateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
+        yield return new WaitForSeconds(stateInfo.length + 0.5f);
+        modelAnimator.CrossFade(animHash_Idle,0.2f);
+        isModelUsingAction = false;
+    }
 }

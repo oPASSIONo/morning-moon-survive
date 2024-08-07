@@ -15,18 +15,7 @@ public class EnemyCombat : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Keypad1))
-        {
-            SetMoveset(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad2))
-        {
-            SetMoveset(2);
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad3))
-        {
-            SetMoveset(3);
-        }
+        
     }
 
     // Set the moveset and activate the corresponding collider
@@ -82,7 +71,7 @@ public class EnemyCombat : MonoBehaviour
     private void HandlePlayerHit(Collider playerCollider)
     {
         GameManager.Instance.EnemyDealDamage(enemy,currentMovesetIndex);
-       
+        
         // Implement your logic to handle the player being hit
         Debug.Log("Player hit by enemy attack part!");
     }

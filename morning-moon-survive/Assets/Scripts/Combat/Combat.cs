@@ -5,28 +5,28 @@ using System;
 public class Combat : MonoBehaviour
 {
     [SerializeField] public Collider attackCollider;
-    [SerializeField] private PlayerAnimation playerAnimation;
-    public PlayerAnimation Animation => playerAnimation;
-    private float enableDuration = 0.5f;
+     private PlayerAnimation playerAnimation;
+     private float enableDuration = 0.5f;
     private bool hasHit = false;
+    public bool isPerformingAction = false;
 
     private Stamina staminaComponent;
     // Start is called before the first frame update
     void Start()
     {
+        playerAnimation = GetComponent<PlayerAnimation>();
         GameInput.Instance.OnAction += PerformAction;
         staminaComponent = GetComponent<Stamina>();
     }
 
     private void PerformAction(object sender, EventArgs e)
     {
-        if (GetComponent<AgentTool>().currentTool != null)
+        if (GetComponent<AgentTool>().currentTool != null && !isPerformingAction)
         {
             staminaComponent.TakeAction();
 
             // Reset the hasHit flag
             hasHit = false;
-        
             StartCoroutine(ToggleCollider());
         }
     }
@@ -36,8 +36,7 @@ public class Combat : MonoBehaviour
         GameInput.Instance.OnAction -= PerformAction;
         // Enable the collider
         //attackCollider.enabled = true;
-
-        Animation.PlayerAttackAnim();
+        playerAnimation.PlayerAttackAnim();
         // Wait for the specified duration
        // yield return new WaitForSeconds(enableDuration);
 

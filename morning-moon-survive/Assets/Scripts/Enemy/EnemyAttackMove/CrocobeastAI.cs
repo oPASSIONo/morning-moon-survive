@@ -19,8 +19,8 @@ public class CrocobeastAI : EnemyAI
         isAttack = true;
         enemyAnimation.CrossFade(animHash_Attack1,0);
         AnimatorStateInfo stateInfo = enemyAnimation.GetCurrentAnimatorStateInfo(0);
-        yield return new WaitForSeconds(stateInfo.length);
-        enemyAnimation.CrossFade(animHash_Idle,0.5f);
+        yield return new WaitForSeconds(stateInfo.length+ 0.5f);
+        enemyAnimation.CrossFade(animHash_Idle,0.2f);
         /*anim.Play("Attack1");
         yield return new WaitForSeconds(anim["Attack1"].length);
         anim.CrossFade("Idle");*/
@@ -33,8 +33,8 @@ public class CrocobeastAI : EnemyAI
         isAttack = true;
         enemyAnimation.CrossFade(animHash_Attack2,0);
         AnimatorStateInfo stateInfo = enemyAnimation.GetCurrentAnimatorStateInfo(0);
-        yield return new WaitForSeconds(stateInfo.length);
-        enemyAnimation.CrossFade(animHash_Idle,0.5f);
+        yield return new WaitForSeconds(stateInfo.length + 0.5f);
+        enemyAnimation.CrossFade(animHash_Idle,0.2f);
         /*anim.Play("Attack2");
         yield return new WaitForSeconds(anim["Attack2"].length);
         anim.CrossFade("Idle");*/

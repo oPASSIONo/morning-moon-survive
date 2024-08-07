@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private float dashDuration = 0.5f;
     private bool isDashing;
     private float dashTimeRemaining;
+    public bool isPlayerMoving { get; private set; }
     private Rigidbody rb;
 
     public event Action<float, float> OnSpeedChanged;
@@ -71,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 moveDirection = movement.normalized * CurrentSpeed * Time.deltaTime;
         transform.position += moveDirection;
 
+        isPlayerMoving = movement.magnitude > 0.1f;
         if (movement.magnitude > 0.1f)
         {
             Vector3 targetPosition = transform.position + movement.normalized;
