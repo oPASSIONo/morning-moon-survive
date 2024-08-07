@@ -105,7 +105,7 @@ public class TimeManager : MonoBehaviour
         int hours = Mathf.FloorToInt(totalMinutes / 60f);
         int minutes = Mathf.FloorToInt(totalMinutes % 60f);
         string timeString = string.Format("{0:00}:{1:00}", hours, minutes);
-        timeText.text = timeString;
+        timeText.text = "Time: "+timeString;
 
         // Update the day count display
         dayCountText.text = "Day: " + dayCount;
