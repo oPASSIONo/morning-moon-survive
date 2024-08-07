@@ -443,7 +443,7 @@ MonoBehaviour:
   toolsList:
   - {fileID: 11400000, guid: a21bf9d39daadfa428985e4dd1a240ce, type: 2}
   - {fileID: 11400000, guid: 19f17fafa8512c3449bbc4506e62afa2, type: 2}
-  playerHandTransform: {fileID: 9018000649860510405}
+  playerHandTransform: {fileID: 5142844836345038830}
   currentTool: {fileID: 0}
 --- !u!114 &3680696280563213248
 MonoBehaviour:
@@ -709,6 +709,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3924816353599901767}
   m_SourcePrefab: {fileID: 100100000, guid: 904302cdad02bf44b9d82c205e0941fb, type: 3}
+--- !u!4 &5142844836345038830 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -6616581200069260048, guid: 904302cdad02bf44b9d82c205e0941fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7165825506864286494}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7275733596934581493 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 904302cdad02bf44b9d82c205e0941fb,
@@ -742,9 +748,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!4 &9018000649860510405 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2185512022143744475, guid: 904302cdad02bf44b9d82c205e0941fb,
-    type: 3}
-  m_PrefabInstance: {fileID: 7165825506864286494}
-  m_PrefabAsset: {fileID: 0}

@@ -17,7 +17,8 @@ public class PlayerStateManager : MonoBehaviour
         Paused,
         Sleep,
         Dash,
-        Attacking
+        Attacking,
+        Pickup
     }
 
     public PlayerState currentState { get; private set; }

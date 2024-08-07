@@ -4,11 +4,11 @@ using System;
 
 public class Combat : MonoBehaviour
 {
-    [SerializeField] public Collider attackCollider;
-     private PlayerAnimation playerAnimation;
-     private float enableDuration = 0.5f;
+    [SerializeField] private Collider attackCollider;
+    private PlayerAnimation playerAnimation;
     private bool hasHit = false;
-    public bool isPerformingAction = false;
+    public bool isPerformingAction { get; private set; } = false;
+    public void SetIsPerformingAction(bool isPerform) => isPerformingAction = isPerform;
 
     private Stamina staminaComponent;
     // Start is called before the first frame update
@@ -27,24 +27,25 @@ public class Combat : MonoBehaviour
 
             // Reset the hasHit flag
             hasHit = false;
-            StartCoroutine(ToggleCollider());
+            
+            playerAnimation.PlayerAttackAnim();
+            
+        }
+    }
+
+    public void SetActionPerformOnCombat(bool isEnable)
+    {
+        switch (isEnable)
+        {
+            case true:
+                GameInput.Instance.OnAction += PerformAction;
+                break;
+            case false:
+                GameInput.Instance.OnAction -= PerformAction;
+                break;
         }
     }
     
-    private IEnumerator ToggleCollider()
-    {
-        GameInput.Instance.OnAction -= PerformAction;
-        // Enable the collider
-        //attackCollider.enabled = true;
-        playerAnimation.PlayerAttackAnim();
-        // Wait for the specified duration
-       // yield return new WaitForSeconds(enableDuration);
-
-        // Disable the collider
-       // attackCollider.enabled = false;
-        GameInput.Instance.OnAction += PerformAction;
-        yield return null;
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -59,6 +60,19 @@ public class Combat : MonoBehaviour
                 // Call GameManager to handle damage calculation and application
                 GameManager.Instance.PlayerDealDamage(enemy.gameObject, other);
             }
+        }
+    }
+
+    public void SetAttackCollider(bool isEnable)
+    {
+        switch (isEnable)
+        {
+            case true:
+                attackCollider.enabled = true;
+                break;
+            case false:
+                attackCollider.enabled = false;
+                break;
         }
     }
 }

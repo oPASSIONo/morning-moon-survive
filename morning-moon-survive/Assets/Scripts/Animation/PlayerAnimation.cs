@@ -69,21 +69,21 @@ public class PlayerAnimation : MonoBehaviour
 
     private IEnumerator StepPlayerAttackAnim()
     {
-        playerCombat.isPerformingAction = true;
+        playerCombat.SetIsPerformingAction(true);
         isModelUsingAction = true;
         PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Attacking);
-        playerCombat.attackCollider.enabled = true;
-        playerMovement.enabled = false;
+        playerCombat.SetActionPerformOnCombat(false);
+        playerCombat.SetAttackCollider(true);
         modelAnimator.CrossFade(animHash_Attack,0);
         AnimatorStateInfo stateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
         yield return new WaitForSeconds(stateInfo.length + 0.3f);
-        playerCombat.attackCollider.enabled = false;
-        playerMovement.enabled = true;
+        playerCombat.SetAttackCollider(false);
         modelAnimator.CrossFade(animHash_Idle,0.25f);
         PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal);
+        playerCombat.SetActionPerformOnCombat(true);
         isModelRunning = false;
         isModelUsingAction = false;
-        playerCombat.isPerformingAction = false;
+        playerCombat.SetIsPerformingAction(false);
     }
 
     public void PlayerPickupAnim()
@@ -98,12 +98,12 @@ public class PlayerAnimation : MonoBehaviour
     private IEnumerator StepPlayerPickupAnim()
     {
         isModelUsingAction = true;
-        playerMovement.enabled = false;
+        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Pickup);
         modelAnimator.CrossFade(animHash_Pickup,0);
         AnimatorStateInfo stateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
         yield return new WaitForSeconds(stateInfo.length + 0.5f);
         modelAnimator.CrossFade(animHash_Idle,0.25f);
-        playerMovement.enabled = true;
+        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal);
         isModelRunning = false;
         isModelUsingAction = false;
     }
