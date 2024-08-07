@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private float dashDuration = 0.5f;
     private bool isDashing;
     private float dashTimeRemaining;
+    public bool isPlayerMoving { get; private set; }
     private Rigidbody rb;
 
     public event Action<float, float> OnSpeedChanged;
@@ -74,20 +75,25 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        Vector2 inputVector = GameInput.Instance.GetMovement();
-        Transform cameraTransform = Camera.main.transform;
-
-        Vector3 movement = cameraTransform.forward * inputVector.y + cameraTransform.right * inputVector.x;
-        movement.y = 0f;
-
-        Vector3 moveDirection = movement.normalized * CurrentSpeed * Time.deltaTime;
-        transform.position += moveDirection;
-
-        if (movement.magnitude > 0.1f)
+        if (PlayerStateManager.Instance.currentState==PlayerStateManager.PlayerState.Normal)
         {
-            Vector3 targetPosition = transform.position + movement.normalized;
-            transform.LookAt(targetPosition);
+            Vector2 inputVector = GameInput.Instance.GetMovement();
+            Transform cameraTransform = Camera.main.transform;
+
+            Vector3 movement = cameraTransform.forward * inputVector.y + cameraTransform.right * inputVector.x;
+            movement.y = 0f;
+
+            Vector3 moveDirection = movement.normalized * CurrentSpeed * Time.deltaTime;
+            transform.position += moveDirection;
+
+            isPlayerMoving = movement.magnitude > 0.1f;
+            if (movement.magnitude > 0.1f)
+            {
+                Vector3 targetPosition = transform.position + movement.normalized;
+                transform.LookAt(targetPosition);
+            }
         }
+        
     }
 
     private void UpdateSpeed(float currentSatiety, float maxSatiety)

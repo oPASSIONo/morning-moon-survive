@@ -99,27 +99,7 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
-      might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'Joint_Torso' has translation animation
-      that will be discarded.\n\t'joint_Chest' has translation animation that will
-      be discarded.\n\t'joint_Chest' is inbetween humanoid transforms and has rotation
-      animation that will be discarded.\n\t'joint_LeftArm' has translation animation
-      that will be discarded.\n\t'joint_LeftPoleArm' has translation animation that
-      will be discarded.\n\t'joint_LeftHand' has translation animation that will
-      be discarded.\n\t'joint_LeftPinky1' has translation animation that will be
-      discarded.\n\t'joint_LeftThumb1' has translation animation that will be discarded.\n\t'joint_RightArm'
-      has translation animation that will be discarded.\n\t'joint_RightPoleArm' has
-      translation animation that will be discarded.\n\t'joint_RightHand' has translation
-      animation that will be discarded.\n\t'joint_RightHand' has scale animation
-      that will be discarded.\n\t'joint_RightFinger1' has translation animation that
-      will be discarded.\n\t'joint_RightFinger2' has translation animation that will
-      be discarded.\n\t'joint_RightPinky1' has translation animation that will be
-      discarded.\n\t'joint_RightThumb1' has translation animation that will be discarded.\n\t'joint_LeftLeg'
-      has translation animation that will be discarded.\n\t'joint_LeftKnee' has translation
-      animation that will be discarded.\n\t'joint_RightLeg' has translation animation
-      that will be discarded.\n\t'joint_RightKnee' has translation animation that
-      will be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -191,7 +171,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Chop
+      name: Attack
       takeName: Take 001
       internalID: 3060872287085348379
       firstFrame: 191
@@ -220,11 +200,98 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Blunt
+      name: Pickup
       takeName: Take 001
-      internalID: 6641085478485924818
-      firstFrame: 215
-      lastFrame: 237
+      internalID: -5059006814000262888
+      firstFrame: 91
+      lastFrame: 110
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Hit
+      takeName: Take 001
+      internalID: 6234510843852800090
+      firstFrame: 71
+      lastFrame: 90
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Dead
+      takeName: Take 001
+      internalID: -6788666626592393668
+      firstFrame: 112
+      lastFrame: 139
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: InstantDead
+      takeName: Take 001
+      internalID: 1702301948168947093
+      firstFrame: 141
+      lastFrame: 189
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

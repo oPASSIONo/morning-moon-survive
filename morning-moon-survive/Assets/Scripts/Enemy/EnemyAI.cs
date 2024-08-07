@@ -18,7 +18,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float chaseRadius; // Radius for chasing player
     [SerializeField] private float attackRadius; // Radius for attacking player
     [SerializeField] private float moveSpeed; // Enemy movement speed
-    [SerializeField] public Animation anim;
+    //[SerializeField] public Animation anim;
+    [SerializeField] public Animator enemyAnimation;
     [SerializeField] private bool isFriendly;
     
     public float attackDelayTime { get; private set; } = 3f;
@@ -28,9 +29,23 @@ public class EnemyAI : MonoBehaviour
     private GameObject player;
     private EnemyState currentState;
     private bool isWalking;
-    private float lastAttackTime;
+    private float attackTimer = 0;
     private float animationSpeed = 0.5f;
     private bool hasPlayedIdle = false;
+    protected bool isAttack = false;
+    private Coroutine attackcoroutine;
+    
+    #region Animation State Hashes
+
+    protected readonly int animHash_Idle = Animator.StringToHash("Idle");
+    protected readonly int animHash_Walk = Animator.StringToHash("Walk");
+    protected readonly int animHash_Attack1 = Animator.StringToHash("Attack1");
+    protected readonly int animHash_Attack2 = Animator.StringToHash("Attack2");
+    protected readonly int animHash_Attack3 = Animator.StringToHash("Attack3");
+    protected readonly int animHash_Dead = Animator.StringToHash("Dead");
+  
+
+    #endregion
 
     void Awake()
     {
@@ -57,7 +72,10 @@ public class EnemyAI : MonoBehaviour
                 case EnemyState.Fight:
                     FightPlayer();
                     break;
-                
+               /* case  EnemyState.Attacking:
+                    Attacking();
+                    break;*/
+
             }
 
             if (currentState == EnemyState.Roam || currentState == EnemyState.Chase)
@@ -70,7 +88,8 @@ public class EnemyAI : MonoBehaviour
             player = GameObject.FindGameObjectWithTag("Player");
         }
         
-        
+        UnityEngine.Debug.Log(currentState);
+        UnityEngine.Debug.Log(isAttack);
     }
 
     void Roam()
@@ -112,6 +131,12 @@ public class EnemyAI : MonoBehaviour
             if (IsPlayerInRange(attackRadius))
             {
                 currentState = EnemyState.Fight;
+                attackTimer = 0;
+            }
+
+            if (isAttack)
+            {
+                currentState = EnemyState.Fight;
             }
 
         }
@@ -127,6 +152,7 @@ public class EnemyAI : MonoBehaviour
     {
         // Stop movement
         agent.isStopped = true;
+        attackTimer += Time.deltaTime;
 
         Vector3 targetPosition = new Vector3(player.transform.position.x, 0, player.transform.position.z);
         transform.LookAt(targetPosition);
@@ -135,14 +161,20 @@ public class EnemyAI : MonoBehaviour
         if (!hasPlayedIdle)
         {
             isWalking = false;
-            anim.CrossFade("Idle");
+            //anim.CrossFade("Idle");
+            enemyAnimation.CrossFade(animHash_Idle,1f);
             hasPlayedIdle = true;
         }
+
+        if (!isAttack && IsPlayerInRange(attackRadius))
+        {
+          //  currentState = EnemyState.Attacking;
+          Attack(attackDelayTime);
+        }
         
-        StartCoroutine(RandomAttackAnim());
         
         // Check if player is outside attack radius (optional)
-        if (IsPlayerInRange(attackRadius) == false)
+        if (IsPlayerInRange(attackRadius) == false && !isAttack)
         {
             currentState = EnemyState.Chase;
             agent.isStopped = false; // Resume movement
@@ -150,6 +182,11 @@ public class EnemyAI : MonoBehaviour
             isWalking = true;
 
         }
+    }
+
+    void Attacking()
+    {
+        
     }
     
     bool IsPlayerInRange()
@@ -174,49 +211,60 @@ public class EnemyAI : MonoBehaviour
         return distance <= maxChaseDistance;
     }
 
-    IEnumerator RandomAttackAnim()
+    void RandomAttackAnim(float attackCD)
     {
-        yield return new WaitForSeconds(attackDelayTime); // Initial delay before first attack
-        while (true)
+        if(attackTimer >= attackCD)
         {
-            if (Time.time - lastAttackTime >= attackDelayTime)
+            int randomAttack = Random.Range(0, 3);
+            switch (randomAttack)
             {
-                lastAttackTime = Time.time;
-                int randomAttack = Random.Range(0, 3);
-                switch (randomAttack)
-                {
-                    case 0:
-                        StartCoroutine(AttackMove1());
-                        break;
-                    case 1:
-                        StartCoroutine(AttackMove2());
-                        break;
-                    case 2:
-                        StartCoroutine(AttackMove3());
-                        break;
-                }
+                case 0: 
+                    StartCoroutine(AttackMove1());
+                    break;
+                case 1:
+                    StartCoroutine(AttackMove2());
+                    break;
+                case 2:
+                    StartCoroutine(AttackMove3());
+                    break;
             }
-            yield return null;
+
+            attackTimer = 0;
         }
     }
 
+    void Attack(float attackCD)
+    {
+        if (!isAttack)
+        {
+            RandomAttackAnim(attackCD);
+        }
+
+    }
     void IdleWalkController()
     {
         isWalking = agent.velocity.magnitude > 0.1f;
         // Update animation based on movement state
-        if (isWalking && !anim.IsPlaying("Walk"))
+        if (isWalking && !enemyAnimation.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
         {
-            anim.Play("Walk");
+            enemyAnimation.CrossFade(animHash_Walk,0);
+            //anim.Play("Walk");
         }
-        else if (!isWalking && !anim.IsPlaying("Idle"))
+        else if (!isWalking && !enemyAnimation.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            anim.CrossFade("Idle");
+            enemyAnimation.CrossFade(animHash_Idle,0.5f);
+            //anim.CrossFade("Idle");
         }
     }
 
     protected virtual IEnumerator AttackMove1()
     { 
-        yield return new WaitForSeconds(anim["Attack1"].length);
+        isAttack = true;
+        enemyAnimation.CrossFade(animHash_Attack1,0);
+        AnimatorStateInfo stateInfo = enemyAnimation.GetCurrentAnimatorStateInfo(0);
+        yield return new WaitForSeconds(stateInfo.length);
+        enemyAnimation.CrossFade(animHash_Idle,0);
+        isAttack = false;
     }
     
     protected virtual IEnumerator AttackMove2()

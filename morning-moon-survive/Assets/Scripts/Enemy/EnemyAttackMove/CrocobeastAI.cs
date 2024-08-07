@@ -16,18 +16,33 @@ public class CrocobeastAI : EnemyAI
     
     protected override IEnumerator AttackMove1() //TailSlap
     {
-        anim.Play("Attack1");
+        isAttack = true;
+        enemyAnimation.CrossFade(animHash_Attack1,0);
+        AnimatorStateInfo stateInfo = enemyAnimation.GetCurrentAnimatorStateInfo(0);
+        yield return new WaitForSeconds(stateInfo.length+ 0.5f);
+        enemyAnimation.CrossFade(animHash_Idle,0.2f);
+        /*anim.Play("Attack1");
         yield return new WaitForSeconds(anim["Attack1"].length);
-        anim.CrossFade("Idle");
+        anim.CrossFade("Idle");*/
+        isAttack = false;
         enemyCombat.SetMoveset(1);
     }
     
-   /* public override IEnumerator AttackMove2() //Charge
+    protected override IEnumerator AttackMove2() //Stomp
     {
-        yield return new WaitForSeconds(1.0f);
+        isAttack = true;
+        enemyAnimation.CrossFade(animHash_Attack2,0);
+        AnimatorStateInfo stateInfo = enemyAnimation.GetCurrentAnimatorStateInfo(0);
+        yield return new WaitForSeconds(stateInfo.length + 0.5f);
+        enemyAnimation.CrossFade(animHash_Idle,0.2f);
+        /*anim.Play("Attack2");
+        yield return new WaitForSeconds(anim["Attack2"].length);
+        anim.CrossFade("Idle");*/
+        isAttack = false;
+        enemyCombat.SetMoveset(2);
     }
 
-    public override IEnumerator AttackMove3() //Stomp
+    /*protected override IEnumerator AttackMove3() //Charge
     {
         yield return new WaitForSeconds(1.0f);
     }*/

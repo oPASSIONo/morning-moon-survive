@@ -5,43 +5,47 @@ using System;
 public class Combat : MonoBehaviour
 {
     [SerializeField] private Collider attackCollider;
-    private float enableDuration = 0.5f;
+    private PlayerAnimation playerAnimation;
     private bool hasHit = false;
+    public bool isPerformingAction { get; private set; } = false;
+    public void SetIsPerformingAction(bool isPerform) => isPerformingAction = isPerform;
 
     private Stamina staminaComponent;
     // Start is called before the first frame update
     void Start()
     {
+        playerAnimation = GetComponent<PlayerAnimation>();
         GameInput.Instance.OnAction += PerformAction;
         staminaComponent = GetComponent<Stamina>();
     }
 
     private void PerformAction(object sender, EventArgs e)
     {
-        if (GetComponent<AgentTool>().currentTool != null)
+        if (GetComponent<AgentTool>().currentTool != null && !isPerformingAction)
         {
             staminaComponent.TakeAction();
 
             // Reset the hasHit flag
             hasHit = false;
-        
-            StartCoroutine(ToggleCollider());
+            
+            playerAnimation.PlayerAttackAnim();
+            
+        }
+    }
+
+    public void SetActionPerformOnCombat(bool isEnable)
+    {
+        switch (isEnable)
+        {
+            case true:
+                GameInput.Instance.OnAction += PerformAction;
+                break;
+            case false:
+                GameInput.Instance.OnAction -= PerformAction;
+                break;
         }
     }
     
-    private IEnumerator ToggleCollider()
-    {
-        GameInput.Instance.OnAction -= PerformAction;
-        // Enable the collider
-        attackCollider.enabled = true;
-
-        // Wait for the specified duration
-        yield return new WaitForSeconds(enableDuration);
-
-        // Disable the collider
-        attackCollider.enabled = false;
-        GameInput.Instance.OnAction += PerformAction;
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -56,6 +60,19 @@ public class Combat : MonoBehaviour
                 // Call GameManager to handle damage calculation and application
                 GameManager.Instance.PlayerDealDamage(enemy.gameObject, other);
             }
+        }
+    }
+
+    public void SetAttackCollider(bool isEnable)
+    {
+        switch (isEnable)
+        {
+            case true:
+                attackCollider.enabled = true;
+                break;
+            case false:
+                attackCollider.enabled = false;
+                break;
         }
     }
 }
