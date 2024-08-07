@@ -41,7 +41,8 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.SetInt("Weight", Player.Instance.Weight);
         PlayerPrefs.SetInt("InventorySlot", Player.Instance.InventorySlot);
 
-        PlayerPrefs.SetInt("Day", TimeManager.Instance.dayCount);
+        PlayerPrefs.SetInt("Day", TimeManager.Instance.DayCount);
+        PlayerPrefs.SetFloat("Time",TimeManager.Instance.CurrentTimeOfDay);
 
         // Debug logs for saved values
         Debug.Log($"Saved HP: {PlayerPrefs.GetFloat("HP")}");
@@ -107,7 +108,7 @@ public class SaveManager : MonoBehaviour
         Player.Instance.SetInventorySlot(PlayerPrefs.GetInt("InventorySlot"));
 
         TimeManager.Instance.SetDayCount(PlayerPrefs.GetInt("Day"));
-
+        TimeManager.Instance.CurrentTimeOfDay=(PlayerPrefs.GetFloat("Time"));
         // Debug logs for loaded values
         Debug.Log($"Loaded HP: {PlayerPrefs.GetFloat("HP")}");
         Debug.Log($"Loaded MaxHP: {PlayerPrefs.GetFloat("MaxHP")}");
