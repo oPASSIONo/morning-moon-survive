@@ -13,6 +13,8 @@ public class Stamina : MonoBehaviour
     public event System.Action<float, float> OnStaminaChanged;
 
     private Coroutine regenCoroutine;
+    
+    public bool isAction { get; private set; }
 
     void Start()
     {
@@ -83,11 +85,13 @@ public class Stamina : MonoBehaviour
         {
             // Consume stamina
             ConsumeStamina(CalculatedActionCost());
+            isAction = true;
         }
         else
         {
             // Handle case when there's not enough stamina to perform the attack
             Debug.Log("Not enough stamina to perform the attack!");
+            isAction = false;
         }
     }
 

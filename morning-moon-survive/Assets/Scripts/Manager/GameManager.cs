@@ -1,13 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
-using Inventory;
 using Inventory.Model;
-using Inventory.UI;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +12,10 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private GameObject mainCamera;
     [SerializeField] private GameObject playerFollowCamera;
+
+    [SerializeField] private GameObject timeManager;
+
+    [SerializeField] private GameObject gameInput;
     
     [SerializeField] private GameObject player;
     private Health playerHealth;
@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private GameObject craftingSystem;
     [SerializeField] private GameObject gameCanvas;
-    public LoadingScreenManager loadingScreenManager;
 
     
     private void Awake()
@@ -44,7 +43,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Start()
@@ -66,68 +64,58 @@ public class GameManager : MonoBehaviour
         playerAgentTool = player.GetComponent<AgentTool>();
         playerComponent = player.GetComponent<Player>();
     }
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+
+    private void InitializeCoreGameObj()
     {
-        HandlePlayerOnTransitionScene();
-        SaveManager.Instance.SavePlayer();
+        gameInput.SetActive(true);
+        player.SetActive(true);
+        playerFollowCamera.SetActive(true);
+        gameCanvas.SetActive(true);
+        timeManager.SetActive(true);
     }
+    
 
     private GameObject TargetSpawnPoint(string targetSpawnPoint)
     {
-        GameObject spawnPointObj;
-        switch (targetSpawnPoint)
-        {
-            case "SpawnPlayer":
-                spawnPointObj = GameObject.FindGameObjectWithTag("PlayerSpawnPoint");
-                return spawnPointObj;
-            case "SpawnEnemy":
-                spawnPointObj = GameObject.FindGameObjectWithTag("EnemySpawnPoint");
-                return spawnPointObj;
-            case "SpawnResource":
-                spawnPointObj = GameObject.FindGameObjectWithTag("ResourceSpawnPoint");
-                return spawnPointObj;
-            default:
-                return null;
-        }
-        
+        return SpawnPointManager.Instance.GetSpawnPoint(targetSpawnPoint);
     }
+
 
     public void MoveTargetToPoint(string moveTarget,GameObject movePoint)
     {
-        GameObject objectToMove=null;
+        NavMeshAgent objectToMove=null;
         switch (moveTarget)
         {
             case "Player":
-                objectToMove = player;
-                player.GetComponent<NavMeshAgent>().Warp(movePoint.transform.position);
+                objectToMove = player.GetComponent<NavMeshAgent>();
+                if (movePoint==null)
+                {
+                    Debug.Log("Move Point Null");
+                }
+                else
+                {
+                    objectToMove.Warp(movePoint.transform.position);    
+                }
                 break;
             default:
                 break;
         }
-        objectToMove.transform.position = movePoint.transform.position;
     }
     
-    private void HandlePlayerOnTransitionScene()
-    {
-        MoveTargetToPoint("Player",TargetSpawnPoint("SpawnPlayer"));
-    }
+    
     public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
-        /*// Load the loading scene first
-        SceneManager.LoadScene("LoadingScene");
-
-        // Ensure the loading screen manager is initialized and ready
-        if (loadingScreenManager != null)
-        {
-            loadingScreenManager.LoadScene(sceneName);
-        }
-        else
-        {
-            Debug.LogError("LoadingScreenManager not assigned!");
-        }*/
+        LevelManager.Instance.OnLoadComplete += OnLoadComplete;
+        LevelManager.Instance.LoadScene(sceneName);
     }
+    private void OnLoadComplete()
+    {
+        LevelManager.Instance.OnLoadComplete -= OnLoadComplete;
+        InitializeCoreGameObj();
+        MoveTargetToPoint("Player", TargetSpawnPoint("PlayerSpawn"));
+        SaveManager.Instance.SavePlayer();
 
+    }
     private void PersistentObject()
     {
         DontDestroyOnLoad(craftingSystem);

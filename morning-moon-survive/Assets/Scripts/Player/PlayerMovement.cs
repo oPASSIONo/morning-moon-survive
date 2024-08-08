@@ -134,13 +134,17 @@ public class PlayerMovement : MonoBehaviour
             if (inputVector!=Vector2.zero)
             {
                 staminaComponent.TakeAction();
-                Transform cameraTransform = Camera.main.transform;
+                if (staminaComponent.isAction)
+                {
+                    Transform cameraTransform = Camera.main.transform;
 
-                Vector3 dashDirection = cameraTransform.forward * inputVector.y + cameraTransform.right * inputVector.x;
-                dashDirection.y = 0f;
-                dashDirection.Normalize();
+                    Vector3 dashDirection = cameraTransform.forward * inputVector.y + cameraTransform.right * inputVector.x;
+                    dashDirection.y = 0f;
+                    dashDirection.Normalize();
 
-                rb.AddForce(dashDirection * dashForce, ForceMode.VelocityChange);
+                    rb.AddForce(dashDirection * dashForce, ForceMode.VelocityChange);
+                }
+                
             }
             
         }

@@ -1694,9 +1694,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1412906150}
+  - component: {fileID: 1412906151}
   m_Layer: 0
   m_Name: Player Spawn Position
-  m_TagString: PlayerSpawnPoint
+  m_TagString: PlayerSpawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1716,6 +1717,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1412906151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412906149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e510030278f995d4a882c93fc2df41f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPointTag: PlayerSpawn
 --- !u!4 &1434676227 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c0b9718009641a243aee61ba9bfd4ed0,

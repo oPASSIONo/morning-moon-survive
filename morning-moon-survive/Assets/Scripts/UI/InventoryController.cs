@@ -206,9 +206,6 @@ namespace Inventory
                     inventoryUI.Show(false);
                     break;
             }
-            
         }
-        
-        
     }
 }
