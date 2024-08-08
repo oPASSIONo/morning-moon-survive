@@ -11,11 +11,9 @@ public class PickupSystem : MonoBehaviour
     [SerializeField] private float pickupRange = 2f; // Set the range within which the player can pick up items
     private PlayerInput playerInput;
     private InputAction pickup;
-    private PlayerAnimation playerAnimation;
 
     private void Awake()
     {
-        playerAnimation = GetComponent<PlayerAnimation>();
         playerInput = new PlayerInput();
         playerInput.PlayerControls.Enable();
         pickup = playerInput.PlayerControls.Interaction;
@@ -46,7 +44,6 @@ public class PickupSystem : MonoBehaviour
                 int reminder = inventoryData.AddItem(item.InventoryItem, item.Quantity);
                 if (reminder == 0)
                 {
-                    playerAnimation.PlayerPickupAnim();
                     // If the item was added successfully, destroy it
                     item.DestroyItem();
                 }
@@ -55,6 +52,7 @@ public class PickupSystem : MonoBehaviour
                     // If the item was only partially added, update its quantity
                     item.Quantity = reminder;
                 }
+                PlayerAnimation.Instance.PlayerPickupAnim();
             }
         }
     }

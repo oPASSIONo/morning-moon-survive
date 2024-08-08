@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
+    public static PlayerAnimation Instance { get; private set; }
     [SerializeField] private Animator modelAnimator;
     
     private Combat playerCombat;
@@ -14,6 +15,18 @@ public class PlayerAnimation : MonoBehaviour
 
     private Coroutine coroutine;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     private void Start()
     {
         playerCombat = GetComponent<Combat>();
@@ -72,7 +85,6 @@ public class PlayerAnimation : MonoBehaviour
         playerCombat.SetIsPerformingAction(true);
         isModelUsingAction = true;
         PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Attacking);
-        playerCombat.SetActionPerformOnCombat(false);
         playerCombat.SetAttackCollider(true);
         modelAnimator.CrossFade(animHash_Attack,0);
         AnimatorStateInfo stateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
@@ -80,7 +92,6 @@ public class PlayerAnimation : MonoBehaviour
         playerCombat.SetAttackCollider(false);
         modelAnimator.CrossFade(animHash_Idle,0.25f);
         PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal);
-        playerCombat.SetActionPerformOnCombat(true);
         isModelRunning = false;
         isModelUsingAction = false;
         playerCombat.SetIsPerformingAction(false);
@@ -126,7 +137,6 @@ public class PlayerAnimation : MonoBehaviour
         AnimatorStateInfo stateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
         yield return new WaitForSeconds(stateInfo.length + 0.5f);
         modelAnimator.CrossFade(animHash_Dead,0.2f);
-        isModelUsingAction = false;
     }
 
     public void PlayerHitAnim()
@@ -134,17 +144,44 @@ public class PlayerAnimation : MonoBehaviour
         if (coroutine != null)
         {
             StopCoroutine(coroutine);
+            playerCombat.SetIsPerformingAction(false);
         }
             
-        coroutine = StartCoroutine(StepPlayerDeadAnim());
+        coroutine = StartCoroutine(StepPlayerHitAnim());
     }
     private IEnumerator StepPlayerHitAnim()
     {
         isModelUsingAction = true;
+        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Hit);
         modelAnimator.CrossFade(animHash_Hit,0);
         AnimatorStateInfo stateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
         yield return new WaitForSeconds(stateInfo.length + 0.5f);
         modelAnimator.CrossFade(animHash_Idle,0.2f);
+        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal);
+        isModelRunning = false;
         isModelUsingAction = false;
+    }
+    
+    public void PlayerRespawnAnim()
+    {
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+            playerCombat.SetIsPerformingAction(false);
+        }
+            
+        coroutine = StartCoroutine(StepPlayerRespawnAnim());
+    }
+    private IEnumerator StepPlayerRespawnAnim()
+    {
+        isModelUsingAction = true;
+        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Respawn);
+        modelAnimator.CrossFade(animHash_Dead,0);
+        yield return new WaitForSeconds(1f);
+        modelAnimator.CrossFade(animHash_Idle,0.2f);
+        yield return new WaitForSeconds(0.5f);
+        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal);
+        isModelUsingAction = false;
+        isModelRunning = false;
     }
 }

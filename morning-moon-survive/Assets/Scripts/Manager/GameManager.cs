@@ -161,10 +161,12 @@ public class GameManager : MonoBehaviour
     {
         gameCanvas.GetComponent<GameCanvasRef>().notiBox.SetActive(true);
         GameInput.Instance.SetPlayerInput(false);
+        PlayerAnimation.Instance.PlayerDeadAnim();
     }
 
     public void RespawnPlayer()
     {
+        PlayerAnimation.Instance.PlayerRespawnAnim();
         GameInput.Instance.SetPlayerInput(true);
         playerComponent.SetHP(Player.Instance.GetPlayerStatSO().HealthStat.HP);
         playerComponent.SetSatiety(Player.Instance.GetPlayerStatSO().SatietyStat.Satiety);

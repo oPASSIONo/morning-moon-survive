@@ -53,12 +53,23 @@ public class Health : MonoBehaviour
 
     private void IsDie()
     {
-        switch (CurrentHealth)
+        if (CurrentHealth == 0)
+        {
+            Die();
+        }
+        else
+        {
+            if (GetComponent<Player>() != null)
+            {
+                PlayerAnimation.Instance.PlayerHitAnim();
+            }
+        }
+        /*switch (CurrentHealth)
         {
             case 0:
                 Die();
                 break;
-        }
+        }*/
     }
     
     public void Die()

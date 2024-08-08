@@ -5,7 +5,6 @@ using System;
 public class Combat : MonoBehaviour
 {
     [SerializeField] private Collider attackCollider;
-    private PlayerAnimation playerAnimation;
     private bool hasHit = false;
     public bool isPerformingAction { get; private set; } = false;
     public void SetIsPerformingAction(bool isPerform) => isPerformingAction = isPerform;
@@ -14,7 +13,6 @@ public class Combat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerAnimation = GetComponent<PlayerAnimation>();
         GameInput.Instance.OnAction += PerformAction;
         staminaComponent = GetComponent<Stamina>();
     }
@@ -28,7 +26,7 @@ public class Combat : MonoBehaviour
             // Reset the hasHit flag
             hasHit = false;
             
-            playerAnimation.PlayerAttackAnim();
+            PlayerAnimation.Instance.PlayerAttackAnim();
             
         }
     }
