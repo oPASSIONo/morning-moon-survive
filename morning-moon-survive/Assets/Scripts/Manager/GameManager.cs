@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         HandlePlayerOnTransitionScene();
+        SaveManager.Instance.SavePlayer();
     }
 
     private GameObject TargetSpawnPoint(string targetSpawnPoint)
@@ -168,6 +169,7 @@ public class GameManager : MonoBehaviour
         playerComponent.SetHP(Player.Instance.GetPlayerStatSO().HealthStat.HP);
         playerComponent.SetSatiety(Player.Instance.GetPlayerStatSO().SatietyStat.Satiety);
         playerSatiety.InitialSatietyConsumeOvertime();
+        SaveManager.Instance.SavePlayer();
     }
     public void PlayerDealDamage(GameObject target, Collider hitCollider)
     {
