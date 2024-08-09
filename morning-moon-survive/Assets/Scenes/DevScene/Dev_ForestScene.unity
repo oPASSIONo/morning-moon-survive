@@ -3187,6 +3187,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8302768322386350247, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: enemyStatsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: bdff1ba641bbc0441a8ff45cf9e7aeeb,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4856,7 +4862,15 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3219349555140465926, guid: 951e08d9b91caf04190c1758525e0bc5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 863143366}
+    - targetCorrespondingSourceObject: {fileID: 3219349555140465926, guid: 951e08d9b91caf04190c1758525e0bc5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 863143365}
   m_SourcePrefab: {fileID: 100100000, guid: 951e08d9b91caf04190c1758525e0bc5, type: 3}
 --- !u!4 &863143362 stripped
 Transform:
@@ -4864,6 +4878,47 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 863143361}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &863143363 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3219349555140465926, guid: 951e08d9b91caf04190c1758525e0bc5,
+    type: 3}
+  m_PrefabInstance: {fileID: 863143361}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &863143364 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 7249539107311796038, guid: 951e08d9b91caf04190c1758525e0bc5,
+    type: 3}
+  m_PrefabInstance: {fileID: 863143361}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &863143365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863143363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1583236543420b244ba28207c156af99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyStatsSO: {fileID: 0}
+  dropItems: []
+  healthComponent: {fileID: 863143366}
+  boydyPoint: {fileID: 863143364}
+  weakPoint: {fileID: 0}
+--- !u!114 &863143366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863143363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 916b0767f21f80f4e8929a330acffe04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &863775969
 PrefabInstance:
   m_ObjectHideFlags: 0
