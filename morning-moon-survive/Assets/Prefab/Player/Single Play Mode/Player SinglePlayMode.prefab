@@ -205,34 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 0}
   inventoryData: {fileID: 11400000, guid: 5747cb1644aa57c4bbbafb0b0312d6d9, type: 2}
-  initialItems:
-  - quantity: 1
-    item: {fileID: 11400000, guid: 6316362a60431224d82f421596a1c9ec, type: 2}
-    itemState: []
-  - quantity: 1
-    item: {fileID: 11400000, guid: 19f17fafa8512c3449bbc4506e62afa2, type: 2}
-    itemState: []
-  - quantity: 1
-    item: {fileID: 11400000, guid: a21bf9d39daadfa428985e4dd1a240ce, type: 2}
-    itemState: []
-  - quantity: 10
-    item: {fileID: 11400000, guid: 957b8439c73f78042be041d268dede03, type: 2}
-    itemState: []
-  - quantity: 10
-    item: {fileID: 11400000, guid: c4a607a8df33f0745902863e489f1f80, type: 2}
-    itemState: []
-  - quantity: 10
-    item: {fileID: 11400000, guid: 7935636f81fade543bb9673f848f2c08, type: 2}
-    itemState: []
-  - quantity: 10
-    item: {fileID: 11400000, guid: b68dc37e177c8b64682c6ea7c6e4bd07, type: 2}
-    itemState: []
-  - quantity: 10
-    item: {fileID: 11400000, guid: 1065f86bdab24714fb665fea33d283f3, type: 2}
-    itemState: []
-  - quantity: 10
-    item: {fileID: 11400000, guid: afc77a80a3204374ea163168dd0a5767, type: 2}
-    itemState: []
+  initialItems: []
   dropClip: {fileID: 0}
   audioSource: {fileID: 6167863316026148137}
   amountController: {fileID: 0}
@@ -510,7 +483,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCollider: {fileID: 8810583160624716799}
-  isPerformingAction: 0
 --- !u!114 &1121488800831802068
 MonoBehaviour:
   m_ObjectHideFlags: 0
