@@ -243,10 +243,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3513111523263473907}
     m_Modifications:
+    - target: {fileID: 1362864114746882572, guid: 96f0d6acdf921dc40824db48cbbe4d94,
+        type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1362864114746882572, guid: 96f0d6acdf921dc40824db48cbbe4d94,
+        type: 3}
+      propertyPath: m_MaxValue
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1720119164301821206, guid: 96f0d6acdf921dc40824db48cbbe4d94,
         type: 3}
       propertyPath: m_Name
       value: HealthBarCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2441672662126409519, guid: 96f0d6acdf921dc40824db48cbbe4d94,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5191044141256725826, guid: 96f0d6acdf921dc40824db48cbbe4d94,
         type: 3}
@@ -348,7 +363,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8900515435335759064, guid: 96f0d6acdf921dc40824db48cbbe4d94,
+        type: 3}
+      propertyPath: healthComponent
+      value: 
+      objectReference: {fileID: 2892746087100403296}
+    m_RemovedComponents:
+    - {fileID: 2962588178209030269, guid: 96f0d6acdf921dc40824db48cbbe4d94, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
