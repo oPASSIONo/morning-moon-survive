@@ -127,15 +127,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isDashing)
         {
-            staminaComponent.TakeAction();
+            Vector2 inputVector = GameInput.Instance.GetMovement();
+            if (inputVector != Vector2.zero)
+            {
+                staminaComponent.TakeAction();
+            }
             if (staminaComponent.isAction)
             {
                 isDashing = true;
                 dashTimeRemaining = dashDuration;
-
-                Vector2 inputVector = GameInput.Instance.GetMovement();
-                if (inputVector!=Vector2.zero)
-                {
                     //staminaComponent.TakeAction();
                     if (staminaComponent.isAction)
                     {
@@ -147,11 +147,10 @@ public class PlayerMovement : MonoBehaviour
 
                         rb.AddForce(dashDirection * dashForce, ForceMode.VelocityChange);
                     }
-                
-                }
             }
         }
     }
+    
     public void SetCurrentSpeed(float value)
     {
         CurrentSpeed = value;
