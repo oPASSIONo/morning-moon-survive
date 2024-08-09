@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log(movePoint.name);
                     objectToMove.Warp(movePoint.transform.position);    
                 }
                 break;
@@ -115,7 +116,6 @@ public class GameManager : MonoBehaviour
     
     private void OnLoadComplete()
     {
-        //LevelManager.Instance.OnLoadComplete -= OnLoadComplete;
         if (isLoadScene)
         {
             InitializeCoreGameObj();
@@ -129,7 +129,6 @@ public class GameManager : MonoBehaviour
     }
     private void OnLoaderFadeOut()
     {
-        //LevelManager.Instance.OnLoaderFadeOut -= OnLoaderFadeOut;
         TimeManager.Instance.SetStartTimer(true);
         GameInput.Instance.SetPlayerInput(true);
         if (isLoadScene)
