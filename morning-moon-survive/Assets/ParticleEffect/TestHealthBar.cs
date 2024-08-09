@@ -6,7 +6,7 @@ using TMPro;
 
 public class TestHealthBar : MonoBehaviour
 {
-    /*public int maxHealth = 100;
+    public int maxHealth = 100;
     public int currentHealth;
     
     public float visibleDuration = 4.0f;
@@ -50,5 +50,5 @@ public class TestHealthBar : MonoBehaviour
     {
         yield return new WaitForSeconds(visibleDuration);
         healthBarshow.SetActive(false);
-    }*/
+    }
 }

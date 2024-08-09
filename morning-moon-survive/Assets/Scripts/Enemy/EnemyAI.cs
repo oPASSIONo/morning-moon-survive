@@ -33,7 +33,6 @@ public class EnemyAI : MonoBehaviour
     private float animationSpeed = 0.5f;
     private bool hasPlayedIdle = false;
     protected bool isAttack = false;
-    private EnemyCombat enemyCombat;
     private Coroutine attackcoroutine;
     
     #region Animation State Hashes
@@ -50,7 +49,6 @@ public class EnemyAI : MonoBehaviour
 
     void Awake()
     {
-        enemyCombat = GetComponent<EnemyCombat>();
         agent = GetComponent<NavMeshAgent>();
         startPosition = transform.position;
         agent.speed = moveSpeed; // Set agent speed
@@ -90,8 +88,8 @@ public class EnemyAI : MonoBehaviour
             player = GameObject.FindGameObjectWithTag("Player");
         }
         
-        /*UnityEngine.Debug.Log(currentState);
-        UnityEngine.Debug.Log(isAttack);*/
+        UnityEngine.Debug.Log(currentState);
+        UnityEngine.Debug.Log(isAttack);
     }
 
     void Roam()
@@ -267,7 +265,6 @@ public class EnemyAI : MonoBehaviour
         yield return new WaitForSeconds(stateInfo.length);
         enemyAnimation.CrossFade(animHash_Idle,0);
         isAttack = false;
-        enemyCombat.SetMoveset(1);
     }
     
     protected virtual IEnumerator AttackMove2()
