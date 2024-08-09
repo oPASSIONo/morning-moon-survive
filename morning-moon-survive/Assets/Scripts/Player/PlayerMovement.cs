@@ -127,28 +127,24 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isDashing)
         {
-            staminaComponent.TakeAction();
-            if (staminaComponent.isAction)
+            isDashing = true;
+            dashTimeRemaining = dashDuration;
+
+            Vector2 inputVector = GameInput.Instance.GetMovement();
+            if (inputVector!=Vector2.zero)
             {
-                isDashing = true;
-                dashTimeRemaining = dashDuration;
-
-                Vector2 inputVector = GameInput.Instance.GetMovement();
-                if (inputVector!=Vector2.zero)
+                staminaComponent.TakeAction();
+                if (staminaComponent.isAction)
                 {
-                    //staminaComponent.TakeAction();
-                    if (staminaComponent.isAction)
-                    {
-                        Transform cameraTransform = Camera.main.transform;
+                    Transform cameraTransform = Camera.main.transform;
 
-                        Vector3 dashDirection = cameraTransform.forward * inputVector.y + cameraTransform.right * inputVector.x;
-                        dashDirection.y = 0f;
-                        dashDirection.Normalize();
+                    Vector3 dashDirection = cameraTransform.forward * inputVector.y + cameraTransform.right * inputVector.x;
+                    dashDirection.y = 0f;
+                    dashDirection.Normalize();
 
-                        rb.AddForce(dashDirection * dashForce, ForceMode.VelocityChange);
-                    }
-                
+                    rb.AddForce(dashDirection * dashForce, ForceMode.VelocityChange);
                 }
+                
             }
             
         }
