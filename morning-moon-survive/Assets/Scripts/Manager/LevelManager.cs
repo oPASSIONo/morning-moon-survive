@@ -16,11 +16,11 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private TMP_Text loadingText;
     private CanvasGroup _canvasGroup;
     private float fadeDuration = 0.5f; // Duration of the fade-out effect in seconds
-    private float delayBeforeFadeOut = 1f; // Delay before starting the fade-out
+    private float delayBeforeFadeOut = 3f; // Delay before starting the fade-out
 
     public event Action OnLoadComplete;
-
     public event Action OnLoaderFadeOut;
+    
     private void Awake()
     {
         if (Instance==null)
@@ -47,7 +47,14 @@ public class LevelManager : MonoBehaviour
         FadeOutLoading();
 
     }
-    
+
+    public void PortalWarp()
+    {
+        _loaderCanvas.SetActive(true);
+        _canvasGroup.alpha = 1f; // Ensure the canvas starts fully visible
+        OnLoadComplete?.Invoke();
+        FadeOutLoading();
+    }
     /*public async void LoadScene(string sceneName)
     {
         var scene = SceneManager.LoadSceneAsync(sceneName);
