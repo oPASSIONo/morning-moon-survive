@@ -11,12 +11,11 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
     [SerializeField] private GameObject _loaderCanvas;
-    //public void SetLoaderCanvas(bool isActive) => _loaderCanvas.SetActive(isActive);
     
     [SerializeField] private TMP_Text loadingText;
     private CanvasGroup _canvasGroup;
     private float fadeDuration = 0.5f; // Duration of the fade-out effect in seconds
-    private float delayBeforeFadeOut = 3f; // Delay before starting the fade-out
+    private float delayBeforeFadeOut = 1f; // Delay before starting the fade-out
 
     public event Action OnLoadComplete;
     public event Action OnLoaderFadeOut;
