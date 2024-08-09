@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameCanvas;
 
     private bool isLoadScene = false;
-
+    private bool isPlayerDie = false;
     
     private void Awake()
     {
@@ -124,8 +124,11 @@ public class GameManager : MonoBehaviour
         GameInput.Instance.SetPlayerInput(false);
         if (isLoadScene)
         {
+            if (isPlayerDie)
+            {
+                RespawnPlayer();
+            }
             //MoveTargetToPoint("Player", TargetSpawnPoint("PlayerSpawn"));
-            
             player.GetComponent<NavMeshAgent>().Warp(new Vector3(0,0,0));
         }
     }
@@ -173,16 +176,19 @@ public class GameManager : MonoBehaviour
         gameCanvas.GetComponent<GameCanvasRef>().notiBox.SetActive(true);
         GameInput.Instance.SetPlayerInput(false);
         PlayerAnimation.Instance.PlayerDeadAnim();
+        isPlayerDie = true;
+        
     }
 
     public void RespawnPlayer()
     {
         PlayerAnimation.Instance.PlayerRespawnAnim();
-        GameInput.Instance.SetPlayerInput(true);
+        //GameInput.Instance.SetPlayerInput(true);
         playerComponent.SetHP(Player.Instance.GetPlayerStatSO().HealthStat.HP);
         playerComponent.SetSatiety(Player.Instance.GetPlayerStatSO().SatietyStat.Satiety);
         playerSatiety.InitialSatietyConsumeOvertime();
-        SaveManager.Instance.SavePlayer();
+        //SaveManager.Instance.SavePlayer();
+        isPlayerDie = false;
     }
     public void PlayerDealDamage(GameObject target, Collider hitCollider)
     {
