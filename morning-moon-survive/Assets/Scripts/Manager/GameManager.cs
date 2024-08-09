@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject craftingSystem;
     [SerializeField] private GameObject gameCanvas;
 
+    private bool isLoadScene = false;
+
     
     private void Awake()
     {
@@ -105,25 +107,36 @@ public class GameManager : MonoBehaviour
     
     public void LoadScene(string sceneName)
     {
+        isLoadScene = true;
         LevelManager.Instance.OnLoadComplete += OnLoadComplete;
         LevelManager.Instance.OnLoaderFadeOut += OnLoaderFadeOut;
         LevelManager.Instance.LoadScene(sceneName);
     }
-
-    private void OnLoaderFadeOut()
-    {
-        LevelManager.Instance.OnLoaderFadeOut -= OnLoaderFadeOut;
-        TimeManager.Instance.SetStartTimer(true);
-        GameInput.Instance.SetPlayerInput(true);
-        SaveManager.Instance.SavePlayer();
-    }
+    
     private void OnLoadComplete()
     {
-        LevelManager.Instance.OnLoadComplete -= OnLoadComplete;
-        InitializeCoreGameObj();
+        //LevelManager.Instance.OnLoadComplete -= OnLoadComplete;
+        if (isLoadScene)
+        {
+            InitializeCoreGameObj();
+        }
         TimeManager.Instance.SetStartTimer(false);
         GameInput.Instance.SetPlayerInput(false);
-        MoveTargetToPoint("Player", TargetSpawnPoint("PlayerSpawn"));
+        if (isLoadScene)
+        {
+            MoveTargetToPoint("Player", TargetSpawnPoint("PlayerSpawn"));
+        }
+    }
+    private void OnLoaderFadeOut()
+    {
+        //LevelManager.Instance.OnLoaderFadeOut -= OnLoaderFadeOut;
+        TimeManager.Instance.SetStartTimer(true);
+        GameInput.Instance.SetPlayerInput(true);
+        if (isLoadScene)
+        {
+            SaveManager.Instance.SavePlayer();
+        }
+        isLoadScene = false;
     }
     private void PersistentObject()
     {
