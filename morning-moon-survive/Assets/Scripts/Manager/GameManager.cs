@@ -106,15 +106,24 @@ public class GameManager : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         LevelManager.Instance.OnLoadComplete += OnLoadComplete;
+        LevelManager.Instance.OnLoaderFadeOut += OnLoaderFadeOut;
         LevelManager.Instance.LoadScene(sceneName);
+    }
+
+    private void OnLoaderFadeOut()
+    {
+        LevelManager.Instance.OnLoaderFadeOut -= OnLoaderFadeOut;
+        TimeManager.Instance.SetStartTimer(true);
+        GameInput.Instance.SetPlayerInput(true);
+        SaveManager.Instance.SavePlayer();
     }
     private void OnLoadComplete()
     {
         LevelManager.Instance.OnLoadComplete -= OnLoadComplete;
         InitializeCoreGameObj();
+        TimeManager.Instance.SetStartTimer(false);
+        GameInput.Instance.SetPlayerInput(false);
         MoveTargetToPoint("Player", TargetSpawnPoint("PlayerSpawn"));
-        SaveManager.Instance.SavePlayer();
-
     }
     private void PersistentObject()
     {

@@ -46,6 +46,8 @@ public class TimeManager : MonoBehaviour
 
     public float DayStartTime => dayStartTime;
     public float NightStartTime => nightStartTime;
+    public bool IsStartTimer { get; private set; }
+    public void SetStartTimer(bool isStart) => IsStartTimer = isStart;
 
     public float CurrentTimeOfDay
     {
@@ -72,7 +74,7 @@ public class TimeManager : MonoBehaviour
         float dayStartInMinutes = dayStartTime * 60f;
         currentTimeOfDay = dayStartInMinutes / (24f * 60f);
     }
-
+    
     private void Start()
     {
         timeMultiplier = 1f / (dayLengthInMinutes * 60f);
@@ -80,8 +82,11 @@ public class TimeManager : MonoBehaviour
 
     private void Update()
     {
-        UpdateTime();
-        UpdateTimeDisplay();
+        if (IsStartTimer)
+        {
+            UpdateTime();
+            UpdateTimeDisplay();
+        }
     }
 
     public void UpdateTime()
