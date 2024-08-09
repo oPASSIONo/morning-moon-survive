@@ -124,7 +124,9 @@ public class GameManager : MonoBehaviour
         GameInput.Instance.SetPlayerInput(false);
         if (isLoadScene)
         {
-            MoveTargetToPoint("Player", TargetSpawnPoint("PlayerSpawn"));
+            //MoveTargetToPoint("Player", TargetSpawnPoint("PlayerSpawn"));
+            
+            player.GetComponent<NavMeshAgent>().Warp(new Vector3(0,0,0));
         }
     }
     private void OnLoaderFadeOut()

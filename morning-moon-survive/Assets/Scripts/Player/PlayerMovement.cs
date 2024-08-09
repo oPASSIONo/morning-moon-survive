@@ -150,7 +150,6 @@ public class PlayerMovement : MonoBehaviour
                 
                 }
             }
-            
         }
     }
     public void SetCurrentSpeed(float value)
