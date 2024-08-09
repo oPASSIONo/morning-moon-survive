@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 /// <summary>
@@ -89,7 +90,12 @@ public class GameInput : MonoBehaviour
     {
         if (PlayerStateManager.Instance.currentState == PlayerStateManager.PlayerState.Normal)
         {
-            OnAction?.Invoke(this, EventArgs.Empty);
+            // Check if the click is over a UI element
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
+                // Perform attack action
+                OnAction?.Invoke(this, EventArgs.Empty);
+            }
         }
     }
 
