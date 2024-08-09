@@ -25,7 +25,7 @@ public class SaveManager : MonoBehaviour
         SavePlayerStat();
         SaveDayAndTime();
         SavePlayerPosition();
-        DebugSave();
+        //DebugSave();
     }
     
     public void LoadPlayer()
@@ -33,7 +33,7 @@ public class SaveManager : MonoBehaviour
         LoadPlayerStat();
         LoadDayAndTime();
         LoadPlayerPosition();
-        DebugLoad();
+        //DebugLoad();
     }
 
     public void Delete()
