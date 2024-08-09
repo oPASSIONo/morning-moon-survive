@@ -5,6 +5,7 @@ using System;
 public class Combat : MonoBehaviour
 {
     [SerializeField] private Collider attackCollider;
+    private PlayerAnimation playerAnimation;
     private bool hasHit = false;
     public bool isPerformingAction { get; private set; } = false;
     public void SetIsPerformingAction(bool isPerform) => isPerformingAction = isPerform;
@@ -13,6 +14,7 @@ public class Combat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerAnimation = GetComponent<PlayerAnimation>();
         GameInput.Instance.OnAction += PerformAction;
         staminaComponent = GetComponent<Stamina>();
     }
@@ -22,11 +24,12 @@ public class Combat : MonoBehaviour
         if (GetComponent<AgentTool>().currentTool != null && !isPerformingAction)
         {
             staminaComponent.TakeAction();
-
-            // Reset the hasHit flag
-            hasHit = false;
-            
-            PlayerAnimation.Instance.PlayerAttackAnim();
+            if (staminaComponent.isAction)
+            {
+                // Reset the hasHit flag
+                hasHit = false;
+                playerAnimation.PlayerAttackAnim();
+            }
             
         }
     }
