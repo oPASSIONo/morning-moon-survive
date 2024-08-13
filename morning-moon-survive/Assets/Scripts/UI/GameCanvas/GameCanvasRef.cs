@@ -11,4 +11,12 @@ public class GameCanvasRef : MonoBehaviour
     public CraftButtonHandler craftButtonHandler;
     public UICraftingPage craftingPage;
     public GameObject notiBox;
+
+    /*[SerializeField] private GameObject inventory;
+
+    public void SetGameCanvasAsDefault()
+    {
+        inventory.SetActive(false);
+        notiBox.SetActive(false);
+    }*/
 }

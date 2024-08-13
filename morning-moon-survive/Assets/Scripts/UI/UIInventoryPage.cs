@@ -17,7 +17,8 @@ namespace Inventory.UI
         [SerializeField] private MouseFollower mouseFollower;
         private List<UIInventoryItem> listOfUIItems = new List<UIInventoryItem>();
         [SerializeField] private RectTransform hotbarPanel;
-
+        [SerializeField] private RectTransform ingameHotbarPanel;
+        [SerializeField] private RectTransform inventoryHotbarPanel;
         private int currentlyDraggedItemIndex = -1;
 
         public event Action<int> OnDescriptionRequested, OnItemActionRequested, OnStartDragging;
@@ -241,6 +242,29 @@ namespace Inventory.UI
             }
         }
 
-        
+        public void MoveHotbarPanel(bool isInventoryOpen)
+        {
+            // Set the new parent based on the inventory state
+            if (isInventoryOpen)
+            {
+                hotbarPanel.SetParent(inventoryHotbarPanel);
+            }
+            else
+            {
+                hotbarPanel.SetParent(ingameHotbarPanel);
+            }
+
+            // Set the anchor preset to center
+            RectTransform hotbarRectTransform = hotbarPanel.GetComponent<RectTransform>();
+            hotbarRectTransform.anchorMin = new Vector2(0.5f, 0.5f); // Center anchor
+            hotbarRectTransform.anchorMax = new Vector2(0.5f, 0.5f); // Center anchor
+            hotbarRectTransform.pivot = new Vector2(0.5f, 0.5f); // Center pivot
+
+            // Optionally, set the anchored position to zero to center the panel exactly
+            hotbarRectTransform.anchoredPosition = Vector2.zero;
+
+            // Reset the local scale to ensure it remains consistent
+            hotbarPanel.localScale = Vector3.one;
+        }
     }
 }

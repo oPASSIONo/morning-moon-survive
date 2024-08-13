@@ -197,6 +197,7 @@ namespace Inventory
             {
                 case PlayerStateManager.PlayerState.Inventory:
                     inventoryUI.Show(true);
+                    inventoryUI.MoveHotbarPanel(true);
                     foreach (var item in inventoryData.GetCurrentInventoryState())
                     {
                         inventoryUI.UpdateData(item.Key,item.Value.item.ItemImage,item.Value.quantity);
@@ -204,6 +205,7 @@ namespace Inventory
                     break;
                 case PlayerStateManager.PlayerState.Normal:
                     inventoryUI.Show(false);
+                    inventoryUI.MoveHotbarPanel(false);
                     break;
             }
         }
