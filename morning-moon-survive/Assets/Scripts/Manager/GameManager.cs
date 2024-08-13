@@ -174,15 +174,30 @@ public class GameManager : MonoBehaviour
 
     private void OnPlayerDie()
     {
-        gameCanvas.GetComponent<GameCanvasRef>().notiBox.SetActive(true);
+        // Start the coroutine to handle the delay
+        StartCoroutine(HandlePlayerDeath());
+    }
+
+    private IEnumerator HandlePlayerDeath()
+    {
+        // Perform actions before the delay
         GameInput.Instance.SetPlayerInput(false);
         PlayerAnimation.Instance.PlayerDeadAnim();
+        player.GetComponent<Collider>().enabled = false;
         isPlayerDie = true;
         
+        // Wait for 3 seconds
+        yield return new WaitForSeconds(3f);
+
+        // Perform actions after the delay
+        gameCanvas.GetComponent<GameCanvasRef>().notiBox.SetActive(true);
+        Debug.Log($"is player die : {isPlayerDie}");
     }
 
     public void RespawnPlayer()
     {
+        player.GetComponent<Collider>().enabled = true;
+        gameCanvas.GetComponent<GameCanvasRef>().notiBox.SetActive(false);
         PlayerAnimation.Instance.PlayerRespawnAnim();
         //GameInput.Instance.SetPlayerInput(true);
         playerComponent.SetHP(Player.Instance.GetPlayerStatSO().HealthStat.HP);
