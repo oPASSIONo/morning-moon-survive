@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3143057908577013699}
   - component: {fileID: 7249539107311796038}
   - component: {fileID: 5732760671451001303}
+  - component: {fileID: 1134990625475719370}
+  - component: {fileID: 2306900709048121942}
   m_Layer: 10
   m_Name: RockModel
   m_TagString: Untagged
@@ -71,6 +73,36 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.005777359, y: 0.270321, z: -0.2118975}
   m_TimeToStationary: 0.5
+--- !u!114 &1134990625475719370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3219349555140465926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1583236543420b244ba28207c156af99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyStatsSO: {fileID: 11400000, guid: f152adcdbca19874bb038a9f205e642b, type: 2}
+  dropItems:
+  - {fileID: 6512905603998105148, guid: 3157c7b771e1b3a4ab106ceba9fcc58b, type: 3}
+  healthComponent: {fileID: 2306900709048121942}
+  boydyPoint: {fileID: 7249539107311796038}
+  weakPoint: {fileID: 0}
+--- !u!114 &2306900709048121942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3219349555140465926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 916b0767f21f80f4e8929a330acffe04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4689642183929473126
 GameObject:
   m_ObjectHideFlags: 0
