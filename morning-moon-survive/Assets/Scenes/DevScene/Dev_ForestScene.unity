@@ -3187,12 +3187,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8302768322386350247, guid: 95976e319e731ab4fbddb00564cc81db,
-        type: 3}
-      propertyPath: enemyStatsSO
-      value: 
-      objectReference: {fileID: 11400000, guid: bdff1ba641bbc0441a8ff45cf9e7aeeb,
-        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7717,23 +7711,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7345856522431734251, guid: 68f754ed81d74994c882650457e7ead9,
+    - target: {fileID: 7651938071649456347, guid: 68f754ed81d74994c882650457e7ead9,
         type: 3}
-      propertyPath: dropItems.Array.size
-      value: 1
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7345856522431734251, guid: 68f754ed81d74994c882650457e7ead9,
+    - target: {fileID: 7651938071649456347, guid: 68f754ed81d74994c882650457e7ead9,
         type: 3}
-      propertyPath: dropItems.Array.data[0]
-      value: 
-      objectReference: {fileID: 7382413393457835558, guid: cd11386b48fb3cc4e9b2fe94a4cb55a7,
-        type: 3}
-    - target: {fileID: 7345856522431734251, guid: 68f754ed81d74994c882650457e7ead9,
-        type: 3}
-      propertyPath: dropItems.Array.data[1]
-      value: 
-      objectReference: {fileID: 4372370123462644625, guid: 512c7f81693b91241be1ba817a7dfe08,
-        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8363582561729201969, guid: 68f754ed81d74994c882650457e7ead9,
         type: 3}
       propertyPath: m_Name

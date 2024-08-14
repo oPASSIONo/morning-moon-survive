@@ -117,8 +117,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1583236543420b244ba28207c156af99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyStatsSO: {fileID: 11400000, guid: 2ee366e35f6e62246854b941704a583c, type: 2}
-  dropItems: []
+  enemyStatsSO: {fileID: 11400000, guid: bdff1ba641bbc0441a8ff45cf9e7aeeb, type: 2}
+  dropItems:
+  - {fileID: 9027762958247691069, guid: 0881efc69b39b7d4483a8727fc0265bf, type: 3}
   healthComponent: {fileID: 4542744334953569380}
   boydyPoint: {fileID: 2293247825055258852}
   weakPoint: {fileID: 0}
