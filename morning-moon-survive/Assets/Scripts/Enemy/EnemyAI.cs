@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -10,31 +12,36 @@ public class EnemyAI : MonoBehaviour
         Roam,
         Chase,
         Fight,
-        Attacking
+        Attacking,
+        Normal
     }
     
     public NavMeshAgent agent;
     [SerializeField] private float roamRadius; // Radius for enemy roaming
     [SerializeField] private float chaseRadius; // Radius for chasing player
     [SerializeField] private float attackRadius; // Radius for attacking player
-    [SerializeField] private float moveSpeed; // Enemy movement speed
+    [SerializeField] protected float moveSpeed; // Enemy movement speed
     //[SerializeField] public Animation anim;
     [SerializeField] public Animator enemyAnimation;
     [SerializeField] private bool isFriendly;
     
-    public float attackDelayTime { get; private set; } = 3f;
+    public float attackDelayTime { get; private set; } = 2f;
 
     private Vector3 startPosition; // Enemy's starting position
     private float maxChaseDistance = 30;
-    private GameObject player;
+    protected GameObject player;
     private EnemyState currentState;
-    private bool isWalking;
+    //private bool isWalking;
     private float attackTimer = 0;
     private float animationSpeed = 0.5f;
     private bool hasPlayedIdle = false;
     protected bool isAttack = false;
-    private EnemyCombat enemyCombat;
-    private Coroutine attackcoroutine;
+    private bool isEnemyMoving = false;
+    protected bool isModelUsingAction = false;
+    protected bool isModelRunning = false;
+    protected bool lookAtPlayer = false;
+    protected EnemyCombat enemyCombat;
+    private Coroutine coroutine;
     
     #region Animation State Hashes
 
@@ -53,12 +60,23 @@ public class EnemyAI : MonoBehaviour
         enemyCombat = GetComponent<EnemyCombat>();
         agent = GetComponent<NavMeshAgent>();
         startPosition = transform.position;
-        agent.speed = moveSpeed; // Set agent speed
+        agent.speed = moveSpeed;
         player = GameObject.FindGameObjectWithTag("Player");
         currentState = EnemyState.Roam;
+        
+        SetState();
     }
 
-    void Update()
+    private void Update()
+    {
+        HandleEnemyMoveAnimation();
+        if (lookAtPlayer)
+        {
+            LookAtPlayer();
+        }
+    }
+
+    void SetState()
     {
         
         if (player != null)
@@ -66,24 +84,20 @@ public class EnemyAI : MonoBehaviour
             switch (currentState)
             {
                 case EnemyState.Roam:
-                    Roam();
+                    StartCoroutine(Roam());
                     break;
                 case EnemyState.Chase:
-                    ChasePlayer();
+                    StartCoroutine(ChasePlayer());
                     break;
                 case EnemyState.Fight:
-                    FightPlayer();
+                    StartCoroutine(FightPlayer());
                     break;
-               /* case  EnemyState.Attacking:
-                    Attacking();
-                    break;*/
+                case  EnemyState.Attacking:
+                    StartCoroutine(Attacking());
+                    break;
 
             }
-
-            if (currentState == EnemyState.Roam || currentState == EnemyState.Chase)
-            {
-                IdleWalkController();
-            }
+            
         }
         else
         {
@@ -94,109 +108,135 @@ public class EnemyAI : MonoBehaviour
         UnityEngine.Debug.Log(isAttack);*/
     }
 
-    void Roam()
+    private IEnumerator Roam()
     {
-        if (agent.remainingDistance <= agent.stoppingDistance)
+        while (currentState == EnemyState.Roam )
         {
-            // Generate random movement within radius
-            Vector3 randomOffset = Random.insideUnitSphere * roamRadius;
-            Vector3 targetPosition = startPosition + randomOffset;
-            // Move towards target position
-            agent.SetDestination(targetPosition);
-        }
+            lookAtPlayer = false;
+            if (agent.remainingDistance <= agent.stoppingDistance)
+            {
+                // Generate random movement within radius
+                Vector3 randomOffset = Random.insideUnitSphere * roamRadius;
+                Vector3 targetPosition = startPosition + randomOffset;
+                // Move towards target position
+                agent.SetDestination(targetPosition);
+            }
 
-        // Check if player is within chase radius
-        if (IsPlayerInRange() && !isFriendly)
-        {
-            currentState = EnemyState.Chase;
+            // Check if player is within chase radius
+            if (IsPlayerInRange() && !isFriendly)
+            {
+                currentState = EnemyState.Chase;
+            }
+            yield return null;
         }
-
+        SetState();
     }
 
-    void ChasePlayer()
+    private IEnumerator ChasePlayer()
     {
-        if (player != null)
+        while (currentState == EnemyState.Chase)
         {
-            // Check if player is still within chase radius and enemy is within max distance
-            if (IsPlayerInRange(chaseRadius) && IsInChaseDistance(startPosition))
+            if (player != null)
             {
-                // Move towards player
-                agent.SetDestination(player.transform.position);
-            }
-            // Check if player is outside chase radius (stop chasing)
-            else //(IsPlayerInRange(chaseRadius) == false)
-            {
-                currentState = EnemyState.Roam;
-                agent.SetDestination(transform.position);
-            }
+                // Check if player is still within chase radius and enemy is within max distance
+                if (IsPlayerInRange(chaseRadius) && IsInChaseDistance(startPosition))
+                {
+                    // Move towards player
+                    agent.SetDestination(player.transform.position);
+                }
+                // Check if player is outside chase radius (stop chasing)
+                else
+                {
+                    currentState = EnemyState.Roam;
+                    agent.SetDestination(transform.position);
+                    StartCoroutine(DisableChase());
+                }
             
-            if (IsPlayerInRange(attackRadius))
+                if (IsPlayerInRange(attackRadius))
+                {
+                    currentState = EnemyState.Fight;
+                    attackTimer = 0;
+                }
+
+                if (isAttack)
+                {
+                    currentState = EnemyState.Fight;
+                }
+
+            }
+            else
             {
-                currentState = EnemyState.Fight;
-                attackTimer = 0;
+                player = GameObject.FindGameObjectWithTag("Player");
+                Debug.LogError("Player not found with tag 'Player'");
+            
             }
 
-            if (isAttack)
-            {
-                currentState = EnemyState.Fight;
-            }
-
+            yield return null;
         }
-        else
-        {
-            player = GameObject.FindGameObjectWithTag("Player");
-            Debug.LogError("Player not found with tag 'Player'");
-            
-        }
+        SetState();
     }
     
-    void FightPlayer()
+    private IEnumerator FightPlayer()
     {
-        // Stop movement
+        attackTimer = 0;
         agent.isStopped = true;
-        attackTimer += Time.deltaTime;
-
-        Vector3 targetPosition = new Vector3(player.transform.position.x, 0, player.transform.position.z);
-        transform.LookAt(targetPosition);
-        
-        // Play idle animation only once on entering FightState
-        if (!hasPlayedIdle)
+        while (currentState == EnemyState.Fight)
         {
-            isWalking = false;
-            //anim.CrossFade("Idle");
-            enemyAnimation.CrossFade(animHash_Idle,1f);
-            hasPlayedIdle = true;
-        }
+            // Stop movement
+            attackTimer += Time.deltaTime;
 
-        if (!isAttack && IsPlayerInRange(attackRadius))
-        {
-          //  currentState = EnemyState.Attacking;
-          Attack(attackDelayTime);
-        }
+            lookAtPlayer = true;
+        
+            // Play idle animation only once on entering FightState
+            if (!hasPlayedIdle)
+            {
+                //anim.CrossFade("Idle");
+                enemyAnimation.CrossFade(animHash_Idle,1f);
+                hasPlayedIdle = true;
+            }
+
+            if (!isAttack && IsPlayerInRange(attackRadius) && attackTimer >= attackDelayTime)
+            {
+                currentState = EnemyState.Attacking;
+            }
         
         
-        // Check if player is outside attack radius (optional)
-        if (IsPlayerInRange(attackRadius) == false && !isAttack)
-        {
-            currentState = EnemyState.Chase;
-            agent.isStopped = false; // Resume movement
-            hasPlayedIdle = false;
-            isWalking = true;
+            // Check if player is outside attack radius (optional)
+            if (IsPlayerInRange(attackRadius) == false && !isAttack)
+            {
+                currentState = EnemyState.Chase;
+                hasPlayedIdle = false;
 
+            }
+
+            yield return null;
         }
+        agent.isStopped = false; // Resume movement
+        lookAtPlayer = false;
+        SetState();
     }
 
-    void Attacking()
+    private IEnumerator Attacking()
     {
-        
+        lookAtPlayer = true;
+        Attack();
+            while (isAttack)
+            {
+                yield return null;
+            }
+
+            //StartCoroutine(SoftenLookAt());
+
+            currentState = EnemyState.Fight;
+            SetState();
     }
     
-    bool IsPlayerInRange()
+    protected bool IsPlayerInRange()
     {
         return IsPlayerInRange(chaseRadius);
     }
     
-    bool IsPlayerInRange(float radius)
+    protected bool IsPlayerInRange(float radius)
     {
         if (player != null)
         {
@@ -213,10 +253,9 @@ public class EnemyAI : MonoBehaviour
         return distance <= maxChaseDistance;
     }
 
-    void RandomAttackAnim(float attackCD)
+    void RandomAttackAnim()
     {
-        if(attackTimer >= attackCD)
-        {
+        isAttack = true;
             int randomAttack = Random.Range(0, 3);
             switch (randomAttack)
             {
@@ -230,33 +269,72 @@ public class EnemyAI : MonoBehaviour
                     StartCoroutine(AttackMove3());
                     break;
             }
-
-            attackTimer = 0;
-        }
+            
     }
 
-    void Attack(float attackCD)
+    void Attack()
     {
         if (!isAttack)
         {
-            RandomAttackAnim(attackCD);
+            RandomAttackAnim();
+        }
+        
+    }
+
+    private void HandleEnemyMoveAnimation()
+    {
+        isEnemyMoving = agent.velocity.magnitude > 0.1f;
+        if (isEnemyMoving && !isModelUsingAction)
+        {
+            if (!isModelRunning && !isModelUsingAction)
+            {
+                isModelRunning = true;
+                enemyAnimation.CrossFade(animHash_Walk, 0.1f);
+            }
+        }
+        else
+        {
+            if (isModelRunning && !isModelUsingAction)
+            {
+                isModelRunning = false;
+                enemyAnimation.CrossFade(animHash_Idle, 0.25f);
+            }
+        }
+        
+    }
+
+    private void LookAtPlayer()
+    {
+        Vector3 targetPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+        transform.LookAt(targetPosition);
+    }
+    
+    private IEnumerator SoftenLookAt()
+    {
+        float elapsedTime = 0f;
+        float lerpDuration = 0.5f; // Adjust lerp duration as needed
+
+        while (elapsedTime < lerpDuration)
+        {
+            float t = elapsedTime / lerpDuration;
+            Vector3 targetDirection = player.transform.position - transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);  
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, t);
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
 
+        // Re-enable full LookAt behavior
+        lookAtPlayer = true;
     }
-    void IdleWalkController()
+
+    private IEnumerator DisableChase()
     {
-        isWalking = agent.velocity.magnitude > 0.1f;
-        // Update animation based on movement state
-        if (isWalking && !enemyAnimation.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
-        {
-            enemyAnimation.CrossFade(animHash_Walk,0);
-            //anim.Play("Walk");
-        }
-        else if (!isWalking && !enemyAnimation.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-        {
-            enemyAnimation.CrossFade(animHash_Idle,0.5f);
-            //anim.CrossFade("Idle");
-        }
+        float tempChaseRadius = chaseRadius;
+        chaseRadius = 0;
+        yield return new WaitForSeconds(3);
+        chaseRadius = tempChaseRadius;
     }
 
     protected virtual IEnumerator AttackMove1()
