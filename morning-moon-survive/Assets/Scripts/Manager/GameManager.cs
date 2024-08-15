@@ -77,26 +77,57 @@ public class GameManager : MonoBehaviour
     }
     
 
-    private GameObject TargetSpawnPoint(string targetSpawnPoint)
+    private Transform TargetSpawnPoint(string targetSpawnPoint)
     {
         return SpawnPointManager.Instance.GetSpawnPoint(targetSpawnPoint);
     }
 
+    public void MoveTargetToPoint(string moveTarget, string spawnPointName)
+    {
+        StartCoroutine(WaitAndMove(moveTarget, spawnPointName));
+    }
 
-    public void MoveTargetToPoint(string moveTarget,GameObject movePoint)
+    private IEnumerator WaitAndMove(string moveTarget, string spawnPointName)
+    {
+        NavMeshAgent objectToMove = null;
+        
+        while (true)
+        {
+            Transform movePointTransform = SpawnPointManager.Instance.GetSpawnPoint(spawnPointName);
+
+            if (movePointTransform != null)
+            {
+                if (moveTarget == "Player")
+                {
+                    objectToMove = player.GetComponent<NavMeshAgent>();
+                    objectToMove.Warp(movePointTransform.position);
+                    Debug.Log($"Player moved to: {movePointTransform.position}");
+                    yield break; // Exit the coroutine once the player is moved
+                }
+            }
+            else
+            {
+                Debug.Log($"Waiting for spawn point '{spawnPointName}' to be registered...");
+                yield return null; // Wait for the next frame and check again
+            }
+        }
+    }
+
+
+    public void MoveTargetToPoint(string moveTarget,GameObject movePointGameObject)
     {
         NavMeshAgent objectToMove=null;
         switch (moveTarget)
         {
             case "Player":
                 objectToMove = player.GetComponent<NavMeshAgent>();
-                if (movePoint==null)
+                if (movePointGameObject==null)
                 {
                     Debug.Log("Move Point Null");
                 }
                 else
                 {
-                    objectToMove.Warp(movePoint.transform.position);    
+                    objectToMove.Warp(movePointGameObject.transform.position);    
                 }
                 break;
             default:
@@ -115,10 +146,11 @@ public class GameManager : MonoBehaviour
     
     private void OnLoadComplete()
     {
-        //LevelManager.Instance.OnLoadComplete -= OnLoadComplete;
         if (isLoadScene)
         {
             InitializeCoreGameObj();
+            // Ensure the spawn points are cleared from the previous scene
+            SpawnPointManager.Instance.ClearSpawnPoints();
         }
         TimeManager.Instance.SetStartTimer(false);
         GameInput.Instance.SetPlayerInput(false);
@@ -128,17 +160,19 @@ public class GameManager : MonoBehaviour
             {
                 RespawnPlayer();
             }
-            //MoveTargetToPoint("Player", TargetSpawnPoint("PlayerSpawn"));
-            player.GetComponent<NavMeshAgent>().Warp(new Vector3(0,0,0));
         }
+        
     }
     private void OnLoaderFadeOut()
     {
-        //LevelManager.Instance.OnLoaderFadeOut -= OnLoaderFadeOut;
         TimeManager.Instance.SetStartTimer(true);
         GameInput.Instance.SetPlayerInput(true);
+
         if (isLoadScene)
         {
+            
+            MoveTargetToPoint("Player","PlayerSpawn");
+
             SaveManager.Instance.SavePlayer();
         }
         isLoadScene = false;
