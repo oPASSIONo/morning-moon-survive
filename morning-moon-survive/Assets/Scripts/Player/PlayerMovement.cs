@@ -51,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
             switch (PlayerStateManager.Instance.currentState)
             {
                 case PlayerStateManager.PlayerState.Normal:
+                    PlayerAnimation.Instance.setAnimationSpeed(2f);
                     PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Dash);
                     break;
             }
@@ -59,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 isDashing = false;
                 rb.velocity = Vector3.zero; // Stop the dash
+                PlayerAnimation.Instance.setAnimationSpeed(1f);
                 switch (PlayerStateManager.Instance.currentState)
                 {
                     case PlayerStateManager.PlayerState.Dash:

@@ -184,4 +184,9 @@ public class PlayerAnimation : MonoBehaviour
         isModelUsingAction = false;
         isModelRunning = false;
     }
+
+    public void setAnimationSpeed(float changeSpeed)
+    {
+        modelAnimator.SetFloat("speed", changeSpeed);
+    }
 }
