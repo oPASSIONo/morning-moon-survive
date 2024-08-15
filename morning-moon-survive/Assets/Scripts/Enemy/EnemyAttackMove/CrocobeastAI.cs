@@ -4,18 +4,13 @@ using UnityEngine;
 
 public class CrocobeastAI : EnemyAI
 {
-
-    private EnemyAI enemyAI;
+    
 
     private float attack1Range = 8f;
     private float attack2Range = 6f;
     private float attack3Range = 5f;
-    void Start()
-    {
-        enemyAI = GetComponent<EnemyAI>();
-    }
 
-    
+
     protected override IEnumerator AttackMove1() //TailSlap
     {
         if(!IsPlayerInRange(attack1Range))

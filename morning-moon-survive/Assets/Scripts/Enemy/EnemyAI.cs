@@ -28,7 +28,7 @@ public class EnemyAI : MonoBehaviour
     public float attackDelayTime { get; private set; } = 2f;
 
     private Vector3 startPosition; // Enemy's starting position
-    private float maxChaseDistance = 30;
+    private float maxChaseDistance = 40;
     protected GameObject player;
     private EnemyState currentState;
     //private bool isWalking;
