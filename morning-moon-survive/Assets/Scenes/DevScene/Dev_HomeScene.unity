@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1641,7 +1641,7 @@ GameObject:
   - component: {fileID: 1412906151}
   m_Layer: 0
   m_Name: Player Spawn Position
-  m_TagString: PlayerSpawn
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1673,7 +1673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e510030278f995d4a882c93fc2df41f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPointTag: PlayerSpawn
+  spawnPointName: PlayerSpawn
 --- !u!4 &1434676227 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c0b9718009641a243aee61ba9bfd4ed0,

@@ -1,45 +1,51 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-
+using System.Collections.Generic;
 
 public class SpawnPointManager : MonoBehaviour
 {
-    public static SpawnPointManager Instance { get; private set; }
+    public static SpawnPointManager Instance;
 
-    private Dictionary<string, GameObject> spawnPoints = new Dictionary<string, GameObject>();
+    private Dictionary<string, Transform> spawnPoints = new Dictionary<string, Transform>();
+    public event Action OnSpawnPointsRegistered;
 
     private void Awake()
     {
-        // Singleton Pattern Implementation
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Keep this manager alive across scenes
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject); // Destroy any duplicate manager
+            Destroy(gameObject);
         }
     }
 
-    public void RegisterSpawnPoint(string tag, GameObject spawnPoint)
+    public void RegisterSpawnPoint(string spawnPointName, Transform spawnPointTransform)
     {
-        if (!spawnPoints.ContainsKey(tag))
+        if (!spawnPoints.ContainsKey(spawnPointName))
         {
-            spawnPoints.Add(tag, spawnPoint);
-            Debug.Log(tag);
-            Debug.Log(spawnPoint.name);
+            spawnPoints.Add(spawnPointName, spawnPointTransform);
+            Debug.Log($"Spawn Point {spawnPointName} registered.");
         }
+
+        // If all spawn points are registered, notify listeners
+        OnSpawnPointsRegistered?.Invoke();
     }
 
-    public GameObject GetSpawnPoint(string targetSpawnPoint)
+    public Transform GetSpawnPoint(string spawnPointName)
     {
-        spawnPoints.TryGetValue(targetSpawnPoint, out GameObject spawnPoint);
-        return spawnPoint;
+        if (spawnPoints.TryGetValue(spawnPointName, out Transform spawnPointTransform))
+        {
+            return spawnPointTransform;
+        }
+        return null;
     }
 
     public void ClearSpawnPoints()
     {
-        spawnPoints.Clear();
+        spawnPoints.Clear(); // Clear spawn points when switching scenes
     }
 }
+
