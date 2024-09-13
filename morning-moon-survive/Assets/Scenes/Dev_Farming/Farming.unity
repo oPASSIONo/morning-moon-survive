@@ -299,7 +299,17 @@ PrefabInstance:
     - target: {fileID: 2137510335835960653, guid: 7ae0f206ce4c5274fbf79e792bea7666,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2137510335835960653, guid: 7ae0f206ce4c5274fbf79e792bea7666,
+        type: 3}
+      propertyPath: inventoryUI
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2137510335835960653, guid: 7ae0f206ce4c5274fbf79e792bea7666,
+        type: 3}
+      propertyPath: amountController
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2216345302023337654, guid: 7ae0f206ce4c5274fbf79e792bea7666,
         type: 3}
@@ -366,6 +376,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7629999476472677069, guid: 7ae0f206ce4c5274fbf79e792bea7666,
+        type: 3}
+      propertyPath: toolsList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7629999476472677069, guid: 7ae0f206ce4c5274fbf79e792bea7666,
+        type: 3}
+      propertyPath: toolsList.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 62839023aaf55364ea1c396fbeddcbef,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

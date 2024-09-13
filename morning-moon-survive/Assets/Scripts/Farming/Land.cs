@@ -21,7 +21,7 @@ public class Land : MonoBehaviour
         SwitchLandStatus(LandStatus.Soil);
     }
 
-    private void SwitchLandStatus(LandStatus statusToSwitch)
+    public void SwitchLandStatus(LandStatus statusToSwitch)
     {
         landStatus = statusToSwitch;
         Material materialToSwitch=soilMat;
@@ -44,5 +44,10 @@ public class Land : MonoBehaviour
     public void Select(bool toggle)
     {
         select.SetActive(toggle);
+    }
+
+    public void Interact()
+    {
+        SwitchLandStatus(LandStatus.Farmland);
     }
 }

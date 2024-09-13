@@ -47,7 +47,7 @@ namespace Inventory.Model
         Consumable,
         Treasure,
         ResourceAndFarm,
-        Fishing
+        Farming
         // Add more categories as needed
     }
 

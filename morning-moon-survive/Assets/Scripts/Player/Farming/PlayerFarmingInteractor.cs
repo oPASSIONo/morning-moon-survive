@@ -9,7 +9,7 @@ public class PlayerFarmingInteractor : MonoBehaviour
     [SerializeField] private Color rayColor = Color.green;        // Color of the raycast line in the Scene view.
 
     private Transform _cachedTransform;                           // Cached reference to the player's transform for performance.
-    private Land selectedLand = null;                             // Reference to the currently selected land.
+    public Land SelectedLand { get; private set; } = null;                             // Reference to the currently selected land.
 
     private void Awake()
     {
@@ -59,21 +59,26 @@ public class PlayerFarmingInteractor : MonoBehaviour
     // Select a new piece of land, deselecting the previous one if applicable
     private void SelectLand(Land land)
     {
-        if (selectedLand != land)                                 // Only select a new land if it's not already selected.
+        if (SelectedLand != land)                                 // Only select a new land if it's not already selected.
         {
             DeselectCurrentLand();                                // Deselect previously selected land.
-            selectedLand = land;
-            selectedLand.Select(true);                            // Mark the new land as selected.
+            SelectedLand = land;
+            SelectedLand.Select(true);                            // Mark the new land as selected.
         }
     }
 
     // Deselect the currently selected land if any
     private void DeselectCurrentLand()
     {
-        if (selectedLand != null)
+        if (SelectedLand != null)
         {
-            selectedLand.Select(false);                           // Deselect the land.
-            selectedLand = null;                                  // Clear the reference.
+            SelectedLand.Select(false);                           // Deselect the land.
+            SelectedLand = null;                                  // Clear the reference.
         }
+    }
+
+    public void ToolInteract()
+    {
+        SelectedLand.Interact();
     }
 }
