@@ -34,8 +34,6 @@ public class Farming : MonoBehaviour
                     //playerAnimation.
                 }
             }
-            
-            
         }
     }
 }

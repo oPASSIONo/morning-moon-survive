@@ -21,7 +21,17 @@ namespace Inventory.Model
 
         [field: SerializeField] public Sprite ItemImage { get; set; }
         [field: SerializeField] public ItemCategory ItemCategory { get; set; }
-        [field: SerializeField] public string ItemSubCategory { get; set; }
+        [field: SerializeField] public ItemSubCategory ItemSubCategory { get; set; } // Subcategory field
+        private static Dictionary<ItemCategory, List<ItemSubCategory>> _subCategoryMappings = new Dictionary<ItemCategory, List<ItemSubCategory>>()
+        {
+            { ItemCategory.Farming, new List<ItemSubCategory> { ItemSubCategory.Watering} },
+            // Add more mappings as needed
+        };
+
+        public static List<ItemSubCategory> GetSubcategories(ItemCategory category)
+        {
+            return _subCategoryMappings.ContainsKey(category) ? _subCategoryMappings[category] : new List<ItemSubCategory>();
+        }
         [field: SerializeField] public ItemRarity ItemRarity { get; set; }
         [field: SerializeField] public List<ItemParameter> DefaultParametersList { get; set; }
         
@@ -39,7 +49,7 @@ namespace Inventory.Model
             return other.itemParameter == itemParameter;
         }
     }
-
+    
     public enum ItemCategory
     {
         Cosmetics,
@@ -50,7 +60,12 @@ namespace Inventory.Model
         Farming
         // Add more categories as needed
     }
-
+    public enum ItemSubCategory
+    {
+        Watering,
+        Dig
+        // Add more subcategories as needed
+    }
     public enum ItemRarity
     {
         Common,

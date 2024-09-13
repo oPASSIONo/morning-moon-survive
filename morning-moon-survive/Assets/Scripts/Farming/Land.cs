@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Inventory.Model;
 using UnityEngine;
 
 public class Land : MonoBehaviour
@@ -46,11 +47,18 @@ public class Land : MonoBehaviour
         select.SetActive(toggle);
     }
 
-    public void Interact()
+    public void Interact(ToolItemSO toolItemSo)
     {
-        if (landStatus == LandStatus.Soil)
+        switch (toolItemSo.ItemSubCategory)
         {
-            SwitchLandStatus(LandStatus.Farmland);
+            case ItemSubCategory.Watering:
+                SwitchLandStatus(LandStatus.Watered);
+                Debug.Log("Watered");
+                break;
+            case ItemSubCategory.Dig:
+                SwitchLandStatus(LandStatus.Farmland);
+                Debug.Log("Dig");
+                break;
         }
     }
 }
