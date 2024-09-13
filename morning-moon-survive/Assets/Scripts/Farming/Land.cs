@@ -52,12 +52,24 @@ public class Land : MonoBehaviour
         switch (toolItemSo.ItemSubCategory)
         {
             case ItemSubCategory.Watering:
-                SwitchLandStatus(LandStatus.Watered);
-                Debug.Log("Watered");
+                if (landStatus==LandStatus.Farmland)
+                {
+                    SwitchLandStatus(LandStatus.Watered);
+                }
+                else
+                {
+                    
+                }
                 break;
             case ItemSubCategory.Dig:
-                SwitchLandStatus(LandStatus.Farmland);
-                Debug.Log("Dig");
+                if (landStatus==LandStatus.Soil)
+                {
+                    SwitchLandStatus(LandStatus.Farmland);
+                }
+                else
+                {
+                    //dig the plant out
+                }
                 break;
         }
     }
