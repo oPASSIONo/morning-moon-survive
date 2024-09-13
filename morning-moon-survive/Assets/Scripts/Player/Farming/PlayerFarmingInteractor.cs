@@ -64,6 +64,7 @@ public class PlayerFarmingInteractor : MonoBehaviour
             DeselectCurrentLand();                                // Deselect previously selected land.
             SelectedLand = land;
             SelectedLand.Select(true);                            // Mark the new land as selected.
+            Debug.Log("Landed");
         }
     }
 

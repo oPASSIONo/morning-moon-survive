@@ -23,7 +23,7 @@ public class Farming : MonoBehaviour
     {
         if (GetComponent<AgentTool>().currentTool.ItemCategory==ItemCategory.Farming && !isPerformingAction)
         {
-            if (farmingInteractor.SelectedLand)
+            if (farmingInteractor.SelectedLand!=null)
             {
                 staminaComponent.TakeAction();
                 if (staminaComponent.isAction)

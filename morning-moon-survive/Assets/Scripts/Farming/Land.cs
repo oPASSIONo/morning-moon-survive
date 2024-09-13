@@ -48,6 +48,9 @@ public class Land : MonoBehaviour
 
     public void Interact()
     {
-        SwitchLandStatus(LandStatus.Farmland);
+        if (landStatus == LandStatus.Soil)
+        {
+            SwitchLandStatus(LandStatus.Farmland);
+        }
     }
 }

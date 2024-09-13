@@ -79,7 +79,7 @@ Transform:
   m_GameObject: {fileID: 3507693090846785212}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.968, z: -0.056}
+  m_LocalPosition: {x: 0, y: -1.2, z: -0.056}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -100,7 +100,7 @@ MonoBehaviour:
   rayDistance: 1
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   rayColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &4770661126664566695
 GameObject:
@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 9025921128899043440}
   - component: {fileID: 1121488800831802068}
   - component: {fileID: 5523529474477770740}
+  - component: {fileID: 1342840075718971357}
   m_Layer: 0
   m_Name: Player SinglePlayMode
   m_TagString: Player
@@ -255,7 +256,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 0}
   inventoryData: {fileID: 11400000, guid: 5747cb1644aa57c4bbbafb0b0312d6d9, type: 2}
-  initialItems: []
+  initialItems:
+  - quantity: 1
+    item: {fileID: 11400000, guid: 62839023aaf55364ea1c396fbeddcbef, type: 2}
+    itemState: []
   dropClip: {fileID: 0}
   audioSource: {fileID: 6167863316026148137}
   amountController: {fileID: 0}
@@ -532,6 +536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ea3ef16cc317f4fb4b5d1d32829dfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  farmingInteractor: {fileID: 7234305186340789842}
   attackCollider: {fileID: 8810583160624716799}
 --- !u!114 &1121488800831802068
 MonoBehaviour:
@@ -558,6 +563,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelAnimator: {fileID: 3924816353599901767}
+--- !u!114 &1342840075718971357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4770661126664566695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c3c0f943743a1498bb5a100930158c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  farmingInteractor: {fileID: 7234305186340789842}
 --- !u!1 &5057764305931775667
 GameObject:
   m_ObjectHideFlags: 0

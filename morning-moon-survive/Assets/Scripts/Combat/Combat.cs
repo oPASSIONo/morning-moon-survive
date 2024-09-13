@@ -4,6 +4,7 @@ using System;
 
 public class Combat : MonoBehaviour
 {
+    [SerializeField] private PlayerFarmingInteractor farmingInteractor;
     [SerializeField] private Collider attackCollider;
     private PlayerAnimation playerAnimation;
     private bool hasHit = false;
@@ -28,7 +29,10 @@ public class Combat : MonoBehaviour
             {
                 // Reset the hasHit flag
                 hasHit = false;
-                playerAnimation.PlayerAttackAnim();
+                if (farmingInteractor.SelectedLand==null)
+                {
+                    playerAnimation.PlayerAttackAnim();
+                }
             }
             
         }
