@@ -8,7 +8,6 @@ public class Farming : MonoBehaviour
 {
     public bool isPerformingAction { get; private set; } = false;
     private Stamina staminaComponent;
-    private bool hasHit = false;
     [SerializeField] private PlayerFarmingInteractor farmingInteractor;
 
 
@@ -21,19 +20,35 @@ public class Farming : MonoBehaviour
 
     private void PerformAction(object sender, EventArgs e)
     {
-        if (GetComponent<AgentTool>().currentTool.ItemCategory==ItemCategory.Farming && !isPerformingAction)
+        AgentTool agentTool = GetComponent<AgentTool>();
+        if (agentTool.currentTool!=null && !isPerformingAction)
+        {
+            if (agentTool.currentTool.ItemCategory==ItemCategory.Farming)
+            {
+                if (farmingInteractor.SelectedLand!=null)
+                {
+                    staminaComponent.TakeAction();
+                    if (staminaComponent.isAction)
+                    {
+                        farmingInteractor.ToolInteract();
+                        //playerAnimation.
+                    }
+                }
+            }
+            
+        }
+        else if (agentTool.CurrentSeed!=null&& !isPerformingAction)
         {
             if (farmingInteractor.SelectedLand!=null)
             {
                 staminaComponent.TakeAction();
                 if (staminaComponent.isAction)
                 {
-                    // Reset the hasHit flag
-                    hasHit = false;
-                    farmingInteractor.ToolInteract();
+                    farmingInteractor.SeedInteract();
                     //playerAnimation.
                 }
             }
         }
     }
+    
 }

@@ -62,6 +62,7 @@ namespace Inventory.Model
     }
     public enum ItemSubCategory
     {
+        None,
         Watering,
         Dig
         // Add more subcategories as needed

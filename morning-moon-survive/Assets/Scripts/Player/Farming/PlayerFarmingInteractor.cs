@@ -81,4 +81,9 @@ public class PlayerFarmingInteractor : MonoBehaviour
     {
         SelectedLand.Interact(GetComponentInParent<AgentTool>().currentTool);
     }
+
+    public void SeedInteract()
+    {
+        SelectedLand.Interact(GetComponentInParent<AgentTool>().CurrentSeed);
+    }
 }

@@ -7,19 +7,19 @@ using UnityEngine;
 
 public class AgentTool : MonoBehaviour
 {
-    [SerializeField] private List<ToolItemSO> toolsList; // List of tool prefabs
     [SerializeField] private Transform playerHandTransform; // Transform of the player's hand
-    
+
     public static event Action OnDrawWeapon;
 
     public ToolItemSO currentTool;
     private GameObject currentToolInstance; // Instance of the current tool
+
+    public SeedItemSO CurrentSeed { get; private set; }
+    private GameObject currentSeedInstance;
     
     private void Start()
     {
-        
         DeactivateAllTools();
-        
     }
 
     /// <summary>
@@ -30,18 +30,20 @@ public class AgentTool : MonoBehaviour
     public void ActivateTool(ToolItemSO toolItemSo, List<ItemParameter> itemState)
     {
         // Deactivate the current tool instance first
-        DeactivateAllTools();
+        DeactivateAllHolding();
         currentTool = toolItemSo;
+        CurrentSeed = null;
         
-        foreach (ToolItemSO tool in toolsList)
-        {
-            if (currentTool.Name == tool.Name)
-            {
-                OnDrawWeapon?.Invoke();
-                InstantiateTool(tool);
-                break;
-            }
-        }
+        OnDrawWeapon?.Invoke();
+        InstantiateTool(toolItemSo);
+    }
+
+    public void ActivateSeed(SeedItemSO seedItemSo,List<ItemParameter> itemState)
+    {
+        DeactivateAllHolding();
+        CurrentSeed = seedItemSo;
+        currentTool = null;
+        InstantiateSeed(seedItemSo);
     }
 
     /// <summary>
@@ -59,14 +61,37 @@ public class AgentTool : MonoBehaviour
         }
     }
 
-    /// <summary>
+    private void InstantiateSeed(SeedItemSO seed)
+    {
+        if (seed!=null)
+        {
+            currentSeedInstance = Instantiate(seed.ItemPrefab, playerHandTransform);
+            currentSeedInstance.transform.localPosition = seed.SeedPositionInHand;
+            currentSeedInstance.transform.localRotation=Quaternion.Euler(seed.SeedRotationInHand);
+            currentSeedInstance.transform.localScale = seed.SeedScale;
+        }
+    }
+
+    /// <summary>333
     /// Helper method to deactivate all tool instances.
     /// </summary>
+    private void DeactivateAllHolding()
+    {
+        DeactivateAllTools();
+        DeactivateAllSeeds();
+    }
     public void DeactivateAllTools()
     {
         if (currentToolInstance != null)
         {
             Destroy(currentToolInstance);
+        }
+    }
+    public void DeactivateAllSeeds()
+    {
+        if (currentSeedInstance != null)
+        {
+            Destroy(currentSeedInstance);
         }
     }
 }

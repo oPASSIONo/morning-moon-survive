@@ -5,32 +5,32 @@ using UnityEngine;
 
 public class Land : MonoBehaviour
 {
+    [SerializeField] private List<SeedItemSO> seedsList;
+    [SerializeField] private Transform plantingPosition;
     public enum LandStatus
     {
-        Soil,Farmland,Watered
+        Farmland,Watered
     }
     
     public LandStatus landStatus { get; private set; }
     private new Renderer renderer;
-    [SerializeField] private Material soilMat,farmlandMat, wateredMat;
+    [SerializeField] private Material farmlandMat, wateredMat;
 
     [SerializeField] private GameObject select;
     // Start is called before the first frame update
     void Start()
     {
         renderer = GetComponent<Renderer>();
-        SwitchLandStatus(LandStatus.Soil);
+        SwitchLandStatus(LandStatus.Farmland);
     }
 
     public void SwitchLandStatus(LandStatus statusToSwitch)
     {
         landStatus = statusToSwitch;
-        Material materialToSwitch=soilMat;
+        Material materialToSwitch=farmlandMat;
         switch (statusToSwitch)
         {
-            case LandStatus.Soil:
-                materialToSwitch = soilMat;
-                break;
+            
             case LandStatus.Farmland:
                 materialToSwitch = farmlandMat;
                 break;
@@ -47,6 +47,10 @@ public class Land : MonoBehaviour
         select.SetActive(toggle);
     }
 
+    public void Interact(SeedItemSO seedItemSo)
+    {
+        PlantingSeed(seedItemSo);
+    }
     public void Interact(ToolItemSO toolItemSo)
     {
         switch (toolItemSo.ItemSubCategory)
@@ -62,7 +66,7 @@ public class Land : MonoBehaviour
                 }
                 break;
             case ItemSubCategory.Dig:
-                if (landStatus==LandStatus.Soil)
+                if (landStatus==LandStatus.Watered)
                 {
                     SwitchLandStatus(LandStatus.Farmland);
                 }
@@ -72,5 +76,10 @@ public class Land : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    private void PlantingSeed(SeedItemSO seedItemSo)
+    {
+        Instantiate(seedItemSo.ItemPrefab, plantingPosition);
     }
 }
