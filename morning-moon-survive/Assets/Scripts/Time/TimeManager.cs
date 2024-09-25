@@ -55,7 +55,7 @@ public class TimeManager : MonoBehaviour
         set => currentTimeOfDay = Mathf.Clamp(value, 0f, 1f);
     }
 
-    public int DayCount { get; private set; } = 0;
+    public int DayCount { get; set; } = 0;
 
     public void SetDayCount(int value) => DayCount = value;
 

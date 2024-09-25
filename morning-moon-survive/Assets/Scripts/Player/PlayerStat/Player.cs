@@ -7,29 +7,29 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
     [SerializeField] private PlayerStats playerStats;
-    public float HP { get; private set; }
-    public float MaxHP { get; private set; } 
-    public float MinHP { get; private set; }
-    public float Stamina { get; private set; } 
-    public float MaxStamina { get; private set; } 
-    public float MinStamina { get; private set; }
-    public float StaminaRegenRate { get; private set; } 
-    public float BaseActionCost { get; private set; }  
-    public float Satiety { get; private set; }
-    public float SatietyBleeding { get; private set; }
-    public float SatietyConsumePoint { get; private set; }
-    public float SatietyConsumeRate { get; private set; }
-    public float MaxSatiety { get; private set; }
-    public float MinSatiety { get; private set; }
-    public float Defense { get; private set; }
-    public float Resistant { get; private set; } 
-    public float Attack { get; private set; }
-    public float Element { get; private set; }
+    public float HP { get; set; }
+    public float MaxHP { get; set; } 
+    public float MinHP { get; set; }
+    public float Stamina { get; set; } 
+    public float MaxStamina { get; set; } 
+    public float MinStamina { get; set; }
+    public float StaminaRegenRate { get; set; } 
+    public float BaseActionCost { get; set; }  
+    public float Satiety { get;  set; }
+    public float SatietyBleeding { get; set; }
+    public float SatietyConsumePoint { get; set; }
+    public float SatietyConsumeRate { get; set; }
+    public float MaxSatiety { get; set; }
+    public float MinSatiety { get; set; }
+    public float Defense { get; set; }
+    public float Resistant { get; set; } 
+    public float Attack { get; set; }
+    public float Element { get; set; }
     public float[] EXP { get; private set; }
-    public float Speed { get; private set; }
-    public float BaseSpeed { get; private set; }
-    public float MaxSpeed { get; private set; }
-    public float MinSpeed { get; private set; }
+    public float Speed { get; set; }
+    public float BaseSpeed { get; set; }
+    public float MaxSpeed { get; set; }
+    public float MinSpeed { get; set; }
     public List<float> Buff { get; private set; }
     public List<float> Debuff { get; private set; }
     public List<float> ItemSlot { get; private set; }

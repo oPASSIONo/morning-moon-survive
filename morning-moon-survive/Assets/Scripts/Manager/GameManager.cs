@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
             
             MoveTargetToPoint("Player","PlayerSpawn");
 
-            SaveManager.Instance.SavePlayer();
+            //SaveManager.Instance.SavePlayer();
         }
         isLoadScene = false;
     }
