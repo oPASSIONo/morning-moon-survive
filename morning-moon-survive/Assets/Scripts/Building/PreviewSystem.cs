@@ -13,13 +13,13 @@ public class PreviewSystem : MonoBehaviour
     [SerializeField] private Material previewMaterialsPrefab;
     private Material previewMaterialInstance;
 
-    private Renderer cellIndicatorRenderer;
+    private Renderer[] cellIndicatorRenderer;
 
     private void Start()
     {
         previewMaterialInstance = new Material(previewMaterialsPrefab);
         cellIndicator.SetActive(false);
-        cellIndicatorRenderer = cellIndicator.GetComponentInChildren<Renderer>();
+        cellIndicatorRenderer = cellIndicator.GetComponentsInChildren<Renderer>();
     }
 
     public void StartShowingPlacementPreview(GameObject prefab, Vector2Int size)
@@ -35,8 +35,10 @@ public class PreviewSystem : MonoBehaviour
         if (size.x > 0 || size.y > 0)
         {
             cellIndicator.transform.localScale = new Vector3(size.x, 1, size.y);
-            cellIndicatorRenderer.material.mainTextureScale = size;
-        }
+            foreach (Renderer renderer in cellIndicatorRenderer)
+            {
+                renderer.material.mainTextureScale = size;
+            } }
     }
 
     private void PreparePreview(GameObject previewObject)
@@ -71,7 +73,11 @@ public class PreviewSystem : MonoBehaviour
     {
         Color color = validity ? Color.green : Color.red;
         color.a = 0.5f;
-        cellIndicatorRenderer.material.color = color;
+        foreach (Renderer renderer in cellIndicatorRenderer)
+        {
+            renderer.material.color = color;
+        }
+        //cellIndicatorRenderer.material.color = color;
         previewMaterialInstance.color = color;
     }
 
