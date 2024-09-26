@@ -7078,6 +7078,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6719750230456411586, guid: 2c2ef13b378ea9f458797cdd1538f44d,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6719750230456411586, guid: 2c2ef13b378ea9f458797cdd1538f44d,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6719750230456411586, guid: 2c2ef13b378ea9f458797cdd1538f44d,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6719750230456411586, guid: 2c2ef13b378ea9f458797cdd1538f44d,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -7124,6 +7139,11 @@ PrefabInstance:
     - target: {fileID: 6719750230456411586, guid: 2c2ef13b378ea9f458797cdd1538f44d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6719750230456411586, guid: 2c2ef13b378ea9f458797cdd1538f44d,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -7982,11 +8002,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseIndicator: {fileID: 856822843}
-  cellIndicator: {fileID: 773095696}
   inputManager: {fileID: 758546481}
   grid: {fileID: 784558305}
   database: {fileID: 11400000, guid: 21181d9639db2d14db56e105385bc82a, type: 2}
   gridVisualization: {fileID: 2144980032}
+  preview: {fileID: 1449455617}
 --- !u!1 &986230838
 GameObject:
   m_ObjectHideFlags: 0
@@ -8737,7 +8757,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -10775,7 +10795,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -10998,6 +11018,54 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1444046731}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1449455616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1449455618}
+  - component: {fileID: 1449455617}
+  m_Layer: 0
+  m_Name: PreviewSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1449455617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449455616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a208ed7923438146a6c8aa07ac170a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  previewYOffset: 0.06
+  cellIndicator: {fileID: 773095696}
+  previewMaterialsPrefab: {fileID: 2100000, guid: 47e7e01f1d1c2aa4ab4d8029d5a4ac41,
+    type: 2}
+--- !u!4 &1449455618
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449455616}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1534031796}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1458674395
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11384,6 +11452,7 @@ Transform:
   - {fileID: 856822844}
   - {fileID: 1697264581}
   - {fileID: 773095695}
+  - {fileID: 1449455618}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1564697568

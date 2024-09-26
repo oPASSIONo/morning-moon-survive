@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectsData:
   - <Name>k__BackingField: CraftingTable
-    <ID>k__BackingField: 0
-    <Size>k__BackingField: {x: 1, y: 1}
+    <ID>k__BackingField: 1
+    <Size>k__BackingField: {x: 4, y: 3}
     <Prefab>k__BackingField: {fileID: 364053342775895496, guid: 4afdafe13c9358f4cb978772568f175a,
       type: 3}
   - <Name>k__BackingField: Camfire
-    <ID>k__BackingField: 1
-    <Size>k__BackingField: {x: 1, y: 1}
+    <ID>k__BackingField: 2
+    <Size>k__BackingField: {x: 2, y: 2}
     <Prefab>k__BackingField: {fileID: 8691416371952956551, guid: 55f2c372acec93f459812b7adb6f1e67,
       type: 3}
