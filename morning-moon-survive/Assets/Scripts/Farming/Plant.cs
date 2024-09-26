@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Inventory.Model;
@@ -15,16 +16,22 @@ public class Plant : MonoBehaviour
     }
 
     private SeedItemSO seedData;
-    private GrowthStage currentStage;
+    public GrowthStage CurrentStage { get; private set; }
     private int daysPlanted;
     private int wateredDaysForCurrentStage;  
     private int daysWithoutWater;  // Track consecutive days without watering
-    private Land land; 
+    private Land land;
+    private PlantStateHandler plantStateHandler;
+
+    public void Awake()
+    {
+        plantStateHandler = this.gameObject.GetComponent<PlantStateHandler>();
+    }
 
     public void Initialize(SeedItemSO seedItem, Land plantedLand)
     {
         seedData = seedItem;
-        currentStage = GrowthStage.Small;
+        CurrentStage = GrowthStage.Small;
         wateredDaysForCurrentStage = 0;
         daysWithoutWater = 0; // Initialize the counter
         land = plantedLand;
@@ -34,6 +41,10 @@ public class Plant : MonoBehaviour
         UpdatePlantVisual();
     }
 
+    public void OnDig()
+    {
+        Destroy(gameObject);
+    }
     private void OnDestroy()
     {
         TimeManager.Instance?.OnDayStart.RemoveListener(UpdateGrowth);
@@ -45,7 +56,7 @@ public class Plant : MonoBehaviour
         {
             wateredDaysForCurrentStage++;
             daysWithoutWater = 0; // Reset days without water when watered
-            Debug.Log($"Plant watered for {wateredDaysForCurrentStage} day(s) in stage {currentStage}.");
+            Debug.Log($"Plant watered for {wateredDaysForCurrentStage} day(s) in stage {CurrentStage}.");
             CheckGrowthStage();
         }
         else
@@ -61,18 +72,18 @@ public class Plant : MonoBehaviour
     {
         if (daysWithoutWater >= seedData.rotTime)
         {
-            currentStage = GrowthStage.Rot; // Change to rot state
+            CurrentStage = GrowthStage.Rot; // Change to rot state
             UpdatePlantVisual();
         }
     }
     private void CheckGrowthStage()
     {
-        switch (currentStage)
+        switch (CurrentStage)
         {
             case GrowthStage.Small:
                 if (wateredDaysForCurrentStage >= seedData.daysToMedium)
                 {
-                    currentStage = GrowthStage.Medium;
+                    CurrentStage = GrowthStage.Medium;
                     wateredDaysForCurrentStage = 0;
                     UpdatePlantVisual();
                 }
@@ -80,7 +91,7 @@ public class Plant : MonoBehaviour
             case GrowthStage.Medium:
                 if (wateredDaysForCurrentStage >= seedData.daysToLarge)
                 {
-                    currentStage = GrowthStage.Large;
+                    CurrentStage = GrowthStage.Large;
                     wateredDaysForCurrentStage = 0;
                     UpdatePlantVisual();
                 }
@@ -88,7 +99,7 @@ public class Plant : MonoBehaviour
             case GrowthStage.Large:
                 if (wateredDaysForCurrentStage >= seedData.daysToFull)
                 {
-                    currentStage = GrowthStage.Full;
+                    CurrentStage = GrowthStage.Full;
                     wateredDaysForCurrentStage = 0;
                     UpdatePlantVisual();
                 }
@@ -98,6 +109,7 @@ public class Plant : MonoBehaviour
                 break;
             case GrowthStage.Rot:
                 // Handle any special logic when the plant is rotted
+                UpdatePlantVisual();
                 Debug.Log("Plant has rotted and cannot grow.");
                 break;
         }
@@ -105,18 +117,15 @@ public class Plant : MonoBehaviour
 
     private void UpdatePlantVisual()
     {
-        switch (currentStage)
+        switch (CurrentStage)
         {
             case GrowthStage.Medium:
-                
                 Debug.Log("Plant is now Medium.");
                 break;
             case GrowthStage.Large:
-                
                 Debug.Log("Plant is now Large.");
                 break;
             case GrowthStage.Full:
-                
                 Debug.Log("Plant is now Full.");
                 break;
             case GrowthStage.Rot:
@@ -124,5 +133,6 @@ public class Plant : MonoBehaviour
                 // Optionally, you can change the visual representation of the plant to show it's rotted
                 break;
         }
+        plantStateHandler.SwitchPlant(CurrentStage);
     }
 }

@@ -14,12 +14,14 @@ public class Land : MonoBehaviour
         Farmland,
         Watered
     }
-
+    
     public LandStatus landStatus { get; private set; }
     private new Renderer renderer;
     [SerializeField] private Material farmlandMat, wateredMat;
 
     [SerializeField] private GameObject select;
+
+    private GameObject plantObject;
 
     void Start()
     {
@@ -83,19 +85,31 @@ public class Land : MonoBehaviour
                 }
                 break;
             case ItemSubCategory.Dig:
-                if (landStatus == LandStatus.Watered)
+                if (isPlanted)
                 {
                     SwitchLandStatus(LandStatus.Farmland);
+                    Dig();
                 }
                 break;
         }
     }
 
+    private void Dig()
+    {
+        Plant plantComponent = plantObject.GetComponent<Plant>();
+        isPlanted = false;
+        SetWatered(false);
+
+        if (plantComponent.CurrentStage!=Plant.GrowthStage.Full)
+        {
+            plantComponent.OnDig();
+        }
+    }
     private void PlantingSeed(SeedItemSO seedItemSo)
     {
         if (!isPlanted)
         {
-            GameObject plantObject = Instantiate(seedItemSo.ItemPrefab, PlantingPosition);
+            plantObject = Instantiate(seedItemSo.ItemPrefab, PlantingPosition);
             Plant plantComponent = plantObject.AddComponent<Plant>();
             plantComponent.Initialize(seedItemSo, this); // Pass the Land reference to the plant
             isPlanted = true;
