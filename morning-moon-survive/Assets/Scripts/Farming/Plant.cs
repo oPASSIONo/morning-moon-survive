@@ -43,6 +43,11 @@ public class Plant : MonoBehaviour
 
     public void OnDig()
     {
+        if (CurrentStage==GrowthStage.Full)
+        {
+            Instantiate(seedData.FullPlant, land.PlantingPosition);
+        }
+        OnDestroy();
         Destroy(gameObject);
     }
     private void OnDestroy()

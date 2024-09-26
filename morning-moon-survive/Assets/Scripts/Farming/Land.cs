@@ -100,10 +100,8 @@ public class Land : MonoBehaviour
         isPlanted = false;
         SetWatered(false);
 
-        if (plantComponent.CurrentStage!=Plant.GrowthStage.Full)
-        {
-            plantComponent.OnDig();
-        }
+        plantComponent.OnDig();
+        
     }
     private void PlantingSeed(SeedItemSO seedItemSo)
     {

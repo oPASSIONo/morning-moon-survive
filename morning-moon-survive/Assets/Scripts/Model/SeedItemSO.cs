@@ -18,10 +18,8 @@ namespace Inventory.Model
         [SerializeField] public int daysToFull;  // Days required to reach full size
         [SerializeField] public int rotTime; // Set your desired rot time
 
-        /*[field: SerializeField] public GameObject SmallPlant { get; set; }
-        [field: SerializeField] public GameObject MediumPlant { get; set; }
-        [field: SerializeField] public GameObject LargePlant { get; set; }
-        [field: SerializeField] public GameObject FullPlant { get; set; }*/
+        
+        [field: SerializeField] public GameObject FullPlant { get; set; }
         public bool PerformAction(GameObject character, List<ItemParameter> itemState,int amount)
         {
             AgentTool agentTool = character.GetComponent<AgentTool>();
