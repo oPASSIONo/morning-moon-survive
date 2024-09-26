@@ -13,10 +13,15 @@ namespace Inventory.Model
         [field: SerializeField] public Vector3 SeedRotationInHand { get; set; }
         [field: SerializeField] public Vector3 SeedScale { get; set; } // Added field for scale
         // Watering days required for each growth stage
-        [SerializeField] public int daysToSmall;  // Days required to reach small size
         [SerializeField] public int daysToMedium; // Days required to reach medium size
         [SerializeField] public int daysToLarge;  // Days required to reach large size
+        [SerializeField] public int daysToFull;  // Days required to reach full size
+        [SerializeField] public int rotTime; // Set your desired rot time
 
+        /*[field: SerializeField] public GameObject SmallPlant { get; set; }
+        [field: SerializeField] public GameObject MediumPlant { get; set; }
+        [field: SerializeField] public GameObject LargePlant { get; set; }
+        [field: SerializeField] public GameObject FullPlant { get; set; }*/
         public bool PerformAction(GameObject character, List<ItemParameter> itemState,int amount)
         {
             AgentTool agentTool = character.GetComponent<AgentTool>();

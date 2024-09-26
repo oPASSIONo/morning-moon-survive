@@ -28,6 +28,7 @@ MonoBehaviour:
   <SeedPositionInHand>k__BackingField: {x: 0.006271859, y: 0.0003000256, z: 0.0007719005}
   <SeedRotationInHand>k__BackingField: {x: -22.818, y: 82.124, z: -92.678}
   <SeedScale>k__BackingField: {x: 0.04999998, y: 0.04999999, z: 0.04999997}
-  daysToSmall: 1
   daysToMedium: 2
-  daysToLarge: 3
+  daysToLarge: 2
+  daysToFull: 2
+  rotTime: 2

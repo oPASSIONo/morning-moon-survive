@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class Land : MonoBehaviour
 {
-    [SerializeField] private List<SeedItemSO> seedsList;
-    [SerializeField] private Transform plantingPosition;
+    [field: SerializeField] public Transform PlantingPosition { get; private set; }
     private bool isPlanted = false;
     public bool IsWatered { get; private set; } = false;
     public void SetWatered(bool isWatered) => IsWatered = isWatered; 
@@ -96,7 +95,7 @@ public class Land : MonoBehaviour
     {
         if (!isPlanted)
         {
-            GameObject plantObject = Instantiate(seedItemSo.ItemPrefab, plantingPosition);
+            GameObject plantObject = Instantiate(seedItemSo.ItemPrefab, PlantingPosition);
             Plant plantComponent = plantObject.AddComponent<Plant>();
             plantComponent.Initialize(seedItemSo, this); // Pass the Land reference to the plant
             isPlanted = true;
