@@ -33,7 +33,10 @@ public class TimeManager : MonoBehaviour
 
     [Tooltip("Event triggered when the night starts.")]
     public UnityEngine.Events.UnityEvent OnNightStart;
-
+    
+    [Tooltip("Event triggered when the day ends.")]
+    public UnityEngine.Events.UnityEvent OnDayEnd;  // New event for day end
+    
     private bool isDay = true;
 
     [Tooltip("TextMeshPro UI component for displaying the time.")]
@@ -82,7 +85,7 @@ public class TimeManager : MonoBehaviour
 
     private void Update()
     {
-        if (IsStartTimer)
+        if (!IsStartTimer)
         {
             UpdateTime();
             UpdateTimeDisplay();
@@ -102,6 +105,8 @@ public class TimeManager : MonoBehaviour
         {
             DayCount++;
             Debug.Log("Day Started: Day Count = " + DayCount);
+            OnDayEnd.Invoke();  // Invoke end of day event
+
         }
 
         if (isDay && currentHour >= nightStartTime)

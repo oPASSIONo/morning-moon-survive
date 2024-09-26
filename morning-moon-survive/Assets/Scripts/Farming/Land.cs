@@ -7,35 +7,56 @@ public class Land : MonoBehaviour
 {
     [SerializeField] private List<SeedItemSO> seedsList;
     [SerializeField] private Transform plantingPosition;
+    private bool isPlanted = false;
+    public bool IsWatered { get; private set; } = false;
+    public void SetWatered(bool isWatered) => IsWatered = isWatered; 
     public enum LandStatus
     {
-        Farmland,Watered
+        Farmland,
+        Watered
     }
-    
+
     public LandStatus landStatus { get; private set; }
     private new Renderer renderer;
     [SerializeField] private Material farmlandMat, wateredMat;
 
     [SerializeField] private GameObject select;
-    // Start is called before the first frame update
+
     void Start()
     {
         renderer = GetComponent<Renderer>();
         SwitchLandStatus(LandStatus.Farmland);
+
+        // Subscribe to the OnDayEnd event instead of OnDayStart
+        TimeManager.Instance.OnDayEnd.AddListener(ResetLandStatus);
+    }
+
+    private void OnDestroy()
+    {
+        // Unsubscribe from the event to avoid memory leaks
+        TimeManager.Instance?.OnDayEnd.RemoveListener(ResetLandStatus);
+    }
+
+    // Reset land status at the end of the day (after plant checks growth)
+    public void ResetLandStatus()
+    {
+        SwitchLandStatus(LandStatus.Farmland);
+        Debug.Log("Land status reset to Farmland at the end of the day.");
     }
 
     public void SwitchLandStatus(LandStatus statusToSwitch)
     {
         landStatus = statusToSwitch;
-        Material materialToSwitch=farmlandMat;
+        Material materialToSwitch = farmlandMat;
+
         switch (statusToSwitch)
         {
-            
             case LandStatus.Farmland:
                 materialToSwitch = farmlandMat;
                 break;
             case LandStatus.Watered:
                 materialToSwitch = wateredMat;
+                IsWatered = true;
                 break;
         }
 
@@ -51,28 +72,21 @@ public class Land : MonoBehaviour
     {
         PlantingSeed(seedItemSo);
     }
+
     public void Interact(ToolItemSO toolItemSo)
     {
         switch (toolItemSo.ItemSubCategory)
         {
             case ItemSubCategory.Watering:
-                if (landStatus==LandStatus.Farmland)
+                if (landStatus == LandStatus.Farmland)
                 {
                     SwitchLandStatus(LandStatus.Watered);
                 }
-                else
-                {
-                    
-                }
                 break;
             case ItemSubCategory.Dig:
-                if (landStatus==LandStatus.Watered)
+                if (landStatus == LandStatus.Watered)
                 {
                     SwitchLandStatus(LandStatus.Farmland);
-                }
-                else
-                {
-                    //dig the plant out
                 }
                 break;
         }
@@ -80,6 +94,16 @@ public class Land : MonoBehaviour
 
     private void PlantingSeed(SeedItemSO seedItemSo)
     {
-        Instantiate(seedItemSo.ItemPrefab, plantingPosition);
+        if (!isPlanted)
+        {
+            GameObject plantObject = Instantiate(seedItemSo.ItemPrefab, plantingPosition);
+            Plant plantComponent = plantObject.AddComponent<Plant>();
+            plantComponent.Initialize(seedItemSo, this); // Pass the Land reference to the plant
+            isPlanted = true;
+        }
+        else
+        {
+            Debug.Log("Already Planted");
+        }
     }
 }
