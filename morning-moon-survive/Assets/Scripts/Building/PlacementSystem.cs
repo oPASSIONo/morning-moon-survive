@@ -17,10 +17,11 @@ public class PlacementSystem : MonoBehaviour
     //[SerializeField] private AudioSource source; // Add sound
     
     private GridData floorData, furnitureData;
-    private List<GameObject> placedGameObjects = new();
 
     [SerializeField] private PreviewSystem preview;
     private Vector3Int lastDetectedPosition = Vector3Int.zero;
+
+    [SerializeField] private ObjectPlacer objectPlacer;
     
     private void Start()
     {
@@ -62,14 +63,13 @@ public class PlacementSystem : MonoBehaviour
         }
         
         //source.Play();
-        GameObject newObject = Instantiate(database.objectsData[selectedObjectIndex].Prefab);
-        newObject.transform.position = grid.CellToWorld(gridPosition);
-        placedGameObjects.Add(newObject);
+        int index = objectPlacer.PlaceObject(database.objectsData[selectedObjectIndex].Prefab,  grid.CellToWorld(gridPosition));
+        
         GridData selectedData = database.objectsData[selectedObjectIndex].ID == 0 ? floorData : furnitureData;
         selectedData.AddObjectAt(gridPosition, 
             database.objectsData[selectedObjectIndex].Size, 
             database.objectsData[selectedObjectIndex].ID,
-            placedGameObjects.Count - 1);
+            index);
         preview.UpdatePosition(grid.CellToWorld(gridPosition), false);
     }
 

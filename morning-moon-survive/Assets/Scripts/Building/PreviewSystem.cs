@@ -77,7 +77,6 @@ public class PreviewSystem : MonoBehaviour
         {
             renderer.material.color = color;
         }
-        //cellIndicatorRenderer.material.color = color;
         previewMaterialInstance.color = color;
     }
 
