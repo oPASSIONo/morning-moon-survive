@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private GameObject craftingSystem;
     [SerializeField] private GameObject gameCanvas;
+    [SerializeField] private GameObject buildingSystem;
 
     private bool isLoadScene = false;
     private bool isPlayerDie = false;
@@ -74,6 +75,7 @@ public class GameManager : MonoBehaviour
         playerFollowCamera.SetActive(true);
         gameCanvas.SetActive(true);
         timeManager.SetActive(true);
+        buildingSystem.SetActive(true);
     }
     
 
@@ -183,6 +185,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(mainCamera);
         DontDestroyOnLoad(playerFollowCamera);
         DontDestroyOnLoad(gameCanvas);
+        DontDestroyOnLoad(buildingSystem);
     }
 
     public void EnemyDealDamage(Enemy enemy,int movesetIndex)

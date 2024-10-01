@@ -260,6 +260,12 @@ MonoBehaviour:
   - quantity: 1
     item: {fileID: 11400000, guid: 62839023aaf55364ea1c396fbeddcbef, type: 2}
     itemState: []
+  - quantity: 1
+    item: {fileID: 11400000, guid: 14c08aa7fe7d0444691a35adbfa0535d, type: 2}
+    itemState: []
+  - quantity: 1
+    item: {fileID: 11400000, guid: 17bf46ea506443246a37cd2a6b787c36, type: 2}
+    itemState: []
   dropClip: {fileID: 0}
   audioSource: {fileID: 6167863316026148137}
   amountController: {fileID: 0}
@@ -417,7 +423,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!114 &4482873882010258281
 MonoBehaviour:
@@ -467,9 +473,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90e55977fa5be4f4ab655c41fbd1ab60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toolsList:
-  - {fileID: 11400000, guid: a21bf9d39daadfa428985e4dd1a240ce, type: 2}
-  - {fileID: 11400000, guid: 19f17fafa8512c3449bbc4506e62afa2, type: 2}
   playerHandTransform: {fileID: 5142844836345038830}
   currentTool: {fileID: 0}
 --- !u!114 &3680696280563213248
