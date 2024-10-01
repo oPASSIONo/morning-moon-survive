@@ -56,21 +56,24 @@ public class PlacementState : IBuildingState
         {
             return;
         }
-        
-        int index = objectPlacer.PlaceObject(database.objectsData[selectedObjectIndex].Prefab,  grid.CellToWorld(gridPosition));
+        // Apply rotation to the placed object
+        int currentRotation = previewSystem.GetCurrentRotation();
+        GameObject placedObject = database.objectsData[selectedObjectIndex].Prefab;
+        int index = objectPlacer.PlaceObject(placedObject,  grid.CellToWorld(gridPosition),currentRotation);
         
         GridData selectedData = database.objectsData[selectedObjectIndex].ID == 0 ? floorData : furnitureData;
         selectedData.AddObjectAt(gridPosition, 
             database.objectsData[selectedObjectIndex].Size, 
             database.objectsData[selectedObjectIndex].ID,
-            index);
+            index,
+            currentRotation);
         previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), false);
     }
     private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex )
     {
         GridData selectedData = database.objectsData[selectedObjectIndex].ID == 0 ? floorData : furnitureData;
 
-        return selectedData.CanPlaceObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size);
+        return selectedData.CanPlaceObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size ,previewSystem.GetCurrentRotation());
     }
 
     public void UpdateState(Vector3Int gridPosition)
@@ -78,5 +81,6 @@ public class PlacementState : IBuildingState
         bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
         
         previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity);
+      
     }
 }

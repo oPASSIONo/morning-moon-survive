@@ -14,16 +14,22 @@ public class PreviewSystem : MonoBehaviour
     private Material previewMaterialInstance;
 
     private Renderer[] cellIndicatorRenderer;
+  
+    private int currentRotationAngle = 0; // Track current rotation angle
+
+
 
     private void Start()
     {
         previewMaterialInstance = new Material(previewMaterialsPrefab);
         cellIndicator.SetActive(false);
         cellIndicatorRenderer = cellIndicator.GetComponentsInChildren<Renderer>();
+        
     }
 
     public void StartShowingPlacementPreview(GameObject prefab, Vector2Int size)
     {
+        cellIndicator.transform.rotation = Quaternion.Euler(0,0,0);
         previewObject = Instantiate(prefab);
         PreparePreview(previewObject);
         PrepareCursor(size);
@@ -38,7 +44,8 @@ public class PreviewSystem : MonoBehaviour
             foreach (Renderer renderer in cellIndicatorRenderer)
             {
                 renderer.material.mainTextureScale = size;
-            } }
+            } 
+        }
     }
 
     private void PreparePreview(GameObject previewObject)
@@ -62,8 +69,9 @@ public class PreviewSystem : MonoBehaviour
         if (previewObject != null)
         {
             Destroy(previewObject);
-
         }
+
+        currentRotationAngle = 0;
     }
 
     public void UpdatePosition(Vector3 position, bool validity)
@@ -102,12 +110,30 @@ public class PreviewSystem : MonoBehaviour
     private void MovePreview(Vector3 position)
     {
         previewObject.transform.position = new Vector3(position.x, position.y + previewYOffset, position.z);
-    }
 
+    }
+    
     public void StartShowingRemovePreview()
     {
         cellIndicator.SetActive(true);
         PrepareCursor(Vector2Int.one);
         ApplyFeedbackToCursor(false);
+    }
+    
+    public void RotatePreview(int rotationAngle)
+    {
+        if (previewObject != null)
+        {
+            currentRotationAngle = (currentRotationAngle + rotationAngle) % 360;
+            previewObject.transform.rotation = Quaternion.Euler(0, currentRotationAngle, 0);
+            cellIndicator.transform.rotation = Quaternion.Euler(0, currentRotationAngle, 0);
+            
+            Debug.Log("Object Rotate : " + currentRotationAngle);
+        }
+    }
+
+    public int GetCurrentRotation()
+    {
+        return currentRotationAngle;
     }
 }

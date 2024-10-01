@@ -88,12 +88,19 @@ public class PlacementSystem : MonoBehaviour
         {
             return;
         }
+        
+        // Check for rotation input
+        if (Input.GetMouseButtonDown(1))
+        {
+            preview.RotatePreview(90); // Rotate by 90 degrees on 'Q'
+        }
+        
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
         if (lastDetectedPosition != gridPosition)
         {
            buildingState.UpdateState(gridPosition);
-            lastDetectedPosition = gridPosition;
+           lastDetectedPosition = gridPosition;
         }
    
     }

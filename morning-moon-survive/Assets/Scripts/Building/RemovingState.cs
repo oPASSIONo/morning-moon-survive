@@ -35,11 +35,14 @@ public class RemovingState : IBuildingState
     public void OnAction(Vector3Int gridPosition)
     {
         GridData selectedData = null;
-        if (furnitureData.CanPlaceObjectAt(gridPosition, Vector2Int.one) == false)
+        
+        int rotationAngle = previewSystem.GetCurrentRotation();
+        
+        if (furnitureData.CanPlaceObjectAt(gridPosition, Vector2Int.one , rotationAngle) == false)
         {
             selectedData = furnitureData;
         }
-        else if(floorData.CanPlaceObjectAt(gridPosition, Vector2Int.one) == false)
+        else if(floorData.CanPlaceObjectAt(gridPosition, Vector2Int.one , rotationAngle) == false)
         {
             selectedData = floorData;
         }
@@ -47,6 +50,8 @@ public class RemovingState : IBuildingState
         if (selectedData == null)
         {
             // Add sound here
+            Debug.Log("No object found to remove.");
+
         }
         else
         {
@@ -67,8 +72,10 @@ public class RemovingState : IBuildingState
 
     private bool CheckIfSelectionIsValid(Vector3Int gridPosition)
     {
-        return !(furnitureData.CanPlaceObjectAt(gridPosition, Vector2Int.one) && 
-               floorData.CanPlaceObjectAt(gridPosition, Vector2Int.one));
+        // Using the current rotation angle to check if the selection is valid
+        int rotationAngle = previewSystem.GetCurrentRotation();
+        return !(furnitureData.CanPlaceObjectAt(gridPosition, Vector2Int.one, rotationAngle) &&
+                 floorData.CanPlaceObjectAt(gridPosition, Vector2Int.one, rotationAngle));
     }
 
     public void UpdateState(Vector3Int gridPosition)
