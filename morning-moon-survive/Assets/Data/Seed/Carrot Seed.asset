@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8377991816339d43a6ddca78279f929, type: 3}
+  m_Name: Carrot Seed
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <MaxStackSize>k__BackingField: 1
+  <Weight>k__BackingField: 0
+  <Name>k__BackingField: Carrot Seed
+  <ItemAbility>k__BackingField: 
+  <ItemImage>k__BackingField: {fileID: 0}
+  <ItemCategory>k__BackingField: 0
+  <ItemSubCategory>k__BackingField: 0
+  <ItemRarity>k__BackingField: 0
+  <DefaultParametersList>k__BackingField: []
+  <ItemPrefab>k__BackingField: {fileID: 1583343133515720434, guid: 20139e1bccbb0974a95419776ec26b4b,
+    type: 3}
+  <actionSFX>k__BackingField: {fileID: 0}
+  <SeedPositionInHand>k__BackingField: {x: 0.006271859, y: 0.0003000256, z: 0.0007719005}
+  <SeedRotationInHand>k__BackingField: {x: -22.818, y: 82.124, z: -92.678}
+  <SeedScale>k__BackingField: {x: 0.04999998, y: 0.04999999, z: 0.04999997}
+  daysToMedium: 2
+  daysToLarge: 2
+  daysToFull: 2
+  rotTime: 2
+  <FullPlant>k__BackingField: {fileID: 6887699779504550818, guid: cf0d0c14ebb53574b84136baae9a541f,
+    type: 3}
