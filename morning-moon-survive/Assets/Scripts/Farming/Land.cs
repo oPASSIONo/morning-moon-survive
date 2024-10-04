@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Inventory.Model;
@@ -22,6 +23,9 @@ public class Land : MonoBehaviour
     [SerializeField] private GameObject select;
 
     private GameObject plantObject;
+    
+    public static event Action<SeedItemSO> OnSeedPlanted;
+
 
     void Start()
     {
@@ -111,6 +115,9 @@ public class Land : MonoBehaviour
             Plant plantComponent = plantObject.AddComponent<Plant>();
             plantComponent.Initialize(seedItemSo, this); // Pass the Land reference to the plant
             isPlanted = true;
+            
+            // Trigger the event when the seed is planted
+            OnSeedPlanted?.Invoke(seedItemSo);
         }
         else
         {

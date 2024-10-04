@@ -19,8 +19,8 @@ namespace Inventory
         [SerializeField] private AudioSource audioSource;
 
         [SerializeField] private AmountController amountController;
-        
 
+        private int currentItemIndex;
         
         void Start()
         {
@@ -29,7 +29,17 @@ namespace Inventory
 
             GameInput.Instance.OnInventoryAction += GameInput_OnInventoryAction;
             GameInput.Instance.OnSelectSlotAction += HandleSelectSlotAction;
+            Land.OnSeedPlanted += HandleSeedPlanted;
 
+        }
+        private void HandleSeedPlanted(SeedItemSO seedItem)
+        {
+            inventoryData.RemoveItem(currentItemIndex,1);
+            InventoryItem inventoryItem = inventoryData.GetItemAt(currentItemIndex);
+            if (inventoryItem.IsEmpty)
+            {
+                GetComponent<AgentTool>().DeactivateAllSeeds();
+            }
         }
         private void HandleSelectSlotAction(object sender, int slotIndex)
         {
@@ -123,13 +133,13 @@ namespace Inventory
             audioSource.PlayOneShot(dropClip);
             inventoryUI.actionPanel.Toggle(false);
         }
-
+        
         public void PerformAction(int itemIndex,int quantity)
         {
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
             if (inventoryItem.IsEmpty)
                 return;
-
+            currentItemIndex = itemIndex;
             IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
             if (destroyableItem != null && inventoryItem.item is ConsumableItemSO/* !(inventoryItem.item is ToolItemSO) && !(inventoryItem.item is IngredientItemSO)*/)
             {
@@ -146,7 +156,7 @@ namespace Inventory
             }
             inventoryUI.actionPanel.Toggle(false);
         }
-    
+        
         private void HandleDraggin(int itemIndex)
         {
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
