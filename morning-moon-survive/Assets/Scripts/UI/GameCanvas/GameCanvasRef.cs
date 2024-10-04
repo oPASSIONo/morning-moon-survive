@@ -10,6 +10,7 @@ public class GameCanvasRef : MonoBehaviour
     public UISatietyBar satietyBar;
     public CraftButtonHandler craftButtonHandler;
     public UICraftingPage craftingPage;
+    public UIBuildingPage buildingPage;
     public GameObject notiBox;
 
     /*[SerializeField] private GameObject inventory;

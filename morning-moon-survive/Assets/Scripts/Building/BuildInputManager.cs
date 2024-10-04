@@ -6,13 +6,17 @@ using UnityEngine.EventSystems;
 
 public class BuildInputManager : MonoBehaviour
 {
+  
+
     [SerializeField] private Camera sceneCamera;
 
     private Vector3 lastPosition;
     
     [SerializeField] private LayerMask placementLayerMask;
 
+
     public event Action OnClicked, OnExit;
+    
 
     private void Update()
     {

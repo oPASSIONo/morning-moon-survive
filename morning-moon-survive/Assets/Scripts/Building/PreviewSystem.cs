@@ -110,7 +110,6 @@ public class PreviewSystem : MonoBehaviour
     private void MovePreview(Vector3 position)
     {
         previewObject.transform.position = new Vector3(position.x, position.y + previewYOffset, position.z);
-
     }
     
     public void StartShowingRemovePreview()
