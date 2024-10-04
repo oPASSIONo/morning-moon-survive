@@ -6,6 +6,7 @@ public class UIBuildingPage : MonoBehaviour
 {
     [SerializeField] private UIBuildingItem buildingItemPrefab;
     [SerializeField] private RectTransform contentPanel;
+    [SerializeField] private UIBuildingDescription buildingDescription;
 
     private List<UIBuildingItem> listOfUIBuildingItems = new List<UIBuildingItem>();
     private Dictionary<UIBuildingItem, ObjectData> buildingItemToRecipeMap = new Dictionary<UIBuildingItem, ObjectData>();
@@ -37,13 +38,19 @@ public class UIBuildingPage : MonoBehaviour
     {
         if (buildingItemToRecipeMap.TryGetValue(item, out ObjectData obj))
         {
-            Debug.Log("Building item clicked : " + obj);
+            Debug.Log("Building item clicked : " + obj.Name);
+       
+            SetDescription(obj);
         }
         else
         {
             Debug.LogError("Object not found for the clicked item.");
         }
     }
-
+    
+   private void SetDescription(ObjectData data) 
+   {
+        buildingDescription.SetDescription(data.Image , data.Name , data.ID , data.Recipe.RequiredIngredients);
+   }
 
 }
