@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,4 +47,4 @@ namespace Inventory.Model
         public CharacterStatModifierSO statModifier;
         public float value;
     }
-}
+}*/

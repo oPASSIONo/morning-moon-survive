@@ -9,22 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23e0e09dab6317a4892ad48806eba570, type: 3}
-  m_Name: Red Apple
+  m_Script: {fileID: 11500000, guid: 03c7290e2e912e6439e53447eb4428e7, type: 3}
+  m_Name: Wood
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
-  <MaxStackSize>k__BackingField: 50
+  <MaxStackSize>k__BackingField: 500
   <Weight>k__BackingField: 1
-  <Name>k__BackingField: Red Apple
+  <Name>k__BackingField: Wood
   <ItemAbility>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: ef9a49baaf9b0aa4b91838bde91a3694,
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 83a1ad8c27d21a44a97a022a9d51744a,
     type: 3}
-  <ItemCategory>k__BackingField: 2
-  <ItemSubCategory>k__BackingField: 
+  <ItemCategory>k__BackingField: 4
+  <ItemSubCategory>k__BackingField: 0
   <ItemRarity>k__BackingField: 0
   <DefaultParametersList>k__BackingField: []
-  <ItemPrefab>k__BackingField: {fileID: 0}
-  modifierData:
-  - statModifier: {fileID: 11400000, guid: 9cb51cb05dad0f14db3e4c223627956b, type: 2}
-    value: 10
+  <ItemPrefab>k__BackingField: {fileID: 9027762958247691069, guid: 0881efc69b39b7d4483a8727fc0265bf,
+    type: 3}
+  itemType: 1
+  modifierData: []
   <actionSFX>k__BackingField: {fileID: 0}

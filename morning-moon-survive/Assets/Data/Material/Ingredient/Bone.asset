@@ -9,22 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23e0e09dab6317a4892ad48806eba570, type: 3}
-  m_Name: Mango
+  m_Script: {fileID: 11500000, guid: 03c7290e2e912e6439e53447eb4428e7, type: 3}
+  m_Name: Bone
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
-  <MaxStackSize>k__BackingField: 50
+  <MaxStackSize>k__BackingField: 500
   <Weight>k__BackingField: 1
-  <Name>k__BackingField: Mango
+  <Name>k__BackingField: Bone
   <ItemAbility>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: ef9a305776a6fe04d969ba84f9cbd6ef,
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: cd20e0676acc96d46921167303cc31e4,
     type: 3}
-  <ItemCategory>k__BackingField: 2
-  <ItemSubCategory>k__BackingField: 
+  <ItemCategory>k__BackingField: 4
+  <ItemSubCategory>k__BackingField: 0
   <ItemRarity>k__BackingField: 0
   <DefaultParametersList>k__BackingField: []
-  <ItemPrefab>k__BackingField: {fileID: 0}
-  modifierData:
-  - statModifier: {fileID: 11400000, guid: 9cb51cb05dad0f14db3e4c223627956b, type: 2}
-    value: 10
+  <ItemPrefab>k__BackingField: {fileID: 7382413393457835558, guid: cd11386b48fb3cc4e9b2fe94a4cb55a7,
+    type: 3}
+  itemType: 1
+  modifierData: []
   <actionSFX>k__BackingField: {fileID: 0}

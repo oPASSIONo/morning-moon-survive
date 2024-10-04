@@ -141,9 +141,12 @@ namespace Inventory
                 return;
             currentItemIndex = itemIndex;
             IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
-            if (destroyableItem != null && inventoryItem.item is ConsumableItemSO/* !(inventoryItem.item is ToolItemSO) && !(inventoryItem.item is IngredientItemSO)*/)
+            if (destroyableItem != null && inventoryItem.item is MaterialItemSO materialItemSo/* !(inventoryItem.item is ToolItemSO) && !(inventoryItem.item is IngredientItemSO)*/)
             {
-                inventoryData.RemoveItem(itemIndex, quantity);
+                if (materialItemSo.itemType==ItemType.Consumable)
+                {
+                    inventoryData.RemoveItem(itemIndex, quantity);
+                }
             }
 
             IItemAction itemAction = inventoryItem.item as IItemAction;
