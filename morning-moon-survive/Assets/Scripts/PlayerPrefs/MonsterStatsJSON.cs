@@ -3,37 +3,27 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 
-public class MonsterStatsJSON : MonoBehaviour
+public class MonsterStatsJSON
 {
-    [JsonProperty] private float HP;
-    [JsonProperty] private float MaxHP;
-    [JsonProperty] private float MinHP;
-    [JsonProperty] private float Defense;
-    [JsonProperty] private float BaseATK;
-    [JsonProperty] private float PositionX;
-    [JsonProperty] private float PositionZ;
+    public Dictionary<string, EnemyStatsSO> MonsterStatsList = new Dictionary<string, EnemyStatsSO>();
 
     public void SetMonstersStats(Enemy monstersStats)
     {
-        HP = monstersStats.HP;
-        MaxHP = monstersStats.MaxHP;
-        MinHP = monstersStats.MinHP;
-        Defense = monstersStats.Defense;
-        BaseATK = monstersStats.BaseATK;
-    }
+        if (monstersStats.enemyStatsSO == null)
+        {
+            Debug.LogError("EnemyStatsSO is null for the enemy: " + monstersStats.name);
+            return;
+        }
 
-    private List<MonsterStatsJSON> monsterStats;
+        string uniqueKey = monstersStats.enemyStatsSO.Name + "_" + monstersStats.GetInstanceID();
 
-    public MonsterStatsJSON(float hp, float maxHp, float minHp, float defense, float baseAtk, float positionX, float positionZ)
-    {
-        this.HP = hp;
-        this.MaxHP = maxHp;
-        this.MinHP = minHp;
-        this.Defense = defense;
-        this.BaseATK = baseAtk;
-        this.PositionX = positionX;
-        this.PositionZ = positionZ;
-
-        monsterStats = new List<MonsterStatsJSON>();
+        if (!MonsterStatsList.ContainsKey(uniqueKey))
+        {
+            MonsterStatsList[uniqueKey] = monstersStats.enemyStatsSO;
+        }
+        else
+        {
+            Debug.LogWarning("Monster with uniqueKey " + uniqueKey + " already exists.");
+        }
     }
 }

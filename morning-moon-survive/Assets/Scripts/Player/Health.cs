@@ -3,9 +3,9 @@ using System;
 
 public class Health : MonoBehaviour
 {
-    public float MaxHealth { get; private set; }
-    public float MinHealth { get; private set; }
-    public float CurrentHealth { get; private set; }
+    public float MaxHealth { get; set; }
+    public float MinHealth { get; set; }
+    public float CurrentHealth { get; set; }
 
     public event Action<float, float,float> OnHealthChanged;
     public event Action OnEntityDie;
