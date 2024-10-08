@@ -50,7 +50,7 @@ public class UIBuildingPage : MonoBehaviour
     
    private void SetDescription(ObjectData data) 
    {
-        buildingDescription.SetDescription(data.Image , data.Name , data.ID , data.Recipe.RequiredIngredients);
+        buildingDescription.SetDescription(data.Image , data.Name , data.ID);
    }
 
 }

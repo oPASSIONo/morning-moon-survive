@@ -12,7 +12,7 @@ public class UIBuildingDescription : MonoBehaviour
 
     private List<GameObject> ingredientUIObjects = new List<GameObject>();
     
-    public void SetDescription(Sprite itemSprite, string itemName, int id, List<RequiredIngredient> ingredients)
+    /*public void SetDescription(Sprite itemSprite, string itemName, int id, List<RequiredIngredient> ingredients)
     {
         // Set the item image, title, and description
         itemImage.sprite = itemSprite;
@@ -36,6 +36,21 @@ public class UIBuildingDescription : MonoBehaviour
 
             ingredientUIObjects.Add(ingredientUI);
         }
+    }*/
+    
+    public void SetDescription(Sprite itemSprite, string itemName, int id)
+    {
+        // Set the item image, title, and description
+        itemImage.sprite = itemSprite;
+        title.text = itemName;
+        description.text = id.ToString();
+
+        // Clear existing ingredient UI objectsS
+        foreach (var uiObject in ingredientUIObjects)
+        {
+            Destroy(uiObject);
+        }
+        ingredientUIObjects.Clear();
     }
 
 }
