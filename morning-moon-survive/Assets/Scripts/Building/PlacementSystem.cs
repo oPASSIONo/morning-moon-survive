@@ -9,7 +9,7 @@ public class PlacementSystem : MonoBehaviour
 
     [SerializeField] private Grid grid;
 
-    [SerializeField] private ObjectDatabaseSO database;
+    [SerializeField] private BuildingObjectSo database;
 
     [SerializeField] private GameObject gridVisualization;
     //[SerializeField] private AudioSource source; // Add sound

@@ -9,7 +9,7 @@ public class PlacementState : IBuildingState
     private int ID;
     private Grid grid;
     private PreviewSystem previewSystem;
-    private ObjectDatabaseSO database;
+    private BuildingObjectSo database;
     private GridData floorData;
     private GridData furnitureData;
     private ObjectPlacer objectPlacer;
@@ -17,7 +17,7 @@ public class PlacementState : IBuildingState
     public PlacementState(int id,
         Grid grid,
         PreviewSystem previewSystem,
-        ObjectDatabaseSO database,
+        BuildingObjectSo database,
         GridData floorData,
         GridData furnitureData,
         ObjectPlacer objectPlacer)

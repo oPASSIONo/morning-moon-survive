@@ -203,10 +203,16 @@ namespace Inventory
                         inventoryUI.UpdateData(item.Key,item.Value.item.ItemImage,item.Value.quantity);
                     }
                     break;
+                case PlayerStateManager.PlayerState.Building:
+                    Debug.Log("In State Building");
+                    inventoryUI.Show(false);
+                    inventoryUI.MoveHotbarPanel(false);
+                    break;
                 case PlayerStateManager.PlayerState.Normal:
                     inventoryUI.Show(false);
                     inventoryUI.MoveHotbarPanel(false);
                     break;
+         
             }
         }
     }

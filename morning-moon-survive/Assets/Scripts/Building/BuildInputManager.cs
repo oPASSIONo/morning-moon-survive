@@ -13,6 +13,8 @@ public class BuildInputManager : MonoBehaviour
     private Vector3 lastPosition;
     
     [SerializeField] private LayerMask placementLayerMask;
+    [SerializeField] private PlayerStateManager playerStateManager;
+
 
 
     public event Action OnClicked, OnExit;
@@ -27,6 +29,7 @@ public class BuildInputManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            playerStateManager.SetState(PlayerStateManager.PlayerState.Normal);
             OnExit?.Invoke();
         }
     }
