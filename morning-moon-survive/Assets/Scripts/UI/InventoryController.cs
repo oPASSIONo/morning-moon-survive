@@ -32,6 +32,11 @@ namespace Inventory
             Land.OnSeedPlanted += HandleSeedPlanted;
 
         }
+
+        public InventorySO GetInventoryData()
+        {
+            return inventoryData;
+        }
         private void HandleSeedPlanted(SeedItemSO seedItem)
         {
             inventoryData.RemoveItem(currentItemIndex,1);
