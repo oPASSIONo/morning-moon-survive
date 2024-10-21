@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Inventory;
 using UnityEngine;
 
 public class PlacementSystem : MonoBehaviour
 {
     [SerializeField] private BuildInputManager inputManager;
 
-    [SerializeField] private Grid grid;
+    [SerializeField] public Grid grid;
 
     [SerializeField] private BuildingObjectSo database;
 
@@ -20,6 +21,8 @@ public class PlacementSystem : MonoBehaviour
     private Vector3Int lastDetectedPosition = Vector3Int.zero;
 
     [SerializeField] private ObjectPlacer objectPlacer;
+    [SerializeField] private InventoryController inventoryController;
+    private ObjectData selectedObjectData; // Store the selected ObjectData
 
     private IBuildingState buildingState;
     
@@ -34,7 +37,7 @@ public class PlacementSystem : MonoBehaviour
     {
         StopPlacement();
         gridVisualization.SetActive(true);
-        buildingState = new PlacementState(ID, grid, preview, database, floorData, furnitureData, objectPlacer);
+        buildingState = new PlacementState(ID, grid, preview, database, floorData, furnitureData, objectPlacer, inventoryController);
         inputManager.OnClicked += PlaceStructure;
         inputManager.OnExit += StopPlacement;
     }
@@ -97,11 +100,13 @@ public class PlacementSystem : MonoBehaviour
         
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
+        
         if (lastDetectedPosition != gridPosition)
         {
-           buildingState.UpdateState(gridPosition);
-           lastDetectedPosition = gridPosition;
+            buildingState.UpdateState(gridPosition);
+            lastDetectedPosition = gridPosition;
         }
+      
    
     }
 }

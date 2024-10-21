@@ -21,6 +21,8 @@ namespace Inventory
         [SerializeField] private AmountController amountController;
 
         private int currentItemIndex;
+        public bool cheatMode = false; // Add this variable
+
         
         void Start()
         {
@@ -232,6 +234,68 @@ namespace Inventory
                     break;
          
             }
+        }
+        public bool HasEnoughIngredients(List<RequiredIngredient> requiredIngredients)
+        {
+            // Bypass the check if cheat mode is enabled
+            if (cheatMode)
+            {
+                Debug.Log("Cheat mode enabled: Ingredients check bypassed.");
+                return true;
+            }
+            
+            foreach (var ingredient in requiredIngredients)
+            {
+                // Check if the player's inventory has enough of each ingredient
+                int availableAmount = GetIngredientAmount(ingredient.item); // Implement this method to retrieve the current amount of the ingredient
+
+                if (availableAmount < ingredient.quantity)
+                {
+                    return false; // Not enough of at least one ingredient
+                }
+            }
+            return true; // All ingredients are sufficient
+        }
+        
+        public int GetIngredientAmount(ItemSO ingredient)
+        {
+            // Loop through the inventory to find the item
+            foreach (var inventoryItem in inventoryData.GetCurrentInventoryState())
+            {
+                if (inventoryItem.Value.item == ingredient) // Check if the item matches the ingredient
+                {
+                    return inventoryItem.Value.quantity; // Return the quantity of the ingredient
+                }
+            }
+
+            // If not found, return 0
+            return 0;
+        }
+        
+        public void RemoveIngredients(List<RequiredIngredient> requiredIngredients)
+        {
+            foreach (var ingredient in requiredIngredients)
+            {
+                // Assuming you have a method to find the ingredient in the inventory
+                int ingredientIndex = GetIngredientIndex(ingredient.item);
+                if (ingredientIndex != -1)
+                {
+                    // Deduct the quantity
+                    inventoryData.RemoveItem(ingredientIndex, ingredient.quantity);
+                }
+            }
+        }
+
+        private int GetIngredientIndex(ItemSO item)
+        {
+            for (int i = 0; i < inventoryData.Size; i++)
+            {
+                if (inventoryData.GetItemAt(i).item == item)
+                {
+                    return i; // Return the index of the ingredient
+                }
+            }
+            return -1; // Not found
         }
     }
 }

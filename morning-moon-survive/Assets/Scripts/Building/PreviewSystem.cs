@@ -8,6 +8,7 @@ public class PreviewSystem : MonoBehaviour
     [SerializeField] private float previewYOffset = 0.06f;
     
     [SerializeField] private GameObject cellIndicator;
+    [SerializeField] private Grid grid;
     private GameObject previewObject;
     
     [SerializeField] private Material previewMaterialsPrefab;
@@ -101,6 +102,13 @@ public class PreviewSystem : MonoBehaviour
             renderer.material.color = color;
         }
     }
+    
+    public void ChangePreviewColor(Color color)
+    {
+        previewMaterialInstance.color = color;
+        /*// Assuming you have a method to change the material color of the preview object
+        previewObject.GetComponent<Renderer>().material.color = color;*/
+    }
 
     private void MoveCursor(Vector3 position)
     {
@@ -129,6 +137,20 @@ public class PreviewSystem : MonoBehaviour
             
             Debug.Log("Object Rotate : " + currentRotationAngle);
         }
+    }
+    public Vector3 GetCurrentPosition()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            Vector3Int gridPosition = grid.WorldToCell(hit.point);
+        
+            return grid.CellToWorld(gridPosition);
+        }
+
+        return Vector3.zero;
     }
 
     public int GetCurrentRotation()

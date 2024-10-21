@@ -13,6 +13,7 @@ public class UIBuildingPage : MonoBehaviour
     private ObjectData selectedObjectData; // Store the selected ObjectData
     [SerializeField] private InventoryController inventoryController;
     [SerializeField] private PlayerStateManager playerStateManager;
+    [SerializeField] private PreviewSystem previewSystem;
     
     private List<UIBuildingItem> listOfUIBuildingItems = new List<UIBuildingItem>();
     private Dictionary<UIBuildingItem, ObjectData> buildingItemToRecipeMap = new Dictionary<UIBuildingItem, ObjectData>();
@@ -62,12 +63,37 @@ public class UIBuildingPage : MonoBehaviour
    
    public void OnBuildButtonClicked()
    {
+       /*
        if (selectedObjectData != null)
        {
            placementSystem.StartPlacement(selectedObjectData.ID); // Use selectedObjectData's ID
 
            playerStateManager.SetState(PlayerStateManager.PlayerState.Building);
            inventoryController.OpenInventoryUI();
+       }
+       */
+       
+       if (selectedObjectData != null)
+       {
+           // Check if the required ingredients are available
+           if (inventoryController.HasEnoughIngredients(selectedObjectData.Recipe.RequiredIngredients))
+           {
+               placementSystem.StartPlacement(selectedObjectData.ID); // Use selectedObjectData's ID
+               playerStateManager.SetState(PlayerStateManager.PlayerState.Building);
+               inventoryController.OpenInventoryUI();
+               Debug.Log("Building item placed successfully! " +  selectedObjectData.Name);
+
+           }
+           else
+           {
+               // Not enough ingredients, start placement but change preview to indicate issue
+               placementSystem.StartPlacement(selectedObjectData.ID); 
+               playerStateManager.SetState(PlayerStateManager.PlayerState.Building);
+               inventoryController.OpenInventoryUI();
+               /*previewSystem.ChangePreviewColor(Color.red); // Change preview color to red
+               previewSystem.UpdatePosition(previewSystem.GetCurrentPosition(), false); */
+               Debug.Log("Not enough ingredients to place the item!" + selectedObjectData.Name);
+           }
        }
        else
        {
