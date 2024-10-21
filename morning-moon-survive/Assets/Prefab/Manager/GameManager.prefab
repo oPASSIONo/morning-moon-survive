@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7536092564173506013}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -44,12 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad4b8ac9be2f919478080c9d20c93c89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 5526285688027234537, guid: 240b430be4b521541bd8d00e615e6bf4,
-    type: 3}
-  playerFollowCamera: {fileID: 8237669508818836797, guid: 70f9ee12ee67e9a4e8bd7351040356f8,
-    type: 3}
-  player: {fileID: 4770661126664566695, guid: 7ae0f206ce4c5274fbf79e792bea7666, type: 3}
-  craftingSystem: {fileID: 2898378383421187747, guid: 8c19581b75c943b4c955d4b3a600a905,
-    type: 3}
-  gameCanvas: {fileID: 7283545287059905685, guid: 7b0a0137b1e287d44b1d943ae5d0f2d7,
-    type: 3}
+  mainCamera: {fileID: 0}
+  playerFollowCamera: {fileID: 0}
+  timeManager: {fileID: 0}
+  gameInput: {fileID: 0}
+  player: {fileID: 0}
+  craftingSystem: {fileID: 0}
+  gameCanvas: {fileID: 0}
+  buildingSystem: {fileID: 0}
