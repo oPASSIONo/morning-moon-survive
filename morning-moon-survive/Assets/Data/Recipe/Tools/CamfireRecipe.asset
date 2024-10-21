@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: CamfireRecipe
   m_EditorClassIdentifier: 
   requiredIngredients:
-  - item: {fileID: 11400000, guid: c4a607a8df33f0745902863e489f1f80, type: 2}
+  - item: {fileID: 11400000, guid: 7b5437c630bf1c7439e0e47d5c237a47, type: 2}
     quantity: 2
-  - item: {fileID: 11400000, guid: 957b8439c73f78042be041d268dede03, type: 2}
+  - item: {fileID: 11400000, guid: 0f0b94365d2d41c4ebebaef803478167, type: 2}
     quantity: 3
   craftedItem: {fileID: 0}
   craftedQuantity: 1
