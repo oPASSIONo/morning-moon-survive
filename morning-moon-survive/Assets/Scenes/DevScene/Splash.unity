@@ -2434,6 +2434,12 @@ PrefabInstance:
       propertyPath: grid
       value: 
       objectReference: {fileID: 367816727}
+    - target: {fileID: 6508752569267595247, guid: d8b86aa661c3a8f44bfc13dd58701d73,
+        type: 3}
+      propertyPath: database
+      value: 
+      objectReference: {fileID: 11400000, guid: 21181d9639db2d14db56e105385bc82a,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

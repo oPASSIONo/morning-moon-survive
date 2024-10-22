@@ -49,7 +49,7 @@ public class RotationState : IBuildingState
 
         // Update the position and rotation for the visual feedback
         Vector3 worldPosition = grid.CellToWorld(gridPosition);
-        previewSystem.UpdatePosition(worldPosition, true);
+        previewSystem.UpdatePosition(worldPosition, true , false);
     }
 
     private void RotatePreviewObject()

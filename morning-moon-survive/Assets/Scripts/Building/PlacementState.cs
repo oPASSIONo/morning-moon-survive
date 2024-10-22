@@ -61,7 +61,7 @@ public class PlacementState : IBuildingState
         if (!inventoryController.HasEnoughIngredients(database.objectsData[selectedObjectIndex].Recipe.RequiredIngredients))
         {
             // Change the preview to indicate insufficient ingredients
-            previewSystem.UpdatePosition(previewSystem.GetCurrentPosition(), false); // Update the preview with invalid placement
+            previewSystem.UpdatePosition(previewSystem.GetCurrentPosition(), false, false); // Update the preview with invalid placement
             Debug.Log("Not enough ingredients to place the object.");
             return; // Prevent placement
         }
@@ -86,7 +86,7 @@ public class PlacementState : IBuildingState
         // Remove ingredients after successful placement
         inventoryController.RemoveIngredients(database.objectsData[selectedObjectIndex].Recipe.RequiredIngredients);
 
-        previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), false);
+        previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), false , false);
     }
     private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex )
     {
@@ -98,8 +98,16 @@ public class PlacementState : IBuildingState
     public void UpdateState(Vector3Int gridPosition)
     {
         bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
+    
+        // Check if there are enough ingredients
+        bool hasEnoughIngredients = inventoryController.HasEnoughIngredients(database.objectsData[selectedObjectIndex].Recipe.RequiredIngredients);
+    
+        // Update the preview with both placement validity and ingredient availability
+        previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity, hasEnoughIngredients);
         
-        previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity);
+        /*bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
+        
+        previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity);*/
       
     }
 }
