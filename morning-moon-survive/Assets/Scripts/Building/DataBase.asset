@@ -52,3 +52,23 @@ MonoBehaviour:
     <Recipe>k__BackingField: {fileID: 11400000, guid: fc513f9f12352194e92c3f8d9db47ba2,
       type: 2}
     <Description>k__BackingField: This is 3x3 crop pot
+  - <Name>k__BackingField: Fence _01
+    <ID>k__BackingField: 5
+    <Size>k__BackingField: {x: 6, y: 1}
+    <Prefab>k__BackingField: {fileID: 2512988604094209643, guid: 143a7c51c98d74941ab972f17a7a1249,
+      type: 3}
+    <Image>k__BackingField: {fileID: 21300000, guid: bb745b5ae6d1d0946b4390678ac54ff7,
+      type: 3}
+    <Recipe>k__BackingField: {fileID: 11400000, guid: eb86fe6824235564ca9ac3d10159d27b,
+      type: 2}
+    <Description>k__BackingField: This is Fence
+  - <Name>k__BackingField: Fence_02
+    <ID>k__BackingField: 6
+    <Size>k__BackingField: {x: 6, y: 1}
+    <Prefab>k__BackingField: {fileID: 8328027821968524883, guid: 67b14426241157d44a393a1618e56290,
+      type: 3}
+    <Image>k__BackingField: {fileID: 21300000, guid: 6d9b4672de14f9e4aa27b313e3cc611c,
+      type: 3}
+    <Recipe>k__BackingField: {fileID: 11400000, guid: f0f3a477bc81b954a9d85e8de85c8fa2,
+      type: 2}
+    <Description>k__BackingField: This is Fence
