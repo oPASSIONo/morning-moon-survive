@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Inventory;
 using UnityEngine;
 
 public class PlacementState : IBuildingState
@@ -9,18 +10,21 @@ public class PlacementState : IBuildingState
     private int ID;
     private Grid grid;
     private PreviewSystem previewSystem;
-    private ObjectDatabaseSO database;
+    private BuildingObjectSo database;
     private GridData floorData;
     private GridData furnitureData;
     private ObjectPlacer objectPlacer;
+    private InventoryController inventoryController; // Add reference to InventoryController
+
 
     public PlacementState(int id,
         Grid grid,
         PreviewSystem previewSystem,
-        ObjectDatabaseSO database,
+        BuildingObjectSo database,
         GridData floorData,
         GridData furnitureData,
-        ObjectPlacer objectPlacer)
+        ObjectPlacer objectPlacer,
+        InventoryController inventoryController)
     {
         ID = id;
         this.grid = grid;
@@ -29,6 +33,7 @@ public class PlacementState : IBuildingState
         this.floorData = floorData;
         this.furnitureData = furnitureData;
         this.objectPlacer = objectPlacer;
+        this.inventoryController = inventoryController;
         
         selectedObjectIndex = database.objectsData.FindIndex(data => data.ID == ID);
         if (selectedObjectIndex > -1)
@@ -51,6 +56,16 @@ public class PlacementState : IBuildingState
 
     public void OnAction(Vector3Int gridPosition)
     {
+        
+        // Check if there are enough ingredients
+        if (!inventoryController.HasEnoughIngredients(database.objectsData[selectedObjectIndex].Recipe.RequiredIngredients))
+        {
+            // Change the preview to indicate insufficient ingredients
+            previewSystem.UpdatePosition(previewSystem.GetCurrentPosition(), false, false); // Update the preview with invalid placement
+            Debug.Log("Not enough ingredients to place the object.");
+            return; // Prevent placement
+        }
+        
         bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
         if (placementValidity == false)
         {
@@ -67,7 +82,11 @@ public class PlacementState : IBuildingState
             database.objectsData[selectedObjectIndex].ID,
             index,
             currentRotation);
-        previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), false);
+        
+        // Remove ingredients after successful placement
+        inventoryController.RemoveIngredients(database.objectsData[selectedObjectIndex].Recipe.RequiredIngredients);
+
+        previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), false , false);
     }
     private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex )
     {
@@ -79,8 +98,16 @@ public class PlacementState : IBuildingState
     public void UpdateState(Vector3Int gridPosition)
     {
         bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
+    
+        // Check if there are enough ingredients
+        bool hasEnoughIngredients = inventoryController.HasEnoughIngredients(database.objectsData[selectedObjectIndex].Recipe.RequiredIngredients);
+    
+        // Update the preview with both placement validity and ingredient availability
+        previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity, hasEnoughIngredients);
         
-        previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity);
+        /*bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
+        
+        previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity);*/
       
     }
 }

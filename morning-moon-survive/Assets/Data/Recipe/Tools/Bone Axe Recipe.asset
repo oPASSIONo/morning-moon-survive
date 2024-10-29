@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Bone Axe Recipe
   m_EditorClassIdentifier: 
   requiredIngredients:
-  - item: {fileID: 11400000, guid: 957b8439c73f78042be041d268dede03, type: 2}
+  - item: {fileID: 11400000, guid: f944a1d30f2ffd24c9bf038fe8a61517, type: 2}
     quantity: 1
-  - item: {fileID: 11400000, guid: afc77a80a3204374ea163168dd0a5767, type: 2}
+  - item: {fileID: 11400000, guid: 0f0b94365d2d41c4ebebaef803478167, type: 2}
     quantity: 1
   craftedItem: {fileID: 11400000, guid: a21bf9d39daadfa428985e4dd1a240ce, type: 2}
   craftedQuantity: 1

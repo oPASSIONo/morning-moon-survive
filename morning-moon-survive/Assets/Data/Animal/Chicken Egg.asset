@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06f5f5e944f550c479908a9016df8585, type: 3}
+  m_Name: Chicken Egg
+  m_EditorClassIdentifier: 
+  speciesName: Chicken
+  babyPrefab: {fileID: 8705680750067599787, guid: f88bfb8d8433f7f4cb5e893bad999b1d,
+    type: 3}
+  juvenilePrefab: {fileID: 5789821297740954011, guid: 634348a6a526a6d4aabfaf51f2f8ef25,
+    type: 3}
+  adultPrefab: {fileID: 2899487654580323507, guid: a24f92564790b0046a12ba15ed22ff02,
+    type: 3}
+  babyToJuvenileTime: 2
+  juvenileToAdultTime: 2
+  dropItem: {fileID: 11400000, guid: a55a92413cb8e8741af3dafa545ff0ea, type: 2}
+  daysBetweenDrops: 2
+  daysAfterAdultBeforeFirstDrop: 1

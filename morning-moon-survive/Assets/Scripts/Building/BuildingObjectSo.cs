@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class ObjectDatabaseSO : ScriptableObject
+public class BuildingObjectSo : ScriptableObject
 {
     public List<ObjectData> objectsData;
 }
@@ -18,6 +18,10 @@ public class ObjectData
     [field: SerializeField] public Vector2Int Size { get; private set; } = Vector2Int.one;
     [field: SerializeField] public GameObject Prefab { get; private set; }
     [field: SerializeField] public Sprite Image { get; private set; }
+    [field: SerializeField] public Recipe Recipe { get; private set; }
     
-    public Recipe Recipe; 
+    [field: SerializeField]
+    [field: TextArea]
+    public string Description { get; private set; }
+
 }

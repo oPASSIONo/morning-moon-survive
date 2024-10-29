@@ -19,7 +19,9 @@ namespace Inventory
         [SerializeField] private AudioSource audioSource;
 
         [SerializeField] private AmountController amountController;
-        
+
+        private int currentItemIndex;
+        public bool cheatMode = false; // Add this variable
 
         
         void Start()
@@ -29,7 +31,22 @@ namespace Inventory
 
             GameInput.Instance.OnInventoryAction += GameInput_OnInventoryAction;
             GameInput.Instance.OnSelectSlotAction += HandleSelectSlotAction;
+            Land.OnSeedPlanted += HandleSeedPlanted;
 
+        }
+
+        public InventorySO GetInventoryData()
+        {
+            return inventoryData;
+        }
+        private void HandleSeedPlanted(SeedItemSO seedItem)
+        {
+            inventoryData.RemoveItem(currentItemIndex,1);
+            InventoryItem inventoryItem = inventoryData.GetItemAt(currentItemIndex);
+            if (inventoryItem.IsEmpty)
+            {
+                GetComponent<AgentTool>().DeactivateAllSeeds();
+            }
         }
         private void HandleSelectSlotAction(object sender, int slotIndex)
         {
@@ -123,17 +140,20 @@ namespace Inventory
             audioSource.PlayOneShot(dropClip);
             inventoryUI.actionPanel.Toggle(false);
         }
-
+        
         public void PerformAction(int itemIndex,int quantity)
         {
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
             if (inventoryItem.IsEmpty)
                 return;
-
+            currentItemIndex = itemIndex;
             IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
-            if (destroyableItem != null && inventoryItem.item is ConsumableItemSO/* !(inventoryItem.item is ToolItemSO) && !(inventoryItem.item is IngredientItemSO)*/)
+            if (destroyableItem != null && inventoryItem.item is MaterialItemSO materialItemSo/* !(inventoryItem.item is ToolItemSO) && !(inventoryItem.item is IngredientItemSO)*/)
             {
-                inventoryData.RemoveItem(itemIndex, quantity);
+                if (materialItemSo.itemType==ItemType.Consumable)
+                {
+                    inventoryData.RemoveItem(itemIndex, quantity);
+                }
             }
 
             IItemAction itemAction = inventoryItem.item as IItemAction;
@@ -146,7 +166,7 @@ namespace Inventory
             }
             inventoryUI.actionPanel.Toggle(false);
         }
-    
+        
         private void HandleDraggin(int itemIndex)
         {
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
@@ -203,11 +223,79 @@ namespace Inventory
                         inventoryUI.UpdateData(item.Key,item.Value.item.ItemImage,item.Value.quantity);
                     }
                     break;
+                case PlayerStateManager.PlayerState.Building:
+                    Debug.Log("In State Building");
+                    inventoryUI.Show(false);
+                    inventoryUI.MoveHotbarPanel(false);
+                    break;
                 case PlayerStateManager.PlayerState.Normal:
                     inventoryUI.Show(false);
                     inventoryUI.MoveHotbarPanel(false);
                     break;
+         
             }
+        }
+        public bool HasEnoughIngredients(List<RequiredIngredient> requiredIngredients)
+        {
+            // Bypass the check if cheat mode is enabled
+            if (cheatMode)
+            {
+                Debug.Log("Cheat mode enabled: Ingredients check bypassed.");
+                return true;
+            }
+            
+            foreach (var ingredient in requiredIngredients)
+            {
+                // Check if the player's inventory has enough of each ingredient
+                int availableAmount = GetIngredientAmount(ingredient.item); // Implement this method to retrieve the current amount of the ingredient
+
+                if (availableAmount < ingredient.quantity)
+                {
+                    return false; // Not enough of at least one ingredient
+                }
+            }
+            return true; // All ingredients are sufficient
+        }
+        
+        public int GetIngredientAmount(ItemSO ingredient)
+        {
+            // Loop through the inventory to find the item
+            foreach (var inventoryItem in inventoryData.GetCurrentInventoryState())
+            {
+                if (inventoryItem.Value.item == ingredient) // Check if the item matches the ingredient
+                {
+                    return inventoryItem.Value.quantity; // Return the quantity of the ingredient
+                }
+            }
+
+            // If not found, return 0
+            return 0;
+        }
+        
+        public void RemoveIngredients(List<RequiredIngredient> requiredIngredients)
+        {
+            foreach (var ingredient in requiredIngredients)
+            {
+                // Assuming you have a method to find the ingredient in the inventory
+                int ingredientIndex = GetIngredientIndex(ingredient.item);
+                if (ingredientIndex != -1)
+                {
+                    // Deduct the quantity
+                    inventoryData.RemoveItem(ingredientIndex, ingredient.quantity);
+                }
+            }
+        }
+
+        private int GetIngredientIndex(ItemSO item)
+        {
+            for (int i = 0; i < inventoryData.Size; i++)
+            {
+                if (inventoryData.GetItemAt(i).item == item)
+                {
+                    return i; // Return the index of the ingredient
+                }
+            }
+            return -1; // Not found
         }
     }
 }

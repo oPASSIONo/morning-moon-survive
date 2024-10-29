@@ -76,10 +76,12 @@ public class PlayerStateManager : MonoBehaviour
         if (currentState == PlayerState.Normal)
         {
             SetState(PlayerState.Building);
+            Debug.Log(currentState);
         }
         else if (currentState == PlayerState.Building)
         {
             SetState(PlayerState.Normal);
+            Debug.Log(currentState);
         }
     }
 

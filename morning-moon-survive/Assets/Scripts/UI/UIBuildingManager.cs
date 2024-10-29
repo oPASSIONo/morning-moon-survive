@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class UIBuildingManager : MonoBehaviour
 {
     public static UIBuildingManager Instance { get; private set; }
 
-    [SerializeField] private ObjectDatabaseSO objectDatabaseSo;
+    [SerializeField] private BuildingObjectSo buildingObjectSo;
     [SerializeField] private GameObject playerBuildingPage;
 
     private void Awake()
@@ -39,7 +40,7 @@ public class UIBuildingManager : MonoBehaviour
         {
             case PlayerStateManager.PlayerState.Building : 
                 playerBuildingPage.SetActive(true);
-                playerBuildingPage.GetComponent<UIBuildingPage>().PopulateBuildingUI(objectDatabaseSo);
+                playerBuildingPage.GetComponent<UIBuildingPage>().PopulateBuildingUI(buildingObjectSo);
                 break;
             case PlayerStateManager.PlayerState.Normal :
                 playerBuildingPage.SetActive(false);

@@ -49,6 +49,9 @@ MonoBehaviour:
     volume: 1
     loop: 1
   bgmSettings:
+  - bgmClip: {fileID: 8300000, guid: f7698e05917524743a4744252be708c8, type: 3}
+    volume: 1
+    loop: 1
   - bgmClip: {fileID: 8300000, guid: 5a047e056089f8740935121489c8d400, type: 3}
     volume: 1
     loop: 1
