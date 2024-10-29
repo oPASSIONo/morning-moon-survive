@@ -97,7 +97,6 @@ namespace Inventory
             inventoryUI.OnItemActionRequested -= HandleItemActionRequest;
         }*/
         
-
         private void HandleItemActionRequest(int itemIndex)
         {
             if (inventoryData == null)
@@ -227,5 +226,7 @@ namespace Inventory
                     break;
             }
         }
+
+        
     }
 }

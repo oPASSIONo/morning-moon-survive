@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Inventory;
 using Inventory.Model;
 using UnityEngine;
 
@@ -11,7 +12,36 @@ public class AnimalPen : MonoBehaviour
     private List<Animal> animalsInPen = new List<Animal>();
     private AnimalSO currentSpecies;
 
-    public void AddAnimal(AnimalSO animalData)
+    private InventorySO playerInventory;
+
+    public void GetPlayerInventory(InventorySO _playerInventory)
+    {
+        playerInventory = _playerInventory;
+    }
+    
+    public void AddAnimalToPen()
+    {
+        AnimalEggSO eggInInventory = playerInventory.GetAnimalEggInInventory();
+        if (eggInInventory != null)
+        {
+            // Add the animal to the pen
+            AnimalSO animalToAdd = eggInInventory.Animal;
+            // Logic for adding the animal to the pen goes here
+            AddAnimal(animalToAdd);
+            // Remove the egg from the inventory
+            int eggIndex = playerInventory.GetItemIndex(eggInInventory);
+            if (eggIndex != -1)
+            {
+                playerInventory.RemoveItem(eggIndex, 1); // Removes 1 egg
+            }
+        }
+        else
+        {
+            Debug.Log("No Animal Egg found in the inventory.");
+        }
+    }
+
+    private void AddAnimal(AnimalSO animalData)
     {
         if (animalsInPen.Count >= maxCapacity)
         {
@@ -68,6 +98,7 @@ public class AnimalPen : MonoBehaviour
             currentSpecies = null;
         }
     }
+    
 }
 
 

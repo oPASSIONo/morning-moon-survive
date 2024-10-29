@@ -8,7 +8,7 @@ public class Workshop : MonoBehaviour, IInteractable
     [SerializeField] private UICraftingPage craftingPage;
     
     //public event Action<bool> OnWorkshopInteract;
-    public void Interact()
+    public void Interact(GameObject player)
     {
         Debug.Log("Interacting with workshop");
         SendWorkshopCraftingSO();
