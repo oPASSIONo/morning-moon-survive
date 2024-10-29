@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class ObjectPlacer : MonoBehaviour
 {
-     [SerializeField] private List<GameObject> placedGameObjects = new();
+     [SerializeField] public List<GameObject> placedGameObjects = new();
 
     public int PlaceObject(GameObject prefab, Vector3 position , int rotationAngle)
     {
         GameObject newObject = Instantiate(prefab, position, Quaternion.Euler(0, rotationAngle, 0));
         //newObject.transform.position = position;
         placedGameObjects.Add(newObject);
+        
+        EnviromentsJson environmentData = new EnviromentsJson();
+        environmentData.SetEnvironmentData(newObject, newObject.transform.position, newObject.transform.rotation.eulerAngles);
+
         return placedGameObjects.Count - 1;
     }
 

@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Unity.VisualScripting;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class SaveManagerJson : MonoBehaviour
@@ -45,6 +43,21 @@ public class SaveManagerJson : MonoBehaviour
 
         var enviromentsJSON = new EnviromentsJson();
         enviromentsJSON.SetTime(time);
+        List<EnviromentsJson> environmentDataList = new List<EnviromentsJson>();
+
+        ObjectPlacer objectPlacer = FindObjectOfType<ObjectPlacer>();
+        if (objectPlacer != null)
+        {
+            foreach (var placedObject in objectPlacer.placedGameObjects)
+            {
+                if (placedObject != null)
+                {
+                    EnviromentsJson environmentData = new EnviromentsJson();
+                    environmentData.SetEnvironmentData(placedObject, placedObject.transform.position, placedObject.transform.rotation.eulerAngles);
+                    environmentDataList.Add(environmentData);
+                }
+            }
+        }
         worldDataJSON.enviromentsJsons.Add(enviromentsJSON);
 
         var playersJson = new PlayersJson();
@@ -89,7 +102,7 @@ public class SaveManagerJson : MonoBehaviour
             time.CurrentTimeOfDay = loadedTime.Time;
             time.DayCount = loadedTime.Day;
 
-            Debug.Log("Load JSON: " + worldAsJSON);
+            //Debug.Log("Load JSON: " + worldAsJSON);
             
             Player player = FindObjectOfType<Player>();
             if (player != null)
