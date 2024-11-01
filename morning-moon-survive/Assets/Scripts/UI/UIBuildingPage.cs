@@ -13,7 +13,6 @@ public class UIBuildingPage : MonoBehaviour
     private ObjectData selectedObjectData; // Store the selected ObjectData
     [SerializeField] private InventoryController inventoryController;
     [SerializeField] private PlayerStateManager playerStateManager;
-    [SerializeField] private PreviewSystem previewSystem;
     
     private List<UIBuildingItem> listOfUIBuildingItems = new List<UIBuildingItem>();
     private Dictionary<UIBuildingItem, ObjectData> buildingItemToRecipeMap = new Dictionary<UIBuildingItem, ObjectData>();

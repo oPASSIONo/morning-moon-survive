@@ -240,7 +240,7 @@ namespace Inventory
             // Bypass the check if cheat mode is enabled
             if (cheatMode)
             {
-                Debug.Log("Cheat mode enabled: Ingredients check bypassed.");
+                //Debug.Log("Cheat mode enabled: Ingredients check bypassed.");
                 return true;
             }
             
