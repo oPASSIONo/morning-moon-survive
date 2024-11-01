@@ -62,16 +62,7 @@ public class UIBuildingPage : MonoBehaviour
    
    public void OnBuildButtonClicked()
    {
-       /*
-       if (selectedObjectData != null)
-       {
-           placementSystem.StartPlacement(selectedObjectData.ID); // Use selectedObjectData's ID
-
-           playerStateManager.SetState(PlayerStateManager.PlayerState.Building);
-           inventoryController.OpenInventoryUI();
-       }
-       */
-       
+  
        if (selectedObjectData != null)
        {
            // Check if the required ingredients are available
@@ -89,8 +80,6 @@ public class UIBuildingPage : MonoBehaviour
                placementSystem.StartPlacement(selectedObjectData.ID); 
                playerStateManager.SetState(PlayerStateManager.PlayerState.Building);
                inventoryController.OpenInventoryUI();
-               /*previewSystem.ChangePreviewColor(Color.red); // Change preview color to red
-               previewSystem.UpdatePosition(previewSystem.GetCurrentPosition(), false); */
                Debug.Log("Not enough ingredients to place the item!" + selectedObjectData.Name);
            }
        }

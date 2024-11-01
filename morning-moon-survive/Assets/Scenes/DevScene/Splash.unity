@@ -2396,6 +2396,11 @@ PrefabInstance:
       objectReference: {fileID: 426083287}
     - target: {fileID: 3872918523223376005, guid: d8b86aa661c3a8f44bfc13dd58701d73,
         type: 3}
+      propertyPath: minX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3872918523223376005, guid: d8b86aa661c3a8f44bfc13dd58701d73,
+        type: 3}
       propertyPath: sceneCamera
       value: 
       objectReference: {fileID: 1676172987}

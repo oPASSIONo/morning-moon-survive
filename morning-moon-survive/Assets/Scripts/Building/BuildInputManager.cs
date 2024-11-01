@@ -1,18 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class BuildInputManager : MonoBehaviour
 {
-
-
     [SerializeField] private Camera sceneCamera;
     [SerializeField] private LayerMask placementLayerMask;
     [SerializeField] private PlayerStateManager playerStateManager;
 
     private Vector3 lastPosition;
+    private float minX, maxX , minY, maxY, minZ, maxZ;
+
     
     public event Action OnClicked, OnExit;
     
@@ -35,7 +37,6 @@ public class BuildInputManager : MonoBehaviour
     public Vector3 GetSelectedMapPosition()
     {
         Vector3 mousePos = Input.mousePosition;
-
         mousePos.z = sceneCamera.nearClipPlane;
         Ray ray = sceneCamera.ScreenPointToRay(mousePos);
         RaycastHit hit;
@@ -50,7 +51,7 @@ public class BuildInputManager : MonoBehaviour
 
     }
 
-// Calculates the valid placement position based on camera view
+    // Calculates the valid placement position based on camera view
     private Vector3 GetValidPlacementPosition(Vector3 targetPosition)
     {
         // Get the camera's current position
@@ -61,12 +62,12 @@ public class BuildInputManager : MonoBehaviour
         float halfHeight = sceneCamera.orthographicSize;
 
         // Define the bounds based on the camera's position
-        float minX = cameraPosition.x ;
-        float maxX = cameraPosition.x + halfWidth;
-        float minY = cameraPosition.y - halfHeight;
-        float maxY = cameraPosition.y + halfHeight;
-        float minZ = cameraPosition.z ;
-        float maxZ = cameraPosition.z + halfWidth;
+        minX = cameraPosition.x ;
+        maxX = cameraPosition.x + halfWidth;
+        minY = cameraPosition.y - halfHeight;
+        maxY = cameraPosition.y + halfHeight;
+        minZ = cameraPosition.z ;
+        maxZ = cameraPosition.z + halfWidth;
 
         float clampedX = Mathf.Clamp(targetPosition.x, minX, maxX);
         float clampedY = Mathf.Clamp(targetPosition.y, minY, maxY);
@@ -76,3 +77,4 @@ public class BuildInputManager : MonoBehaviour
     }
    
 }
+

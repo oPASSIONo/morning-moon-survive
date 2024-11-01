@@ -106,7 +106,5 @@ public class PlacementSystem : MonoBehaviour
             buildingState.UpdateState(gridPosition);
             lastDetectedPosition = gridPosition;
         }
-      
-   
     }
 }

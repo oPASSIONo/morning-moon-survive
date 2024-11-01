@@ -104,10 +104,6 @@ public class PlacementState : IBuildingState
     
         // Update the preview with both placement validity and ingredient availability
         previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity, hasEnoughIngredients);
-        
-        /*bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
-        
-        previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity);*/
       
     }
 }

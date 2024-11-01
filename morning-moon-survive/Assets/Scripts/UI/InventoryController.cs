@@ -19,9 +19,9 @@ namespace Inventory
         [SerializeField] private AudioSource audioSource;
 
         [SerializeField] private AmountController amountController;
+        [SerializeField] private bool cheatModeForBuilding = false;// Add this variable
 
         private int currentItemIndex;
-        public bool cheatMode = false; // Add this variable
 
         
         void Start()
@@ -238,7 +238,7 @@ namespace Inventory
         public bool HasEnoughIngredients(List<RequiredIngredient> requiredIngredients)
         {
             // Bypass the check if cheat mode is enabled
-            if (cheatMode)
+            if (cheatModeForBuilding)
             {
                 //Debug.Log("Cheat mode enabled: Ingredients check bypassed.");
                 return true;
