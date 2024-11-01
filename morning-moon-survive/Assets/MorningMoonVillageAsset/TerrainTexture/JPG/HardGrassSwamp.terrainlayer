@@ -6,11 +6,11 @@ TerrainLayer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DirtGround
-  m_DiffuseTexture: {fileID: 2800000, guid: c4033dd8c86eca44295d17a8c4bf8af4, type: 3}
+  m_Name: HardGrassSwamp
+  m_DiffuseTexture: {fileID: 2800000, guid: e11aa58e441e3eb489b442060622ac09, type: 3}
   m_NormalMapTexture: {fileID: 0}
   m_MaskMapTexture: {fileID: 0}
-  m_TileSize: {x: 100, y: 100}
+  m_TileSize: {x: 20, y: 20}
   m_TileOffset: {x: 0, y: 0}
   m_Specular: {r: 0, g: 0, b: 0, a: 0}
   m_Metallic: 0
