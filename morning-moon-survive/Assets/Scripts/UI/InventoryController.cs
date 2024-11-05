@@ -32,6 +32,11 @@ namespace Inventory
             Land.OnSeedPlanted += HandleSeedPlanted;
 
         }
+
+        public InventorySO GetInventoryData()
+        {
+            return inventoryData;
+        }
         private void HandleSeedPlanted(SeedItemSO seedItem)
         {
             inventoryData.RemoveItem(currentItemIndex,1);
@@ -92,7 +97,6 @@ namespace Inventory
             inventoryUI.OnItemActionRequested -= HandleItemActionRequest;
         }*/
         
-
         private void HandleItemActionRequest(int itemIndex)
         {
             if (inventoryData == null)
@@ -222,5 +226,7 @@ namespace Inventory
                     break;
             }
         }
+
+        
     }
 }
