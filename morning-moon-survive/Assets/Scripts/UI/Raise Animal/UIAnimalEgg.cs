@@ -1,58 +1,37 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class UIAnimalEgg : MonoBehaviour,IPointerClickHandler
+public class UIAnimalEgg : UIItem
 {
-    [SerializeField] private Image eggImage;
-
-    [SerializeField] private TMP_Text eggName;
-
     [SerializeField] private TMP_Text eggQuantity;
+    private AnimalEggSO animalEggData;
 
-    [SerializeField] private Image borderImage;
+    // Event specifically for when an animal egg is clicked
+    public event Action<AnimalEggSO> OnEggClicked;
 
-    private bool empty = true;
-
-    public event Action<UIAnimalEgg> OnEggClicked;
-
-    public void Awake()
+    protected override void Awake()
     {
-        ResetData();
-        Deselect();
+        base.Awake();
     }
 
-    public void SetData(Sprite sprite, string name, int quantity)
+    public void SetData(Sprite sprite, string name, int quantity, AnimalEggSO animalEgg)
     {
-        eggImage.sprite = sprite;
-        eggName.text = name;
-        eggQuantity.text = quantity + "";
-        empty = false;
+        base.SetData(sprite, name);
+        eggQuantity.text = quantity.ToString();
+        animalEggData = animalEgg; // Store the reference
     }
 
-    public void ResetData()
+    public override void OnPointerClick(PointerEventData pointerData)
     {
-        empty = true;
-    }
-    
-    public void Select()
-    {
-        borderImage.enabled = true;
-    }
-    public void Deselect()
-    {
-        borderImage.enabled = false;
-    }
-    
-    public void OnPointerClick(PointerEventData pointerEventData)
-    {
-        if (pointerEventData.button==PointerEventData.InputButton.Left)
+        if (pointerData.button == PointerEventData.InputButton.Left)
         {
-            OnEggClicked?.Invoke(this);
+            OnEggClicked?.Invoke(animalEggData);
+        }
+        else
+        {
+            base.OnPointerClick(pointerData);
         }
     }
 }

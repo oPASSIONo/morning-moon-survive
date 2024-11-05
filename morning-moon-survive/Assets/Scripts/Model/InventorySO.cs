@@ -181,18 +181,7 @@ namespace Inventory.Model
             }
             return -1; // Item not found
         }
-        public AnimalEggSO GetAnimalEggInInventory()
-        {
-            foreach (var inventoryItem in inventoryItems)
-            {
-                if (!inventoryItem.IsEmpty && inventoryItem.item is AnimalEggSO animalEgg)
-                {
-                    
-                    return animalEgg; // Return the first egg found
-                }
-            }
-            return null; // No egg found
-        }
+        
 
     }
 

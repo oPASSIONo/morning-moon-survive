@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Inventory;
 using Inventory.Model;
 using UnityEngine;
 
@@ -10,30 +8,21 @@ public class AnimalPen : MonoBehaviour
     [SerializeField] private Transform[] penPositions;
 
     private List<Animal> animalsInPen = new List<Animal>();
-    private AnimalSO currentSpecies;
-
     private InventorySO playerInventory;
+    private AnimalSO selectingEgg;
+    private int eggIndex;
 
-    public void GetPlayerInventory(InventorySO _playerInventory)
-    {
-        playerInventory = _playerInventory;
-    }
-    
+    public void GetPlayerInventory(InventorySO _playerInventory) => playerInventory = _playerInventory;
+
+    public void GetEggIndex(int value) => eggIndex = value;
+
+    public void SetSelectedEgg(AnimalSO animalSo) => selectingEgg = animalSo;
+
     public void AddAnimalToPen()
     {
-        AnimalEggSO eggInInventory = playerInventory.GetAnimalEggInInventory();
-        if (eggInInventory != null)
+        if (selectingEgg != null)
         {
-            // Add the animal to the pen
-            AnimalSO animalToAdd = eggInInventory.Animal;
-            // Logic for adding the animal to the pen goes here
-            AddAnimal(animalToAdd);
-            // Remove the egg from the inventory
-            int eggIndex = playerInventory.GetItemIndex(eggInInventory);
-            if (eggIndex != -1)
-            {
-                playerInventory.RemoveItem(eggIndex, 1); // Removes 1 egg
-            }
+            AddAnimal(selectingEgg);
         }
         else
         {
@@ -46,40 +35,31 @@ public class AnimalPen : MonoBehaviour
         if (animalsInPen.Count >= maxCapacity)
         {
             Debug.Log("Pen is full!");
-            return ;
+            return;
         }
 
-        if (currentSpecies == null)
-        {
-            currentSpecies = animalData;
-        }
-
-        if (animalData.speciesName != currentSpecies.speciesName)
+        if (animalsInPen.Count > 0 && animalData.speciesName != animalsInPen[0].GetAnimalData().speciesName)
         {
             Debug.Log("Can't add different species!");
-            return ;
+            return;
         }
 
-        Animal newAnimal = InstantiateAnimal(animalData);
-        animalsInPen.Add(newAnimal);
-
-        //return true;
+        if (eggIndex != -1 && !playerInventory.GetItemAt(eggIndex).IsEmpty)
+        {
+            playerInventory.RemoveItem(eggIndex, 1); // Removes 1 egg
+            Animal newAnimal = InstantiateAnimal(animalData);
+            animalsInPen.Add(newAnimal);
+        }
     }
 
     private Animal InstantiateAnimal(AnimalSO animalData)
     {
-        int positionIndex = animalsInPen.Count;
-        GameObject animalObject = Instantiate(animalData.babyPrefab, penPositions[positionIndex].position, Quaternion.identity);
-
+        GameObject animalObject = Instantiate(animalData.babyPrefab, penPositions[animalsInPen.Count].position, Quaternion.identity);
         Animal animal = animalObject.AddComponent<Animal>();
         animal.Initialize(animalData);
-
         return animal;
     }
 
-    /// <summary>
-    /// Feeds all animals in the pen.
-    /// </summary>
     public void FeedAllAnimals()
     {
         foreach (var animal in animalsInPen)
@@ -90,16 +70,14 @@ public class AnimalPen : MonoBehaviour
 
     public void RemoveAnimal(Animal animal)
     {
-        animalsInPen.Remove(animal);
-        Destroy(animal.gameObject);
+        if (animalsInPen.Remove(animal))
+        {
+            Destroy(animal.gameObject);
+        }
 
         if (animalsInPen.Count == 0)
         {
-            currentSpecies = null;
+            selectingEgg = null; // Reset the selecting egg when the pen is empty
         }
     }
-    
 }
-
-
-

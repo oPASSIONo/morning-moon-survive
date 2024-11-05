@@ -10,7 +10,7 @@ public abstract class UIItem : MonoBehaviour, IPointerClickHandler
     [SerializeField] protected TMP_Text itemName;
     [SerializeField] protected Image borderImage;
 
-    protected bool empty = true;
+    protected bool isEmpty = true; // Renamed for clarity
 
     public event Action<UIItem> OnItemClicked;
     public event Action<UIItem> OnRightMouseBtnClick;
@@ -25,25 +25,19 @@ public abstract class UIItem : MonoBehaviour, IPointerClickHandler
     {
         itemImage.sprite = sprite;
         itemName.text = name;
-        empty = false;
+        isEmpty = false;
     }
 
     public virtual void ResetData()
     {
         itemImage.sprite = null;
-        itemName.text = "";
-        empty = true;
+        itemName.text = string.Empty;
+        isEmpty = true;
     }
 
-    public void Select()
-    {
-        borderImage.enabled = true;
-    }
+    public void Select() => borderImage.enabled = true;
 
-    public void Deselect()
-    {
-        borderImage.enabled = false;
-    }
+    public void Deselect() => borderImage.enabled = false;
 
     public virtual void OnPointerClick(PointerEventData pointerData)
     {

@@ -50,8 +50,7 @@ public class UICraftingPage : MonoBehaviour
             Debug.LogError("Recipe not found for the clicked item.");
         }
     }
-
-
+    
     private void SetDescription(Recipe recipe)
     {
         craftingDescription.SetDescription(
