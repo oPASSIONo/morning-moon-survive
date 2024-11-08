@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/HomeScene.unity
     guid: 68389a7052810e642b8dfc0dfe195323
   - enabled: 1
+    path: Assets/Scenes/DevScene/DevSplash.unity
+    guid: ca408644c3948bc41bb6361cd1948752
+  - enabled: 0
     path: Assets/Scenes/DevScene/Splash.unity
     guid: e185855e88218a54c9b65cb2b06f7d78
   - enabled: 1

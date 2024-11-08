@@ -5,6 +5,7 @@ using Inventory.Model;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class GameManager : MonoBehaviour
 {
 
@@ -46,8 +47,9 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+       
     }
-
+    
     private void Start()
     {
         StartGame();

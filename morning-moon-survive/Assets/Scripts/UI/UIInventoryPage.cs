@@ -31,7 +31,14 @@ namespace Inventory.UI
 
         private void Awake()
         {
-            Instance = this;
+            if (Instance == null)
+            {
+                Instance = this;  // Set the singleton instance
+            }
+            else
+            {
+                Destroy(gameObject);  // Destroy duplicates
+            }
             //Hide();
             mouseFollower.Toggle(false);
             itemDescription.ResetDescription();

@@ -6,12 +6,13 @@ using Inventory.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Inventory.Model;
+using Unity.Netcode;
 
 namespace Inventory
 {
-    public class InventoryController : MonoBehaviour
+    public class InventoryController : NetworkBehaviour
     {
-        public UIInventoryPage inventoryUI;
+        private UIInventoryPage inventoryUI;
         [SerializeField] private InventorySO inventoryData;
         public List<InventoryItem> initialItems = new List<InventoryItem>();
 
@@ -26,13 +27,19 @@ namespace Inventory
         
         void Start()
         {
-            PrepareUI();
-            PrepareInventoryData();
+            if (IsLocalPlayer) // Initialize only for the local player
+            {
+                if (inventoryUI == null)
+                {
+                    inventoryUI = UIInventoryPage.Instance; // Get reference to the singleton instance
+                }
 
-            GameInput.Instance.OnInventoryAction += GameInput_OnInventoryAction;
-            GameInput.Instance.OnSelectSlotAction += HandleSelectSlotAction;
-            Land.OnSeedPlanted += HandleSeedPlanted;
-
+                PrepareUI();
+                PrepareInventoryData();
+                GameInput.Instance.OnInventoryAction += GameInput_OnInventoryAction;
+                GameInput.Instance.OnSelectSlotAction += HandleSelectSlotAction;
+                Land.OnSeedPlanted += HandleSeedPlanted;
+            }
         }
 
         public InventorySO GetInventoryData()

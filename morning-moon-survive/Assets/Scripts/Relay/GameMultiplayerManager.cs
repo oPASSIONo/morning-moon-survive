@@ -19,15 +19,15 @@ public class GameMultiplayerManager : NetworkBehaviour
     public static GameMultiplayerManager Instance { get; private set; }
    
     [Header("Setting")]
-    [SerializeField] private TextMeshProUGUI joinCodeText;
+    //[SerializeField] private TextMeshProUGUI joinCodeText;
     [SerializeField] private TMP_InputField joinCodeInputField;
-    [SerializeField] private GameObject control;
+    //[SerializeField] private GameObject control;
     [SerializeField] private int maxConnection = 2;
     
     private NetworkVariable<int> playerNum = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone);
     
     [Header("Status")]
-    [SerializeField] private TextMeshProUGUI playerCount;
+    //[SerializeField] private TextMeshProUGUI playerCount;
     
     private List<ulong> connectedClientIds = new List<ulong>();
 
@@ -65,14 +65,14 @@ public class GameMultiplayerManager : NetworkBehaviour
     public async void StartRelay()
     {
         string joinCode = await StartHostWithRelay();
-        joinCodeText.text = joinCode;
+        //joinCodeText.text = joinCode;
         Debug.Log("CODE : "+ joinCode);
     } 
 
     public async void JoinRelay()
     {
         await StartClientWithRelay(joinCodeInputField.text);
-        control.SetActive(false);
+        //control.SetActive(false);
     }
 
     private async Task<Allocation> AllocationRelay()
@@ -160,7 +160,7 @@ public class GameMultiplayerManager : NetworkBehaviour
     }
     private void PlayerCount()
     {
-        playerCount.text = "Online : " + playerNum.Value.ToString();
+        //playerCount.text = "Online : " + playerNum.Value.ToString();
         if (!NetworkManager.Singleton.IsServer)
             return;
         playerNum.Value = NetworkManager.Singleton.ConnectedClients.Count;
