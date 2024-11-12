@@ -24,8 +24,7 @@ namespace Inventory
 
         private int currentItemIndex;
 
-        
-        void Start()
+        /*void Start()
         {
             if (IsLocalPlayer) // Initialize only for the local player
             {
@@ -39,6 +38,34 @@ namespace Inventory
                 GameInput.Instance.OnInventoryAction += GameInput_OnInventoryAction;
                 GameInput.Instance.OnSelectSlotAction += HandleSelectSlotAction;
                 Land.OnSeedPlanted += HandleSeedPlanted;
+            }
+        }*/
+        // Use OnNetworkSpawn for initialization in a networked environment
+        public override void OnNetworkSpawn()
+        {
+            if (IsLocalPlayer)
+            {
+                if (inventoryUI == null)
+                {
+                    UIInventoryPage.Instance.gameObject.SetActive(true);  // Activate it
+                    inventoryUI = UIInventoryPage.Instance;               // Reference it
+                    UIInventoryPage.Instance.gameObject.SetActive(false); // Deactivate it
+                }
+                PrepareUI();
+                PrepareInventoryData();
+                GameInput.Instance.OnInventoryAction += GameInput_OnInventoryAction;
+                GameInput.Instance.OnSelectSlotAction += HandleSelectSlotAction;
+                Land.OnSeedPlanted += HandleSeedPlanted;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (IsLocalPlayer)
+            {
+                GameInput.Instance.OnInventoryAction -= GameInput_OnInventoryAction;
+                GameInput.Instance.OnSelectSlotAction -= HandleSelectSlotAction;
+                Land.OnSeedPlanted -= HandleSeedPlanted;
             }
         }
 

@@ -3,17 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Netcode;
+
 
 public class UIStaminaBar : MonoBehaviour
 {
-    public Stamina staminaComponent;
+    private Stamina staminaComponent;
     [SerializeField] private Slider slider;
     [SerializeField] private TMP_Text staminaText; // Reference to the TextMeshPro text component
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        staminaComponent.OnStaminaChanged += UpdateStaminaBar;
+        // Subscribe to network spawn events
+        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+    }
+
+    private void OnClientConnected(ulong clientId)
+    {
+        if (NetworkManager.Singleton.LocalClientId == clientId)
+        {
+            // Attempt to find the local player's Stamina component after spawning
+            TryAssignLocalPlayerStamina();
+        }
+    }
+
+    private void TryAssignLocalPlayerStamina()
+    {
+        // Loop through all NetworkObjects to find the local player
+        foreach (var networkObject in FindObjectsOfType<NetworkObject>())
+        {
+            if (networkObject.IsLocalPlayer)
+            {
+                staminaComponent = networkObject.GetComponent<Stamina>();
+                break;
+            }
+        }
+
+        // Ensure staminaComponent was found and subscribe to the OnStaminaChanged event
+        if (staminaComponent != null)
+        {
+            staminaComponent.OnStaminaChanged += UpdateStaminaBar;
+            UpdateStaminaBar(staminaComponent.CurrentStamina, staminaComponent.MaxStamina);
+        }
+        else
+        {
+            Debug.LogError("Local player's Stamina component not found.");
+        }
     }
     
     private void UpdateStaminaBar(float currentStamina,float maxStamina)
@@ -33,6 +68,19 @@ public class UIStaminaBar : MonoBehaviour
                 // Display the current stamina value as text
                 staminaText.text = $"{Mathf.RoundToInt(currentStamina).ToString()}/{maxStamina}";
             }
+        }
+    }
+    private void OnDestroy()
+    {
+        // Unsubscribe from network and Stamina events
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
+        }
+
+        if (staminaComponent != null)
+        {
+            staminaComponent.OnStaminaChanged -= UpdateStaminaBar;
         }
     }
 }
