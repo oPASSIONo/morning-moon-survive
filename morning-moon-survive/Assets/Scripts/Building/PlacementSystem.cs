@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Inventory;
 using UnityEngine;
+using Unity.Netcode;
 
 public class PlacementSystem : MonoBehaviour
 {
@@ -21,18 +22,70 @@ public class PlacementSystem : MonoBehaviour
     private Vector3Int lastDetectedPosition = Vector3Int.zero;
 
     [SerializeField] private ObjectPlacer objectPlacer;
-    [SerializeField] private InventoryController inventoryController;
+    private InventoryController inventoryController;
     private ObjectData selectedObjectData; // Store the selected ObjectData
 
     private IBuildingState buildingState;
     
+    [SerializeField] private UIBuildingPage uiBuildingPage;
+
+    
+   
     private void Start()
     {
+        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
         StopPlacement();
         floorData = new();
         furnitureData = new();
+        
+        // Pass InventoryController reference to UIBuildingPage
+        if (uiBuildingPage != null) // Ensure this reference is set in your inspector or through code
+        {
+            uiBuildingPage.SetInventoryController(inventoryController);
+        }
+    }
+    private void OnClientConnected(ulong clientId)
+    {
+        if (NetworkManager.Singleton.LocalClientId == clientId)
+        {
+            // Attempt to find the local player's InventoryController after spawning
+            TryAssignLocalPlayerInventoryController();
+        }
+    }
+    
+    
+    private void TryAssignLocalPlayerInventoryController()
+    {
+        // Loop through all NetworkObjects to find the local player
+        foreach (var networkObject in FindObjectsOfType<NetworkObject>())
+        {
+            if (networkObject.IsLocalPlayer)
+            {
+                // Find the InventoryController on the local player's NetworkObject
+                inventoryController = networkObject.GetComponent<InventoryController>();
+                break;
+            }
+        }
+
+        // Ensure InventoryController was found and perform operations
+        if (inventoryController != null)
+        {
+            // Perform actions with the inventoryController (e.g., update UI, listen to events)
+            Debug.Log("Local player's InventoryController found.");
+        }
+        else
+        {
+            Debug.LogError("Local player's InventoryController not found.");
+        }
     }
 
+    public InventoryController InventoryController
+    {
+        get
+        {
+            return inventoryController;
+        }
+    }
     public void StartPlacement(int ID )
     {
         StopPlacement();
@@ -40,6 +93,7 @@ public class PlacementSystem : MonoBehaviour
         buildingState = new PlacementState(ID, grid, preview, database, floorData, furnitureData, objectPlacer, inventoryController);
         inputManager.OnClicked += PlaceStructure;
         inputManager.OnExit += StopPlacement;
+        
     }
 
     public void StartRemoving()
@@ -106,5 +160,11 @@ public class PlacementSystem : MonoBehaviour
             buildingState.UpdateState(gridPosition);
             lastDetectedPosition = gridPosition;
         }
+    }
+    
+    private void OnDestroy()
+    {
+        NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
+        StopPlacement(); // Ensure everything is cleaned up properly when the object is destroyed
     }
 }

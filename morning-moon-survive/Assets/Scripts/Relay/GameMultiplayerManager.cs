@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
@@ -11,10 +10,9 @@ using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-public class GameMultiplayerManager : NetworkBehaviour
+
+public class GameMultiplayerManager : MonoBehaviour
 {
     public static GameMultiplayerManager Instance { get; private set; }
    
@@ -30,12 +28,18 @@ public class GameMultiplayerManager : NetworkBehaviour
     //[SerializeField] private TextMeshProUGUI playerCount;
     
     private List<ulong> connectedClientIds = new List<ulong>();
-
     
-
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     
     private async void Start()
@@ -47,16 +51,32 @@ public class GameMultiplayerManager : NetworkBehaviour
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
         
+        NetworkManager.Singleton.OnClientConnectedCallback += SingletonOnOnClientConnectedCallback;
         NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnect;
     }
-    
+
+    private void SingletonOnOnClientConnectedCallback(ulong clientId)
+    {
+        Debug.Log("Client Connected : " + clientId );
+        
+        if (NetworkManager.Singleton.IsServer)
+        {
+            // Confirm the player was spawned or handle spawning logic here
+            Debug.Log("Player should be spawned for client ID: " + clientId);
+        }
+    }
+
     private void OnClientDisconnect(ulong clientId)
     {
-        Debug.Log("Client disconnected: " + clientId);
+        Debug.Log("Client Disconnected : " + clientId);
 
         if (connectedClientIds.Contains(clientId))
         {
             connectedClientIds.Remove(clientId);
+        }
+        if (NetworkManager.Singleton.ConnectedClients.Count == 0)
+        {
+            // Shut down only if there are no connected clients
             NetworkManager.Singleton.Shutdown();
             AuthenticationService.Instance.SignOut();
         }
@@ -101,8 +121,6 @@ public class GameMultiplayerManager : NetworkBehaviour
            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
            string joinCode = await GetRelayJoinCode(allocation);
            return  NetworkManager.Singleton.StartHost() ? joinCode : null;
-  
-
         }
         catch (RelayServiceException e)
         {
@@ -122,7 +140,6 @@ public class GameMultiplayerManager : NetworkBehaviour
             RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
            
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
-
             return !string.IsNullOrEmpty(joinCode) && NetworkManager.Singleton.StartClient();
             
         }
@@ -150,6 +167,8 @@ public class GameMultiplayerManager : NetworkBehaviour
 
     public void OnDisconnect()
     {
+        NetworkManager.Singleton.OnClientConnectedCallback -= SingletonOnOnClientConnectedCallback;
+        NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnect;
         NetworkManager.Singleton.Shutdown();
         AuthenticationService.Instance.SignOut();
     }
@@ -165,6 +184,7 @@ public class GameMultiplayerManager : NetworkBehaviour
             return;
         playerNum.Value = NetworkManager.Singleton.ConnectedClients.Count;
     }
+
 
 
    

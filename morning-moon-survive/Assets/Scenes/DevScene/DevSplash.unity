@@ -123,6 +123,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &122942106 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8475205103206475603, guid: 110d56ef2a99b1e43a1eeb372a81ebfd,
+    type: 3}
+  m_PrefabInstance: {fileID: 576864900}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33568a574b22e5e4487631594fced20f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &147409193
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,7 +433,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 283449551}
-  - component: {fileID: 283449550}
   - component: {fileID: 283449549}
   m_Layer: 0
   m_Name: GameMultiplayerManager
@@ -444,27 +455,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joinCodeInputField: {fileID: 855278051}
   maxConnection: 2
---- !u!114 &283449550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 283449548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1180069873
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!4 &283449551
 Transform:
   m_ObjectHideFlags: 0
@@ -4296,6 +4286,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1504972883}
   m_CullTransparentMesh: 1
+--- !u!1 &1523264180 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3620866578481675616, guid: d8b86aa661c3a8f44bfc13dd58701d73,
+    type: 3}
+  m_PrefabInstance: {fileID: 1849805109}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1528176599 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5132281371352958777, guid: 110d56ef2a99b1e43a1eeb372a81ebfd,
@@ -4888,6 +4884,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1152845135218595560, guid: d8b86aa661c3a8f44bfc13dd58701d73,
         type: 3}
+      propertyPath: uiBuildingPage
+      value: 
+      objectReference: {fileID: 122942106}
+    - target: {fileID: 1152845135218595560, guid: d8b86aa661c3a8f44bfc13dd58701d73,
+        type: 3}
       propertyPath: inventoryController
       value: 
       objectReference: {fileID: 0}
@@ -5005,7 +5006,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3620866578481675616, guid: d8b86aa661c3a8f44bfc13dd58701d73,
+        type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 1849805112}
   m_SourcePrefab: {fileID: 100100000, guid: d8b86aa661c3a8f44bfc13dd58701d73, type: 3}
 --- !u!114 &1849805110 stripped
 MonoBehaviour:
@@ -5013,12 +5018,33 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1849805109}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1523264180}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f989a6d7e08f7b341a47d28a4facff01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1849805112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523264180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2802011041
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &1898797980
 GameObject:
   m_ObjectHideFlags: 0

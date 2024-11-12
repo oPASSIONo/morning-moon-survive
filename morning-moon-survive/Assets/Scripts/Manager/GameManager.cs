@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using Inventory.Model;
 using UnityEngine;
 using UnityEngine.AI;
-
+using Unity.Netcode;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
     public static GameManager Instance { get; private set; }
     
     [SerializeField] private GameObject mainCamera;
@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject gameInput;
     
-    [SerializeField] private GameObject player;
+    private GameObject player;
     private Health playerHealth;
     private Stamina playerStamina;
     private Satiety playerSatiety;
@@ -47,18 +47,54 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-       
     }
     
     private void Start()
     {
+        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
         StartGame();
     }
 
     private void StartGame()
     {
-        InitializePlayer();
+        //InitializePlayer();
         PersistentObject();
+    }
+    private void OnClientConnected(ulong clientId)
+    {
+        if (NetworkManager.Singleton.LocalClientId == clientId)
+        {
+            TryAssignLocalPlayerComponents();
+        }
+    }
+    
+    private void TryAssignLocalPlayerComponents()
+    {
+        foreach (var networkObject in FindObjectsOfType<NetworkObject>())
+        {
+            if (networkObject.IsLocalPlayer)
+            {
+                // Retrieve player-related components
+                playerHealth = networkObject.GetComponent<Health>();
+                playerStamina = networkObject.GetComponent<Stamina>();
+                playerSatiety = networkObject.GetComponent<Satiety>();
+                playerAgentTool = networkObject.GetComponent<AgentTool>();
+                playerComponent = networkObject.GetComponent<Player>();
+                
+                // Subscribe to any events needed, e.g., player health and satiety events
+                if (playerHealth != null)
+                {
+                    playerHealth.OnEntityDie += OnPlayerDie;
+                }
+                break;
+            }
+         
+        }
+
+        if (playerSatiety == null)
+        {   
+            Debug.LogError("Local player's Satiety component not found.");
+        }
     }
     private void InitializePlayer()
     {
@@ -73,7 +109,7 @@ public class GameManager : MonoBehaviour
     private void InitializeCoreGameObj()
     {
         gameInput.SetActive(true);
-        player.SetActive(true);
+        //player.SetActive(true);
         playerFollowCamera.SetActive(true);
         gameCanvas.SetActive(true);
         timeManager.SetActive(true);
@@ -139,15 +175,14 @@ public class GameManager : MonoBehaviour
         }
     }
     
-    
     public void LoadScene(string sceneName)
     {
         isLoadScene = true;
         LevelManager.Instance.OnLoadComplete += OnLoadComplete;
         LevelManager.Instance.OnLoaderFadeOut += OnLoaderFadeOut;
-        LevelManager.Instance.LoadScene(sceneName);
+        LevelManager.Instance.LoadScene(sceneName);     
     }
-    
+  
     private void OnLoadComplete()
     {
         if (isLoadScene)
@@ -155,6 +190,7 @@ public class GameManager : MonoBehaviour
             InitializeCoreGameObj();
             // Ensure the spawn points are cleared from the previous scene
             SpawnPointManager.Instance.ClearSpawnPoints();
+
         }
         TimeManager.Instance.SetStartTimer(false);
         GameInput.Instance.SetPlayerInput(false);
@@ -245,6 +281,7 @@ public class GameManager : MonoBehaviour
         //SaveManager.Instance.SavePlayer();
         isPlayerDie = false;
     }
+    
     public void PlayerDealDamage(GameObject target, Collider hitCollider)
     {
         Enemy enemy = target.GetComponent<Enemy>();

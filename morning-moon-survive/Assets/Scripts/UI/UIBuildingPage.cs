@@ -11,12 +11,25 @@ public class UIBuildingPage : MonoBehaviour
     
     [SerializeField] private PlacementSystem placementSystem; // Reference to PlacementSystem
     private ObjectData selectedObjectData; // Store the selected ObjectData
-    [SerializeField] private InventoryController inventoryController;
+    private InventoryController inventoryController;
     [SerializeField] private PlayerStateManager playerStateManager;
     
     private List<UIBuildingItem> listOfUIBuildingItems = new List<UIBuildingItem>();
     private Dictionary<UIBuildingItem, ObjectData> buildingItemToRecipeMap = new Dictionary<UIBuildingItem, ObjectData>();
 
+    
+    private void Start()
+    {
+        if (placementSystem != null)
+        {
+            inventoryController = placementSystem.InventoryController; // Get InventoryController from PlacementSystem
+        }
+    }
+    // Setter for InventoryController
+    public void SetInventoryController(InventoryController controller)
+    {
+        inventoryController = controller;
+    }
     public void PopulateBuildingUI(BuildingObjectSo so)
     {
         ClearBuildingUI();

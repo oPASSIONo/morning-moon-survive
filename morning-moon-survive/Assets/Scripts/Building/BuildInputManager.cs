@@ -1,22 +1,54 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using Unity.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Unity.Netcode;
+
 
 public class BuildInputManager : MonoBehaviour
 {
     [SerializeField] private Camera sceneCamera;
     [SerializeField] private LayerMask placementLayerMask;
-    [SerializeField] private PlayerStateManager playerStateManager;
-
+    
+    private PlayerStateManager playerStateManager;
     private Vector3 lastPosition;
     private float minX, maxX , minY, maxY, minZ, maxZ;
 
     
     public event Action OnClicked, OnExit;
+    
+    private void Start()
+    {
+        // Subscribe to the client connected callback to find the local player’s PlayerStateManager
+        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+    }
+
+    private void OnClientConnected(ulong clientId)
+    {
+        // Only run for the local client
+        if (NetworkManager.Singleton.LocalClientId == clientId)
+        {
+            TryAssignLocalPlayerStateManager();
+        }
+    }
+    
+    private void TryAssignLocalPlayerStateManager()
+    {
+        // Find all NetworkObjects and identify the local player's PlayerStateManager
+        foreach (var networkObject in FindObjectsOfType<NetworkObject>())
+        {
+            if (networkObject.IsLocalPlayer)
+            {
+                playerStateManager = networkObject.GetComponent<PlayerStateManager>();
+                break;
+            }
+        }
+
+        if (playerStateManager == null)
+        {
+            Debug.LogError("Local player's PlayerStateManager component not found.");
+        }
+    }
+
     
     private void Update()
     {
@@ -74,6 +106,14 @@ public class BuildInputManager : MonoBehaviour
         float clampedZ = Mathf.Clamp(targetPosition.z, minZ, maxZ);
 
         return new Vector3(clampedX, clampedY, clampedZ);
+    }
+    
+    private void OnDestroy()
+    {
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
+        }
     }
    
 }
