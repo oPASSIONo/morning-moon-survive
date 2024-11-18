@@ -47,7 +47,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Update()
     {
-        if (!IsOwner) return;
+       //if (!IsOwner) return;
         if (isDashing)
         {
             switch (PlayerStateManager.Instance.currentState)

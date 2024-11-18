@@ -1,11 +1,13 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
+
 
 /// <summary>
 /// Handles player interaction with nearby interactable objects.
 /// </summary>
-public class PlayerInteraction : MonoBehaviour
+public class PlayerInteraction : NetworkBehaviour
 {
     /// <summary>
     /// The maximum distance within which the player can interact with objects.
@@ -17,11 +19,46 @@ public class PlayerInteraction : MonoBehaviour
     /// </summary>
     [SerializeField] private LayerMask interactableLayerMask;
 
+    private GameInput gameInput; // Input handling
     private IInteractable currentInteractable;
 
     private void Awake()
     {
-        GameInput.Instance.OnInteractionAction += GameInput_OnInteractionAction;
+        // Get the GameInput instance
+        gameInput = GameInput.Instance;
+
+        // If gameInput is null, it means it's not set up yet, handle gracefully
+        if (gameInput == null)
+        {
+            Debug.LogError("GameInput instance not found.");
+        }
+
+        //GameInput.Instance.OnInteractionAction += GameInput_OnInteractionAction;
+    }
+    public override void OnNetworkSpawn()
+    {
+        if (!IsOwner)
+        {
+            // Disable input handling for non-owners
+            enabled = false;
+            return;
+        }
+
+        // Subscribe to interaction action for the owning player
+        gameInput.OnInteractionAction += GameInput_OnInteractionAction;
+
+        // Enable input handling for the local player
+        gameInput.SetPlayerInput(true);
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        if (gameInput != null)
+        {
+            // Unsubscribe and disable input when the object is despawned
+            gameInput.OnInteractionAction -= GameInput_OnInteractionAction;
+            gameInput.SetPlayerInput(false);
+        }
     }
 
     private void GameInput_OnInteractionAction(object sender, EventArgs e)

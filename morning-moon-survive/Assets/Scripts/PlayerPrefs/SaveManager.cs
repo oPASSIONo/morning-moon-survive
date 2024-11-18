@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.Netcode;
+
 
 public class SaveManager : MonoBehaviour
 {
@@ -20,6 +22,18 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+    private GameObject GetLocalPlayer()
+    {
+        foreach (var networkObject in NetworkManager.Singleton.SpawnManager.SpawnedObjectsList)
+        {
+            if (networkObject.IsOwner && networkObject.CompareTag("Player"))
+            {
+                return networkObject.gameObject;
+            }
+        }
+        Debug.LogError("Local player not found!");
+        return null;
+    }
     public void SavePlayer() 
     {
         SavePlayerStat();
@@ -44,9 +58,16 @@ public class SaveManager : MonoBehaviour
 
     private void SavePlayerPosition()
     {
-        PlayerPrefs.SetFloat("PlayerPosX", Player.Instance.transform.position.x);
+        GameObject localPlayer = GetLocalPlayer();
+        if (localPlayer == null) return;
+        Transform playerTransform = localPlayer.transform;
+        PlayerPrefs.SetFloat("PlayerPosX", playerTransform.position.x);
+        PlayerPrefs.SetFloat("PlayerPosY", playerTransform.position.y);
+        PlayerPrefs.SetFloat("PlayerPosZ", playerTransform.position.z);
+        
+        /*PlayerPrefs.SetFloat("PlayerPosX", Player.Instance.transform.position.x);
         PlayerPrefs.SetFloat("PlayerPosY", Player.Instance.transform.position.y);
-        PlayerPrefs.SetFloat("PlayerPosZ", Player.Instance.transform.position.z);
+        PlayerPrefs.SetFloat("PlayerPosZ", Player.Instance.transform.position.z);*/
     }
 
     private void SaveDayAndTime()
@@ -57,76 +78,108 @@ public class SaveManager : MonoBehaviour
 
     private void SavePlayerStat()
     {
-        PlayerPrefs.SetFloat("HP", Player.Instance.HP);
-        PlayerPrefs.SetFloat("MaxHP", Player.Instance.MaxHP);
-        PlayerPrefs.SetFloat("MinHP", Player.Instance.MinHP);
-        PlayerPrefs.SetFloat("Stamina", Player.Instance.Stamina);
-        PlayerPrefs.SetFloat("MaxStamina", Player.Instance.MaxStamina);
-        PlayerPrefs.SetFloat("MinStamina", Player.Instance.MinStamina);
-        PlayerPrefs.SetFloat("StaminaRegenRate", Player.Instance.StaminaRegenRate);
-        PlayerPrefs.SetFloat("BaseActionCost", Player.Instance.BaseActionCost);
-        PlayerPrefs.SetFloat("Satiety", Player.Instance.Satiety);
-        PlayerPrefs.SetFloat("SatietyBleeding", Player.Instance.SatietyBleeding);
-        PlayerPrefs.SetFloat("SatietyConsumePoint", Player.Instance.SatietyConsumePoint);
-        PlayerPrefs.SetFloat("SatietyConsumeRate", Player.Instance.SatietyConsumeRate);
-        PlayerPrefs.SetFloat("MaxSatiety", Player.Instance.MaxSatiety);
-        PlayerPrefs.SetFloat("MinSatiety", Player.Instance.MinSatiety);
-        PlayerPrefs.SetFloat("Defense", Player.Instance.Defense);
-        PlayerPrefs.SetFloat("Resistant", Player.Instance.Resistant);
-        PlayerPrefs.SetFloat("Attack", Player.Instance.Attack);
-        PlayerPrefs.SetFloat("Element", Player.Instance.Element);
+        GameObject localPlayer = GetLocalPlayer();
+        if (localPlayer == null) return;
+
+        Player player = localPlayer.GetComponent<Player>();
+        if (player == null)
+        {
+            Debug.LogError("Player component not found on local player!");
+            return;
+        }
+        
+        PlayerPrefs.SetFloat("HP", player.HP);
+        PlayerPrefs.SetFloat("MaxHP", player.MaxHP);
+        PlayerPrefs.SetFloat("MinHP", player.MinHP);
+        PlayerPrefs.SetFloat("Stamina", player.Stamina);
+        PlayerPrefs.SetFloat("MaxStamina", player.MaxStamina);
+        PlayerPrefs.SetFloat("MinStamina", player.MinStamina);
+        PlayerPrefs.SetFloat("StaminaRegenRate", player.StaminaRegenRate);
+        PlayerPrefs.SetFloat("BaseActionCost", player.BaseActionCost);
+        PlayerPrefs.SetFloat("Satiety", player.Satiety);
+        PlayerPrefs.SetFloat("SatietyBleeding", player.SatietyBleeding);
+        PlayerPrefs.SetFloat("SatietyConsumePoint", player.SatietyConsumePoint);
+        PlayerPrefs.SetFloat("SatietyConsumeRate", player.SatietyConsumeRate);
+        PlayerPrefs.SetFloat("MaxSatiety", player.MaxSatiety);
+        PlayerPrefs.SetFloat("MinSatiety", player.MinSatiety);
+        PlayerPrefs.SetFloat("Defense", player.Defense);
+        PlayerPrefs.SetFloat("Resistant", player.Resistant);
+        PlayerPrefs.SetFloat("Attack", player.Attack);
+        PlayerPrefs.SetFloat("Element", player.Element);
         //PlayerPrefsX.SetFloatArray("EXP", Player.Instance.EXP); // Assuming a utility method for saving arrays
-        PlayerPrefs.SetFloat("Speed", Player.Instance.Speed);
-        PlayerPrefs.SetFloat("BaseSpeed", Player.Instance.BaseSpeed);
-        PlayerPrefs.SetFloat("MaxSpeed", Player.Instance.MaxSpeed);
-        PlayerPrefs.SetFloat("MinSpeed", Player.Instance.MinSpeed);
+        PlayerPrefs.SetFloat("Speed", player.Speed);
+        PlayerPrefs.SetFloat("BaseSpeed", player.BaseSpeed);
+        PlayerPrefs.SetFloat("MaxSpeed", player.MaxSpeed);
+        PlayerPrefs.SetFloat("MinSpeed", player.MinSpeed);
         /*PlayerPrefsX.SetFloatList("Buff", Player.Instance.Buff); // Assuming a utility method for saving lists
         PlayerPrefsX.SetFloatList("Debuff", Player.Instance.Debuff); // Assuming a utility method for saving lists
         PlayerPrefsX.SetFloatList("ItemSlot", Player.Instance.ItemSlot); // Assuming a utility method for saving lists*/
-        PlayerPrefs.SetInt("Weight", Player.Instance.Weight);
-        PlayerPrefs.SetInt("InventorySlot", Player.Instance.InventorySlot);
+        PlayerPrefs.SetInt("Weight", player.Weight);
+        PlayerPrefs.SetInt("InventorySlot", player.InventorySlot);
     }
 
     private void LoadPlayerStat()
     {
-        Player.Instance.SetHP(PlayerPrefs.GetFloat("HP"));
-        Player.Instance.SetMaxHP(PlayerPrefs.GetFloat("MaxHP"));
-        Player.Instance.SetMinHP(PlayerPrefs.GetFloat("MinHP"));
-        Player.Instance.SetStamina(PlayerPrefs.GetFloat("Stamina"));
-        Player.Instance.SetMaxStamina(PlayerPrefs.GetFloat("MaxStamina"));
-        Player.Instance.SetMinStamina(PlayerPrefs.GetFloat("MinStamina"));
-        Player.Instance.SetStaminaRegenRate(PlayerPrefs.GetFloat("StaminaRegenRate"));
-        Player.Instance.SetBaseActionCost(PlayerPrefs.GetFloat("BaseActionCost"));
-        Player.Instance.SetSatiety(PlayerPrefs.GetFloat("Satiety"));
-        Player.Instance.SetSatietyBleeding(PlayerPrefs.GetFloat("SatietyBleeding"));
-        Player.Instance.SetSatietyConsumePoint(PlayerPrefs.GetFloat("SatietyConsumePoint"));
-        Player.Instance.SetSatietyConsumeRate(PlayerPrefs.GetFloat("SatietyConsumeRate"));
-        Player.Instance.SetMaxSatiety(PlayerPrefs.GetFloat("MaxSatiety"));
-        Player.Instance.SetMinSatiety(PlayerPrefs.GetFloat("MinSatiety"));
-        Player.Instance.SetDefense(PlayerPrefs.GetFloat("Defense"));
-        Player.Instance.SetResistant(PlayerPrefs.GetFloat("Resistant"));
-        Player.Instance.SetAttack(PlayerPrefs.GetFloat("Attack"));
-        Player.Instance.SetElement(PlayerPrefs.GetFloat("Element"));
+        GameObject localPlayer = GetLocalPlayer();
+        if (localPlayer == null) return;
+
+        Player player = localPlayer.GetComponent<Player>();
+        if (player == null)
+        {
+            Debug.LogError("Player component not found on local player!");
+            return;
+        }
+        
+        player.SetHP(PlayerPrefs.GetFloat("HP"));
+        player.SetMaxHP(PlayerPrefs.GetFloat("MaxHP"));
+        player.SetMinHP(PlayerPrefs.GetFloat("MinHP"));
+        player.SetStamina(PlayerPrefs.GetFloat("Stamina"));
+        player.SetMaxStamina(PlayerPrefs.GetFloat("MaxStamina"));
+        player.SetMinStamina(PlayerPrefs.GetFloat("MinStamina"));
+        player.SetStaminaRegenRate(PlayerPrefs.GetFloat("StaminaRegenRate"));
+        player.SetBaseActionCost(PlayerPrefs.GetFloat("BaseActionCost"));
+        player.SetSatiety(PlayerPrefs.GetFloat("Satiety"));
+        player.SetSatietyBleeding(PlayerPrefs.GetFloat("SatietyBleeding"));
+        player.SetSatietyConsumePoint(PlayerPrefs.GetFloat("SatietyConsumePoint"));
+        player.SetSatietyConsumeRate(PlayerPrefs.GetFloat("SatietyConsumeRate"));
+        player.SetMaxSatiety(PlayerPrefs.GetFloat("MaxSatiety"));
+        player.SetMinSatiety(PlayerPrefs.GetFloat("MinSatiety"));
+        player.SetDefense(PlayerPrefs.GetFloat("Defense"));
+        player.SetResistant(PlayerPrefs.GetFloat("Resistant"));
+        player.SetAttack(PlayerPrefs.GetFloat("Attack"));
+        player.SetElement(PlayerPrefs.GetFloat("Element"));
         //Player.Instance.SetEXP(PlayerPrefsX.GetFloatArray("EXP"));
-        Player.Instance.SetSpeed(PlayerPrefs.GetFloat("Speed"));
-        Player.Instance.SetBaseSpeed(PlayerPrefs.GetFloat("BaseSpeed"));
-        Player.Instance.SetMaxSpeed(PlayerPrefs.GetFloat("MaxSpeed"));
-        Player.Instance.SetMinSpeed(PlayerPrefs.GetFloat("MinSpeed"));
+        player.SetSpeed(PlayerPrefs.GetFloat("Speed"));
+        player.SetBaseSpeed(PlayerPrefs.GetFloat("BaseSpeed"));
+        player.SetMaxSpeed(PlayerPrefs.GetFloat("MaxSpeed"));
+        player.SetMinSpeed(PlayerPrefs.GetFloat("MinSpeed"));
         /*Player.Instance.SetBuff(PlayerPrefsX.GetFloatList("Buff"));
         Player.Instance.SetDebuff(PlayerPrefsX.GetFloatList("Debuff"));
         Player.Instance.SetItemSlot(PlayerPrefsX.GetFloatList("ItemSlot"));*/
-        Player.Instance.SetWeight(PlayerPrefs.GetInt("Weight"));
-        Player.Instance.SetInventorySlot(PlayerPrefs.GetInt("InventorySlot"));
+        player.SetWeight(PlayerPrefs.GetInt("Weight"));
+        player.SetInventorySlot(PlayerPrefs.GetInt("InventorySlot"));
     }
     private void LoadPlayerPosition()
     {
+        GameObject localPlayer = GetLocalPlayer();
+        if (localPlayer == null) return;
+        
         if (PlayerPrefs.HasKey("PlayerPosX") && PlayerPrefs.HasKey("PlayerPosY") && PlayerPrefs.HasKey("PlayerPosZ"))
         {
             float x = PlayerPrefs.GetFloat("PlayerPosX");
             float y = PlayerPrefs.GetFloat("PlayerPosY");
             float z = PlayerPrefs.GetFloat("PlayerPosZ");
             Vector3 playerPosition = new Vector3(x, y, z);
-            Player.Instance.GetComponent<NavMeshAgent>().Warp(playerPosition);
+            NavMeshAgent agent = localPlayer.GetComponent<NavMeshAgent>();
+            if (agent != null)
+            {
+                agent.Warp(playerPosition);
+            }
+            else
+            {
+                localPlayer.transform.position = playerPosition;
+            }
+            //Player.Instance.GetComponent<NavMeshAgent>().Warp(playerPosition);
         }
         else
         {

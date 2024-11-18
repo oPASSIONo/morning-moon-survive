@@ -275,11 +275,28 @@ public class GameManager : MonoBehaviour
         gameCanvas.GetComponent<GameCanvasRef>().notiBox.SetActive(false);
         PlayerAnimation.Instance.PlayerRespawnAnim();
         //GameInput.Instance.SetPlayerInput(true);
-        playerComponent.SetHP(Player.Instance.GetPlayerStatSO().HealthStat.HP);
-        playerComponent.SetSatiety(Player.Instance.GetPlayerStatSO().SatietyStat.Satiety);
+        
+        PlayerStats playerStats = playerComponent.GetPlayerStatSO();
+        if (playerStats != null)
+        {
+            playerComponent.SetHP(playerStats.HealthStat.HP);
+            playerComponent.SetSatiety(playerStats.SatietyStat.Satiety);
+            playerHealth.Initialize(playerStats.HealthStat.MaxHP, playerStats.HealthStat.MinHP, playerStats.HealthStat.HP);
+            playerSatiety.Initialize(playerStats.SatietyStat.MaxSatiety, playerStats.SatietyStat.MinSatiety, 
+                playerStats.SatietyStat.Satiety, playerStats.SatietyStat.SatietyBleeding,
+                playerStats.SatietyStat.SatietyConsumePoint, playerStats.SatietyStat.SatietyConsumeRate);
+        }
+
+        /*playerComponent.SetHP(Player.Instance.GetPlayerStatSO().HealthStat.HP);
+        playerComponent.SetSatiety(Player.Instance.GetPlayerStatSO().SatietyStat.Satiety);*/
         playerSatiety.InitialSatietyConsumeOvertime();
         //SaveManager.Instance.SavePlayer();
         isPlayerDie = false;
+        
+        // Optional: Save Player State
+        SaveManager.Instance?.SavePlayer();
+
+        Debug.Log("Player respawned successfully.");
     }
     
     public void PlayerDealDamage(GameObject target, Collider hitCollider)
