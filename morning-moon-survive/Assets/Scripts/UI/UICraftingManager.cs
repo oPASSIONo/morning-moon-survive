@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UICraftingManager : MonoBehaviour
+public class UICraftingManager : NetworkBehaviour   
 {
     public static UICraftingManager Instance { get; private set; }
     [SerializeField] private CraftingSO playerCraftingSO;
@@ -13,6 +14,8 @@ public class UICraftingManager : MonoBehaviour
     [SerializeField] private GameObject workshopCraftingPage;
     [SerializeField] private CraftingSO workshopCraftingSO;
     
+    private PlayerStateManager playerStateManager;
+
 
     private void Awake()
     {
@@ -22,6 +25,8 @@ public class UICraftingManager : MonoBehaviour
         }
         else
         {
+            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+
             Instance = this;
         }
     }
@@ -34,9 +39,38 @@ public class UICraftingManager : MonoBehaviour
     {
         OpenPlayerCraftingUI();
     }
+    private void OnClientConnected(ulong obj)
+    {
+        if (NetworkManager.Singleton.LocalClientId == obj)
+        {
+            TryAssignLocalPlayer();
+        }
+    }
+
+    private void TryAssignLocalPlayer()
+    {
+        foreach (var networkObject in FindObjectsOfType<NetworkObject>())
+        {
+            if (networkObject.IsLocalPlayer)
+            {
+                playerStateManager = networkObject.GetComponent<PlayerStateManager>();
+                break;
+            }
+        }
+        
+        if (playerStateManager != null)
+        {
+            Debug.Log("Local player's UICraftingManager found.");
+        }
+        else
+        {
+            Debug.Log("Local player's UICraftingManager not found.");
+        }
+    }
+
     private void OpenPlayerCraftingUI()
     {
-        switch (PlayerStateManager.Instance.currentState)
+        switch (playerStateManager.currentState)
         {
             case PlayerStateManager.PlayerState.Crafting:
                 playerCraftingPage.SetActive(true);
@@ -54,7 +88,7 @@ public class UICraftingManager : MonoBehaviour
     }
     public void OpenWorkshopUI()
     {
-        switch (PlayerStateManager.Instance.currentState)
+        switch (playerStateManager.currentState)
         {
             case PlayerStateManager.PlayerState.Workshop:
                 workshopCraftingPage.SetActive(true);
@@ -67,13 +101,13 @@ public class UICraftingManager : MonoBehaviour
     }
     public void ToggleWorkshop()
     {
-        if (PlayerStateManager.Instance.currentState == PlayerStateManager.PlayerState.Normal)
+        if (playerStateManager.currentState == PlayerStateManager.PlayerState.Normal)
         {
-            PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Workshop);
+            playerStateManager.SetState(PlayerStateManager.PlayerState.Workshop);
         }
-        else if (PlayerStateManager.Instance.currentState == PlayerStateManager.PlayerState.Workshop)
+        else if (playerStateManager.currentState == PlayerStateManager.PlayerState.Workshop)
         {
-            PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal);
+            playerStateManager.SetState(PlayerStateManager.PlayerState.Normal);
         }
     }
 }

@@ -1,34 +1,29 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerAnimation : MonoBehaviour
+public class PlayerAnimation : NetworkBehaviour
 {
-    public static PlayerAnimation Instance { get; private set; }
     [SerializeField] private Animator modelAnimator;
     
     private Combat playerCombat;
     private PlayerMovement playerMovement;
     private bool isModelRunning;
     private bool isModelUsingAction = false;
+    
+    private PlayerStateManager playerStateManager;
+
 
     private Coroutine coroutine;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    
     private void Start()
     {
+        if (IsLocalPlayer)
+        {
+            playerStateManager = GetComponent<PlayerStateManager>();
+        }
         playerCombat = GetComponent<Combat>();
         playerMovement = GetComponent<PlayerMovement>();
     }
@@ -84,14 +79,14 @@ public class PlayerAnimation : MonoBehaviour
     {
         playerCombat.SetIsPerformingAction(true);
         isModelUsingAction = true;
-        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Attacking);
+        playerStateManager.SetState(PlayerStateManager.PlayerState.Attacking);
         playerCombat.SetAttackCollider(true);
         modelAnimator.CrossFade(animHash_Attack,0);
         AnimatorStateInfo stateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
         yield return new WaitForSeconds(stateInfo.length + 0.3f);
         playerCombat.SetAttackCollider(false);
         modelAnimator.CrossFade(animHash_Idle,0.25f);
-        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal);
+        playerStateManager.SetState(PlayerStateManager.PlayerState.Normal);
         isModelRunning = false;
         isModelUsingAction = false;
         playerCombat.SetIsPerformingAction(false);
@@ -109,12 +104,12 @@ public class PlayerAnimation : MonoBehaviour
     private IEnumerator StepPlayerPickupAnim()
     {
         isModelUsingAction = true;
-        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Pickup);
+        playerStateManager.SetState(PlayerStateManager.PlayerState.Pickup);
         modelAnimator.CrossFade(animHash_Pickup,0);
         AnimatorStateInfo stateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
         yield return new WaitForSeconds(stateInfo.length + 0.5f);
         modelAnimator.CrossFade(animHash_Idle,0.25f);
-        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal);
+        playerStateManager.SetState(PlayerStateManager.PlayerState.Normal);
         isModelRunning = false;
         isModelUsingAction = false;
     }
@@ -152,12 +147,12 @@ public class PlayerAnimation : MonoBehaviour
     private IEnumerator StepPlayerHitAnim()
     {
         isModelUsingAction = true;
-        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Hit);
+        playerStateManager.SetState(PlayerStateManager.PlayerState.Hit);
         modelAnimator.CrossFade(animHash_Hit,0);
         AnimatorStateInfo stateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
         yield return new WaitForSeconds(stateInfo.length + 0.5f);
         modelAnimator.CrossFade(animHash_Idle,0.2f);
-        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal);
+        playerStateManager.SetState(PlayerStateManager.PlayerState.Normal);
         isModelRunning = false;
         isModelUsingAction = false;
     }
@@ -175,12 +170,12 @@ public class PlayerAnimation : MonoBehaviour
     private IEnumerator StepPlayerRespawnAnim()
     {
         isModelUsingAction = true;
-        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Respawn);
+        playerStateManager.SetState(PlayerStateManager.PlayerState.Respawn);
         modelAnimator.CrossFade(animHash_Dead,0);
         yield return new WaitForSeconds(1f);
         modelAnimator.CrossFade(animHash_Idle,0.2f);
         yield return new WaitForSeconds(0.5f);
-        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal);
+        playerStateManager.SetState(PlayerStateManager.PlayerState.Normal);
         isModelUsingAction = false;
         isModelRunning = false;
     }

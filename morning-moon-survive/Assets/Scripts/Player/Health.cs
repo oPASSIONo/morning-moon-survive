@@ -1,7 +1,8 @@
 using UnityEngine;
 using System;
+using Unity.Netcode;
 
-public class Health : MonoBehaviour
+public class Health : NetworkBehaviour
 {
     public float MaxHealth { get; private set; }
     public float MinHealth { get; private set; }
@@ -9,6 +10,19 @@ public class Health : MonoBehaviour
 
     public event Action<float, float,float> OnHealthChanged;
     public event Action OnEntityDie;
+        
+    private PlayerAnimation playerAnimation;
+
+    
+    private void Start()
+    {
+        // Only do this for the local player
+        if (IsLocalPlayer)
+        {
+            // Get the PlayerAnimation component on this GameObject
+            playerAnimation = GetComponent<PlayerAnimation>();
+        }
+    }
 
     public void Initialize(float maxHealth, float minHealth, float initialHealth)
     {
@@ -61,7 +75,7 @@ public class Health : MonoBehaviour
         {
             if (GetComponent<Player>() != null)
             {
-                PlayerAnimation.Instance.PlayerHitAnim();
+                playerAnimation.PlayerHitAnim();
             }
         }
         /*switch (CurrentHealth)

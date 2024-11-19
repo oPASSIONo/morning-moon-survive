@@ -1,12 +1,12 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
 /// <summary>
 /// Manages the player's state based on various inputs and events.
 /// </summary>
-public class PlayerStateManager : MonoBehaviour
+public class PlayerStateManager : NetworkBehaviour
 {
-    public static PlayerStateManager Instance { get; private set; }
 
     public enum PlayerState
     {
@@ -24,22 +24,14 @@ public class PlayerStateManager : MonoBehaviour
         Respawn
     }
 
-    public PlayerState currentState { get; private set; }
+    public PlayerState currentState { get; set; }
 
-    private void Awake()
+    
+    public override void OnNetworkSpawn()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         currentState = PlayerState.Normal;
     }
+
 
     public void SetState(PlayerState newState)
     {

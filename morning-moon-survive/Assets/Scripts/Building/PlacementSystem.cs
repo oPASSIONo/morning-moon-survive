@@ -145,7 +145,6 @@ public class PlacementSystem : MonoBehaviour
         {
             return;
         }
-        
         // Check for rotation input
         if (Input.GetMouseButtonDown(1))
         {

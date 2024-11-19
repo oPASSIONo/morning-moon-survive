@@ -1,15 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class UIBuildingManager : MonoBehaviour
+public class UIBuildingManager : NetworkBehaviour
 {
     public static UIBuildingManager Instance { get; private set; }
 
     [SerializeField] private BuildingObjectSo buildingObjectSo;
     [SerializeField] private GameObject playerBuildingPage;
+    
+    private PlayerStateManager playerStateManager;
+
 
     private void Awake()
     {
@@ -25,6 +29,11 @@ public class UIBuildingManager : MonoBehaviour
     
     private void Start()
     {
+        if (IsLocalPlayer)
+        {
+            playerStateManager = GetComponent<PlayerStateManager>();
+
+        }
         GameInput.Instance.OnBuildingAction += InstanceOnOnBuildingAction;
     }
 
@@ -36,7 +45,7 @@ public class UIBuildingManager : MonoBehaviour
 
     private void OpenPlayerBuildingUI()
     {
-        switch (PlayerStateManager.Instance.currentState)
+        switch (playerStateManager.currentState)
         {
             case PlayerStateManager.PlayerState.Building : 
                 playerBuildingPage.SetActive(true);

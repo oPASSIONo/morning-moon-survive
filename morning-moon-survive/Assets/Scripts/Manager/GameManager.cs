@@ -7,7 +7,7 @@ using UnityEngine.AI;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     public static GameManager Instance { get; private set; }
     
@@ -24,10 +24,12 @@ public class GameManager : MonoBehaviour
     private Satiety playerSatiety;
     private Player playerComponent;
     private AgentTool playerAgentTool;
+    private PlayerAnimation playerAnimation;
+
     
     private float enemyWeaponWeaknessDMG;
     private float enemyElementWeaknessDMG;
-    
+
     
     [SerializeField] private GameObject craftingSystem;
     [SerializeField] private GameObject gameCanvas;
@@ -48,10 +50,18 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public override void OnNetworkSpawn()
+    {
+        if (IsLocalPlayer)
+        {
+            // Get the PlayerAnimation component on this GameObject
+            playerAnimation = GetComponent<PlayerAnimation>();
+        }
+        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+    }
     
     private void Start()
     {
-        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
         StartGame();
     }
 
@@ -86,6 +96,9 @@ public class GameManager : MonoBehaviour
                 {
                     playerHealth.OnEntityDie += OnPlayerDie;
                 }
+                
+                CameraFollow.Instance.AssignCameraToPlayer();
+
                 break;
             }
          
@@ -139,7 +152,7 @@ public class GameManager : MonoBehaviour
             {
                 if (moveTarget == "Player")
                 {
-                    objectToMove = player.GetComponent<NavMeshAgent>();
+                    objectToMove = playerComponent.GetComponent<NavMeshAgent>();
                     objectToMove.Warp(movePointTransform.position);
                     Debug.Log($"Player moved to: {movePointTransform.position}");
                     yield break; // Exit the coroutine once the player is moved
@@ -181,6 +194,8 @@ public class GameManager : MonoBehaviour
         LevelManager.Instance.OnLoadComplete += OnLoadComplete;
         LevelManager.Instance.OnLoaderFadeOut += OnLoaderFadeOut;
         LevelManager.Instance.LoadScene(sceneName);     
+        //CameraFollow.Instance.AssignCameraToPlayer();
+
     }
   
     private void OnLoadComplete()
@@ -257,7 +272,7 @@ public class GameManager : MonoBehaviour
     {
         // Perform actions before the delay
         GameInput.Instance.SetPlayerInput(false);
-        PlayerAnimation.Instance.PlayerDeadAnim();
+        playerAnimation.PlayerDeadAnim();
         player.GetComponent<Collider>().enabled = false;
         isPlayerDie = true;
         
@@ -273,7 +288,7 @@ public class GameManager : MonoBehaviour
     {
         player.GetComponent<Collider>().enabled = true;
         gameCanvas.GetComponent<GameCanvasRef>().notiBox.SetActive(false);
-        PlayerAnimation.Instance.PlayerRespawnAnim();
+        playerAnimation.PlayerRespawnAnim();
         //GameInput.Instance.SetPlayerInput(true);
         
         PlayerStats playerStats = playerComponent.GetPlayerStatSO();

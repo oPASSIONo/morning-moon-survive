@@ -1,7 +1,8 @@
 using UnityEngine;
 using TMPro;
+using Unity.Netcode;
 
-public class TimeManager : MonoBehaviour
+public class TimeManager : NetworkBehaviour
 {
     public static TimeManager Instance { get; private set; }
 
@@ -47,6 +48,8 @@ public class TimeManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI dayCountText;
 
+    private PlayerStateManager playerStateManager;
+
     public float DayStartTime => dayStartTime;
     public float NightStartTime => nightStartTime;
     public bool IsStartTimer { get; private set; }
@@ -80,6 +83,10 @@ public class TimeManager : MonoBehaviour
     
     private void Start()
     {
+        if (IsLocalPlayer)
+        {
+            playerStateManager = GetComponent<PlayerStateManager>();
+        }
         timeMultiplier = 1f / (dayLengthInMinutes * 60f);
     }
 
@@ -142,13 +149,13 @@ public class TimeManager : MonoBehaviour
 
     public void StartFastForward()
     {
-        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Sleep);
+        playerStateManager.SetState(PlayerStateManager.PlayerState.Sleep);
         timeMultiplier = fastForwardMultiplier / (dayLengthInMinutes * 60f);
     }
 
     public void StopFastForward()
     {
-        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal);
+        playerStateManager.SetState(PlayerStateManager.PlayerState.Normal);
         timeMultiplier = 1f / (dayLengthInMinutes * 60f);
     }
 }

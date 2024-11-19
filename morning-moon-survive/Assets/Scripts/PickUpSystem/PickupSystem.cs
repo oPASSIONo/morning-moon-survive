@@ -2,15 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Inventory.Model;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PickupSystem : MonoBehaviour
+public class PickupSystem : NetworkBehaviour
 {
     [SerializeField] private InventorySO inventoryData;
     [SerializeField] private float pickupRange = 2f; // Set the range within which the player can pick up items
     private PlayerInput playerInput;
     private InputAction pickup;
+    
+    private PlayerAnimation playerAnimation;
+
 
     private void Awake()
     {
@@ -19,6 +23,15 @@ public class PickupSystem : MonoBehaviour
         pickup = playerInput.PlayerControls.Interaction;
     }
 
+    private void Start()
+    {
+        // Only do this for the local player
+        if (IsLocalPlayer)
+        {
+            // Get the PlayerAnimation component on this GameObject
+            playerAnimation = GetComponent<PlayerAnimation>();
+        }
+    }
     private void Update()
     {
         // Check if the interaction button is pressed
@@ -52,7 +65,7 @@ public class PickupSystem : MonoBehaviour
                     // If the item was only partially added, update its quantity
                     item.Quantity = reminder;
                 }
-                PlayerAnimation.Instance.PlayerPickupAnim();
+                playerAnimation.PlayerPickupAnim();
             }
         }
     }

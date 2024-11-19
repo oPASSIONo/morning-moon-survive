@@ -843,7 +843,6 @@ MonoBehaviour:
   contentPanel: {fileID: 3696030665490258905}
   buildingDescription: {fileID: 6945361399670510140}
   placementSystem: {fileID: 0}
-  inventoryController: {fileID: 0}
   playerStateManager: {fileID: 0}
 --- !u!1 &238927061287423607
 GameObject:
@@ -1893,8 +1892,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 547f0ab8fc55dfd49bab5b7b2334af93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  satietyComponent: {fileID: 8930050992319511668, guid: 7ae0f206ce4c5274fbf79e792bea7666,
-    type: 3}
   slider: {fileID: 5790480226793060403}
   hungerText: {fileID: 8734536517321796504}
 --- !u!1 &529594894479399789
@@ -12217,8 +12214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15aed1bae276b4295ae413f71c1372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthComponent: {fileID: 4482873882010258281, guid: 7ae0f206ce4c5274fbf79e792bea7666,
-    type: 3}
   slider: {fileID: 8325646329674099407}
   healthText: {fileID: 2900203662348095330}
 --- !u!1 &4484360383293707410
@@ -14337,6 +14332,7 @@ GameObject:
   - component: {fileID: 7535276486081208455}
   - component: {fileID: 2499373375563480870}
   - component: {fileID: 1243541812855185388}
+  - component: {fileID: 1814601962119040644}
   - component: {fileID: 6557169237813554623}
   - component: {fileID: 2267698026926504305}
   m_Layer: 5
@@ -14461,6 +14457,27 @@ MonoBehaviour:
   craftingPage: {fileID: 4656010594475367878}
   buildingPage: {fileID: 8475205103206475603}
   notiBox: {fileID: 8570402946784189093}
+--- !u!114 &1814601962119040644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5259728656229041463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2312420918
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &6557169237813554623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17720,8 +17737,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d454bfa2a3815c145802b627adf12e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  staminaComponent: {fileID: 7754900126778981578, guid: 7ae0f206ce4c5274fbf79e792bea7666,
-    type: 3}
   slider: {fileID: 368158027379388349}
   staminaText: {fileID: 937134512589236435}
 --- !u!1 &6720148208377927467

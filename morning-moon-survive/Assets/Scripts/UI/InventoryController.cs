@@ -22,25 +22,13 @@ namespace Inventory
         [SerializeField] private AmountController amountController;
         [SerializeField] private bool cheatModeForBuilding = false;// Add this variable
 
+        private PlayerStateManager playerStateManager;
         private int currentItemIndex;
-
-        /*void Start()
+        
+        private void Awake()
         {
-            if (IsLocalPlayer) // Initialize only for the local player
-            {
-                if (inventoryUI == null)
-                {
-                    inventoryUI = UIInventoryPage.Instance; // Get reference to the singleton instance
-                }
-
-                PrepareUI();
-                PrepareInventoryData();
-                GameInput.Instance.OnInventoryAction += GameInput_OnInventoryAction;
-                GameInput.Instance.OnSelectSlotAction += HandleSelectSlotAction;
-                Land.OnSeedPlanted += HandleSeedPlanted;
-            }
-        }*/
-        // Use OnNetworkSpawn for initialization in a networked environment
+            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+        }
         public override void OnNetworkSpawn()
         {
             if (IsLocalPlayer)
@@ -56,6 +44,36 @@ namespace Inventory
                 GameInput.Instance.OnInventoryAction += GameInput_OnInventoryAction;
                 GameInput.Instance.OnSelectSlotAction += HandleSelectSlotAction;
                 Land.OnSeedPlanted += HandleSeedPlanted;
+            }
+        }
+        
+        private void OnClientConnected(ulong obj)
+        {
+            if (NetworkManager.Singleton.LocalClientId == obj)
+            {
+                TryAssignLocalPlayer();
+            }
+        }
+
+        private void TryAssignLocalPlayer()
+        {
+            foreach (var networkObject in FindObjectsOfType<NetworkObject>())
+            {
+                if (networkObject.IsLocalPlayer)
+                {
+                    playerStateManager = networkObject.GetComponent<PlayerStateManager>();
+                    break;
+                }
+            }
+        
+            if (playerStateManager != null)
+            {
+                // Perform actions with the inventoryController (e.g., update UI, listen to events)
+                Debug.Log("Local player's InventoryController found.");
+            }
+            else
+            {
+                Debug.Log("Local player's InventoryController not found.");
             }
         }
 
@@ -247,7 +265,7 @@ namespace Inventory
 
         public void OpenInventoryUI()
         {
-            switch (PlayerStateManager.Instance.currentState)
+            switch (playerStateManager.currentState)
             {
                 case PlayerStateManager.PlayerState.Inventory:
                     inventoryUI.Show(true);

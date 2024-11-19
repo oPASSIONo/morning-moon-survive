@@ -24,9 +24,18 @@ public class PlayerMovement : NetworkBehaviour
 
     private Satiety satietyComponent;
     private Stamina staminaComponent;
+    
+    private PlayerAnimation playerAnimation;
+    private PlayerStateManager playerStateManager;
+
+    private void Awake()
+    {
+        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+    }
 
     private void Start()
     {
+        
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;;
 
@@ -45,16 +54,48 @@ public class PlayerMovement : NetworkBehaviour
         GameInput.Instance.OnDashAction += HandleDash;
     }
 
+    private void OnClientConnected(ulong obj)
+    {
+        if (NetworkManager.Singleton.LocalClientId == obj)
+        {
+            TryAssignLocalPlayer();
+        }
+    }
+
+    private void TryAssignLocalPlayer()
+    {
+        foreach (var networkObject in FindObjectsOfType<NetworkObject>())
+        {
+            if (networkObject.IsLocalPlayer)
+            {
+                playerStateManager = networkObject.GetComponent<PlayerStateManager>();
+                playerAnimation = networkObject.GetComponent<PlayerAnimation>();
+                
+                break;
+            }
+        }
+        
+        if (playerStateManager != null)
+        {
+            // Perform actions with the inventoryController (e.g., update UI, listen to events)
+            Debug.Log("Local player's PlayerMovement found.");
+        }
+        else
+        {
+            Debug.Log("Local player's PlayerMovement not found.");
+        }
+    }
+
     private void Update()
     {
-       //if (!IsOwner) return;
+        if (!IsOwner) return;
         if (isDashing)
         {
-            switch (PlayerStateManager.Instance.currentState)
+            switch (playerStateManager.currentState)
             {
                 case PlayerStateManager.PlayerState.Normal:
-                    PlayerAnimation.Instance.setAnimationSpeed(2f);
-                    PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Dash);
+                    playerAnimation.setAnimationSpeed(2f);
+                    playerStateManager.SetState(PlayerStateManager.PlayerState.Dash);
                     break;
             }
             dashTimeRemaining -= Time.deltaTime;
@@ -62,11 +103,11 @@ public class PlayerMovement : NetworkBehaviour
             {
                 isDashing = false;
                 rb.velocity = Vector3.zero; // Stop the dash
-                PlayerAnimation.Instance.setAnimationSpeed(1f);
-                switch (PlayerStateManager.Instance.currentState)
+                playerAnimation.setAnimationSpeed(1f);
+                switch (playerStateManager.currentState)
                 {
                     case PlayerStateManager.PlayerState.Dash:
-                        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal);
+                        playerStateManager.SetState(PlayerStateManager.PlayerState.Normal);
                         break;
                 }
             }
@@ -79,7 +120,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void MovePlayer()
     {
-        if (PlayerStateManager.Instance.currentState==PlayerStateManager.PlayerState.Normal)
+        if (playerStateManager.currentState == PlayerStateManager.PlayerState.Normal)
         {
             Vector2 inputVector = GameInput.Instance.GetMovement();
             Transform cameraTransform = Camera.main.transform;
