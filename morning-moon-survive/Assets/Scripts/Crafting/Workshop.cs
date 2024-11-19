@@ -2,7 +2,7 @@ using System;
 using Unity.Netcode;
 using UnityEngine;
 
-public class Workshop : NetworkBehaviour, IInteractable
+public class Workshop : MonoBehaviour, IInteractable
 {
     [SerializeField] private GameObject UIWorkshop;
     [SerializeField] private CraftingSO craftingSO;
@@ -11,13 +11,12 @@ public class Workshop : NetworkBehaviour, IInteractable
     private PlayerStateManager playerStateManager;
 
     //public event Action<bool> OnWorkshopInteract;
-    
+
     private void Awake()
     {
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
-
     }
-
+    
     private void OnClientConnected(ulong obj)
     {
         if (NetworkManager.Singleton.LocalClientId == obj)
@@ -32,7 +31,6 @@ public class Workshop : NetworkBehaviour, IInteractable
             if (networkObject.IsLocalPlayer)
             {
                 playerStateManager = networkObject.GetComponent<PlayerStateManager>();
-               
                 break;
             }
         }
@@ -40,11 +38,11 @@ public class Workshop : NetworkBehaviour, IInteractable
         if (playerStateManager != null)
         {
             // Perform actions with the inventoryController (e.g., update UI, listen to events)
-            Debug.Log("Local player's State Manager found.");
+            Debug.Log("Local player's Workshop found.");
         }
         else
         {
-            Debug.Log("Local player's State Manager not found.");
+            Debug.Log("Local player's Workshop not found.");
         }
     }
     public void Interact()

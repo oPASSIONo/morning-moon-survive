@@ -52,11 +52,6 @@ public class GameManager : NetworkBehaviour
     }
     public override void OnNetworkSpawn()
     {
-        if (IsLocalPlayer)
-        {
-            // Get the PlayerAnimation component on this GameObject
-            playerAnimation = GetComponent<PlayerAnimation>();
-        }
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
     }
     
@@ -90,6 +85,7 @@ public class GameManager : NetworkBehaviour
                 playerSatiety = networkObject.GetComponent<Satiety>();
                 playerAgentTool = networkObject.GetComponent<AgentTool>();
                 playerComponent = networkObject.GetComponent<Player>();
+                playerAnimation = networkObject.GetComponent<PlayerAnimation>();
                 
                 // Subscribe to any events needed, e.g., player health and satiety events
                 if (playerHealth != null)

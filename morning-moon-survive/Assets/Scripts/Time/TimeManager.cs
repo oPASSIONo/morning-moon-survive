@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using Unity.Netcode;
 
-public class TimeManager : NetworkBehaviour
+public class TimeManager : MonoBehaviour
 {
     public static TimeManager Instance { get; private set; }
 
@@ -73,6 +73,7 @@ public class TimeManager : NetworkBehaviour
         }
         else
         {
+            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
@@ -83,13 +84,37 @@ public class TimeManager : NetworkBehaviour
     
     private void Start()
     {
-        if (IsLocalPlayer)
-        {
-            playerStateManager = GetComponent<PlayerStateManager>();
-        }
         timeMultiplier = 1f / (dayLengthInMinutes * 60f);
     }
 
+    private void OnClientConnected(ulong obj)
+    {
+        if (NetworkManager.Singleton.LocalClientId == obj)
+        {
+            TryAssignLocalPlayer();
+        }
+    }
+
+    private void TryAssignLocalPlayer()
+    {
+        foreach (var networkObject in FindObjectsOfType<NetworkObject>())
+        {
+            if (networkObject.IsLocalPlayer)
+            {
+                playerStateManager = networkObject.GetComponent<PlayerStateManager>();
+                break;
+            }
+        }
+        
+        if (playerStateManager != null)
+        {
+            Debug.Log("Local player's TimeManager found.");
+        }
+        else
+        {
+            Debug.Log("Local player's TimeManager not found.");
+        }
+    }
     private void Update()
     {
         if (IsStartTimer)

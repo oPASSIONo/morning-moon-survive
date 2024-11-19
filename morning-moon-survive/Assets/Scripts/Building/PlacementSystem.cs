@@ -29,11 +29,13 @@ public class PlacementSystem : MonoBehaviour
     
     [SerializeField] private UIBuildingPage uiBuildingPage;
 
-    
-   
-    private void Start()
+    private void Awake()
     {
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+    }
+
+    private void Start()
+    {
         StopPlacement();
         floorData = new();
         furnitureData = new();
@@ -52,7 +54,6 @@ public class PlacementSystem : MonoBehaviour
             TryAssignLocalPlayerInventoryController();
         }
     }
-    
     
     private void TryAssignLocalPlayerInventoryController()
     {

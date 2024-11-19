@@ -5,7 +5,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UICraftingManager : NetworkBehaviour   
+public class UICraftingManager : MonoBehaviour 
 {
     public static UICraftingManager Instance { get; private set; }
     [SerializeField] private CraftingSO playerCraftingSO;
@@ -26,7 +26,6 @@ public class UICraftingManager : NetworkBehaviour
         else
         {
             NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
-
             Instance = this;
         }
     }

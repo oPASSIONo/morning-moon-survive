@@ -31,8 +31,7 @@ public class PlayerStateManager : NetworkBehaviour
     {
         currentState = PlayerState.Normal;
     }
-
-
+    
     public void SetState(PlayerState newState)
     {
         currentState = newState;
