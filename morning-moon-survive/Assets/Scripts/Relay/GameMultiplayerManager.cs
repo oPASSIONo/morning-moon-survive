@@ -22,7 +22,7 @@ public class GameMultiplayerManager : MonoBehaviour
     //[SerializeField] private GameObject control;
     [SerializeField] private int maxConnection = 2;
     
-    //private NetworkVariable<int> playerNum = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone);
+    private NetworkVariable<int> playerNum = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone);
     
     [Header("Status")]
     //[SerializeField] private TextMeshProUGUI playerCount;
@@ -74,8 +74,10 @@ public class GameMultiplayerManager : MonoBehaviour
         {
             connectedClientIds.Remove(clientId);
         }
-        if (NetworkManager.Singleton.ConnectedClients.Count == 0)
+        if (NetworkManager.Singleton.IsServer && NetworkManager.Singleton.ConnectedClients.Count == 0)
+        //if (NetworkManager.Singleton.ConnectedClients.Count == 0)
         {
+            
             // Shut down only if there are no connected clients
             NetworkManager.Singleton.Shutdown();
             AuthenticationService.Instance.SignOut();
@@ -120,7 +122,10 @@ public class GameMultiplayerManager : MonoBehaviour
 
            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
            string joinCode = await GetRelayJoinCode(allocation);
-           return  NetworkManager.Singleton.StartHost() ? joinCode : null;
+           
+           bool hostStarted = NetworkManager.Singleton.StartHost();
+           return hostStarted ? joinCode : null;
+           //return  NetworkManager.Singleton.StartHost() ? joinCode : null;
         }
         catch (RelayServiceException e)
         {
@@ -172,7 +177,7 @@ public class GameMultiplayerManager : MonoBehaviour
         NetworkManager.Singleton.Shutdown();
         AuthenticationService.Instance.SignOut();
     }
-    /*private void Update()
+    private void Update()
     {
         PlayerCount();
         
@@ -183,7 +188,7 @@ public class GameMultiplayerManager : MonoBehaviour
         if (!NetworkManager.Singleton.IsServer)
             return;
         playerNum.Value = NetworkManager.Singleton.ConnectedClients.Count;
-    }*/
+    }
 
 
 

@@ -27,8 +27,6 @@ public class UICraftingManager : MonoBehaviour
         {
             Instance = this;
         }
-        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
-
     }
 
     private void Start()
@@ -39,33 +37,11 @@ public class UICraftingManager : MonoBehaviour
     {
         OpenPlayerCraftingUI();
     }
-    private void OnClientConnected(ulong obj)
+    public void SetPlayerStateManager(PlayerStateManager stateManager)
     {
-        if (NetworkManager.Singleton.LocalClientId == obj)
-        {
-            TryAssignLocalPlayer();
-        }
-    }
-
-    private void TryAssignLocalPlayer()
-    {
-        foreach (var networkObject in FindObjectsOfType<NetworkObject>())
-        {
-            if (networkObject.IsLocalPlayer)
-            {
-                playerStateManager = networkObject.GetComponent<PlayerStateManager>();
-                break;
-            }
-        }
+        Debug.Log("Local player's UICraftManager found.");
+        playerStateManager = stateManager;
         
-        if (playerStateManager != null)
-        {
-            Debug.Log("Local player's UICraftingManager found.");
-        }
-        else
-        {
-            Debug.Log("Local player's UICraftingManager not found.");
-        }
     }
 
     private void OpenPlayerCraftingUI()

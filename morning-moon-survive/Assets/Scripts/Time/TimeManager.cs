@@ -3,6 +3,7 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using UnityEngine.Events;
 
 public class TimeManager : NetworkBehaviour
 {
@@ -32,13 +33,13 @@ public class TimeManager : NetworkBehaviour
     private float fastForwardMultiplier = 100f;
 
     [Tooltip("Event triggered when the day starts.")]
-    public UnityEngine.Events.UnityEvent OnDayStart;
+    public UnityEvent OnDayStart;
 
     [Tooltip("Event triggered when the night starts.")]
-    public UnityEngine.Events.UnityEvent OnNightStart;
+    public UnityEvent OnNightStart;
     
     [Tooltip("Event triggered when the day ends.")]
-    public UnityEngine.Events.UnityEvent OnDayEnd;  // New event for day end
+    public UnityEvent OnDayEnd;  // New event for day end
     
     private bool isDay = true;
 
@@ -80,48 +81,37 @@ public class TimeManager : NetworkBehaviour
         else
         {
             Instance = this;
-            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
             DontDestroyOnLoad(gameObject);
         }
-
-        currentTimeOfDay.Value = (dayStartTime * 60f) / (24f * 60f); // Normalize the start time
+        
+        if (IsServer) // Only the server should initialize time
+        {
+            currentTimeOfDay.Value = (dayStartTime * 60f) / (24f * 60f); // Initialize time at the start of the day
+        }
+        //currentTimeOfDay.Value = (dayStartTime * 60f) / (24f * 60f); // Normalize the start time
 
         /*float dayStartInMinutes = dayStartTime * 60f;
         currentTimeOfDay = dayStartInMinutes / (24f * 60f);*/
     }
 
+    public override void OnNetworkSpawn()
+    {
+        if (IsServer)
+        {
+            // Set the initial state when the object is spawned, only on the server
+            Debug.Log("TimeManager spawned on server");
+        }
+    }
     private void Start()
     {
         timeMultiplier = 1f / (dayLengthInMinutes * 60f);
     }
 
-    private void OnClientConnected(ulong obj)
+    public void SetPlayerStateManager(PlayerStateManager stateManager)
     {
-        if (NetworkManager.Singleton.LocalClientId == obj)
-        {
-            TryAssignLocalPlayer();
-        }
-    }
-
-    private void TryAssignLocalPlayer()
-    {
-        foreach (var networkObject in FindObjectsOfType<NetworkObject>())
-        {
-            if (networkObject.IsLocalPlayer)
-            {
-                playerStateManager = networkObject.GetComponent<PlayerStateManager>();
-                break;
-            }
-        }
+        Debug.Log("Local player's TimeManager found.");
+        playerStateManager = stateManager;
         
-        if (playerStateManager != null)
-        {
-            Debug.Log("Local player's TimeManager found.");
-        }
-        else
-        {
-            Debug.Log("Local player's TimeManager not found.");
-        }
     }
     private void Update()
     {

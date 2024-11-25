@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Inventory;
 using Inventory.Model;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,30 +14,26 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private GameObject mainCamera;
     [SerializeField] private GameObject playerFollowCamera;
-
     [SerializeField] private GameObject timeManager;
-
     [SerializeField] private GameObject gameInput;
-    
-    private GameObject player;
-    private Health playerHealth;
-    private Stamina playerStamina;
-    private Satiety playerSatiety;
-    private Player playerComponent;
-    private AgentTool playerAgentTool;
-    private PlayerAnimation playerAnimation;
-
-    
-    private float enemyWeaponWeaknessDMG;
-    private float enemyElementWeaknessDMG;
-
-    
     [SerializeField] private GameObject craftingSystem;
     [SerializeField] private GameObject gameCanvas;
     [SerializeField] private GameObject buildingSystem;
-
+    public PlayerManager PlayerManager { get; private set; }
+    
+    [SerializeField] private UIBuildingPage uiBuildingPage;
+    [SerializeField] private PlacementSystem placementSystem;
+    [SerializeField] private GameInput gameInputScript;
+    [SerializeField] private UICraftingManager uiCraftingManager;
+    [SerializeField] private UIBuildingManager uiBuildingManager;
+    [SerializeField] private TimeManager timeManagerScript; 
+    
+    private float enemyWeaponWeaknessDMG;
+    private float enemyElementWeaknessDMG;
+    
     private bool isLoadScene = false;
     private bool isPlayerDie = false;
+    
     
     private void Awake()
     {
@@ -55,12 +52,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        PlayerManager = new PlayerManager();
         StartGame();
     }
 
     private void StartGame()
     {
-        //InitializePlayer();
         PersistentObject();
     }
     private void OnClientConnected(ulong clientId)
@@ -77,33 +74,45 @@ public class GameManager : MonoBehaviour
         {
             if (networkObject.IsLocalPlayer)
             {
-                // Retrieve player-related components
-                playerHealth = networkObject.GetComponent<Health>();
-                playerStamina = networkObject.GetComponent<Stamina>();
-                playerSatiety = networkObject.GetComponent<Satiety>();
-                playerAgentTool = networkObject.GetComponent<AgentTool>();
-                playerComponent = networkObject.GetComponent<Player>();
-                playerAnimation = networkObject.GetComponent<PlayerAnimation>();
-                
-                // Subscribe to any events needed, e.g., player health and satiety events
-                if (playerHealth != null)
+                PlayerManager.Initialize(networkObject);
+                var inventory = PlayerManager.PlayerInventoryController;
+                var stateManager = PlayerManager.PlayerStateManager;
+                var animation = PlayerManager.PlayerAnimation;
+
+                if (uiBuildingPage != null)
                 {
-                    playerHealth.OnEntityDie += OnPlayerDie;
+                    uiBuildingPage.SetInventoryController(inventory);
+                    uiBuildingPage.SetPlayerStateManager(stateManager);
+                }
+                if (placementSystem != null)
+                {
+                    placementSystem.SetInventoryController(inventory);
+                }
+                if (gameInputScript != null)
+                {
+                    gameInputScript.SetPlayerStateManager(stateManager);
+                }
+                if (uiCraftingManager != null)
+                {
+                    uiCraftingManager.SetPlayerStateManager(stateManager);
+                } 
+                if (uiBuildingManager != null)
+                {
+                    uiBuildingManager.SetPlayerStateManager(stateManager);
+                }
+
+                if (timeManagerScript != null)
+                {
+                    timeManagerScript.SetPlayerStateManager(stateManager);
                 }
                 
-                //CameraFollow.Instance.AssignCameraToPlayer();
-
                 break;
             }
          
         }
 
-        if (playerSatiety == null)
-        {   
-            Debug.LogError("Local player's Satiety component not found.");
-        }
     }
-    private void InitializePlayer()
+    /*private void InitializePlayer()
     {
         playerHealth = player.GetComponent<Health>();
         playerHealth.OnEntityDie += OnPlayerDie;
@@ -111,12 +120,13 @@ public class GameManager : MonoBehaviour
         playerSatiety = player.GetComponent<Satiety>();
         playerAgentTool = player.GetComponent<AgentTool>();
         playerComponent = player.GetComponent<Player>();
-    }
+    }*/
 
     private void InitializeCoreGameObj()
-    {
-        gameInput.SetActive(true);
+    {       
         //player.SetActive(true);
+        
+        gameInput.SetActive(true);
         playerFollowCamera.SetActive(true);
         gameCanvas.SetActive(true);
         timeManager.SetActive(true);
@@ -147,7 +157,7 @@ public class GameManager : MonoBehaviour
             {
                 if (moveTarget == "Player")
                 {
-                    objectToMove = playerComponent.GetComponent<NavMeshAgent>();
+                    objectToMove = PlayerManager.Player.GetComponent<NavMeshAgent>();
                     if (objectToMove != null)
                     {
                         objectToMove.Warp(movePointTransform.position);
@@ -177,7 +187,7 @@ public class GameManager : MonoBehaviour
         switch (moveTarget)
         {
             case "Player":
-                objectToMove = player.GetComponent<NavMeshAgent>();
+                objectToMove = PlayerManager.Player.GetComponent<NavMeshAgent>();
                 if (movePointGameObject==null)
                 {
                     Debug.Log("Move Point Null");
@@ -198,7 +208,6 @@ public class GameManager : MonoBehaviour
         LevelManager.Instance.OnLoadComplete += OnLoadComplete;
         LevelManager.Instance.OnLoaderFadeOut += OnLoaderFadeOut;
         LevelManager.Instance.LoadScene(sceneName);     
-        //CameraFollow.Instance.AssignCameraToPlayer();
 
     }
   
@@ -248,7 +257,7 @@ public class GameManager : MonoBehaviour
     public void EnemyDealDamage(Enemy enemy,int movesetIndex)
     {
         float damage = 0f;
-        float playerDEF = playerComponent.Defense;
+        float playerDEF = PlayerManager.Player.Defense;
         float movesetDMG = enemy.MovesetStats[movesetIndex].PhysicalDamage;
         float movesetElementDMG = enemy.MovesetStats[movesetIndex].ElementDamage;
         
@@ -260,10 +269,10 @@ public class GameManager : MonoBehaviour
                 damage = ((movesetDMG*enemy.BaseATK) - playerDEF);
                 break;
             default:
-                damage = ((movesetDMG*enemy.BaseATK) - playerDEF) + (movesetElementDMG -playerComponent.Resistant);
+                damage = ((movesetDMG*enemy.BaseATK) - playerDEF) + (movesetElementDMG - PlayerManager.Player.Resistant);
                 break;
         }
-        playerHealth.TakeDamage(damage);
+        PlayerManager.PlayerHealth.TakeDamage(damage);
     }
 
     private void OnPlayerDie()
@@ -276,8 +285,8 @@ public class GameManager : MonoBehaviour
     {
         // Perform actions before the delay
         GameInput.Instance.SetPlayerInput(false);
-        playerAnimation.PlayerDeadAnim();
-        player.GetComponent<Collider>().enabled = false;
+        PlayerManager.PlayerAnimation.PlayerDeadAnim();
+        PlayerManager.Player.GetComponent<Collider>().enabled = false;
         isPlayerDie = true;
         
         // Wait for 3 seconds
@@ -290,25 +299,25 @@ public class GameManager : MonoBehaviour
 
     public void RespawnPlayer()
     {
-        player.GetComponent<Collider>().enabled = true;
+        PlayerManager.Player.GetComponent<Collider>().enabled = true;
         gameCanvas.GetComponent<GameCanvasRef>().notiBox.SetActive(false);
-        playerAnimation.PlayerRespawnAnim();
+        PlayerManager.PlayerAnimation.PlayerRespawnAnim();
         //GameInput.Instance.SetPlayerInput(true);
         
-        PlayerStats playerStats = playerComponent.GetPlayerStatSO();
+        PlayerStats playerStats = PlayerManager.Player.GetPlayerStatSO();
         if (playerStats != null)
         {
-            playerComponent.SetHP(playerStats.HealthStat.HP);
-            playerComponent.SetSatiety(playerStats.SatietyStat.Satiety);
-            playerHealth.Initialize(playerStats.HealthStat.MaxHP, playerStats.HealthStat.MinHP, playerStats.HealthStat.HP);
-            playerSatiety.Initialize(playerStats.SatietyStat.MaxSatiety, playerStats.SatietyStat.MinSatiety, 
+            PlayerManager.Player.SetHP(playerStats.HealthStat.HP);
+            PlayerManager.Player.SetSatiety(playerStats.SatietyStat.Satiety);
+            PlayerManager.PlayerHealth.Initialize(playerStats.HealthStat.MaxHP, playerStats.HealthStat.MinHP, playerStats.HealthStat.HP);
+            PlayerManager.PlayerSatiety.Initialize(playerStats.SatietyStat.MaxSatiety, playerStats.SatietyStat.MinSatiety, 
                 playerStats.SatietyStat.Satiety, playerStats.SatietyStat.SatietyBleeding,
                 playerStats.SatietyStat.SatietyConsumePoint, playerStats.SatietyStat.SatietyConsumeRate);
         }
 
         /*playerComponent.SetHP(Player.Instance.GetPlayerStatSO().HealthStat.HP);
         playerComponent.SetSatiety(Player.Instance.GetPlayerStatSO().SatietyStat.Satiety);*/
-        playerSatiety.InitialSatietyConsumeOvertime();
+        PlayerManager.PlayerSatiety.InitialSatietyConsumeOvertime();
         //SaveManager.Instance.SavePlayer();
         isPlayerDie = false;
         
@@ -321,13 +330,13 @@ public class GameManager : MonoBehaviour
     public void PlayerDealDamage(GameObject target, Collider hitCollider)
     {
         Enemy enemy = target.GetComponent<Enemy>();
-        AttackType playerATKType = playerAgentTool.currentTool.AttackType;
-        Element playerElementType = playerAgentTool.currentTool.Element;
-        float playerATKBaseDMG = playerComponent.Attack;
-        float weaponATKBaseDMG = playerAgentTool.currentTool.AttackDamage;
-        float sharpnessOfWeapon = playerAgentTool.currentTool.Sharpness;
+        AttackType playerATKType = PlayerManager.PlayerAgentTool.currentTool.AttackType;
+        Element playerElementType = PlayerManager.PlayerAgentTool.currentTool.Element;
+        float playerATKBaseDMG = PlayerManager.Player.Attack;
+        float weaponATKBaseDMG = PlayerManager.PlayerAgentTool.currentTool.AttackDamage;
+        float sharpnessOfWeapon = PlayerManager.PlayerAgentTool.currentTool.Sharpness;
         float enemyDEF = enemy.Defense;
-        float weaponElementATKBaseDMG = playerAgentTool.currentTool.ElementAttackDamage;
+        float weaponElementATKBaseDMG = PlayerManager.PlayerAgentTool.currentTool.ElementAttackDamage;
         float bonusATK = 0f;
         
         if (enemy!=null)

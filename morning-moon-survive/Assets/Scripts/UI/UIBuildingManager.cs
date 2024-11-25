@@ -25,47 +25,18 @@ public class UIBuildingManager : MonoBehaviour
         {
             Instance = this;
         }
-        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
-
     }
     
     private void Start()
     {
-        /*if (IsLocalPlayer)
-        {
-            playerStateManager = GetComponent<PlayerStateManager>();
-
-        }*/
         GameInput.Instance.OnBuildingAction += InstanceOnOnBuildingAction;
     }
     
-    private void OnClientConnected(ulong obj)
+    public void SetPlayerStateManager(PlayerStateManager stateManager)
     {
-        if (NetworkManager.Singleton.LocalClientId == obj)
-        {
-            TryAssignLocalPlayer();
-        }
-    }
-
-    private void TryAssignLocalPlayer()
-    {
-        foreach (var networkObject in FindObjectsOfType<NetworkObject>())
-        {
-            if (networkObject.IsLocalPlayer)
-            {
-                playerStateManager = networkObject.GetComponent<PlayerStateManager>();
-                break;
-            }
-        }
+        Debug.Log("Local player's UIBuildingManager found.");
+        playerStateManager = stateManager;
         
-        if (playerStateManager != null)
-        {
-            Debug.Log("Local player's UBuildingManager found.");
-        }
-        else
-        {
-            Debug.Log("Local player's UBuildingManager not found.");
-        }
     }
 
     private void InstanceOnOnBuildingAction(object sender, EventArgs e)

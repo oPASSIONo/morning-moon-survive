@@ -29,11 +29,7 @@ public class PlacementSystem : MonoBehaviour
     
     [SerializeField] private UIBuildingPage uiBuildingPage;
 
-    private void Awake()
-    {
-        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
-    }
-
+   
     private void Start()
     {
         StopPlacement();
@@ -46,39 +42,13 @@ public class PlacementSystem : MonoBehaviour
             uiBuildingPage.SetInventoryController(inventoryController);
         }
     }
-    private void OnClientConnected(ulong clientId)
-    {
-        if (NetworkManager.Singleton.LocalClientId == clientId)
-        {
-            // Attempt to find the local player's InventoryController after spawning
-            TryAssignLocalPlayerInventoryController();
-        }
-    }
     
-    private void TryAssignLocalPlayerInventoryController()
+    public void SetInventoryController(InventoryController controller)
     {
-        // Loop through all NetworkObjects to find the local player
-        foreach (var networkObject in FindObjectsOfType<NetworkObject>())
-        {
-            if (networkObject.IsLocalPlayer)
-            {
-                // Find the InventoryController on the local player's NetworkObject
-                inventoryController = networkObject.GetComponent<InventoryController>();
-                break;
-            }
-        }
-
-        // Ensure InventoryController was found and perform operations
-        if (inventoryController != null)
-        {
-            // Perform actions with the inventoryController (e.g., update UI, listen to events)
-            Debug.Log("Local player's PlacementSystem found.");
-        }
-        else
-        {
-            Debug.LogError("Local player's PlacementSystem not found.");
-        }
+        inventoryController = controller;
+        Debug.Log("Local player's PlacementSystem found.");
     }
+   
 
     public InventoryController InventoryController
     {
@@ -164,7 +134,6 @@ public class PlacementSystem : MonoBehaviour
     
     private void OnDestroy()
     {
-        NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
         StopPlacement(); // Ensure everything is cleaned up properly when the object is destroyed
     }
 }

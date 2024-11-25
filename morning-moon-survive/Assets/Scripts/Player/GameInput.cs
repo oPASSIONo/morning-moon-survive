@@ -43,8 +43,6 @@ public class GameInput : MonoBehaviour
             return;
         }
         
-        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
-        
         playerInput = new PlayerInput();
         playerInput.PlayerControls.Enable();
 
@@ -76,39 +74,7 @@ public class GameInput : MonoBehaviour
         }
 
     }
-
-    private void OnClientConnected(ulong obj)
-    {
-        if (NetworkManager.Singleton.LocalClientId == obj)
-        {
-            TryAssignLocalPlayer();
-        }
-    }
-
-    private void TryAssignLocalPlayer()
-    {
-        foreach (var networkObject in FindObjectsOfType<NetworkObject>())
-        {
-            if (networkObject.IsLocalPlayer)
-            {
-                // Find the InventoryController on the local player's NetworkObject
-                playerStateManager = networkObject.GetComponent<PlayerStateManager>();
-                break;
-            }
-            
-            
-        }
-        if (playerStateManager != null)
-        {
-            // Perform actions with the inventoryController (e.g., update UI, listen to events)
-            Debug.Log("Local player's State Manager found.");
-        }
-        else
-        {
-            Debug.Log("Local player's State Manager not found.");
-        }
-    }
-
+    
     private void Building_Performed(InputAction.CallbackContext obj)
     {
         playerStateManager.ToggleBuilding();
@@ -182,7 +148,13 @@ public class GameInput : MonoBehaviour
             playerInput.PlayerControls.Disable();
         }
     }
-
+    
+    public void SetPlayerStateManager(PlayerStateManager stateManager)
+    {
+        Debug.Log("Local player's GameInput found.");
+        playerStateManager = stateManager;
+        
+    }
 
     #endregion
     

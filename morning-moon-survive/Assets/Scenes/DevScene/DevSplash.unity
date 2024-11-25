@@ -1608,6 +1608,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1849805110}
+    - target: {fileID: 6568761675743269033, guid: 110d56ef2a99b1e43a1eeb372a81ebfd,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1191549218
+      objectReference: {fileID: 0}
+    - target: {fileID: 6568761675743269033, guid: 110d56ef2a99b1e43a1eeb372a81ebfd,
+        type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 636602379
+      objectReference: {fileID: 0}
     - target: {fileID: 8475205103206475603, guid: 110d56ef2a99b1e43a1eeb372a81ebfd,
         type: 3}
       propertyPath: placementSystem
@@ -1624,12 +1634,48 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 576864900}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &576864902 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2267698026926504305, guid: 110d56ef2a99b1e43a1eeb372a81ebfd,
+    type: 3}
+  m_PrefabInstance: {fileID: 576864900}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576864901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bf7309689bd70345bf92b675abca27e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &576864903 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6557169237813554623, guid: 110d56ef2a99b1e43a1eeb372a81ebfd,
+    type: 3}
+  m_PrefabInstance: {fileID: 576864900}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576864901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19a54d57363db7047b0d977ef92b3a27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &666872828 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 456518989343572571, guid: 5e9eb44cf365cfa4b93c9a0f3784446a,
     type: 3}
   m_PrefabInstance: {fileID: 6655672011505875333}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &666872829 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6013347457982872072, guid: 5e9eb44cf365cfa4b93c9a0f3784446a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6655672011505875333}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666872828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a3c48a0a690dd9489236d7fec8cefdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &681717640
 GameObject:
   m_ObjectHideFlags: 0
@@ -2934,6 +2980,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NetworkManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7013405000821911025, guid: 76ed329324c886743ab640987a3b8b0b,
+        type: 3}
+      propertyPath: LogLevel
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3538,6 +3589,36 @@ PrefabInstance:
       objectReference: {fileID: 1812660517}
     - target: {fileID: 8920339919533761516, guid: 4dfa6f8d3dad45f46a6e236d63805611,
         type: 3}
+      propertyPath: uiBuildingPage
+      value: 
+      objectReference: {fileID: 122942106}
+    - target: {fileID: 8920339919533761516, guid: 4dfa6f8d3dad45f46a6e236d63805611,
+        type: 3}
+      propertyPath: gameInputScript
+      value: 
+      objectReference: {fileID: 1695859072}
+    - target: {fileID: 8920339919533761516, guid: 4dfa6f8d3dad45f46a6e236d63805611,
+        type: 3}
+      propertyPath: placementSystem
+      value: 
+      objectReference: {fileID: 1849805110}
+    - target: {fileID: 8920339919533761516, guid: 4dfa6f8d3dad45f46a6e236d63805611,
+        type: 3}
+      propertyPath: timeManagerScript
+      value: 
+      objectReference: {fileID: 666872829}
+    - target: {fileID: 8920339919533761516, guid: 4dfa6f8d3dad45f46a6e236d63805611,
+        type: 3}
+      propertyPath: uiBuildingManager
+      value: 
+      objectReference: {fileID: 576864902}
+    - target: {fileID: 8920339919533761516, guid: 4dfa6f8d3dad45f46a6e236d63805611,
+        type: 3}
+      propertyPath: uiCraftingManager
+      value: 
+      objectReference: {fileID: 576864903}
+    - target: {fileID: 8920339919533761516, guid: 4dfa6f8d3dad45f46a6e236d63805611,
+        type: 3}
       propertyPath: playerFollowCamera
       value: 
       objectReference: {fileID: 737751443}
@@ -4061,6 +4142,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 509090996}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1695859072 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2697506812196912617, guid: 51c52dfc70646a64c8305790d674a447,
+    type: 3}
+  m_PrefabInstance: {fileID: 509090996}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695859071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85f623dc73dd78347b0340538c1f9b2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1764408114
 GameObject:
   m_ObjectHideFlags: 0

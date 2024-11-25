@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Inventory;
@@ -18,12 +19,9 @@ public class UIBuildingPage : MonoBehaviour
     private List<UIBuildingItem> listOfUIBuildingItems = new List<UIBuildingItem>();
     private Dictionary<UIBuildingItem, ObjectData> buildingItemToRecipeMap = new Dictionary<UIBuildingItem, ObjectData>();
 
-    
-    private void Awake()
-    {
-        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
-    }
-    
+
+ 
+
     private void Start()
     {
         if (placementSystem != null)
@@ -33,40 +31,16 @@ public class UIBuildingPage : MonoBehaviour
     }
     // Setter for InventoryController
     
-    private void OnClientConnected(ulong obj)
-    {
-        if (NetworkManager.Singleton.LocalClientId == obj)
-        {
-            TryAssignLocalPlayer();
-        }
-    }
-    
-    private void TryAssignLocalPlayer()
-    {
-        foreach (var networkObject in FindObjectsOfType<NetworkObject>())
-        {
-            if (networkObject.IsLocalPlayer)
-            {
-                // Find the InventoryController on the local player's NetworkObject
-                playerStateManager = networkObject.GetComponent<PlayerStateManager>();
-                break;
-            }
-            
-            
-        }
-        if (playerStateManager != null)
-        {
-            // Perform actions with the inventoryController (e.g., update UI, listen to events)
-            Debug.Log("Local player's UIBuildingPage found.");
-        }
-        else
-        {
-            Debug.Log("Local player's UIBuildingPage not found.");
-        }
-    }
     public void SetInventoryController(InventoryController controller)
     {
         inventoryController = controller;
+    }
+    
+    public void SetPlayerStateManager(PlayerStateManager stateManager)
+    {
+        Debug.Log("Local player's UIBuildingPage found.");
+        playerStateManager = stateManager;
+        
     }
     public void PopulateBuildingUI(BuildingObjectSo so)
     {
@@ -136,7 +110,7 @@ public class UIBuildingPage : MonoBehaviour
        }
        else
        {
-           Debug.LogError("No building item selected!");
+           Debug.Log("No building item selected!");
        }
    }
 
