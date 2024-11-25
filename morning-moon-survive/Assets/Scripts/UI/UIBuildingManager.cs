@@ -5,7 +5,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class UIBuildingManager : NetworkBehaviour
+public class UIBuildingManager : MonoBehaviour
 {
     public static UIBuildingManager Instance { get; private set; }
 
@@ -25,16 +25,47 @@ public class UIBuildingManager : NetworkBehaviour
         {
             Instance = this;
         }
+        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+
     }
     
     private void Start()
     {
-        if (IsLocalPlayer)
+        /*if (IsLocalPlayer)
         {
             playerStateManager = GetComponent<PlayerStateManager>();
 
-        }
+        }*/
         GameInput.Instance.OnBuildingAction += InstanceOnOnBuildingAction;
+    }
+    
+    private void OnClientConnected(ulong obj)
+    {
+        if (NetworkManager.Singleton.LocalClientId == obj)
+        {
+            TryAssignLocalPlayer();
+        }
+    }
+
+    private void TryAssignLocalPlayer()
+    {
+        foreach (var networkObject in FindObjectsOfType<NetworkObject>())
+        {
+            if (networkObject.IsLocalPlayer)
+            {
+                playerStateManager = networkObject.GetComponent<PlayerStateManager>();
+                break;
+            }
+        }
+        
+        if (playerStateManager != null)
+        {
+            Debug.Log("Local player's UBuildingManager found.");
+        }
+        else
+        {
+            Debug.Log("Local player's UBuildingManager not found.");
+        }
     }
 
     private void InstanceOnOnBuildingAction(object sender, EventArgs e)

@@ -6,15 +6,15 @@ using Unity.Netcode;
 
 public class CameraFollow : NetworkBehaviour
 {
-    public static CameraFollow Instance { get; private set; }
+   // public static CameraFollow Instance { get; private set; }
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
     public override void OnNetworkSpawn()
     {
-        if (Instance == null)
+        /*if (Instance == null)
         {
             Instance = this;
-        }
+        }*/
         
         StartCoroutine(AssignCameraWhenReady());
     }

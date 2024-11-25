@@ -25,9 +25,10 @@ public class UICraftingManager : MonoBehaviour
         }
         else
         {
-            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
             Instance = this;
         }
+        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+
     }
 
     private void Start()

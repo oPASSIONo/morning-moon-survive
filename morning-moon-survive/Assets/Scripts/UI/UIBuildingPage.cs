@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Inventory;
 using UnityEngine;
+using Unity.Netcode;
 
 public class UIBuildingPage : MonoBehaviour
 {
@@ -11,12 +12,17 @@ public class UIBuildingPage : MonoBehaviour
     
     [SerializeField] private PlacementSystem placementSystem; // Reference to PlacementSystem
     private ObjectData selectedObjectData; // Store the selected ObjectData
-    private InventoryController inventoryController;
-    [SerializeField] private PlayerStateManager playerStateManager;
+    private InventoryController inventoryController; 
+    private PlayerStateManager playerStateManager;
     
     private List<UIBuildingItem> listOfUIBuildingItems = new List<UIBuildingItem>();
     private Dictionary<UIBuildingItem, ObjectData> buildingItemToRecipeMap = new Dictionary<UIBuildingItem, ObjectData>();
 
+    
+    private void Awake()
+    {
+        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+    }
     
     private void Start()
     {
@@ -26,6 +32,38 @@ public class UIBuildingPage : MonoBehaviour
         }
     }
     // Setter for InventoryController
+    
+    private void OnClientConnected(ulong obj)
+    {
+        if (NetworkManager.Singleton.LocalClientId == obj)
+        {
+            TryAssignLocalPlayer();
+        }
+    }
+    
+    private void TryAssignLocalPlayer()
+    {
+        foreach (var networkObject in FindObjectsOfType<NetworkObject>())
+        {
+            if (networkObject.IsLocalPlayer)
+            {
+                // Find the InventoryController on the local player's NetworkObject
+                playerStateManager = networkObject.GetComponent<PlayerStateManager>();
+                break;
+            }
+            
+            
+        }
+        if (playerStateManager != null)
+        {
+            // Perform actions with the inventoryController (e.g., update UI, listen to events)
+            Debug.Log("Local player's UIBuildingPage found.");
+        }
+        else
+        {
+            Debug.Log("Local player's UIBuildingPage not found.");
+        }
+    }
     public void SetInventoryController(InventoryController controller)
     {
         inventoryController = controller;

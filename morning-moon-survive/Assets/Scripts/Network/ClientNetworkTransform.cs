@@ -18,5 +18,6 @@ namespace Unity.Multiplayer.Samples.Utilities.ClientAuthority
         {
             return false;
         }
+        
     }
 }

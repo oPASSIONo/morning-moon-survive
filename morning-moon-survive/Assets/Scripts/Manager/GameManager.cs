@@ -7,7 +7,7 @@ using UnityEngine.AI;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
 
-public class GameManager : NetworkBehaviour
+public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     
@@ -44,17 +44,15 @@ public class GameManager : NetworkBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+
         }
         else
         {
             Destroy(gameObject);
         }
     }
-    public override void OnNetworkSpawn()
-    {
-        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
-    }
-    
+
     private void Start()
     {
         StartGame();
@@ -93,7 +91,7 @@ public class GameManager : NetworkBehaviour
                     playerHealth.OnEntityDie += OnPlayerDie;
                 }
                 
-                CameraFollow.Instance.AssignCameraToPlayer();
+                //CameraFollow.Instance.AssignCameraToPlayer();
 
                 break;
             }
@@ -144,13 +142,21 @@ public class GameManager : NetworkBehaviour
         {
             Transform movePointTransform = SpawnPointManager.Instance.GetSpawnPoint(spawnPointName);
 
+           
             if (movePointTransform != null)
             {
                 if (moveTarget == "Player")
                 {
                     objectToMove = playerComponent.GetComponent<NavMeshAgent>();
-                    objectToMove.Warp(movePointTransform.position);
-                    Debug.Log($"Player moved to: {movePointTransform.position}");
+                    if (objectToMove != null)
+                    {
+                        objectToMove.Warp(movePointTransform.position);
+                        Debug.Log($"Player moved to: {movePointTransform.position}");
+                    }
+                    else
+                    {
+                        Debug.LogError("NavMeshAgent not found on the player!");
+                    }
                     yield break; // Exit the coroutine once the player is moved
                 }
             }
@@ -159,6 +165,8 @@ public class GameManager : NetworkBehaviour
                 Debug.Log($"Waiting for spawn point '{spawnPointName}' to be registered...");
                 yield return null; // Wait for the next frame and check again
             }
+            yield return new WaitForSeconds(0.1f); // Wait briefly before checking again
+
         }
     }
 

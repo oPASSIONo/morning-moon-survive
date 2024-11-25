@@ -41,22 +41,8 @@ public class LevelManager : MonoBehaviour
         _loaderCanvas.SetActive(true);
         _canvasGroup.alpha = 1f; // Ensure the canvas starts fully visible
 
-        /*// Load the scene normally (synchronously)
+        // Load the scene normally (synchronously)
         SceneManager.LoadScene(sceneName);
-        */
-
-        if (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsClient)
-        {
-            // Use the Netcode scene management method for scene loading
-            NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
-            Debug.Log(" Join with Network Load Scene");
-        }
-        else
-        {
-            // Fallback to regular scene loading for non-multiplayer scenes
-            SceneManager.LoadScene(sceneName);
-            Debug.Log(" Join with Load Scene");
-        }
       
         // Once the scene is loaded, fade out the loading screen
         OnLoadComplete?.Invoke();

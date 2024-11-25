@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.AI;
 
 
 public class Player : NetworkBehaviour
@@ -87,7 +88,9 @@ public class Player : NetworkBehaviour
         {
             Initialize();
         }
+        
     }
+   
     
     public Player GetLocalPlayer()
     {

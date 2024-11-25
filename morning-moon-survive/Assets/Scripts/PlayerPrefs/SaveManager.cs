@@ -72,8 +72,8 @@ public class SaveManager : MonoBehaviour
 
     private void SaveDayAndTime()
     {
-        PlayerPrefs.SetInt("Day", TimeManager.Instance.DayCount);
-        PlayerPrefs.SetFloat("Time",TimeManager.Instance.CurrentTimeOfDay);
+        PlayerPrefs.SetInt("Day", TimeManager.Instance.dayCount.Value);
+        PlayerPrefs.SetFloat("Time",TimeManager.Instance.currentTimeOfDay.Value);
     }
 
     private void SavePlayerStat()
@@ -189,7 +189,7 @@ public class SaveManager : MonoBehaviour
     private void LoadDayAndTime()
     {
         TimeManager.Instance.SetDayCount(PlayerPrefs.GetInt("Day"));
-        TimeManager.Instance.CurrentTimeOfDay=(PlayerPrefs.GetFloat("Time"));
+        TimeManager.Instance.currentTimeOfDay.Value =(PlayerPrefs.GetFloat("Time"));
     }
 
     private void DebugLoad()

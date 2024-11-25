@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.Netcode;
 
 public class Portal : MonoBehaviour,IInteractable
 {
     [SerializeField] private GameObject targetPortal;
     public void Interact()
     {
+      
         LevelManager.Instance.PortalWarp();
         GameManager.Instance.MoveTargetToPoint("Player",targetPortal);
         SaveManager.Instance.SavePlayer();

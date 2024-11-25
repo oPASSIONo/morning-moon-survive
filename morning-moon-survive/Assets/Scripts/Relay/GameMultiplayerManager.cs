@@ -22,7 +22,7 @@ public class GameMultiplayerManager : MonoBehaviour
     //[SerializeField] private GameObject control;
     [SerializeField] private int maxConnection = 2;
     
-    private NetworkVariable<int> playerNum = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone);
+    //private NetworkVariable<int> playerNum = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone);
     
     [Header("Status")]
     //[SerializeField] private TextMeshProUGUI playerCount;
@@ -172,7 +172,7 @@ public class GameMultiplayerManager : MonoBehaviour
         NetworkManager.Singleton.Shutdown();
         AuthenticationService.Instance.SignOut();
     }
-    private void Update()
+    /*private void Update()
     {
         PlayerCount();
         
@@ -183,7 +183,7 @@ public class GameMultiplayerManager : MonoBehaviour
         if (!NetworkManager.Singleton.IsServer)
             return;
         playerNum.Value = NetworkManager.Singleton.ConnectedClients.Count;
-    }
+    }*/
 
 
 

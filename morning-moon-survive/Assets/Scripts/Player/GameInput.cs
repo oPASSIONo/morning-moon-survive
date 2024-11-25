@@ -7,7 +7,7 @@ using Unity.Netcode;
 /// <summary>
 /// Manages player inputs using the Input System.
 /// </summary>
-public class GameInput : NetworkBehaviour
+public class GameInput : MonoBehaviour
 {
     #region GameInput Single
 

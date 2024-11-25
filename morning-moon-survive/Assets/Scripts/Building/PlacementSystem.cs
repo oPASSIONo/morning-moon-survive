@@ -72,11 +72,11 @@ public class PlacementSystem : MonoBehaviour
         if (inventoryController != null)
         {
             // Perform actions with the inventoryController (e.g., update UI, listen to events)
-            Debug.Log("Local player's InventoryController found.");
+            Debug.Log("Local player's PlacementSystem found.");
         }
         else
         {
-            Debug.LogError("Local player's InventoryController not found.");
+            Debug.LogError("Local player's PlacementSystem not found.");
         }
     }
 

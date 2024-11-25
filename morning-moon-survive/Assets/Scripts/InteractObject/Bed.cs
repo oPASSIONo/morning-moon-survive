@@ -24,14 +24,14 @@ public class Bed : MonoBehaviour, IInteractable
     {
         float targetTimeOfDay = TimeManager.Instance.DayStartTime / 24f;
 
-        while (TimeManager.Instance.CurrentTimeOfDay < targetTimeOfDay || TimeManager.Instance.CurrentTimeOfDay > 0.75f)
+        while (TimeManager.Instance.currentTimeOfDay.Value < targetTimeOfDay || TimeManager.Instance.currentTimeOfDay.Value > 0.75f)
         {
             TimeManager.Instance.UpdateTime();
             yield return null;
         }
 
         TimeManager.Instance.StopFastForward();
-        TimeManager.Instance.CurrentTimeOfDay = targetTimeOfDay;
+        TimeManager.Instance.currentTimeOfDay.Value = targetTimeOfDay;
 
         TimeManager.Instance.UpdateTime();
     }

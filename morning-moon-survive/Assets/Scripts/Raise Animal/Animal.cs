@@ -17,7 +17,7 @@ public class Animal : MonoBehaviour
     {
         animalData = data;
         growthStage = 0;
-        startDay = TimeManager.Instance.DayCount;
+        startDay = TimeManager.Instance.dayCount.Value;
 
         // Start as a baby
         SetAnimalModel(animalData.babyPrefab);
@@ -60,7 +60,7 @@ public class Animal : MonoBehaviour
 
     private void CheckGrowth()
     {
-        int currentDay = TimeManager.Instance.DayCount;
+        int currentDay = TimeManager.Instance.dayCount.Value;
 
         if (growthStage == 0 && currentDay >= startDay + animalData.babyToJuvenileTime)
         {
@@ -88,7 +88,7 @@ public class Animal : MonoBehaviour
 
     private void CheckItemDrop()
     {
-        int currentDay = TimeManager.Instance.DayCount;
+        int currentDay = TimeManager.Instance.dayCount.Value;
 
         // First, check if the animal has been an adult long enough to drop its first item
         if (adultStartDay != -1 && currentDay >= adultStartDay + animalData.daysAfterAdultBeforeFirstDrop)

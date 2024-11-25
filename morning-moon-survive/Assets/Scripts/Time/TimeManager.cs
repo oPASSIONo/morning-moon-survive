@@ -1,8 +1,10 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
+using System.Collections.Generic;
 using Unity.Netcode;
 
-public class TimeManager : MonoBehaviour
+public class TimeManager : NetworkBehaviour
 {
     public static TimeManager Instance { get; private set; }
 
@@ -18,9 +20,9 @@ public class TimeManager : MonoBehaviour
     [SerializeField]
     private float nightStartTime = 18f;
 
-    [Tooltip("The current time of day in the game. 0 = Midnight, 0.5 = Noon, 1 = Next Midnight.")]
+    /*[Tooltip("The current time of day in the game. 0 = Midnight, 0.5 = Noon, 1 = Next Midnight.")]
     [SerializeField, Range(0f, 1f)]
-    private float currentTimeOfDay = 0f;
+    private float currentTimeOfDay = 0f;*/
 
     [Tooltip("The speed at which time passes.")]
     private float timeMultiplier;
@@ -50,20 +52,24 @@ public class TimeManager : MonoBehaviour
 
     private PlayerStateManager playerStateManager;
 
+    
+    // NetworkVariables to sync time and day count
+    public NetworkVariable<float> currentTimeOfDay = new NetworkVariable<float>(0f, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> dayCount = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public float DayStartTime => dayStartTime;
     public float NightStartTime => nightStartTime;
     public bool IsStartTimer { get; private set; }
     public void SetStartTimer(bool isStart) => IsStartTimer = isStart;
+    public void SetDayCount(int value) => dayCount.Value = value;
 
-    public float CurrentTimeOfDay
+    /*public float CurrentTimeOfDay
     {
         get => currentTimeOfDay;
         set => currentTimeOfDay = Mathf.Clamp(value, 0f, 1f);
-    }
+    }*/
 
-    public int DayCount { get; private set; } = 0;
+    //public int DayCount { get; private set; } = 0;
 
-    public void SetDayCount(int value) => DayCount = value;
 
     private void Awake()
     {
@@ -73,15 +79,17 @@ public class TimeManager : MonoBehaviour
         }
         else
         {
-            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
             Instance = this;
+            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
             DontDestroyOnLoad(gameObject);
         }
 
-        float dayStartInMinutes = dayStartTime * 60f;
-        currentTimeOfDay = dayStartInMinutes / (24f * 60f);
+        currentTimeOfDay.Value = (dayStartTime * 60f) / (24f * 60f); // Normalize the start time
+
+        /*float dayStartInMinutes = dayStartTime * 60f;
+        currentTimeOfDay = dayStartInMinutes / (24f * 60f);*/
     }
-    
+
     private void Start()
     {
         timeMultiplier = 1f / (dayLengthInMinutes * 60f);
@@ -119,24 +127,27 @@ public class TimeManager : MonoBehaviour
     {
         if (IsStartTimer)
         {
-            UpdateTime();
+            if (IsOwner)  // Only allow the host to update the time
+            {
+                UpdateTime();
+            }
             UpdateTimeDisplay();
         }
     }
 
     public void UpdateTime()
     {
-        float previousTimeOfDay = currentTimeOfDay;
+        float previousTimeOfDay = currentTimeOfDay.Value;
 
-        CurrentTimeOfDay += Time.deltaTime * timeMultiplier;
-        CurrentTimeOfDay %= 1f;
+        currentTimeOfDay.Value += Time.deltaTime * timeMultiplier;
+        currentTimeOfDay.Value %= 1f;
 
-        float currentHour = CurrentTimeOfDay * 24f;
+        float currentHour = currentTimeOfDay.Value * 24f;
 
-        if (previousTimeOfDay > CurrentTimeOfDay)
+        if (previousTimeOfDay > currentTimeOfDay.Value)
         {
-            DayCount++;
-            Debug.Log("Day Started: Day Count = " + DayCount);
+            dayCount.Value++;
+            Debug.Log("Day Started: Day Count = " + dayCount.Value);
             OnDayEnd.Invoke();  // Invoke end of day event
 
         }
@@ -157,18 +168,18 @@ public class TimeManager : MonoBehaviour
 
     private void UpdateTimeDisplay()
     {
-        float totalMinutes = CurrentTimeOfDay * 24f * 60f;
+        float totalMinutes = currentTimeOfDay.Value  * 24f * 60f;
         int hours = Mathf.FloorToInt(totalMinutes / 60f);
         int minutes = Mathf.FloorToInt(totalMinutes % 60f);
         string timeString = string.Format("{0:00}:{1:00}", hours, minutes);
         timeText.text = "Time: " + timeString;
 
-        dayCountText.text = "Day: " + DayCount;
+        dayCountText.text = "Day: " + dayCount.Value;
     }
 
     public bool IsNightTime()
     {
-        float currentHour = CurrentTimeOfDay * 24f;
+        float currentHour = currentTimeOfDay.Value * 24f;
         return currentHour >= nightStartTime || currentHour < dayStartTime;
     }
 

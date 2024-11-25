@@ -843,7 +843,6 @@ MonoBehaviour:
   contentPanel: {fileID: 3696030665490258905}
   buildingDescription: {fileID: 6945361399670510140}
   placementSystem: {fileID: 0}
-  playerStateManager: {fileID: 0}
 --- !u!1 &238927061287423607
 GameObject:
   m_ObjectHideFlags: 0
@@ -14333,7 +14332,6 @@ GameObject:
   - component: {fileID: 2499373375563480870}
   - component: {fileID: 1243541812855185388}
   - component: {fileID: 6557169237813554623}
-  - component: {fileID: 849741562581963213}
   - component: {fileID: 2267698026926504305}
   m_Layer: 5
   m_Name: GameCanvas
@@ -14473,27 +14471,6 @@ MonoBehaviour:
   playerCraftingPage: {fileID: 4202296590362610946}
   workshopCraftingPage: {fileID: 5129642687259312735}
   workshopCraftingSO: {fileID: 11400000, guid: f5dbcc629738abd4dac77ece3e6b5e1b, type: 2}
---- !u!114 &849741562581963213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5259728656229041463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2570264392
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &2267698026926504305
 MonoBehaviour:
   m_ObjectHideFlags: 0
