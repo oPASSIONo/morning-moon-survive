@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2486244108
+  GlobalObjectIdHash: 3108345646
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -286,6 +286,9 @@ MonoBehaviour:
     itemState: []
   - quantity: 1
     item: {fileID: 11400000, guid: 17bf46ea506443246a37cd2a6b787c36, type: 2}
+    itemState: []
+  - quantity: 1
+    item: {fileID: 11400000, guid: 19f17fafa8512c3449bbc4506e62afa2, type: 2}
     itemState: []
   dropClip: {fileID: 0}
   audioSource: {fileID: 0}

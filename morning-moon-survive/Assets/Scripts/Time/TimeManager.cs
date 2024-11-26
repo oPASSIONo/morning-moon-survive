@@ -60,6 +60,7 @@ public class TimeManager : NetworkBehaviour
     public float DayStartTime => dayStartTime;
     public float NightStartTime => nightStartTime;
     public bool IsStartTimer { get; private set; }
+    
     public void SetStartTimer(bool isStart) => IsStartTimer = isStart;
     public void SetDayCount(int value) => dayCount.Value = value;
 
@@ -84,11 +85,8 @@ public class TimeManager : NetworkBehaviour
             DontDestroyOnLoad(gameObject);
         }
         
-        if (IsServer) // Only the server should initialize time
-        {
-            currentTimeOfDay.Value = (dayStartTime * 60f) / (24f * 60f); // Initialize time at the start of the day
-        }
-        //currentTimeOfDay.Value = (dayStartTime * 60f) / (24f * 60f); // Normalize the start time
+    
+        currentTimeOfDay.Value = (dayStartTime * 60f) / (24f * 60f); // Initialize time at the start of the day
 
         /*float dayStartInMinutes = dayStartTime * 60f;
         currentTimeOfDay = dayStartInMinutes / (24f * 60f);*/
@@ -100,6 +98,18 @@ public class TimeManager : NetworkBehaviour
         {
             // Set the initial state when the object is spawned, only on the server
             Debug.Log("TimeManager spawned on server");
+            currentTimeOfDay.Value = (dayStartTime * 60f) / (24f * 60f); // Initialize the start of the day
+        }
+        
+        // Register client disconnection callback
+        NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
+    }
+    
+    private void OnDestroy()
+    {
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnected;
         }
     }
     private void Start()
@@ -116,7 +126,7 @@ public class TimeManager : NetworkBehaviour
     private void Update()
     {
         if (IsStartTimer)
-        {
+        { 
             if (IsOwner)  // Only allow the host to update the time
             {
                 UpdateTime();
@@ -156,8 +166,20 @@ public class TimeManager : NetworkBehaviour
         }
     }
 
+    private void OnClientDisconnected(ulong clientId)
+    {
+        Debug.Log($"Client {clientId} disconnected.");
+        
+        // Host (server) can continue running, no changes needed unless specific logic applies.
+        if (NetworkManager.Singleton.IsServer)
+        {
+            Debug.Log("Host unaffected by client disconnection.");
+        }
+    }
     private void UpdateTimeDisplay()
     {
+        if (timeText == null || dayCountText == null) return;
+
         float totalMinutes = currentTimeOfDay.Value  * 24f * 60f;
         int hours = Mathf.FloorToInt(totalMinutes / 60f);
         int minutes = Mathf.FloorToInt(totalMinutes % 60f);
@@ -175,12 +197,16 @@ public class TimeManager : NetworkBehaviour
 
     public void StartFastForward()
     {
+        if (!IsServer) return;
+
         playerStateManager.SetState(PlayerStateManager.PlayerState.Sleep);
         timeMultiplier = fastForwardMultiplier / (dayLengthInMinutes * 60f);
     }
 
     public void StopFastForward()
     {
+        if (!IsServer) return;
+
         playerStateManager.SetState(PlayerStateManager.PlayerState.Normal);
         timeMultiplier = 1f / (dayLengthInMinutes * 60f);
     }

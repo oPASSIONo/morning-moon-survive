@@ -68,19 +68,52 @@ public class GameMultiplayerManager : MonoBehaviour
 
     private void OnClientDisconnect(ulong clientId)
     {
+        /*Debug.Log("Client Disconnected : " + clientId);
+
+        if (connectedClientIds.Contains(clientId))
+        {
+            connectedClientIds.Remove(clientId);
+            Debug.Log("Player removed, current count: " + connectedClientIds.Count);
+
+            // Cleanup any player-specific data if needed
+            //CleanupPlayerData(clientId);
+        }
+
+        // If all clients are disconnected, clean up and shut down
+        if (NetworkManager.Singleton.IsServer && connectedClientIds.Count == 0)
+        {
+            Debug.Log("No clients connected, shutting down.");
+            NetworkManager.Singleton.Shutdown();
+            AuthenticationService.Instance.SignOut();
+        }*/
         Debug.Log("Client Disconnected : " + clientId);
 
         if (connectedClientIds.Contains(clientId))
         {
             connectedClientIds.Remove(clientId);
         }
-        if (NetworkManager.Singleton.IsServer && NetworkManager.Singleton.ConnectedClients.Count == 0)
-        //if (NetworkManager.Singleton.ConnectedClients.Count == 0)
+        if (NetworkManager.Singleton.ConnectedClients.Count == 0)
         {
             
             // Shut down only if there are no connected clients
             NetworkManager.Singleton.Shutdown();
             AuthenticationService.Instance.SignOut();
+        }
+    }
+    private void CleanupPlayerData(ulong clientId)
+    {
+        if (!NetworkManager.Singleton.ConnectedClients.ContainsKey(clientId))
+        {
+            Debug.LogWarning($"Attempting to clean up data for a disconnected client: {clientId}");
+            return;
+        }
+
+        // Remove or deactivate player objects associated with this client
+        var clientPlayerObject = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject;
+        if (clientPlayerObject != null)
+        {
+            Destroy(clientPlayerObject.gameObject);
+            Debug.Log($"Cleaned up player object for client: {clientId}");
         }
     }
     
@@ -172,6 +205,8 @@ public class GameMultiplayerManager : MonoBehaviour
 
     public void OnDisconnect()
     {
+        Debug.Log("Disconnecting from network...");
+
         NetworkManager.Singleton.OnClientConnectedCallback -= SingletonOnOnClientConnectedCallback;
         NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnect;
         NetworkManager.Singleton.Shutdown();

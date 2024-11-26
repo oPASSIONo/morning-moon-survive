@@ -10,9 +10,11 @@ public class PlayerManager
     public Satiety PlayerSatiety { get; private set; }
     public PlayerAnimation PlayerAnimation { get; private set; }
     public AgentTool PlayerAgentTool { get; private set; }
-    
     public PlayerStateManager PlayerStateManager { get; private set; }
     public InventoryController PlayerInventoryController { get; private set; }
+    public NetworkObject PlayerNetworkObject { get; private set; } // Stores the player's NetworkObject
+
+    public bool HasPlayer => PlayerNetworkObject != null; // Checks if the player is assigned
 
     public void Initialize(NetworkObject playerObject)
     {
@@ -25,10 +27,18 @@ public class PlayerManager
         PlayerStateManager = playerObject.GetComponent<PlayerStateManager>();
         PlayerInventoryController = playerObject.GetComponent<InventoryController>();
 
+        PlayerNetworkObject = playerObject;
+
         if (PlayerHealth != null)
         {
             PlayerHealth.OnEntityDie += OnPlayerDie;
         }
+    }
+    
+
+    public void Clear()
+    {
+        PlayerNetworkObject = null;
     }
 
     private void OnPlayerDie()

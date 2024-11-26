@@ -40,9 +40,8 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);    
             NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
-
         }
         else
         {
@@ -51,7 +50,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start()
-    {
+    {            
         PlayerManager = new PlayerManager();
         StartGame();
     }
@@ -68,16 +67,16 @@ public class GameManager : MonoBehaviour
         }
     }
     
-    private void TryAssignLocalPlayerComponents()
+    public void TryAssignLocalPlayerComponents()
     {
         foreach (var networkObject in FindObjectsOfType<NetworkObject>())
         {
             if (networkObject.IsLocalPlayer)
             {
                 PlayerManager.Initialize(networkObject);
+                DontDestroyOnLoad(networkObject.gameObject);
                 var inventory = PlayerManager.PlayerInventoryController;
                 var stateManager = PlayerManager.PlayerStateManager;
-                var animation = PlayerManager.PlayerAnimation;
 
                 if (uiBuildingPage != null)
                 {
@@ -133,7 +132,20 @@ public class GameManager : MonoBehaviour
         buildingSystem.SetActive(true);
     }
     
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        TryAssignLocalPlayerComponents();
+    }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
     private Transform TargetSpawnPoint(string targetSpawnPoint)
     {
         return SpawnPointManager.Instance.GetSpawnPoint(targetSpawnPoint);
@@ -141,6 +153,11 @@ public class GameManager : MonoBehaviour
 
     public void MoveTargetToPoint(string moveTarget, string spawnPointName)
     {
+        if (PlayerManager.Player == null)
+        {
+            Debug.LogError("Player not assigned. Cannot move to point.");
+            return;
+        }
         StartCoroutine(WaitAndMove(moveTarget, spawnPointName));
     }
 
@@ -162,19 +179,20 @@ public class GameManager : MonoBehaviour
                     {
                         objectToMove.Warp(movePointTransform.position);
                         Debug.Log($"Player moved to: {movePointTransform.position}");
+                        yield break; // Exit the coroutine once the player is moved
+
                     }
                     else
                     {
                         Debug.LogError("NavMeshAgent not found on the player!");
                     }
-                    yield break; // Exit the coroutine once the player is moved
                 }
             }
             else
             {
                 Debug.Log($"Waiting for spawn point '{spawnPointName}' to be registered...");
-                yield return null; // Wait for the next frame and check again
             }
+            
             yield return new WaitForSeconds(0.1f); // Wait briefly before checking again
 
         }
@@ -207,8 +225,7 @@ public class GameManager : MonoBehaviour
         isLoadScene = true;
         LevelManager.Instance.OnLoadComplete += OnLoadComplete;
         LevelManager.Instance.OnLoaderFadeOut += OnLoaderFadeOut;
-        LevelManager.Instance.LoadScene(sceneName);     
-
+        LevelManager.Instance.LoadScene(sceneName);    
     }
   
     private void OnLoadComplete()
@@ -238,13 +255,14 @@ public class GameManager : MonoBehaviour
 
         if (isLoadScene)
         {
-            
             MoveTargetToPoint("Player","PlayerSpawn");
 
             SaveManager.Instance.SavePlayer();
         }
         isLoadScene = false;
     }
+    
+   
     private void PersistentObject()
     {
         DontDestroyOnLoad(craftingSystem);
