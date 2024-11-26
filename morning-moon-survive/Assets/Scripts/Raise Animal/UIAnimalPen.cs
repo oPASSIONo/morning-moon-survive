@@ -37,7 +37,8 @@ public class UIAnimalPen : MonoBehaviour, IInteractable
         ClearAnimalUI();
         
         Dictionary<int, InventoryItem> inventoryItems = playerInventory.GetCurrentInventoryState();
-
+        Debug.Log(inventoryItems.Count);
+        
         foreach (var itemPair in inventoryItems)
         {
             if (itemPair.Value.item is AnimalEggSO animalEgg)
@@ -55,12 +56,14 @@ public class UIAnimalPen : MonoBehaviour, IInteractable
     {
         animalPen.SetSelectedEgg(selectedEgg.Animal);
         animalPen.GetEggIndex(playerInventory.GetItemIndex(selectedEgg));
+        Debug.Log(selectedEgg.Name);
     }
 
-    private void ClearAnimalUI()
+    public void ClearAnimalUI()
     {
         foreach (var item in listOfUIAnimalEggs)
         {
+            Debug.Log("Test");
             Destroy(item.gameObject);
         }
         listOfUIAnimalEggs.Clear();

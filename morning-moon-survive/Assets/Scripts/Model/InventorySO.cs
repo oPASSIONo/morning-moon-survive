@@ -157,6 +157,7 @@ namespace Inventory.Model
         {
             return inventoryItems[itemIndex];
         }
+        
 
         public void SwapItems(int itemIndex_1, int itemIndex_2)
         {
