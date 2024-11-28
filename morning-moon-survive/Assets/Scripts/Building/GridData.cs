@@ -122,11 +122,14 @@ public class PlacementData
     public int ID { get; private set; }
     public int PlacedObjectIndex { get; private set; }
     
+    public int rotationAngle;
+    
 
     public PlacementData(List<Vector3Int> occupiedPositions, int id, int placedObjectIndex)
    {
        this.occupiedPositions = occupiedPositions;
        ID = id;
        PlacedObjectIndex = placedObjectIndex;
+       this.rotationAngle = rotationAngle;
    }
 }

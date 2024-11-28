@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class SaveManagerJson : MonoBehaviour
 {
     public TimeManager time;
+    public ObjectPlacer objectPlacer;
 
     public static SaveManagerJson Instance { get; set; }
     private void Awake()
@@ -43,21 +45,22 @@ public class SaveManagerJson : MonoBehaviour
 
         var enviromentsJSON = new EnviromentsJson();
         enviromentsJSON.SetTime(time);
-        List<EnviromentsJson> environmentDataList = new List<EnviromentsJson>();
-
-        ObjectPlacer objectPlacer = FindObjectOfType<ObjectPlacer>();
+       
         if (objectPlacer != null)
         {
             foreach (var placedObject in objectPlacer.placedGameObjects)
             {
                 if (placedObject != null)
                 {
-                    EnviromentsJson environmentData = new EnviromentsJson();
-                    environmentData.SetEnvironmentData(placedObject, placedObject.transform.position, placedObject.transform.rotation.eulerAngles);
-                    environmentDataList.Add(environmentData);
+                    enviromentsJSON.AddBuildingData(
+                        placedObject.name,
+                        placedObject.transform.position,
+                        placedObject.transform.rotation
+                    );
                 }
             }
         }
+
         worldDataJSON.enviromentsJsons.Add(enviromentsJSON);
 
         var playersJson = new PlayersJson();
@@ -124,11 +127,31 @@ public class SaveManagerJson : MonoBehaviour
                 player.SetSpeed(loadedPlayerJson.Speed);
                 player.SetBaseSpeed(loadedPlayerJson.BaseSpeed);
 
-                Debug.Log("Player stats loaded successfully.");
+                //Debug.Log("Player stats loaded successfully.");
             }
             else
             {
                 Debug.LogError("ไม่พบ Player ในซีน");
+            }
+           
+            if (objectPlacer != null)
+            {
+                objectPlacer.ClearAllObjects(); // ลบอ็อบเจ็กต์ทั้งหมดก่อน
+                foreach (var buildingData in loadedTime.buildings)
+                {
+                    GameObject prefab = Resources.Load<GameObject>(buildingData.buildingName); // โหลด prefab จากชื่อ
+                    if (prefab != null)
+                    {
+                        objectPlacer.PlaceObject(prefab, 
+                            new Vector3(buildingData.positionX, buildingData.positionY, buildingData.positionZ), 
+                            (int)buildingData.rotationY, 
+                            buildingData.buildingName);
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Prefab {buildingData.buildingName} ไม่พบใน Resources");
+                    }
+                }
             }
 
             /*foreach (var enemyStats in loadedWorldData.monstersJsons)
@@ -145,6 +168,11 @@ public class SaveManagerJson : MonoBehaviour
                     }
                 }
             }*/
+            
+            Debug.Log("Load JSON: " + worldAsJSON);
+        }
+        else
+        {
             Debug.Log("ไม่พบข้อมูลใน PlayerPrefs");
         }
     }

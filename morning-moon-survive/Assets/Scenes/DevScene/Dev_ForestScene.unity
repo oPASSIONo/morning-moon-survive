@@ -4674,6 +4674,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rat (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5014152300430352064, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5014152300430352064, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6043,6 +6053,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rat (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5014152300430352064, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5014152300430352064, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7188,6 +7208,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rat (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5014152300430352064, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5014152300430352064, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7578,13 +7608,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1245475052}
+  - component: {fileID: 1245475053}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1245475052
 Transform:
   m_ObjectHideFlags: 0
@@ -7604,6 +7635,18 @@ Transform:
   - {fileID: 941355816}
   m_Father: {fileID: 1651138771}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1245475053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245475051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb41befe3bce51b4ab66129215b4a56c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1255018356
 GameObject:
   m_ObjectHideFlags: 0
@@ -7723,6 +7766,16 @@ PrefabInstance:
     - target: {fileID: 3513111523263473907, guid: 68f754ed81d74994c882650457e7ead9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6855300235803454827, guid: 68f754ed81d74994c882650457e7ead9,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6855300235803454827, guid: 68f754ed81d74994c882650457e7ead9,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7651938071649456347, guid: 68f754ed81d74994c882650457e7ead9,
@@ -8136,7 +8189,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1327429464
 Transform:
   m_ObjectHideFlags: 0
@@ -8217,6 +8270,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rat
       objectReference: {fileID: 0}
+    - target: {fileID: 5014152300430352064, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5014152300430352064, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8237,6 +8300,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1338096476}
+  - component: {fileID: 1338096477}
   m_Layer: 0
   m_Name: PineTree
   m_TagString: Untagged
@@ -8316,6 +8380,18 @@ Transform:
   - {fileID: 157004247}
   m_Father: {fileID: 1245475052}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1338096477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338096475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb41befe3bce51b4ab66129215b4a56c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1344371498
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8635,6 +8711,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rat (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5014152300430352064, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5014152300430352064, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

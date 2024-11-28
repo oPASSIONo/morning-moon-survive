@@ -5,15 +5,24 @@ using UnityEngine;
 public class ObjectPlacer : MonoBehaviour
 {
      [SerializeField] public List<GameObject> placedGameObjects = new();
+     [SerializeField] public EnviromentsJson enviromentsJson;
 
-    public int PlaceObject(GameObject prefab, Vector3 position , int rotationAngle)
+    public int PlaceObject(GameObject prefab, Vector3 position , int rotationAngle, string customName = null)
     {
         GameObject newObject = Instantiate(prefab, position, Quaternion.Euler(0, rotationAngle, 0));
         //newObject.transform.position = position;
+        
+        if (!string.IsNullOrEmpty(customName))
+        {
+            newObject.name = customName;
+        }
+        
         placedGameObjects.Add(newObject);
         
-        EnviromentsJson environmentData = new EnviromentsJson();
-        environmentData.SetEnvironmentData(newObject, newObject.transform.position, newObject.transform.rotation.eulerAngles);
+        if (enviromentsJson != null)
+        {
+            enviromentsJson.AddBuildingData(newObject.name, position, newObject.transform.rotation);
+        }
 
         return placedGameObjects.Count - 1;
     }
@@ -27,5 +36,19 @@ public class ObjectPlacer : MonoBehaviour
 
         Destroy(placedGameObjects[gameObjectIndex]);
         placedGameObjects[gameObjectIndex] = null;
+    }
+    
+    
+    public void ClearAllObjects()
+    {
+        for (int i = 0; i < placedGameObjects.Count; i++)
+        {
+            if (placedGameObjects[i] != null)
+            {
+                Destroy(placedGameObjects[i]);
+                placedGameObjects[i] = null;
+            }
+        }
+        placedGameObjects.Clear();
     }
 }
