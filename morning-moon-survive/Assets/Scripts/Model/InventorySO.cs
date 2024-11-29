@@ -181,7 +181,6 @@ namespace Inventory.Model
             }
             return -1; // Item not found
         }
-        
 
     }
 

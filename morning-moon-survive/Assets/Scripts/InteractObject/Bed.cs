@@ -6,7 +6,7 @@ public class Bed : MonoBehaviour, IInteractable
     [SerializeField]
     private float fastForwardDuration = 5f; // Duration to fast forward in seconds
 
-    public void Interact(GameObject player)
+    public void Interact()
     {
         if (TimeManager.Instance != null && TimeManager.Instance.IsNightTime())
         {

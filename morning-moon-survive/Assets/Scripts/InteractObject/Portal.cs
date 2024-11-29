@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class Portal : MonoBehaviour,IInteractable
 {
     [SerializeField] private GameObject targetPortal;
-    public void Interact(GameObject player)
+    public void Interact()
     {
         LevelManager.Instance.PortalWarp();
         GameManager.Instance.MoveTargetToPoint("Player",targetPortal);
