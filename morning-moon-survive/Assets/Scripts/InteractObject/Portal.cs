@@ -7,7 +7,7 @@ using Unity.Netcode;
 public class Portal : MonoBehaviour,IInteractable
 {
     [SerializeField] private GameObject targetPortal;
-    public void Interact()
+    public void Interact(GameObject player)
     {
       
         LevelManager.Instance.PortalWarp();

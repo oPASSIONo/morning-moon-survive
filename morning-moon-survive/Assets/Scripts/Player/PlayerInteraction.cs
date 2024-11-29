@@ -66,10 +66,10 @@ public class PlayerInteraction : NetworkBehaviour
         DetectInteractable();
         if (currentInteractable != null)
         {
-            currentInteractable.Interact();
+            currentInteractable.Interact(gameObject);
         }
     }
-
+    
     /// <summary>
     /// Detects interactable objects within the interaction distance using a sphere cast.
     /// </summary>
@@ -87,7 +87,8 @@ public class PlayerInteraction : NetworkBehaviour
             IInteractable interactable = hitCollider.GetComponent<IInteractable>();
             if (interactable != null)
             {
-                float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
+                // Use ClosestPoint to calculate the actual closest distance
+                float distance = Vector3.Distance(transform.position, hitCollider.ClosestPoint(transform.position));
                 if (distance < nearestDistance)
                 {
                     nearestInteractable = interactable;
@@ -110,6 +111,7 @@ public class PlayerInteraction : NetworkBehaviour
             }
         }
     }
+
 
     /// <summary>
     /// Visualizes the interaction range in the Unity Editor.

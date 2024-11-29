@@ -1,15 +1,17 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class UICraftingItem : MonoBehaviour,IPointerClickHandler
+public class UICraftingItem : UIItem/*MonoBehaviour,IPointerClickHandler*/
 {
-    [SerializeField] private Image itemImage;
+    protected override void Awake()
+    {
+        base.Awake();
+        // Any additional initialization specific to UICraftingItem
+    }
+    /*[SerializeField] private Image itemImage;
     [SerializeField] private TMP_Text itemName;
 
     //[SerializeField] private Image borderImage;
@@ -34,7 +36,7 @@ public class UICraftingItem : MonoBehaviour,IPointerClickHandler
     public void Deselect()
     {
         borderImage.enabled = false;
-    }*/
+    }#1#
 
     public void SetData(Sprite sprite,string name)
     {
@@ -54,5 +56,5 @@ public class UICraftingItem : MonoBehaviour,IPointerClickHandler
         {
             OnItemClicked?.Invoke(this);
         }
-    }
+    }*/
 }

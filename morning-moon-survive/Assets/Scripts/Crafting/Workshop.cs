@@ -45,7 +45,7 @@ public class Workshop : MonoBehaviour, IInteractable
             Debug.Log("Local player's Workshop not found.");
         }
     }
-    public void Interact()
+    public void Interact(GameObject player)
     {
         Debug.Log("Interacting with workshop");
         SendWorkshopCraftingSO();

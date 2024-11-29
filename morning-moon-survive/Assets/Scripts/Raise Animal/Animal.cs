@@ -5,18 +5,22 @@ public class Animal : MonoBehaviour
     private AnimalSO animalData;
     private GameObject currentModel;
 
-    private int growthStage = 0; // 0 = baby, 1 = juvenile, 2 = adult
+    //private int growthStage = 0; // 0 = baby, 1 = juvenile, 2 = adult
     private int startDay;
     private bool isFedToday = false;
 
     // Drop item variables
     private int lastDropDay = 0;       // Tracks the last day the item was dropped
-    private int adultStartDay = -1;    // Tracks the day the animal became an adult
+    //private int adultStartDay = -1;    // Tracks the day the animal became an adult
 
+    public AnimalSO GetAnimalData()
+    {
+        return animalData;
+    }
     public void Initialize(AnimalSO data)
     {
         animalData = data;
-        growthStage = 0;
+        //growthStage = 0;
         startDay = TimeManager.Instance.dayCount.Value;
 
         // Start as a baby
@@ -51,8 +55,13 @@ public class Animal : MonoBehaviour
         isFedToday = false;
         CheckGrowth();
 
+        /*// If the animal is an adult and can drop items, check for item drop
+        if (growthStage == 2 /*&& animalData.canDropItems#1#)
+        {
+            CheckItemDrop();
+        }*/
         // If the animal is an adult and can drop items, check for item drop
-        if (growthStage == 2 /*&& animalData.canDropItems*/)
+        if (TimeManager.Instance.dayCount.Value >= startDay + animalData.babyToAdultTime)
         {
             CheckItemDrop();
         }
@@ -62,7 +71,7 @@ public class Animal : MonoBehaviour
     {
         int currentDay = TimeManager.Instance.dayCount.Value;
 
-        if (growthStage == 0 && currentDay >= startDay + animalData.babyToJuvenileTime)
+        /*if (growthStage == 0 && currentDay >= startDay + animalData.babyToJuvenileTime)
         {
             growthStage = 1;
             SetAnimalModel(animalData.juvenilePrefab);
@@ -72,6 +81,12 @@ public class Animal : MonoBehaviour
         {
             growthStage = 2;
             adultStartDay = currentDay;  // Start counting from the day it becomes an adult
+            SetAnimalModel(animalData.adultPrefab);
+            Debug.Log($"{animalData.speciesName} has grown to adult.");
+        }*/
+        
+        if (currentDay >= startDay + animalData.babyToAdultTime)
+        {
             SetAnimalModel(animalData.adultPrefab);
             Debug.Log($"{animalData.speciesName} has grown to adult.");
         }
@@ -90,7 +105,7 @@ public class Animal : MonoBehaviour
     {
         int currentDay = TimeManager.Instance.dayCount.Value;
 
-        // First, check if the animal has been an adult long enough to drop its first item
+        /*// First, check if the animal has been an adult long enough to drop its first item
         if (adultStartDay != -1 && currentDay >= adultStartDay + animalData.daysAfterAdultBeforeFirstDrop)
         {
             // If the first drop has occurred, start regular drops based on the interval
@@ -99,6 +114,13 @@ public class Animal : MonoBehaviour
                 DropItem();
                 lastDropDay = currentDay;
             }
+        }*/
+        
+        // Check if it's time for the next item drop
+        if (currentDay >= lastDropDay + animalData.daysBetweenDrops)
+        {
+            DropItem();
+            lastDropDay = currentDay;
         }
     }
 

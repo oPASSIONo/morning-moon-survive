@@ -10,12 +10,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
     public static GameManager Instance { get; private set; }
     
     [SerializeField] private GameObject mainCamera;
     [SerializeField] private GameObject playerFollowCamera;
     [SerializeField] private GameObject timeManager;
     [SerializeField] private GameObject gameInput;
+    
     [SerializeField] private GameObject craftingSystem;
     [SerializeField] private GameObject gameCanvas;
     [SerializeField] private GameObject buildingSystem;
@@ -33,7 +35,6 @@ public class GameManager : MonoBehaviour
     
     private bool isLoadScene = false;
     private bool isPlayerDie = false;
-    
     
     private void Awake()
     {
@@ -198,7 +199,6 @@ public class GameManager : MonoBehaviour
         {
             Transform movePointTransform = SpawnPointManager.Instance.GetSpawnPoint(spawnPointName);
 
-           
             if (movePointTransform != null)
             {
                 if (moveTarget == "Player")
@@ -220,10 +220,8 @@ public class GameManager : MonoBehaviour
             else
             {
                 Debug.Log($"Waiting for spawn point '{spawnPointName}' to be registered...");
+                yield return null; // Wait for the next frame and check again
             }
-            
-            yield return new WaitForSeconds(0.1f); // Wait briefly before checking again
-
         }
     }
 
@@ -249,14 +247,15 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    
     public void LoadScene(string sceneName)
     {
         isLoadScene = true;
         LevelManager.Instance.OnLoadComplete += OnLoadComplete;
         LevelManager.Instance.OnLoaderFadeOut += OnLoaderFadeOut;
-        LevelManager.Instance.LoadScene(sceneName);    
+        LevelManager.Instance.LoadScene(sceneName);
     }
-  
+    
     private void OnLoadComplete()
     {
         if (isLoadScene)
@@ -264,7 +263,6 @@ public class GameManager : MonoBehaviour
             InitializeCoreGameObj();
             // Ensure the spawn points are cleared from the previous scene
             SpawnPointManager.Instance.ClearSpawnPoints();
-
         }
         TimeManager.Instance.SetStartTimer(false);
         GameInput.Instance.SetPlayerInput(false);
@@ -284,6 +282,7 @@ public class GameManager : MonoBehaviour
 
         if (isLoadScene)
         {
+            
             MoveTargetToPoint("Player","PlayerSpawn");
 
             SaveManager.Instance.SavePlayer();
@@ -340,14 +339,14 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         // Perform actions after the delay
-        gameCanvas.GetComponent<GameCanvasRef>().notiBox.SetActive(true);
+        gameCanvas.GetComponent<GameCanvas>().notiBox.SetActive(true);
         Debug.Log($"is player die : {isPlayerDie}");
     }
 
     public void RespawnPlayer()
     {
         PlayerManager.Player.GetComponent<Collider>().enabled = true;
-        gameCanvas.GetComponent<GameCanvasRef>().notiBox.SetActive(false);
+        gameCanvas.GetComponent<GameCanvas>().notiBox.SetActive(false);
         PlayerManager.PlayerAnimation.PlayerRespawnAnim();
         //GameInput.Instance.SetPlayerInput(true);
         
@@ -373,7 +372,6 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Player respawned successfully.");
     }
-    
     public void PlayerDealDamage(GameObject target, Collider hitCollider)
     {
         Enemy enemy = target.GetComponent<Enemy>();

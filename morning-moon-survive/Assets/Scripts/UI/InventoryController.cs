@@ -17,7 +17,7 @@ namespace Inventory
         public List<InventoryItem> initialItems = new List<InventoryItem>();
 
         [SerializeField] private AudioClip dropClip;
-        //[SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioSource audioSource;
 
         [SerializeField] private AmountController amountController;
         [SerializeField] private bool cheatModeForBuilding = false;// Add this variable
@@ -197,7 +197,7 @@ namespace Inventory
             inventoryData.DropItemToWorld(itemIndex,transform.position,quantity);
             inventoryData.RemoveItem(itemIndex, quantity);
             inventoryUI.ResetSelection();
-            //audioSource.PlayOneShot(dropClip);
+            audioSource.PlayOneShot(dropClip);
             inventoryUI.actionPanel.Toggle(false);
         }
         
@@ -220,7 +220,7 @@ namespace Inventory
             if (itemAction != null)
             {
                 itemAction.PerformAction(gameObject, inventoryItem.itemState,quantity);
-                //audioSource.PlayOneShot(itemAction.actionSFX);
+                audioSource.PlayOneShot(itemAction.actionSFX);
                 if (inventoryData.GetItemAt(itemIndex).IsEmpty)
                     inventoryUI.ResetSelection();
             }
@@ -292,7 +292,6 @@ namespace Inventory
                     inventoryUI.Show(false);
                     inventoryUI.MoveHotbarPanel(false);
                     break;
-         
             }
         }
         public bool HasEnoughIngredients(List<RequiredIngredient> requiredIngredients)
