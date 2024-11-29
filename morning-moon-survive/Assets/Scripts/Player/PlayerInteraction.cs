@@ -29,7 +29,7 @@ public class PlayerInteraction : MonoBehaviour
         DetectInteractable();
         if (currentInteractable != null)
         {
-            currentInteractable.Interact(gameObject);
+            currentInteractable.Interact();
         }
     }
 

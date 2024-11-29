@@ -1,8 +1,6 @@
-using UnityEngine;
-
 public interface IInteractable
 {
-    void Interact(GameObject player); // Pass player reference
+    void Interact(); // Define method(s) that an interactable object must implement
     void ShowInteractPrompt();
     void HideInteractPrompt();
 }
