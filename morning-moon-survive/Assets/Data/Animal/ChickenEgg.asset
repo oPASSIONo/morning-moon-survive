@@ -16,13 +16,14 @@ MonoBehaviour:
   <MaxStackSize>k__BackingField: 50
   <Weight>k__BackingField: 0
   <Name>k__BackingField: Chicken Egg
-  <ItemAbility>k__BackingField: 
+  <ItemAbility>k__BackingField: Normal Chicken Egg
   <ItemImage>k__BackingField: {fileID: 21300000, guid: bc47b8d72ed618b4891e207c3146c312,
     type: 3}
-  <ItemCategory>k__BackingField: 0
+  <ItemCategory>k__BackingField: 5
   <ItemSubCategory>k__BackingField: 0
   <ItemRarity>k__BackingField: 0
   <DefaultParametersList>k__BackingField: []
-  <ItemPrefab>k__BackingField: {fileID: 0}
+  <ItemPrefab>k__BackingField: {fileID: 547209574436729624, guid: 65f81b4a2d1810942ad8b082e1892afc,
+    type: 3}
   <Animal>k__BackingField: {fileID: 11400000, guid: e5ddfbeb28e84cf49b27084274c4401f,
     type: 2}

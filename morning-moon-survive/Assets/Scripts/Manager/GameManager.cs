@@ -224,14 +224,14 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         // Perform actions after the delay
-        gameCanvas.GetComponent<GameCanvasRef>().notiBox.SetActive(true);
+        gameCanvas.GetComponent<GameCanvas>().notiBox.SetActive(true);
         Debug.Log($"is player die : {isPlayerDie}");
     }
 
     public void RespawnPlayer()
     {
         player.GetComponent<Collider>().enabled = true;
-        gameCanvas.GetComponent<GameCanvasRef>().notiBox.SetActive(false);
+        gameCanvas.GetComponent<GameCanvas>().notiBox.SetActive(false);
         PlayerAnimation.Instance.PlayerRespawnAnim();
         //GameInput.Instance.SetPlayerInput(true);
         playerComponent.SetHP(Player.Instance.GetPlayerStatSO().HealthStat.HP);
