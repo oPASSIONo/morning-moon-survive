@@ -6,7 +6,7 @@ public class AnimalPenModel
 {
     private List<Animal> animalsInPen = new();
     private AnimalSO selectedAnimal;
-    private const int maxCapacity = 5;
+    [SerializeField] private int maxCapacity = 3;
     [SerializeField] private List<Transform> spawnPositions = new();  // List of spawn points in the pen
 
     public bool CanAddAnimal()
@@ -52,7 +52,11 @@ public class AnimalPenModel
 
     public void FeedAnimals()
     {
-        foreach (var animal in animalsInPen) animal.Feed();
+        foreach (var animal in animalsInPen)
+        {
+            Debug.Log(animal);
+            animal.Feed();
+        }
     }
 
     public void RemoveAnimal(Animal animal)

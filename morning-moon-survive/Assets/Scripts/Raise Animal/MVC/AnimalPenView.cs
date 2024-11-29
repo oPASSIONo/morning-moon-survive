@@ -9,7 +9,7 @@ public class AnimalPenView : MonoBehaviour
     [SerializeField] private Transform contentPanel;
     [SerializeField] private UIAnimalEgg eggUIPrefab;
     [SerializeField] private Button addAnimalButton;  // Button to add animal
-
+    [SerializeField] private Button feedAnimalButton;
     private readonly List<UIAnimalEgg> eggUIInstances = new();
 
     // Store the associated controller for this pen
@@ -21,7 +21,8 @@ public class AnimalPenView : MonoBehaviour
         // Set up the button to call AddAnimalToPen for this pen controller
         addAnimalButton.onClick.RemoveAllListeners();  // Remove any old listeners
         addAnimalButton.onClick.AddListener(() => associatedController.AddAnimalToPen());
-        Debug.Log(controller.name);
+        feedAnimalButton.onClick.RemoveAllListeners();
+        feedAnimalButton.onClick.AddListener(()=>associatedController.FeedAnimals());
     }
     public void UpdatePen(List<Animal> animals)
     {

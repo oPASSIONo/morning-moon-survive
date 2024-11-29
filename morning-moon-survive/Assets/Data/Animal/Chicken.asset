@@ -13,14 +13,10 @@ MonoBehaviour:
   m_Name: Chicken
   m_EditorClassIdentifier: 
   speciesName: Chicken
-  babyPrefab: {fileID: 8705680750067599787, guid: f88bfb8d8433f7f4cb5e893bad999b1d,
+  babyPrefab: {fileID: 7453832529219651107, guid: a3b0a42f7abc2754ea1199c7d7c1e569,
     type: 3}
-  juvenilePrefab: {fileID: 5789821297740954011, guid: 634348a6a526a6d4aabfaf51f2f8ef25,
+  adultPrefab: {fileID: 5348197032269769785, guid: 2855798240c181c44bfb6855902008f4,
     type: 3}
-  adultPrefab: {fileID: 2899487654580323507, guid: a24f92564790b0046a12ba15ed22ff02,
-    type: 3}
-  babyToJuvenileTime: 2
-  juvenileToAdultTime: 2
+  babyToAdultTime: 3
   dropItem: {fileID: 11400000, guid: a55a92413cb8e8741af3dafa545ff0ea, type: 2}
   daysBetweenDrops: 2
-  daysAfterAdultBeforeFirstDrop: 1

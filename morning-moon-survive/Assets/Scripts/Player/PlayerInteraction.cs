@@ -32,7 +32,7 @@ public class PlayerInteraction : MonoBehaviour
             currentInteractable.Interact(gameObject);
         }
     }
-
+    
     /// <summary>
     /// Detects interactable objects within the interaction distance using a sphere cast.
     /// </summary>
@@ -50,7 +50,9 @@ public class PlayerInteraction : MonoBehaviour
             IInteractable interactable = hitCollider.GetComponent<IInteractable>();
             if (interactable != null)
             {
-                float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
+                // Use ClosestPoint to calculate the actual closest distance
+                float distance = Vector3.Distance(transform.position, hitCollider.ClosestPoint(transform.position));
+                Debug.Log(distance);
                 if (distance < nearestDistance)
                 {
                     nearestInteractable = interactable;
@@ -73,6 +75,7 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
     }
+
 
     /// <summary>
     /// Visualizes the interaction range in the Unity Editor.
