@@ -17,7 +17,7 @@ namespace Inventory
         public List<InventoryItem> initialItems = new List<InventoryItem>();
 
         [SerializeField] private AudioClip dropClip;
-        [SerializeField] private AudioSource audioSource;
+        //[SerializeField] private AudioSource audioSource;
 
         [SerializeField] private AmountController amountController;
         [SerializeField] private bool cheatModeForBuilding = false;// Add this variable
@@ -27,8 +27,14 @@ namespace Inventory
         
         private void Awake()
         {
-            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+            //NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
         }
+
+        private void Start()
+        {
+            playerStateManager = GetComponent<PlayerStateManager>();
+        }
+
         public override void OnNetworkSpawn()
         {
             if (IsLocalPlayer)
@@ -47,6 +53,7 @@ namespace Inventory
             }
         }
         
+        /*
         private void OnClientConnected(ulong obj)
         {
             if (NetworkManager.Singleton.LocalClientId == obj)
@@ -76,6 +83,7 @@ namespace Inventory
                 Debug.Log("Local player's InventoryController not found.");
             }
         }
+        */
 
         private void OnDisable()
         {
@@ -189,7 +197,7 @@ namespace Inventory
             inventoryData.DropItemToWorld(itemIndex,transform.position,quantity);
             inventoryData.RemoveItem(itemIndex, quantity);
             inventoryUI.ResetSelection();
-            audioSource.PlayOneShot(dropClip);
+            //audioSource.PlayOneShot(dropClip);
             inventoryUI.actionPanel.Toggle(false);
         }
         
@@ -212,7 +220,7 @@ namespace Inventory
             if (itemAction != null)
             {
                 itemAction.PerformAction(gameObject, inventoryItem.itemState,quantity);
-                audioSource.PlayOneShot(itemAction.actionSFX);
+                //audioSource.PlayOneShot(itemAction.actionSFX);
                 if (inventoryData.GetItemAt(itemIndex).IsEmpty)
                     inventoryUI.ResetSelection();
             }

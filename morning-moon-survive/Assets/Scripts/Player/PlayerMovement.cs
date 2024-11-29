@@ -24,23 +24,19 @@ public class PlayerMovement : NetworkBehaviour
 
     private Satiety satietyComponent;
     private Stamina staminaComponent;
-    
     private PlayerAnimation playerAnimation;
     private PlayerStateManager playerStateManager;
-
-    private void Awake()
-    {
-        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
-    }
-
+    
     private void Start()
     {
         
         rb = GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;;
+        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
 
         staminaComponent = GetComponent<Stamina>();
         satietyComponent = GetComponent<Satiety>();
+        playerAnimation = GetComponent<PlayerAnimation>();
+        playerStateManager = GetComponent<PlayerStateManager>();
         if (satietyComponent != null)
         {
             satietyComponent.OnSatietyChanged += UpdateSpeed;
@@ -53,39 +49,7 @@ public class PlayerMovement : NetworkBehaviour
 
         GameInput.Instance.OnDashAction += HandleDash;
     }
-
-    private void OnClientConnected(ulong obj)
-    {
-        if (NetworkManager.Singleton.LocalClientId == obj)
-        {
-            TryAssignLocalPlayer();
-        }
-    }
-
-    private void TryAssignLocalPlayer()
-    {
-        foreach (var networkObject in FindObjectsOfType<NetworkObject>())
-        {
-            if (networkObject.IsLocalPlayer)
-            {
-                playerStateManager = networkObject.GetComponent<PlayerStateManager>();
-                playerAnimation = networkObject.GetComponent<PlayerAnimation>();
-                
-                break;
-            }
-        }
-        
-        if (playerStateManager != null)
-        {
-            // Perform actions with the inventoryController (e.g., update UI, listen to events)
-            Debug.Log("Local player's PlayerMovement found.");
-        }
-        else
-        {
-            Debug.Log("Local player's PlayerMovement not found.");
-        }
-    }
-
+    
     private void Update()
     {
         if (!IsOwner) return;
@@ -129,6 +93,7 @@ public class PlayerMovement : NetworkBehaviour
             movement.y = 0f;
 
             Vector3 moveDirection = movement.normalized * CurrentSpeed * Time.deltaTime;
+       
             transform.position += moveDirection;
 
             isPlayerMoving = movement.magnitude > 0.1f;

@@ -90,7 +90,6 @@ public class Player : NetworkBehaviour
         }
         
     }
-    
     public Player GetLocalPlayer()
     {
         foreach (var networkObject in FindObjectsOfType<NetworkObject>())

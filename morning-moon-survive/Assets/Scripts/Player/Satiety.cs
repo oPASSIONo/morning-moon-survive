@@ -47,7 +47,7 @@ public class Satiety : MonoBehaviour
     {
         yield return new WaitForSeconds(InitialDelay);
 
-        while (CurrentSatiety > SatietyConsumePoint && healthComponent.CurrentHealth>0)
+        while (CurrentSatiety > SatietyConsumePoint && healthComponent.CurrentHealth > 0)
         {
             
             DecreaseSatiety(SatietyConsumePoint); // Decrease by SatietyConsumeRate amount

@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using Inventory.Model;
 using UnityEngine;
+using Unity.Netcode;
+using UnityEngine.Serialization;
 
-
-public class Enemy : MonoBehaviour
+public class Enemy : NetworkBehaviour
 {
     public EnemyStatsSO enemyStatsSO;
     
@@ -30,14 +31,15 @@ public class Enemy : MonoBehaviour
     private EnemyStatsSO.AttackTypeWeaknesses _weakPointAttackWeaknesses;
     private EnemyStatsSO.ElementTypeWeaknesses _bodyPointElementWeaknesses;
     private EnemyStatsSO.ElementTypeWeaknesses _weakPointElementWeaknesses;
-
-    public Collider boydyPoint;
+    
+    public Collider bodyPoint;
     public Collider weakPoint;
     
     private void Awake()
     {
         Initialize();
     }
+    
     private void Start()
     {
         // Subscribe to health changed event
@@ -48,11 +50,11 @@ public class Enemy : MonoBehaviour
     }
     private void Initialize()
     {
-        InitialzeStat();
+        InitializeStat();
         InitializeHealthComponent();
     }
 
-    private void InitialzeStat()
+    private void InitializeStat()
     {
         HP = enemyStatsSO.HP;
         MinHP = enemyStatsSO.MinHP;
@@ -85,9 +87,10 @@ public class Enemy : MonoBehaviour
             Debug.LogError("Health component not found on Enemy GameObject.");
         }
     }
+    
     private void UpdateEnemyHealth(float currentHealth, float maxHealth,float minHealth)
     {
-        HP=currentHealth;
+        HP = currentHealth;
         IsDead();
     }
 
@@ -99,20 +102,22 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    
+  
     private void DropRandomItem()
     {
         if (dropItems != null && dropItems.Length > 0)
         {
             int randomIndex = Random.Range(0, dropItems.Length);
             GameObject itemToDrop = dropItems[randomIndex];
-
+            
             if (itemToDrop != null)
             {
                 Instantiate(itemToDrop, transform.position, Quaternion.identity);
             }
         }
     }
+    
     public int GetWeakPointAttackTypeWeaknessRank(AttackType attackType)
     {
         switch (attackType)

@@ -1,25 +1,26 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using Unity.Netcode;
 
-public class Combat : MonoBehaviour
+public class Combat : NetworkBehaviour
 {
     [SerializeField] private PlayerFarmingInteractor farmingInteractor;
     [SerializeField] private Collider attackCollider;
-    private PlayerAnimation playerAnimation;
+    [SerializeField] private PlayerAnimation playerAnimation;
     private bool hasHit = false;
     public bool isPerformingAction { get; private set; } = false;
     public void SetIsPerformingAction(bool isPerform) => isPerformingAction = isPerform;
 
     private Stamina staminaComponent;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        playerAnimation = GetComponent<PlayerAnimation>();
+        //playerAnimation = GetComponent<PlayerAnimation>();
         GameInput.Instance.OnAction += PerformAction;
         staminaComponent = GetComponent<Stamina>();
     }
-
+    
     private void PerformAction(object sender, EventArgs e)
     {
         if (GetComponent<AgentTool>().currentTool != null && !isPerformingAction)

@@ -4,6 +4,7 @@ using Unity.Netcode;
 
 public class Health : NetworkBehaviour
 {
+ 
     public float MaxHealth { get; private set; }
     public float MinHealth { get; private set; }
     public float CurrentHealth { get; private set; }
@@ -23,7 +24,8 @@ public class Health : NetworkBehaviour
             playerAnimation = GetComponent<PlayerAnimation>();
         }
     }
-
+    
+ 
     public void Initialize(float maxHealth, float minHealth, float initialHealth)
     {
         MaxHealth = maxHealth;
@@ -32,27 +34,29 @@ public class Health : NetworkBehaviour
         
         // Trigger health changed event
         OnHealthChanged?.Invoke(CurrentHealth, MaxHealth,MinHealth);
-        
     }
     
+   
     public void TakeDamage(float damageAmount)
     {
-        CurrentHealth -= damageAmount;
-        
-        if (CurrentHealth<=MinHealth)
+        CurrentHealth += damageAmount;
+                    
+        if (CurrentHealth <= MinHealth) 
         {
             SetCurrentHealth(MinHealth);
         }
-        
+                    
         DamagePopup.current.CreatePopup(transform.position, damageAmount.ToString());
-        
+                    
         // Trigger health changed event
         OnHealthChanged?.Invoke(CurrentHealth, MaxHealth,MinHealth);
-
+            
         IsDie();
-        Debug.Log($"{name} Take Damage ! Current HP : {CurrentHealth}");
+        //Debug.Log($"{name} Take Damage ! Current HP : {CurrentHealth}");
     }
     
+    
+  
     public void AddHealth(float amount)
     {
         SetCurrentHealth(CurrentHealth + amount);
@@ -67,7 +71,7 @@ public class Health : NetworkBehaviour
 
     private void IsDie()
     {
-        if (CurrentHealth == 0)
+        if (CurrentHealth <= 0)
         {
             Die();
         }
@@ -93,7 +97,8 @@ public class Health : NetworkBehaviour
         OnEntityDie?.Invoke();
         Debug.Log($"{name} has died.Current Health : {CurrentHealth}");
     }
-        
+    
+    
     public void SetCurrentHealth(float hp)
     {
         CurrentHealth = hp;

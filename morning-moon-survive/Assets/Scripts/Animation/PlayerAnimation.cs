@@ -10,20 +10,17 @@ public class PlayerAnimation : NetworkBehaviour
     
     private Combat playerCombat;
     private PlayerMovement playerMovement;
+    private PlayerStateManager playerStateManager;
+     
     private bool isModelRunning;
     private bool isModelUsingAction = false;
-    
-    private PlayerStateManager playerStateManager;
-
-
+        
     private Coroutine coroutine;
+
     
     private void Start()
     {
-        if (IsLocalPlayer)
-        {
-            playerStateManager = GetComponent<PlayerStateManager>();
-        }
+        playerStateManager = GetComponent<PlayerStateManager>();
         playerCombat = GetComponent<Combat>();
         playerMovement = GetComponent<PlayerMovement>();
     }
@@ -42,6 +39,8 @@ public class PlayerAnimation : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!IsOwner) return;
+     
         HandlePlayerMoveAnimation();
     }
     
@@ -74,7 +73,7 @@ public class PlayerAnimation : NetworkBehaviour
         }
         coroutine = StartCoroutine(StepPlayerAttackAnim());
     }
-
+    
     private IEnumerator StepPlayerAttackAnim()
     {
         playerCombat.SetIsPerformingAction(true);

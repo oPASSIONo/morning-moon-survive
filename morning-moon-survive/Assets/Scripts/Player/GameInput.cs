@@ -43,6 +43,8 @@ public class GameInput : MonoBehaviour
             return;
         }
         
+        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+        
         playerInput = new PlayerInput();
         playerInput.PlayerControls.Enable();
 
@@ -73,6 +75,27 @@ public class GameInput : MonoBehaviour
             }
         }
 
+    }
+    
+    private void OnClientConnected(ulong obj)
+    {
+        if (NetworkManager.Singleton.LocalClientId == obj)
+        {
+            TryAssignLocalPlayer();
+        }
+    }
+    
+    private void TryAssignLocalPlayer()
+    {
+        foreach (var networkObject in FindObjectsOfType<NetworkObject>())
+        {
+            if (networkObject.IsLocalPlayer)
+            {
+                playerStateManager = networkObject.GetComponent<PlayerStateManager>();
+                
+                break;
+            }
+        }
     }
     
     private void Building_Performed(InputAction.CallbackContext obj)

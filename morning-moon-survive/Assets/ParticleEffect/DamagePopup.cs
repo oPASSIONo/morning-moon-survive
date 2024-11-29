@@ -9,7 +9,7 @@ public class DamagePopup : MonoBehaviour
 {
     public static DamagePopup current;
     public GameObject prefab;
-
+    public float destroyDelay = 2f;
     private void Awake()
     {
         current = this;
@@ -20,5 +20,8 @@ public class DamagePopup : MonoBehaviour
         var popup = Instantiate(prefab, position, quaternion.identity);
         var temp = popup.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         temp.text = damagePopup;
+        
+        // Schedule destruction
+        Destroy(popup, destroyDelay);
     }
 }

@@ -64,7 +64,36 @@ public class GameManager : MonoBehaviour
         if (NetworkManager.Singleton.LocalClientId == clientId)
         {
             TryAssignLocalPlayerComponents();
+        
+            // Apply DontDestroyOnLoad to the local player object (for the client)
+            Player player = PlayerManager.Player;
+            if (player != null)
+            {
+                Debug.Log("Applying DontDestroyOnLoad to the local player object.");
+                DontDestroyOnLoad(player); // Apply to local player
+            }
+            else
+            {
+                Debug.LogError("Player object is null. Can't apply DontDestroyOnLoad.");
+            }
         }
+
+        // Ensure the host sees the client's player object in DontDestroyOnLoad after client connects
+        if (NetworkManager.Singleton.IsHost)
+        {
+            // Check for all NetworkObjects and apply DontDestroyOnLoad for remote players
+            foreach (var networkObject in FindObjectsOfType<NetworkObject>())
+            {
+                if (networkObject.IsOwner || networkObject.IsLocalPlayer) 
+                    continue; // Skip if it's the host's own player object or local player
+
+                // Apply DontDestroyOnLoad to remote players
+                Debug.Log($"Host sees remote player. Applying DontDestroyOnLoad to {networkObject.gameObject.name}.");
+                DontDestroyOnLoad(networkObject.gameObject);
+            }
+        }
+           
+        
     }
     
     public void TryAssignLocalPlayerComponents()
@@ -367,7 +396,7 @@ public class GameManager : MonoBehaviour
                     enemy.GetWeakPointElementTypeWeaknessRank(playerElementType));
                 Debug.Log("Hit WeakPoint");
             }
-            else if(hitCollider==enemy.boydyPoint)
+            else if(hitCollider == enemy.bodyPoint)
             {
                 enemyWeaponWeaknessDMG = GetAttackTypeWeaknessMultiplier(playerATKType,enemy.GetBodyPointAttackTypeWeaknessRank(playerATKType));
                 enemyElementWeaknessDMG =

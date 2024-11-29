@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 3513111523263473907}
   - component: {fileID: 1482654137008753539}
   - component: {fileID: 1853726730801181567}
+  - component: {fileID: -6416045444151879326}
   - component: {fileID: 7345856522431734251}
   - component: {fileID: 2892746087100403296}
   - component: {fileID: 6253913478773696330}
@@ -114,6 +115,27 @@ MonoBehaviour:
   moveSpeed: 2.5
   enemyAnimation: {fileID: 2818542875092320121}
   isFriendly: 0
+--- !u!114 &-6416045444151879326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8363582561729201969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3457305612
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &7345856522431734251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,7 +152,7 @@ MonoBehaviour:
   dropItems:
   - {fileID: 7382413393457835558, guid: cd11386b48fb3cc4e9b2fe94a4cb55a7, type: 3}
   healthComponent: {fileID: 2892746087100403296}
-  boydyPoint: {fileID: 1800032572061587240}
+  bodyPoint: {fileID: 0}
   weakPoint: {fileID: 5582361535722454240}
 --- !u!114 &2892746087100403296
 MonoBehaviour:

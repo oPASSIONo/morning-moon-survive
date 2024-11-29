@@ -129,9 +129,10 @@ GameObject:
   - component: {fileID: 793363140232541257}
   - component: {fileID: 9025921128899043440}
   - component: {fileID: 1121488800831802068}
-  - component: {fileID: 5523529474477770740}
   - component: {fileID: 1342840075718971357}
   - component: {fileID: 6798005630241094944}
+  - component: {fileID: 2895624470202701479}
+  - component: {fileID: 3447674254132821421}
   m_Layer: 0
   m_Name: Player SinglePlayMode
   m_TagString: Player
@@ -243,7 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3108345646
+  GlobalObjectIdHash: 2486244108
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -291,7 +292,6 @@ MonoBehaviour:
     item: {fileID: 11400000, guid: 19f17fafa8512c3449bbc4506e62afa2, type: 2}
     itemState: []
   dropClip: {fileID: 0}
-  audioSource: {fileID: 0}
   amountController: {fileID: 0}
   cheatModeForBuilding: 0
 --- !u!114 &1559445494274843918
@@ -352,7 +352,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 122
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &4482873882010258281
 MonoBehaviour:
@@ -470,6 +470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   farmingInteractor: {fileID: 7234305186340789842}
   attackCollider: {fileID: 8810583160624716799}
+  playerAnimation: {fileID: 3447674254132821421}
 --- !u!114 &1121488800831802068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,19 +483,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f776fae6f9a30c42a9fa10ff69b8c76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5523529474477770740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4770661126664566695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b2ece99ba1bed84486ee462c8fb77e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  modelAnimator: {fileID: 3924816353599901767}
 --- !u!114 &1342840075718971357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,10 +510,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UseUnreliableDeltas: 0
   SyncPositionX: 1
-  SyncPositionY: 0
+  SyncPositionY: 1
   SyncPositionZ: 1
   SyncRotAngleX: 0
-  SyncRotAngleY: 1
+  SyncRotAngleY: 0
   SyncRotAngleZ: 0
   SyncScaleX: 0
   SyncScaleY: 0
@@ -539,6 +527,34 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &2895624470202701479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4770661126664566695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3447674254132821421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4770661126664566695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b2ece99ba1bed84486ee462c8fb77e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelAnimator: {fileID: 3924816353599901767}
+  playerCombat: {fileID: 9025921128899043440}
+  playerMovement: {fileID: 1228260462824395242}
+  playerStateManager: {fileID: 1121488800831802068}
 --- !u!1 &5057764305931775667
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,7 +730,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 904302cdad02bf44b9d82c205e0941fb,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4565798814274453323}
+      addedObject: {fileID: 1385891934165415922}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 904302cdad02bf44b9d82c205e0941fb,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1227318527206113526}
   m_SourcePrefab: {fileID: 100100000, guid: 904302cdad02bf44b9d82c205e0941fb, type: 3}
 --- !u!4 &5142844836345038830 stripped
 Transform:
@@ -755,7 +775,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4565798814274453323
+--- !u!114 &1385891934165415922
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -764,7 +784,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 8048857794471360079}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
+  SyncPositionX: 0
+  SyncPositionY: 0
+  SyncPositionZ: 0
+  SyncRotAngleX: 0
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 0
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
+--- !u!114 &1227318527206113526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8048857794471360079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8deae8091111f4eb30a56c1f4e0d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TransitionStateInfoList: []
