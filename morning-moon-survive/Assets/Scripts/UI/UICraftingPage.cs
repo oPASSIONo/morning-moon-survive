@@ -37,9 +37,9 @@ public class UICraftingPage : MonoBehaviour
         craftingItemToRecipeMap.Clear();
     }
 
-    private void OnCraftingItemClicked(UICraftingItem item)
+    private void OnCraftingItemClicked(UIItem item)
     {
-        if (craftingItemToRecipeMap.TryGetValue(item, out Recipe recipe))
+        if (item is UICraftingItem craftingItem && craftingItemToRecipeMap.TryGetValue(craftingItem, out Recipe recipe))
         {
             Debug.Log("Crafting item clicked: " + recipe.CraftedItem.Name);
             SetDescription(recipe);
@@ -50,7 +50,7 @@ public class UICraftingPage : MonoBehaviour
             Debug.LogError("Recipe not found for the clicked item.");
         }
     }
-
+    
     private void SetDescription(Recipe recipe)
     {
         craftingDescription.SetDescription(

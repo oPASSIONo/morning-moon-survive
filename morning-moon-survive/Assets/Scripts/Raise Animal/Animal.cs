@@ -13,6 +13,10 @@ public class Animal : MonoBehaviour
     private int lastDropDay = 0;       // Tracks the last day the item was dropped
     private int adultStartDay = -1;    // Tracks the day the animal became an adult
 
+    public AnimalSO GetAnimalData()
+    {
+        return animalData;
+    }
     public void Initialize(AnimalSO data)
     {
         animalData = data;
