@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Inventory;
 using Inventory.Model;
@@ -6,7 +7,7 @@ using UnityEngine;
 public class AnimalPenController : MonoBehaviour,IInteractable
 {
     [SerializeField] private AnimalPenModel animalPenModel;
-    [SerializeField] private AnimalPenView animalPenView;
+    private AnimalPenView animalPenView;
     
 
     private InventorySO playerInventory;
@@ -14,11 +15,18 @@ public class AnimalPenController : MonoBehaviour,IInteractable
     public int GetEggIndex(int value) => eggIndex = value;
     private void Awake()
     {
+        /*if (animalPenModel == null) Debug.LogError("AnimalPenModel is missing!");
+        if (animalPenView == null) Debug.LogError("AnimalPenView is missing!");*/
+    }
+
+    private void Start()
+    {
+        animalPenView = GameCanvas.Instance.GetAnimalPenView();
         if (animalPenModel == null) Debug.LogError("AnimalPenModel is missing!");
         if (animalPenView == null) Debug.LogError("AnimalPenView is missing!");
     }
 
-   
+
     public void Interact(GameObject player)
     {
         playerInventory = player.GetComponent<InventoryController>()?.GetInventoryData();
@@ -27,7 +35,6 @@ public class AnimalPenController : MonoBehaviour,IInteractable
             Debug.LogError("Player inventory not found!");
             return;
         }
-        Debug.Log("Player inventory found!"); // Log when inventory is set
         animalPenView.Show();
         animalPenView.UpdateEggUI(playerInventory, this);
         animalPenView.SetPenController(this);  // Associate this controller with the view
@@ -48,10 +55,8 @@ public class AnimalPenController : MonoBehaviour,IInteractable
 
     public void SelectEgg(AnimalEggSO eggData, int index)
     {
-        Debug.Log($"Selected Egg Index: {index}"); // Add a log here
         animalPenModel.SetSelectedAnimal(eggData.Animal);
         eggIndex = index;
-        Debug.Log($"Selected Egg: {eggData.Name}");
     }
 
     public void AddAnimalToPen()
@@ -85,12 +90,14 @@ public class AnimalPenController : MonoBehaviour,IInteractable
         {
             Debug.Log("Cannot add animal to the pen.");
         }
+        animalPenView.Hide();
     }
 
     public void FeedAnimals()
     {
         animalPenModel.FeedAnimals();
         animalPenView.DisplayFeedFeedback();
+        animalPenView.Hide();
     }
 
     public void RemoveAnimal(Animal animal)

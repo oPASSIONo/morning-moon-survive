@@ -52,7 +52,6 @@ public class PlayerInteraction : MonoBehaviour
             {
                 // Use ClosestPoint to calculate the actual closest distance
                 float distance = Vector3.Distance(transform.position, hitCollider.ClosestPoint(transform.position));
-                Debug.Log(distance);
                 if (distance < nearestDistance)
                 {
                     nearestInteractable = interactable;

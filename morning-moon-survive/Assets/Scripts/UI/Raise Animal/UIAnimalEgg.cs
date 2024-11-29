@@ -22,6 +22,7 @@ public class UIAnimalEgg : UIItem
         if (pointerData.button == PointerEventData.InputButton.Left)
         {
             OnEggClicked?.Invoke(animalEggData);
+            base.Select();
         }
         else
         {

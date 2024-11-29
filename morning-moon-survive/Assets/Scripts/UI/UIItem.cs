@@ -48,6 +48,7 @@ public abstract class UIItem : MonoBehaviour, IPointerClickHandler
         else if (pointerData.button == PointerEventData.InputButton.Left)
         {
             OnItemClicked?.Invoke(this);
+            Select();
         }
     }
 }

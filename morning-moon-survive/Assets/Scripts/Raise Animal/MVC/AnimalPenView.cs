@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class AnimalPenView : MonoBehaviour
 {
-    [SerializeField] private GameObject animalPenCanvas;
+    //[SerializeField] private GameObject animalPenCanvas;
     [SerializeField] private Transform contentPanel;
     [SerializeField] private UIAnimalEgg eggUIPrefab;
     [SerializeField] private Button addAnimalButton;  // Button to add animal
@@ -26,7 +26,6 @@ public class AnimalPenView : MonoBehaviour
     }
     public void UpdatePen(List<Animal> animals)
     {
-        Debug.Log($"Updated pen with {animals.Count} animals.");
         // Here you can add animations or visual updates for animals in the pen.
     }
 
@@ -35,7 +34,6 @@ public class AnimalPenView : MonoBehaviour
         ClearUI();
         
         Dictionary<int, InventoryItem> inventoryItems = playerInventory.GetCurrentInventoryState();
-        Debug.Log(inventoryItems.Count);
         
         foreach (var itemPair in inventoryItems)
         {
@@ -64,8 +62,8 @@ public class AnimalPenView : MonoBehaviour
         // Trigger animations or audio feedback here.
     }
 
-    public void Show() => animalPenCanvas.SetActive(true);
-    public void Hide() => animalPenCanvas.SetActive(false);
+    public void Show() => gameObject.SetActive(true);
+    public void Hide() => gameObject.SetActive(false);
 
     private void ClearUI()
     {
