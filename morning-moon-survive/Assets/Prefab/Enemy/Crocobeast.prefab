@@ -240,9 +240,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2962588178209030269, guid: 96f0d6acdf921dc40824db48cbbe4d94,
         type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 7345856522431734251}
+    - target: {fileID: 2962588178209030269, guid: 96f0d6acdf921dc40824db48cbbe4d94,
+        type: 3}
       propertyPath: slider
       value: 
       objectReference: {fileID: 1739982486234900150}
+    - target: {fileID: 2962588178209030269, guid: 96f0d6acdf921dc40824db48cbbe4d94,
+        type: 3}
+      propertyPath: enemyName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2962588178209030269, guid: 96f0d6acdf921dc40824db48cbbe4d94,
         type: 3}
       propertyPath: healthComponent

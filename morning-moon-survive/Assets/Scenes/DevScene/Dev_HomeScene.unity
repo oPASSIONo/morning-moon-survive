@@ -2410,6 +2410,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WarpGate
       objectReference: {fileID: 0}
+    - target: {fileID: 2657781436968112207, guid: bb4d24c49c681a247a974f3ce1f2353b,
+        type: 3}
+      propertyPath: targetScene
+      value: ForestScene 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5655987445515945746, guid: bb4d24c49c681a247a974f3ce1f2353b,
         type: 3}
       propertyPath: m_LocalPosition.x
