@@ -45,11 +45,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dayLengthInMinutes: 24
+  dayStartTime: 6
+  nightStartTime: 18
   currentTimeOfDay: 0
+  fastForwardMultiplier: 100
   OnDayStart:
     m_PersistentCalls:
       m_Calls: []
   OnNightStart:
     m_PersistentCalls:
       m_Calls: []
+  OnDayEnd:
+    m_PersistentCalls:
+      m_Calls: []
   timeText: {fileID: 0}
+  dayCountText: {fileID: 0}
