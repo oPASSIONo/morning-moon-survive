@@ -19,6 +19,7 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnInteractionAction;
     public event EventHandler OnDashAction;
     public event EventHandler OnCraftingAction;
+    public event EventHandler OnBuildingAction;
     
     public event EventHandler<int> OnSelectSlotAction;
     public InputAction[] slotSelectActions { get; private set; }
@@ -51,6 +52,7 @@ public class GameInput : MonoBehaviour
         playerInput.PlayerControls.Dash.performed += Dash_Performed;
         playerInput.PlayerControls.Crafting.performed += Crafting_Performed;
 
+        playerInput.PlayerControls.Building.performed += Building_Performed;
         slotSelectActions = new InputAction[NumberOfSlots];
 
         for (int i = 0; i < NumberOfSlots; i++)
@@ -67,6 +69,12 @@ public class GameInput : MonoBehaviour
             }
         }
 
+    }
+
+    private void Building_Performed(InputAction.CallbackContext obj)
+    {
+        PlayerStateManager.Instance.ToggleBuilding();
+        OnBuildingAction?.Invoke(this, EventArgs.Empty);
     }
 
     private void Pause_Performed(InputAction.CallbackContext obj)
