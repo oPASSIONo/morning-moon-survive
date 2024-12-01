@@ -57,8 +57,7 @@ namespace Inventory.Model
         Consumable,
         Treasure,
         ResourceAndFarm,
-        Farming,
-        Building
+        Farming
         // Add more categories as needed
     }
     public enum ItemSubCategory

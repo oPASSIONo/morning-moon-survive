@@ -13,7 +13,6 @@ public class PlayerStateManager : MonoBehaviour
         Normal,
         Inventory,
         Crafting,
-        Building,
         Workshop,
         Paused,
         Sleep,
@@ -68,20 +67,6 @@ public class PlayerStateManager : MonoBehaviour
         else if (currentState == PlayerState.Inventory)
         {
             SetState(PlayerState.Normal);
-        }
-    }
-    
-    public void ToggleBuilding()
-    {
-        if (currentState == PlayerState.Normal)
-        {
-            SetState(PlayerState.Building);
-            Debug.Log(currentState);
-        }
-        else if (currentState == PlayerState.Building)
-        {
-            SetState(PlayerState.Normal);
-            Debug.Log(currentState);
         }
     }
 

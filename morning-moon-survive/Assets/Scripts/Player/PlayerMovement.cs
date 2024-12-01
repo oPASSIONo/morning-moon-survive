@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
 
         staminaComponent = GetComponent<Stamina>();
         satietyComponent = GetComponent<Satiety>();

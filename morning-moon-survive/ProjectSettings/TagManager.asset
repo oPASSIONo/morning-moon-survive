@@ -8,12 +8,12 @@ TagManager:
   - Tree
   - Enemy
   - WeakPoint
-  - SpawnPoint
+  - Land
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Placement
+  - 
   - Water
   - UI
   - Tree
