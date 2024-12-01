@@ -35,9 +35,24 @@ public class Enemy : NetworkBehaviour
     public Collider bodyPoint;
     public Collider weakPoint;
     
+    private NetworkObject networkObject;
+
     private void Awake()
     {
         Initialize();
+        networkObject = GetComponentInChildren<NetworkObject>();
+        if (networkObject == null)
+        {
+            Debug.LogError($"No NetworkObject found in {name} or its children. Ensure a NetworkObject is attached.");
+        }
+    }
+    
+    private void Start()
+    {
+        if (NetworkManager.Singleton.IsServer && networkObject != null && !networkObject.IsSpawned)
+        {
+            networkObject.Spawn();
+        }
     }
     
     /*
@@ -116,11 +131,7 @@ public class Enemy : NetworkBehaviour
         Debug.Log($"Server handling death for {name} with health {HP}");
         DropRandomItemServerRpc();
         NetworkObject.Despawn();
-        /*NetworkObject networkObj = GetComponent<NetworkObject>();
-        if (networkObj != null)
-        {
-            networkObj.Despawn();
-        }*/
+ 
     }
     
     private void DropRandomItem()
@@ -142,16 +153,18 @@ public class Enemy : NetworkBehaviour
         if (dropItems != null && dropItems.Length > 0)
         {
             int randomIndex = Random.Range(0, dropItems.Length);
-            GameObject itemToDrop = dropItems[randomIndex];
+            GameObject itemToDrop = dropItems[randomIndex].gameObject;
 
             if (itemToDrop != null)
             {
-                GameObject droppedItem = Instantiate(itemToDrop, transform.position, Quaternion.identity);
-                NetworkObject droppedItemNetworkObj = droppedItem.GetComponent<NetworkObject>();
 
-                if (droppedItemNetworkObj != null)
+                GameObject droppedItem = Instantiate(itemToDrop, transform.position, Quaternion.identity);
+                NetworkObject droppedItemNetworkObj = GetTopmostParentNetworkObject(droppedItem);
+
+                if (droppedItemNetworkObj  != null)
                 {
-                    droppedItemNetworkObj.Spawn(); // Ensures the item is synchronized across all clients
+                    Debug.Log("The item to drop : " + droppedItemNetworkObj);
+                    droppedItemNetworkObj.Spawn(); 
                 }
                 else
                 {
@@ -159,6 +172,21 @@ public class Enemy : NetworkBehaviour
                 }
             }
         }
+    }
+    
+    private NetworkObject GetTopmostParentNetworkObject(GameObject obj)
+    {
+        Transform current = obj.transform;
+        while (current != null)
+        {
+            NetworkObject networkObject = current.GetComponent<NetworkObject>();
+            if (networkObject != null)
+            {
+                return networkObject;
+            }
+            current = current.parent;
+        }
+        return null;
     }
 
     #region Weak Point

@@ -13,21 +13,21 @@ MonoBehaviour:
   m_Name: Medium Rock
   m_EditorClassIdentifier: 
   <IsMonster>k__BackingField: 0
-  <Name>k__BackingField: 
-  <HP>k__BackingField: 0
-  <MaxHP>k__BackingField: 0
+  <Name>k__BackingField: MediumRock
+  <HP>k__BackingField: 50
+  <MaxHP>k__BackingField: 50
   <MinHP>k__BackingField: 0
-  <Defense>k__BackingField: 0
+  <Defense>k__BackingField: 15
   <BaseATK>k__BackingField: 0
   <ElementATK>k__BackingField: 0
   <ElementATKDMG>k__BackingField: 0
   movesetDMG: []
   <BodyPointWeaknesses>k__BackingField:
-    Chop: 0
-    Blunt: 0
-    Pierce: 0
-    Slash: 0
-    Ammo: 0
+    Chop: 3
+    Blunt: -1
+    Pierce: -1
+    Slash: -1
+    Ammo: -1
   <WeakPointWeaknesses>k__BackingField:
     Chop: 0
     Blunt: 0

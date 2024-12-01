@@ -141,8 +141,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyStatsSO: {fileID: 11400000, guid: 2ee366e35f6e62246854b941704a583c, type: 2}
-  dropItems: []
-  healthComponent: {fileID: 1008599798040286188}
+  dropItems:
+  - {fileID: 9027762958247691069, guid: 0881efc69b39b7d4483a8727fc0265bf, type: 3}
+  - {fileID: 9027762958247691069, guid: 0881efc69b39b7d4483a8727fc0265bf, type: 3}
+  - {fileID: 9027762958247691069, guid: 0881efc69b39b7d4483a8727fc0265bf, type: 3}
+  healthComponent: {fileID: 0}
   bodyPoint: {fileID: 0}
   weakPoint: {fileID: 0}
 --- !u!114 &1008599798040286188
