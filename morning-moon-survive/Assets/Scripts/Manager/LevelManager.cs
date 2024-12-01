@@ -40,15 +40,41 @@ public class LevelManager : MonoBehaviour
     {
         _loaderCanvas.SetActive(true);
         _canvasGroup.alpha = 1f; // Ensure the canvas starts fully visible
-
-        // Load the scene normally (synchronously)
         SceneManager.LoadScene(sceneName);
-      
-        // Once the scene is loaded, fade out the loading screen
         OnLoadComplete?.Invoke();
         FadeOutLoading();
-    }
+        /*if (NetworkManager.Singleton == null || NetworkManager.Singleton.SceneManager == null)
+        {
+            Debug.Log("NetworkManager or SceneManager is not initialized. Falling back to standard scene loading.");
+            _loaderCanvas.SetActive(true);
+            _canvasGroup.alpha = 1f; // Ensure the canvas starts fully visible
+            SceneManager.LoadScene(sceneName);
+            OnLoadComplete?.Invoke();
+            FadeOutLoading();
+            return;
+        }
+        if (NetworkManager.Singleton.IsHost )
+        {
+            _loaderCanvas.SetActive(true);
+            _canvasGroup.alpha = 1f; // Ensure the canvas starts fully visible
 
+            NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+            OnLoadComplete?.Invoke();
+            FadeOutLoading();
+        }
+        else if (NetworkManager.Singleton.IsClient)
+        {
+            _loaderCanvas.SetActive(true);
+            _canvasGroup.alpha = 1f; // Ensure the canvas starts fully visible
+
+            NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+            OnLoadComplete?.Invoke();
+            FadeOutLoading();
+        }
+        */
+        
+    }
+    
     public void PortalWarp()
     {
         _loaderCanvas.SetActive(true);

@@ -29,7 +29,7 @@ public class SpawnPointManager : MonoBehaviour
             spawnPoints.Add(spawnPointName, spawnPointTransform);
             Debug.Log($"Spawn Point {spawnPointName} registered.");
         }
-
+        
         // If all spawn points are registered, notify listeners
         OnSpawnPointsRegistered?.Invoke();
     }

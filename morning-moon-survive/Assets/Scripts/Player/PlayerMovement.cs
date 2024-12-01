@@ -67,6 +67,9 @@ public class PlayerMovement : NetworkBehaviour
             {
                 isDashing = false;
                 rb.velocity = Vector3.zero; // Stop the dash
+                
+                rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+
                 playerAnimation.setAnimationSpeed(1f);
                 switch (playerStateManager.currentState)
                 {
@@ -147,6 +150,8 @@ public class PlayerMovement : NetworkBehaviour
                 isDashing = true;
                 dashTimeRemaining = dashDuration;
                     //staminaComponent.TakeAction();
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
+
                     if (staminaComponent.isAction)
                     {
                         Transform cameraTransform = Camera.main.transform;

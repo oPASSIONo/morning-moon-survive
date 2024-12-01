@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 664772110162115030}
   - component: {fileID: 4872253250352954460}
   - component: {fileID: 3604688687436048196}
+  - component: {fileID: 797630637883601793}
   - component: {fileID: 6211512035524118939}
   - component: {fileID: 6214252425408960976}
   - component: {fileID: 3119518070863154796}
@@ -18,6 +19,7 @@ GameObject:
   - component: {fileID: 4736533889194300059}
   - component: {fileID: 8395723226613612221}
   - component: {fileID: 4727105298391757036}
+  - component: {fileID: -8883256121334194908}
   m_Layer: 0
   m_Name: Rat
   m_TagString: Enemy
@@ -76,6 +78,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0f9de3cf71a4c4ca6e880ec1028024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &797630637883601793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077621666364841430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2430346402
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &6211512035524118939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,7 +115,7 @@ MonoBehaviour:
   dropItems:
   - {fileID: 7382413393457835558, guid: cd11386b48fb3cc4e9b2fe94a4cb55a7, type: 3}
   healthComponent: {fileID: 6214252425408960976}
-  boydyPoint: {fileID: 4736533889194300059}
+  bodyPoint: {fileID: 0}
   weakPoint: {fileID: 7370924636545000357}
 --- !u!114 &6214252425408960976
 MonoBehaviour:
@@ -175,6 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 7061260205022162551, guid: e48b617660407be439d2ea3d25a82ccc, type: 3}
+  destroyDelay: 2
 --- !u!114 &4727105298391757036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,6 +218,18 @@ MonoBehaviour:
   moveSpeed: 3
   enemyAnimation: {fileID: 5319035223364804015}
   isFriendly: 0
+--- !u!114 &-8883256121334194908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077621666364841430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fb76ef9c39608c4c9d6b159552955de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8127275509051746041
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,6 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 7061260205022162551, guid: e48b617660407be439d2ea3d25a82ccc, type: 3}
+  destroyDelay: 2
 --- !u!224 &6372889802729437779 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5191044141256725826, guid: 96f0d6acdf921dc40824db48cbbe4d94,

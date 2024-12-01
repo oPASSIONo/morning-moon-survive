@@ -40,40 +40,47 @@ public class Enemy : NetworkBehaviour
         Initialize();
     }
     
+    /*
     private void Start()
     {
-        // Subscribe to health changed event
         if (healthComponent != null)
         {
             healthComponent.OnHealthChanged += UpdateEnemyHealth;
         }
     }
-    private void Initialize()
-    {
-        InitializeStat();
-        InitializeHealthComponent();
-    }
+    */
+    
+    #region Initialize
 
-    private void InitializeStat()
-    {
-        HP = enemyStatsSO.HP;
-        MinHP = enemyStatsSO.MinHP;
-        MaxHP = enemyStatsSO.MaxHP;
-        Defense = enemyStatsSO.Defense;
-        BaseATK = enemyStatsSO.BaseATK;
-        Name = enemyStatsSO.Name;
-        IsMonster = enemyStatsSO.IsMonster;
-        ElementATK = enemyStatsSO.ElementATK;
-        ElementATKDMG = enemyStatsSO.ElementATKDMG;
+     private void Initialize()
+        {
+            InitializeStat();
+            InitializeHealthComponent();
+        }
+    
+     private void InitializeStat()
+     {
+         HP = enemyStatsSO.HP;
+         MinHP = enemyStatsSO.MinHP;
+         MaxHP = enemyStatsSO.MaxHP;
+         Defense = enemyStatsSO.Defense;
+         BaseATK = enemyStatsSO.BaseATK;
+         Name = enemyStatsSO.Name;
+         IsMonster = enemyStatsSO.IsMonster;
+         ElementATK = enemyStatsSO.ElementATK;
+         ElementATKDMG = enemyStatsSO.ElementATKDMG;
+    
+         MovesetStats = enemyStatsSO.movesetDMG;
+    
+         _bodyPointAttackWeaknesses = enemyStatsSO.BodyPointWeaknesses;
+         _weakPointAttackWeaknesses = enemyStatsSO.WeakPointWeaknesses;
+         _bodyPointElementWeaknesses = enemyStatsSO.BodyPointElementWeaknesses;
+         _weakPointElementWeaknesses = enemyStatsSO.WeakPointElementWeaknesses;
+            
+        }
 
-        MovesetStats = enemyStatsSO.movesetDMG;
-
-        _bodyPointAttackWeaknesses = enemyStatsSO.BodyPointWeaknesses;
-        _weakPointAttackWeaknesses = enemyStatsSO.WeakPointWeaknesses;
-        _bodyPointElementWeaknesses = enemyStatsSO.BodyPointElementWeaknesses;
-        _weakPointElementWeaknesses = enemyStatsSO.WeakPointElementWeaknesses;
-        
-    }
+    #endregion
+   
     private void InitializeHealthComponent()
     {
         healthComponent = GetComponent<Health>(); // Ensure GetComponent is finding the correct component
@@ -91,19 +98,31 @@ public class Enemy : NetworkBehaviour
     private void UpdateEnemyHealth(float currentHealth, float maxHealth,float minHealth)
     {
         HP = currentHealth;
+        Debug.Log($"{name} health updated to {currentHealth}");
         IsDead();
     }
 
     private void IsDead()
     {
-        if (HP <= 0)
+         if (HP <= 0)
+         {
+             HandleDeathServerRPC();
+         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void HandleDeathServerRPC()
+    {
+        Debug.Log($"Server handling death for {name} with health {HP}");
+        DropRandomItemServerRpc();
+        NetworkObject.Despawn();
+        /*NetworkObject networkObj = GetComponent<NetworkObject>();
+        if (networkObj != null)
         {
-            DropRandomItem();
-            Destroy(gameObject);
-        }
+            networkObj.Despawn();
+        }*/
     }
     
-  
     private void DropRandomItem()
     {
         if (dropItems != null && dropItems.Length > 0)
@@ -117,60 +136,89 @@ public class Enemy : NetworkBehaviour
             }
         }
     }
+    [ServerRpc(RequireOwnership = false)]
+    private void DropRandomItemServerRpc()
+    {
+        if (dropItems != null && dropItems.Length > 0)
+        {
+            int randomIndex = Random.Range(0, dropItems.Length);
+            GameObject itemToDrop = dropItems[randomIndex];
+
+            if (itemToDrop != null)
+            {
+                GameObject droppedItem = Instantiate(itemToDrop, transform.position, Quaternion.identity);
+                NetworkObject droppedItemNetworkObj = droppedItem.GetComponent<NetworkObject>();
+
+                if (droppedItemNetworkObj != null)
+                {
+                    droppedItemNetworkObj.Spawn(); // Ensures the item is synchronized across all clients
+                }
+                else
+                {
+                    Debug.LogError("The item to drop does not have a NetworkObject component.");
+                }
+            }
+        }
+    }
+
+    #region Weak Point
+
+     public int GetWeakPointAttackTypeWeaknessRank(AttackType attackType)
+        {
+            switch (attackType)
+            {
+                case AttackType.Chop: return _weakPointAttackWeaknesses.Chop;
+                case AttackType.Blunt: return _weakPointAttackWeaknesses.Blunt;
+                case AttackType.Pierce: return _weakPointAttackWeaknesses.Pierce;
+                case AttackType.Slash: return _weakPointAttackWeaknesses.Slash;
+                case AttackType.Ammo: return _weakPointAttackWeaknesses.Ammo;
+                default: return 0;
+            }
+        }
     
-    public int GetWeakPointAttackTypeWeaknessRank(AttackType attackType)
-    {
-        switch (attackType)
+        public int GetWeakPointElementTypeWeaknessRank(Element element)
         {
-            case AttackType.Chop: return _weakPointAttackWeaknesses.Chop;
-            case AttackType.Blunt: return _weakPointAttackWeaknesses.Blunt;
-            case AttackType.Pierce: return _weakPointAttackWeaknesses.Pierce;
-            case AttackType.Slash: return _weakPointAttackWeaknesses.Slash;
-            case AttackType.Ammo: return _weakPointAttackWeaknesses.Ammo;
-            default: return 0;
+            switch (element)
+            {
+                case Element.Thunder: return _weakPointElementWeaknesses.Thunder;
+                case Element.Fire: return _weakPointElementWeaknesses.Fire;
+                case Element.Ice: return _weakPointElementWeaknesses.Ice;
+                case Element.Toxic: return _weakPointElementWeaknesses.Toxic;
+                case Element.Dark: return _weakPointElementWeaknesses.Dark;
+                case Element.Unholy: return _weakPointElementWeaknesses.Unholy;
+                case Element.None: return 1;
+                default: return 0;
+            }
         }
-    }
+    
+        public int GetBodyPointAttackTypeWeaknessRank(AttackType attackType)
+        {
+            switch (attackType)
+            {
+                case AttackType.Chop: return _bodyPointAttackWeaknesses.Chop;
+                case AttackType.Blunt: return _bodyPointAttackWeaknesses.Blunt;
+                case AttackType.Pierce: return _bodyPointAttackWeaknesses.Pierce;
+                case AttackType.Slash: return _bodyPointAttackWeaknesses.Slash;
+                case AttackType.Ammo: return _bodyPointAttackWeaknesses.Ammo;
+                default: return 0;
+            }
+        }
+    
+        public int GetBodyPointElementTypeWeaknessRank(Element element)
+        {
+            switch (element)
+            {
+                case Element.Thunder: return _bodyPointElementWeaknesses.Thunder;
+                case Element.Fire: return _bodyPointElementWeaknesses.Fire;
+                case Element.Ice: return _bodyPointElementWeaknesses.Ice;
+                case Element.Toxic: return _bodyPointElementWeaknesses.Toxic;
+                case Element.Dark: return _bodyPointElementWeaknesses.Dark;
+                case Element.Unholy: return _bodyPointElementWeaknesses.Unholy;
+                case Element.None: return 1;
+                default: return 0;
+            }
+        }
 
-    public int GetWeakPointElementTypeWeaknessRank(Element element)
-    {
-        switch (element)
-        {
-            case Element.Thunder: return _weakPointElementWeaknesses.Thunder;
-            case Element.Fire: return _weakPointElementWeaknesses.Fire;
-            case Element.Ice: return _weakPointElementWeaknesses.Ice;
-            case Element.Toxic: return _weakPointElementWeaknesses.Toxic;
-            case Element.Dark: return _weakPointElementWeaknesses.Dark;
-            case Element.Unholy: return _weakPointElementWeaknesses.Unholy;
-            case Element.None: return 1;
-            default: return 0;
-        }
-    }
-
-    public int GetBodyPointAttackTypeWeaknessRank(AttackType attackType)
-    {
-        switch (attackType)
-        {
-            case AttackType.Chop: return _bodyPointAttackWeaknesses.Chop;
-            case AttackType.Blunt: return _bodyPointAttackWeaknesses.Blunt;
-            case AttackType.Pierce: return _bodyPointAttackWeaknesses.Pierce;
-            case AttackType.Slash: return _bodyPointAttackWeaknesses.Slash;
-            case AttackType.Ammo: return _bodyPointAttackWeaknesses.Ammo;
-            default: return 0;
-        }
-    }
-
-    public int GetBodyPointElementTypeWeaknessRank(Element element)
-    {
-        switch (element)
-        {
-            case Element.Thunder: return _bodyPointElementWeaknesses.Thunder;
-            case Element.Fire: return _bodyPointElementWeaknesses.Fire;
-            case Element.Ice: return _bodyPointElementWeaknesses.Ice;
-            case Element.Toxic: return _bodyPointElementWeaknesses.Toxic;
-            case Element.Dark: return _bodyPointElementWeaknesses.Dark;
-            case Element.Unholy: return _bodyPointElementWeaknesses.Unholy;
-            case Element.None: return 1;
-            default: return 0;
-        }
-    }
+    #endregion
+   
 }

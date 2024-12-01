@@ -22,7 +22,7 @@ public class UIHealthBar : MonoBehaviour
     #endregion
    
     
-    private void Start()
+    private void Awake()
     {
         // Subscribe to network spawn events
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
@@ -32,8 +32,9 @@ public class UIHealthBar : MonoBehaviour
     {
         if (NetworkManager.Singleton.LocalClientId == clientId)
         {
+            Invoke(nameof(TryAssignLocalPlayerHealth), 0.1f);
             // Delay setting up the health component until the local player has spawned
-            TryAssignLocalPlayerHealth();
+            //TryAssignLocalPlayerHealth();
         }
     }
 
@@ -53,6 +54,8 @@ public class UIHealthBar : MonoBehaviour
         {
             healthComponent.OnHealthChanged += UpdateHealthBar;
             UpdateHealthBar(healthComponent.CurrentHealth, healthComponent.MaxHealth, healthComponent.MinHealth);
+            Debug.Log("Local player's Health found.");
+
         }
         else
         {
@@ -60,7 +63,13 @@ public class UIHealthBar : MonoBehaviour
         }
     }
 
+       private void OnHealthValueChanged(float oldHealth, float newHealth)
+    {
 
+        Debug.Log($"[UIHealthBar] Health updated: Old: {oldHealth}, New: {newHealth}");
+
+        UpdateHealthBar(newHealth, healthComponent.MaxHealth, healthComponent.MinHealth);
+    }
     private void UpdateHealthBar(float currentHealth, float maxHealth,float minHealth)
     {
         // Update the slider value to reflect the current health
@@ -77,7 +86,7 @@ public class UIHealthBar : MonoBehaviour
         {
             NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
         }
-
+        
         if (healthComponent != null)
         {
             healthComponent.OnHealthChanged -= UpdateHealthBar;

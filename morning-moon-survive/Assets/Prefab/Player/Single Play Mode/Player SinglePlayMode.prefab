@@ -292,6 +292,7 @@ MonoBehaviour:
     item: {fileID: 11400000, guid: 19f17fafa8512c3449bbc4506e62afa2, type: 2}
     itemState: []
   dropClip: {fileID: 0}
+  audioSource: {fileID: 0}
   amountController: {fileID: 0}
   cheatModeForBuilding: 0
 --- !u!114 &1559445494274843918
@@ -349,7 +350,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
@@ -552,9 +553,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelAnimator: {fileID: 3924816353599901767}
-  playerCombat: {fileID: 9025921128899043440}
-  playerMovement: {fileID: 1228260462824395242}
-  playerStateManager: {fileID: 1121488800831802068}
 --- !u!1 &5057764305931775667
 GameObject:
   m_ObjectHideFlags: 0

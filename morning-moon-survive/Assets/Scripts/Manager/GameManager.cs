@@ -10,7 +10,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
     public static GameManager Instance { get; private set; }
     
     [SerializeField] private GameObject mainCamera;
@@ -154,7 +153,6 @@ public class GameManager : MonoBehaviour
     private void InitializeCoreGameObj()
     {       
         //player.SetActive(true);
-        
         gameInput.SetActive(true);
         playerFollowCamera.SetActive(true);
         gameCanvas.SetActive(true);
@@ -170,12 +168,22 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        SpawnPointManager.Instance.OnSpawnPointsRegistered += OnAllSpawnPointsRegistered;    
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        SpawnPointManager.Instance.OnSpawnPointsRegistered -= OnAllSpawnPointsRegistered;
+
     }
+    private void OnAllSpawnPointsRegistered()
+    {
+        Debug.Log("All spawn points are registered.");
+        // Handle any additional logic if needed.
+    }
+
+
     private Transform TargetSpawnPoint(string targetSpawnPoint)
     {
         return SpawnPointManager.Instance.GetSpawnPoint(targetSpawnPoint);
@@ -194,13 +202,15 @@ public class GameManager : MonoBehaviour
     private IEnumerator WaitAndMove(string moveTarget, string spawnPointName)
     {
         NavMeshAgent objectToMove = null;
-        
-        while (true)
+        bool isSpawnPointReady = false;
+
+        while (!isSpawnPointReady)
         {
             Transform movePointTransform = SpawnPointManager.Instance.GetSpawnPoint(spawnPointName);
 
             if (movePointTransform != null)
             {
+                isSpawnPointReady = true;
                 if (moveTarget == "Player")
                 {
                     objectToMove = PlayerManager.Player.GetComponent<NavMeshAgent>();
@@ -263,6 +273,7 @@ public class GameManager : MonoBehaviour
             InitializeCoreGameObj();
             // Ensure the spawn points are cleared from the previous scene
             SpawnPointManager.Instance.ClearSpawnPoints();
+            InitializeCoreGameObj();
         }
         TimeManager.Instance.SetStartTimer(false);
         GameInput.Instance.SetPlayerInput(false);
@@ -319,6 +330,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
         PlayerManager.PlayerHealth.TakeDamage(damage);
+        //PlayerManager.PlayerHealth.TakeDamageServerRpc(damage);
     }
 
     private void OnPlayerDie()
@@ -403,7 +415,8 @@ public class GameManager : MonoBehaviour
             }
             float damage = (playerATKBaseDMG + (weaponATKBaseDMG * sharpnessOfWeapon * enemyWeaponWeaknessDMG) - enemyDEF) +
                            (weaponElementATKBaseDMG * enemyElementWeaknessDMG) + (bonusATK);
-            enemy.healthComponent.TakeDamage(damage);
+            
+            enemy.healthComponent.TakePlayerDamage(damage);
         }
     }
 

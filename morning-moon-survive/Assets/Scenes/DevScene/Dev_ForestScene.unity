@@ -131,6 +131,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1806075185}
     m_Modifications:
+    - target: {fileID: -5047812547318859137, guid: 0881efc69b39b7d4483a8727fc0265bf,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1302382137
+      objectReference: {fileID: 0}
     - target: {fileID: 5708954408428089291, guid: 0881efc69b39b7d4483a8727fc0265bf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -288,6 +293,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_RoundTree (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8348641324454392551, guid: 95fcd94477ccf7e4689f777d9e0d1ae8,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3501723622
       objectReference: {fileID: 0}
     - target: {fileID: 8911262597105187763, guid: 95fcd94477ccf7e4689f777d9e0d1ae8,
         type: 3}
@@ -687,6 +697,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (53)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2603264663
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -760,6 +775,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_RoundTree
+      objectReference: {fileID: 0}
+    - target: {fileID: 8348641324454392551, guid: 95fcd94477ccf7e4689f777d9e0d1ae8,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2434349141
       objectReference: {fileID: 0}
     - target: {fileID: 8911262597105187763, guid: 95fcd94477ccf7e4689f777d9e0d1ae8,
         type: 3}
@@ -838,6 +858,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (44)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2175117431
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -1204,6 +1229,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1806075185}
     m_Modifications:
+    - target: {fileID: -5047812547318859137, guid: 0881efc69b39b7d4483a8727fc0265bf,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3533627155
+      objectReference: {fileID: 0}
     - target: {fileID: 5708954408428089291, guid: 0881efc69b39b7d4483a8727fc0265bf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1278,6 +1308,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1806075185}
     m_Modifications:
+    - target: {fileID: -5047812547318859137, guid: 0881efc69b39b7d4483a8727fc0265bf,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 901336653
+      objectReference: {fileID: 0}
     - target: {fileID: 5708954408428089291, guid: 0881efc69b39b7d4483a8727fc0265bf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1356,6 +1391,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (29)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2882689498
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -1579,6 +1619,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2512320769
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1652,6 +1697,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 529857931
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -2023,6 +2073,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (55)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2301463218
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2234,6 +2289,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2961341170
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2381,6 +2441,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1649905944
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -2770,6 +2835,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (41)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2862032250
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2843,6 +2913,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (30)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2299162332
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -2958,6 +3033,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1964167488
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3032,6 +3112,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (24)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 682583159
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3105,6 +3190,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (38)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3987020917
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -3212,6 +3302,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 668140089
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -3361,6 +3456,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (49)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1218903576
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3509,6 +3609,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (38)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 955311995
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3582,6 +3687,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (35)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1396465617
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -3731,6 +3841,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (37)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1480265679
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3804,6 +3919,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3683504037
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -3948,6 +4068,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1806075185}
     m_Modifications:
+    - target: {fileID: -5047812547318859137, guid: 0881efc69b39b7d4483a8727fc0265bf,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1741442347
+      objectReference: {fileID: 0}
     - target: {fileID: 5708954408428089291, guid: 0881efc69b39b7d4483a8727fc0265bf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4022,6 +4147,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1806075185}
     m_Modifications:
+    - target: {fileID: -5047812547318859137, guid: 0881efc69b39b7d4483a8727fc0265bf,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2554636131
+      objectReference: {fileID: 0}
     - target: {fileID: 5708954408428089291, guid: 0881efc69b39b7d4483a8727fc0265bf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4210,6 +4340,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (34)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1901858795
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4283,6 +4418,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 142199106
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -4550,6 +4690,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (39)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2240864272
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4669,6 +4814,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 797630637883601793, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1110973022
+      objectReference: {fileID: 0}
     - target: {fileID: 1077621666364841430, guid: fe2bb00afeb18ce479b7cb6732155b93,
         type: 3}
       propertyPath: m_Name
@@ -4707,6 +4857,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (54)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 238578406
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -4898,6 +5053,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (45)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 537802126
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -5181,6 +5341,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (37)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3858589891
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5329,6 +5494,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (27)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3095926410
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5403,6 +5573,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1199465728
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5472,6 +5647,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1806075185}
     m_Modifications:
+    - target: {fileID: -5047812547318859137, guid: 0881efc69b39b7d4483a8727fc0265bf,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1851028632
+      objectReference: {fileID: 0}
     - target: {fileID: 5708954408428089291, guid: 0881efc69b39b7d4483a8727fc0265bf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5550,6 +5730,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (51)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1743358498
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -5715,6 +5900,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2980139720
+      objectReference: {fileID: 0}
     - target: {fileID: 5852371513882713258, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_IsActive
@@ -5803,6 +5993,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_RoundTree (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8348641324454392551, guid: 95fcd94477ccf7e4689f777d9e0d1ae8,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4274305312
       objectReference: {fileID: 0}
     - target: {fileID: 8911262597105187763, guid: 95fcd94477ccf7e4689f777d9e0d1ae8,
         type: 3}
@@ -6042,6 +6237,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 797630637883601793, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 769659938
+      objectReference: {fileID: 0}
     - target: {fileID: 1077621666364841430, guid: fe2bb00afeb18ce479b7cb6732155b93,
         type: 3}
       propertyPath: m_Name
@@ -6228,6 +6428,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3815234394
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -6636,6 +6841,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (40)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3056936231
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6856,6 +7066,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3670857154
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7003,6 +7218,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1690419643
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -7196,6 +7416,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 797630637883601793, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2266841486
       objectReference: {fileID: 0}
     - target: {fileID: 1077621666364841430, guid: fe2bb00afeb18ce479b7cb6732155b93,
         type: 3}
@@ -7563,6 +7788,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (25)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2967461244
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7839,6 +8069,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (28)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 883155342
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7912,6 +8147,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (42)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2943581896
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -8048,6 +8288,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1304658003}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1309549812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1309549813}
+  m_Layer: 0
+  m_Name: ForestNetworkObjectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1309549813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309549812}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1316508290
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8060,6 +8331,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2190140277
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -8130,6 +8406,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1806075185}
     m_Modifications:
+    - target: {fileID: -5047812547318859137, guid: 0881efc69b39b7d4483a8727fc0265bf,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1999536781
+      objectReference: {fileID: 0}
     - target: {fileID: 5708954408428089291, guid: 0881efc69b39b7d4483a8727fc0265bf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8287,6 +8568,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 797630637883601793, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2406028069
+      objectReference: {fileID: 0}
     - target: {fileID: 1077621666364841430, guid: fe2bb00afeb18ce479b7cb6732155b93,
         type: 3}
       propertyPath: m_Name
@@ -8414,6 +8700,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 236139006
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8487,6 +8778,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (43)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1250934930
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -8596,6 +8892,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1515718327
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -8715,6 +9016,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 797630637883601793, guid: fe2bb00afeb18ce479b7cb6732155b93,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4075775266
       objectReference: {fileID: 0}
     - target: {fileID: 1077621666364841430, guid: fe2bb00afeb18ce479b7cb6732155b93,
         type: 3}
@@ -8902,6 +9208,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (31)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1915728320
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -9236,6 +9547,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (48)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1600382572
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -9676,6 +9992,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1806075185}
     m_Modifications:
+    - target: {fileID: -5047812547318859137, guid: 0881efc69b39b7d4483a8727fc0265bf,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2726453284
+      objectReference: {fileID: 0}
     - target: {fileID: 5708954408428089291, guid: 0881efc69b39b7d4483a8727fc0265bf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9829,6 +10150,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (46)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 371612951
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9898,6 +10224,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1806075185}
     m_Modifications:
+    - target: {fileID: -5047812547318859137, guid: 0881efc69b39b7d4483a8727fc0265bf,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 447898193
+      objectReference: {fileID: 0}
     - target: {fileID: 5708954408428089291, guid: 0881efc69b39b7d4483a8727fc0265bf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9976,6 +10307,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (52)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1444921594
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -10454,6 +10790,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 935311995
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10602,6 +10943,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2820704835
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10675,6 +11021,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3456414828
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -10855,6 +11206,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (32)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3076048523
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -11108,6 +11464,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4199483478
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11187,6 +11548,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3767051143
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11261,6 +11627,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (47)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1686625339
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11334,6 +11705,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_RoundTree (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8348641324454392551, guid: 95fcd94477ccf7e4689f777d9e0d1ae8,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1488150649
       objectReference: {fileID: 0}
     - target: {fileID: 8911262597105187763, guid: 95fcd94477ccf7e4689f777d9e0d1ae8,
         type: 3}
@@ -11559,6 +11935,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1806075185}
     m_Modifications:
+    - target: {fileID: -5047812547318859137, guid: 0881efc69b39b7d4483a8727fc0265bf,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1183936996
+      objectReference: {fileID: 0}
     - target: {fileID: 5708954408428089291, guid: 0881efc69b39b7d4483a8727fc0265bf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11966,6 +12347,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3164532332
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12039,6 +12425,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1160217910
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -12188,6 +12579,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (50)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3682370831
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12335,6 +12731,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_PineTree (33)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4211217822
       objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
@@ -12934,6 +13335,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_PineTree (26)
       objectReference: {fileID: 0}
+    - target: {fileID: 4387382901144360877, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 847126379
+      objectReference: {fileID: 0}
     - target: {fileID: 5881603546035693010, guid: 95976e319e731ab4fbddb00564cc81db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13091,3 +13497,4 @@ SceneRoots:
   - {fileID: 50742711}
   - {fileID: 1062121504}
   - {fileID: 871061446}
+  - {fileID: 1309549813}

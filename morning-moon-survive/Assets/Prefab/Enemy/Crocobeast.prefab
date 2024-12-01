@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 1800032572061587240}
   - component: {fileID: 5582361535722454240}
   - component: {fileID: 257156668914188479}
+  - component: {fileID: 2903171516187170884}
   m_Layer: 0
   m_Name: Crocobeast
   m_TagString: Untagged
@@ -179,6 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 7061260205022162551, guid: e48b617660407be439d2ea3d25a82ccc, type: 3}
+  destroyDelay: 2
 --- !u!65 &1800032572061587240
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -237,6 +239,18 @@ MonoBehaviour:
   - {fileID: 7231027869814563753}
   - {fileID: 8660964837715122534}
   - {fileID: 0}
+--- !u!114 &2903171516187170884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8363582561729201969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fb76ef9c39608c4c9d6b159552955de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &778125939056041146
 PrefabInstance:
   m_ObjectHideFlags: 0

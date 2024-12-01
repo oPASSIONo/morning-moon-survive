@@ -477,6 +477,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7409402356649496710, guid: 95976e319e731ab4fbddb00564cc81db,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3987209792
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2409,6 +2414,11 @@ PrefabInstance:
     - target: {fileID: 3077028271889181, guid: bb4d24c49c681a247a974f3ce1f2353b, type: 3}
       propertyPath: m_Name
       value: WarpGate
+      objectReference: {fileID: 0}
+    - target: {fileID: 2657781436968112207, guid: bb4d24c49c681a247a974f3ce1f2353b,
+        type: 3}
+      propertyPath: targetScene
+      value: ForestScene 1
       objectReference: {fileID: 0}
     - target: {fileID: 5655987445515945746, guid: bb4d24c49c681a247a974f3ce1f2353b,
         type: 3}
