@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Carrot Seed
   m_EditorClassIdentifier: 
   <IsStackable>k__BackingField: 1
-  <MaxStackSize>k__BackingField: 1
-  <Weight>k__BackingField: 0
+  <MaxStackSize>k__BackingField: 50
+  <Weight>k__BackingField: 1
   <Name>k__BackingField: Carrot Seed
-  <ItemAbility>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 0}
-  <ItemCategory>k__BackingField: 0
+  <ItemAbility>k__BackingField: Carrot Seed for Planting
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: b9216c8ec94c2b0488f1d61e4a990a9f,
+    type: 3}
+  <ItemCategory>k__BackingField: 5
   <ItemSubCategory>k__BackingField: 0
   <ItemRarity>k__BackingField: 0
   <DefaultParametersList>k__BackingField: []
@@ -28,9 +29,9 @@ MonoBehaviour:
   <SeedPositionInHand>k__BackingField: {x: 0.006271859, y: 0.0003000256, z: 0.0007719005}
   <SeedRotationInHand>k__BackingField: {x: -22.818, y: 82.124, z: -92.678}
   <SeedScale>k__BackingField: {x: 0.04999998, y: 0.04999999, z: 0.04999997}
-  daysToMedium: 2
-  daysToLarge: 2
-  daysToFull: 2
-  rotTime: 2
+  daysToMedium: 1
+  daysToLarge: 1
+  daysToFull: 1
+  rotTime: 1
   <FullPlant>k__BackingField: {fileID: 6887699779504550818, guid: cf0d0c14ebb53574b84136baae9a541f,
     type: 3}
