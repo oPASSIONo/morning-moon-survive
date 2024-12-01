@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7349270680054110889
 Transform:
   m_ObjectHideFlags: 0
@@ -280,13 +280,25 @@ MonoBehaviour:
   inventoryData: {fileID: 11400000, guid: 5747cb1644aa57c4bbbafb0b0312d6d9, type: 2}
   initialItems:
   - quantity: 1
-    item: {fileID: 11400000, guid: 62839023aaf55364ea1c396fbeddcbef, type: 2}
+    item: {fileID: 11400000, guid: 17bf46ea506443246a37cd2a6b787c36, type: 2}
     itemState: []
   - quantity: 1
     item: {fileID: 11400000, guid: 14c08aa7fe7d0444691a35adbfa0535d, type: 2}
     itemState: []
   - quantity: 1
-    item: {fileID: 11400000, guid: 17bf46ea506443246a37cd2a6b787c36, type: 2}
+    item: {fileID: 11400000, guid: 62839023aaf55364ea1c396fbeddcbef, type: 2}
+    itemState: []
+  - quantity: 50
+    item: {fileID: 11400000, guid: 0f0b94365d2d41c4ebebaef803478167, type: 2}
+    itemState: []
+  - quantity: 50
+    item: {fileID: 11400000, guid: 7b5437c630bf1c7439e0e47d5c237a47, type: 2}
+    itemState: []
+  - quantity: 50
+    item: {fileID: 11400000, guid: f65b0ccc1804429448fb571f4305f437, type: 2}
+    itemState: []
+  - quantity: 4
+    item: {fileID: 11400000, guid: 90f3945db22df7e409a09ef4c377b088, type: 2}
     itemState: []
   - quantity: 1
     item: {fileID: 11400000, guid: 19f17fafa8512c3449bbc4506e62afa2, type: 2}

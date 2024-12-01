@@ -96,7 +96,6 @@ public class PlayerMovement : NetworkBehaviour
             movement.y = 0f;
 
             Vector3 moveDirection = movement.normalized * CurrentSpeed * Time.deltaTime;
-       
             transform.position += moveDirection;
 
             isPlayerMoving = movement.magnitude > 0.1f;
