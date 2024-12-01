@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2130,7 +2130,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 58c8a6c66a2628d40884d9dcf14e5d3b, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: ebc80802edbf6e74dafe24fbbda55778, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &410331315
 Transform:
@@ -5157,12 +5157,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 871061444}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.6, y: 1.18, z: 45.91}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -17.462646, y: 1.107669, z: 135.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1062121505}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &887405634
 PrefabInstance:
@@ -6752,9 +6752,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5655987445515945746, guid: bb4d24c49c681a247a974f3ce1f2353b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 871061446}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb4d24c49c681a247a974f3ce1f2353b, type: 3}
+--- !u!4 &1062121505 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5655987445515945746, guid: bb4d24c49c681a247a974f3ce1f2353b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1062121504}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1066084635
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7650,7 +7660,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 9b381b8742b33d944bf7eb4c92e79734, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 7960b75f23750e440a6cf0901c24dbf3, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &1255018358
 Transform:
@@ -12995,4 +13005,3 @@ SceneRoots:
   - {fileID: 1970067844999367147}
   - {fileID: 50742711}
   - {fileID: 1062121504}
-  - {fileID: 871061446}
