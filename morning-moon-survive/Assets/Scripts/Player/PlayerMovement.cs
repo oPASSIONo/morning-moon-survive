@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;;
+        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
 
         staminaComponent = GetComponent<Stamina>();
         satietyComponent = GetComponent<Satiety>();
@@ -60,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 isDashing = false;
                 rb.velocity = Vector3.zero; // Stop the dash
+                rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+                
                 PlayerAnimation.Instance.setAnimationSpeed(1f);
                 switch (PlayerStateManager.Instance.currentState)
                 {
@@ -138,7 +140,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 isDashing = true;
                 dashTimeRemaining = dashDuration;
-                    //staminaComponent.TakeAction();
+                    //staminaComponent.TakeAction();\
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
+
                     if (staminaComponent.isAction)
                     {
                         Transform cameraTransform = Camera.main.transform;
