@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <IsMonster>k__BackingField: 1
   <Name>k__BackingField: Rat
-  <HP>k__BackingField: 200
-  <MaxHP>k__BackingField: 200
+  <HP>k__BackingField: 20
+  <MaxHP>k__BackingField: 20
   <MinHP>k__BackingField: 0
   <Defense>k__BackingField: 10
-  <BaseATK>k__BackingField: 1
+  <BaseATK>k__BackingField: 0.3
   <ElementATK>k__BackingField: 0
   <ElementATKDMG>k__BackingField: 0
   movesetDMG:

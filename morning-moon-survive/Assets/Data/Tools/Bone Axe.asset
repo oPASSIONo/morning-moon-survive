@@ -20,12 +20,12 @@ MonoBehaviour:
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 8d38fccf56b1fd14ab7c07b29fe2a0c2,
     type: 3}
   <ItemCategory>k__BackingField: 1
-  <ItemSubCategory>k__BackingField: 
+  <ItemSubCategory>k__BackingField: 0
   <ItemRarity>k__BackingField: 0
   <DefaultParametersList>k__BackingField:
   - itemParameter: {fileID: 11400000, guid: 507af2d111d353844ba0d356fa56b6f8, type: 2}
     value: 100
-  <ItemPrefab>k__BackingField: {fileID: 2013428251187169110, guid: 9127b6c254cf0de40b1ac6dd1205709e,
+  <ItemPrefab>k__BackingField: {fileID: 2124143858548134695, guid: 1dbcd0d34f380b846b01ee3fb745b2a0,
     type: 3}
   <actionSFX>k__BackingField: {fileID: 8300000, guid: 05820920f8997ba4c8ed585a9a6fbc52,
     type: 3}
@@ -34,6 +34,6 @@ MonoBehaviour:
   <Element>k__BackingField: 6
   <ElementAttackDamage>k__BackingField: 10
   <Sharpness>k__BackingField: 1
-  <ToolPositionInHand>k__BackingField: {x: 0.005230391, y: -0.002095838, z: -0.02015931}
-  <ToolRotationInHand>k__BackingField: {x: -249.473, y: 245.143, z: 59.643}
-  <ToolScale>k__BackingField: {x: 0.15, y: 0.15, z: 0.15}
+  <ToolPositionInHand>k__BackingField: {x: 0.0082, y: 0.0048, z: 0.0182}
+  <ToolRotationInHand>k__BackingField: {x: 69.473, y: 65.143, z: -120.357}
+  <ToolScale>k__BackingField: {x: 0.007, y: 0.007, z: 0.007}
