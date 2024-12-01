@@ -97,7 +97,6 @@ public class TimeManager : NetworkBehaviour
         if (IsServer)
         {
             // Set the initial state when the object is spawned, only on the server
-            Debug.Log("TimeManager spawned on server");
             currentTimeOfDay.Value = (dayStartTime * 60f) / (24f * 60f); // Initialize the start of the day
         }
         
@@ -119,7 +118,6 @@ public class TimeManager : NetworkBehaviour
 
     public void SetPlayerStateManager(PlayerStateManager stateManager)
     {
-        Debug.Log("Local player's TimeManager found.");
         playerStateManager = stateManager;
         
     }

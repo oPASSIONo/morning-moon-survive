@@ -3,19 +3,53 @@ using System.Collections;
 using System.Collections.Generic;
 using Inventory.Model;
 using UnityEngine;
+using Unity.Netcode;
 
-public class Item : MonoBehaviour
+public class Item : NetworkBehaviour
 {
     [field: SerializeField] public ItemSO InventoryItem { get; private set; }
     [field: SerializeField] public int Quantity { get; set; } = 1;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private float duration = 0.3f;
     
+    /*
     public void DestroyItem()
     {
         GetComponent<Collider>().enabled = false;
         //StartCoroutine(AnimateItemPickup());
         Destroy(gameObject);
+    }
+    */
+    public void DestroyItem()
+    {
+        if (IsServer)
+        {
+            DestroyItemClientRPC();
+            NetworkObject.Despawn();
+        }
+        else
+        {
+            Debug.LogWarning("DestroyItem() should only be called on the server.");
+        }
+    }
+
+    [ClientRpc]
+    public void DestroyItemClientRPC()
+    {
+        // Optional: Play audio on clients before item is destroyed
+        if (audioSource != null)
+        {
+            audioSource.Play();
+        }
+
+        // Destroy the item immediately
+        Destroy(gameObject);
+    }
+
+    [ClientRpc]
+    public void UpdateQuantityClientRPC(int newQuantity)
+    {
+        Quantity = newQuantity;
     }
 
     private IEnumerator AnimateItemPickup()

@@ -46,7 +46,6 @@ public class PlacementSystem : MonoBehaviour
     public void SetInventoryController(InventoryController controller)
     {
         inventoryController = controller;
-        Debug.Log("Local player's PlacementSystem found.");
     }
    
 

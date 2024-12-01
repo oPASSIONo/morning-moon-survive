@@ -69,7 +69,6 @@ public class GameManager : MonoBehaviour
             Player player = PlayerManager.Player;
             if (player != null)
             {
-                Debug.Log("Applying DontDestroyOnLoad to the local player object.");
                 DontDestroyOnLoad(player); // Apply to local player
             }
             else

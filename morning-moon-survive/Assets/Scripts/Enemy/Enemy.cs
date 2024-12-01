@@ -35,35 +35,10 @@ public class Enemy : NetworkBehaviour
     public Collider bodyPoint;
     public Collider weakPoint;
     
-    private NetworkObject networkObject;
-
     private void Awake()
     {
         Initialize();
-        networkObject = GetComponentInChildren<NetworkObject>();
-        if (networkObject == null)
-        {
-            Debug.LogError($"No NetworkObject found in {name} or its children. Ensure a NetworkObject is attached.");
-        }
     }
-    
-    private void Start()
-    {
-        if (NetworkManager.Singleton.IsServer && networkObject != null && !networkObject.IsSpawned)
-        {
-            networkObject.Spawn();
-        }
-    }
-    
-    /*
-    private void Start()
-    {
-        if (healthComponent != null)
-        {
-            healthComponent.OnHealthChanged += UpdateEnemyHealth;
-        }
-    }
-    */
     
     #region Initialize
 
@@ -121,7 +96,14 @@ public class Enemy : NetworkBehaviour
     {
          if (HP <= 0)
          {
-             HandleDeathServerRPC();
+             if (IsSpawned) // Ensure the object is still spawned before handling death
+             {
+                 HandleDeathServerRPC();
+             }
+             else
+             {
+                 Debug.LogWarning($"Attempted to handle death for {name}, but the object is not spawned.");
+             }
          }
     }
 
@@ -129,25 +111,58 @@ public class Enemy : NetworkBehaviour
     private void HandleDeathServerRPC()
     {
         Debug.Log($"Server handling death for {name} with health {HP}");
-        DropRandomItemServerRpc();
-        NetworkObject.Despawn();
+        DropRandomItem();
+        // Clean up and despawn after all operations
+        if (IsSpawned)
+        {
+            NetworkObject.Despawn();
+        }
  
     }
-    
+
+    #region DropItem Old Version
+
+    /*private void DropRandomItem()
+   {
+       if (dropItems != null && dropItems.Length > 0)
+       {
+           int randomIndex = Random.Range(0, dropItems.Length);
+           GameObject itemToDrop = dropItems[randomIndex];
+
+           if (itemToDrop != null)
+           {
+               Instantiate(itemToDrop, transform.position, Quaternion.identity);
+           }
+       }
+   }*/
+
+    #endregion
+  
     private void DropRandomItem()
     {
         if (dropItems != null && dropItems.Length > 0)
         {
             int randomIndex = Random.Range(0, dropItems.Length);
-            GameObject itemToDrop = dropItems[randomIndex];
-            
+            GameObject itemToDrop = dropItems[randomIndex].gameObject;
+
             if (itemToDrop != null)
             {
-                Instantiate(itemToDrop, transform.position, Quaternion.identity);
+                GameObject droppedItem = Instantiate(itemToDrop, transform.position, Quaternion.identity);
+                NetworkObject droppedItemNetworkObj = droppedItem.GetComponent<NetworkObject>();
+
+                if (droppedItemNetworkObj != null)
+                {
+                    Debug.Log($"The item to drop: {droppedItemNetworkObj}");
+                    droppedItemNetworkObj.Spawn();
+                }
+                else
+                {
+                    Debug.LogError("The item to drop does not have a NetworkObject component.");
+                }
             }
         }
     }
-    [ServerRpc(RequireOwnership = false)]
+    /*[ServerRpc(RequireOwnership = false)]
     private void DropRandomItemServerRpc()
     {
         if (dropItems != null && dropItems.Length > 0)
@@ -157,9 +172,8 @@ public class Enemy : NetworkBehaviour
 
             if (itemToDrop != null)
             {
-
                 GameObject droppedItem = Instantiate(itemToDrop, transform.position, Quaternion.identity);
-                NetworkObject droppedItemNetworkObj = GetTopmostParentNetworkObject(droppedItem);
+                NetworkObject droppedItemNetworkObj = droppedItem.GetComponent<NetworkObject>();
 
                 if (droppedItemNetworkObj  != null)
                 {
@@ -172,23 +186,8 @@ public class Enemy : NetworkBehaviour
                 }
             }
         }
-    }
+    }*/
     
-    private NetworkObject GetTopmostParentNetworkObject(GameObject obj)
-    {
-        Transform current = obj.transform;
-        while (current != null)
-        {
-            NetworkObject networkObject = current.GetComponent<NetworkObject>();
-            if (networkObject != null)
-            {
-                return networkObject;
-            }
-            current = current.parent;
-        }
-        return null;
-    }
-
     #region Weak Point
 
      public int GetWeakPointAttackTypeWeaknessRank(AttackType attackType)

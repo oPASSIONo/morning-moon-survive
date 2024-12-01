@@ -38,41 +38,53 @@ public class LevelManager : MonoBehaviour
     }
     public void LoadScene(string sceneName)
     {
-        _loaderCanvas.SetActive(true);
+        /*_loaderCanvas.SetActive(true);
         _canvasGroup.alpha = 1f; // Ensure the canvas starts fully visible
         SceneManager.LoadScene(sceneName);
         OnLoadComplete?.Invoke();
-        FadeOutLoading();
-        /*if (NetworkManager.Singleton == null || NetworkManager.Singleton.SceneManager == null)
+        FadeOutLoading();*/
+        
+        // Ensure loader canvas is visible
+        void ActivateLoader()
         {
-            Debug.Log("NetworkManager or SceneManager is not initialized. Falling back to standard scene loading.");
             _loaderCanvas.SetActive(true);
             _canvasGroup.alpha = 1f; // Ensure the canvas starts fully visible
-            SceneManager.LoadScene(sceneName);
+        }
+
+        // Fallback to standard scene loading if NetworkManager or SceneManager is not initialized
+        if (NetworkManager.Singleton == null || NetworkManager.Singleton.SceneManager == null)
+        {
+            Debug.Log("NetworkManager or SceneManager is not initialized. Falling back to standard scene loading.");
+            ActivateLoader();
+            SceneManager.LoadScene(sceneName); // Use Unity's default SceneManager
             OnLoadComplete?.Invoke();
             FadeOutLoading();
             return;
         }
-        if (NetworkManager.Singleton.IsHost )
-        {
-            _loaderCanvas.SetActive(true);
-            _canvasGroup.alpha = 1f; // Ensure the canvas starts fully visible
 
+        // Ensure the loader canvas is activated
+        ActivateLoader();
+
+        // Network-based scene loading
+        if (NetworkManager.Singleton.IsHost)
+        {
+            Debug.Log($"Host is loading scene: {sceneName}");
             NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
-            OnLoadComplete?.Invoke();
-            FadeOutLoading();
         }
         else if (NetworkManager.Singleton.IsClient)
         {
-            _loaderCanvas.SetActive(true);
-            _canvasGroup.alpha = 1f; // Ensure the canvas starts fully visible
-
+            Debug.Log($"Client is attempting to load scene: {sceneName}");
             NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
-            OnLoadComplete?.Invoke();
-            FadeOutLoading();
         }
-        */
-        
+        else
+        {
+            Debug.LogWarning("Neither host nor client role detected. Falling back to standard scene loading.");
+            SceneManager.LoadScene(sceneName); // Fallback to standard Unity SceneManager
+        }
+
+        // Invoke completion logic
+        OnLoadComplete?.Invoke();
+        FadeOutLoading();
     }
     
     public void PortalWarp()

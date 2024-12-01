@@ -34,16 +34,12 @@ public class Workshop : MonoBehaviour, IInteractable
                 break;
             }
         }
-        
-        if (playerStateManager != null)
-        {
-            // Perform actions with the inventoryController (e.g., update UI, listen to events)
-            Debug.Log("Local player's Workshop found.");
-        }
-        else
+        if (playerStateManager == null)
         {
             Debug.Log("Local player's Workshop not found.");
+
         }
+     
     }
     public void Interact(GameObject player)
     {

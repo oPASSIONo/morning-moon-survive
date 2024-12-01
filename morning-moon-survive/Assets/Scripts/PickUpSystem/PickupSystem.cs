@@ -34,14 +34,62 @@ public class PickupSystem : NetworkBehaviour
     }
     private void Update()
     {
-        // Check if the interaction button is pressed
+        if (!IsLocalPlayer) return;
+
         if (pickup.triggered)
         {
             PerformPickup();
         }
     }
-
     private void PerformPickup()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
+        
+        foreach (var hitCollider in hitColliders)
+        {
+            Item item = hitCollider.GetComponent<Item>();
+
+            if (item != null && item.NetworkObject.IsSpawned)
+            {
+                // Request the server to pick up the item
+                RequestPickupServerRPC(item.NetworkObject.NetworkObjectId);
+            }
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void RequestPickupServerRPC(ulong itemNetworkObjectId, ServerRpcParams rpcParams = default)
+    {
+        var item = NetworkManager.SpawnManager.SpawnedObjects[itemNetworkObjectId]?.GetComponent<Item>();
+        
+        if (item == null) return;
+
+        // Try to add the item to the inventory
+        int remainder = inventoryData.AddItem(item.InventoryItem, item.Quantity);
+        if (remainder == 0)
+        {
+            // Fully picked up; destroy on all clients
+            item.DestroyItemClientRPC();
+        }
+        else
+        {
+            // Partially picked up; update quantity
+            item.UpdateQuantityClientRPC(remainder);
+        }
+
+        // Notify the player who picked it up
+        NotifyPickupClientRPC(rpcParams.Receive.SenderClientId);
+    }
+
+    [ClientRpc]
+    private void NotifyPickupClientRPC(ulong clientId)
+    {
+        if (IsLocalPlayer && NetworkManager.LocalClientId == clientId)
+        {
+            playerAnimation?.PlayerPickupAnim();
+        }
+    }
+    /*private void PerformPickup()
     {
         // Use a sphere cast to detect items within the pickup range
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
@@ -68,7 +116,7 @@ public class PickupSystem : NetworkBehaviour
                 playerAnimation.PlayerPickupAnim();
             }
         }
-    }
+    }*/
 
     // Optional: Visualize the pickup range in the editor
     private void OnDrawGizmosSelected()

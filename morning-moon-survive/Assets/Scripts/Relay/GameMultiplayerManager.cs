@@ -57,11 +57,8 @@ public class GameMultiplayerManager : MonoBehaviour
 
     private void SingletonOnOnClientConnectedCallback(ulong clientId)
     {
-        Debug.Log("Client Connected : " + clientId );
-        
         if (NetworkManager.Singleton.IsServer)
         {
-            // Confirm the player was spawned or handle spawning logic here
             Debug.Log("Player should be spawned for client ID: " + clientId);
         }
     }

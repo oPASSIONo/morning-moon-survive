@@ -174,7 +174,6 @@ public class GameInput : MonoBehaviour
     
     public void SetPlayerStateManager(PlayerStateManager stateManager)
     {
-        Debug.Log("Local player's GameInput found.");
         playerStateManager = stateManager;
         
     }

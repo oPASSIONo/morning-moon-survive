@@ -54,7 +54,6 @@ public class UIHealthBar : MonoBehaviour
         {
             healthComponent.OnHealthChanged += UpdateHealthBar;
             UpdateHealthBar(healthComponent.CurrentHealth, healthComponent.MaxHealth, healthComponent.MinHealth);
-            Debug.Log("Local player's Health found.");
 
         }
         else

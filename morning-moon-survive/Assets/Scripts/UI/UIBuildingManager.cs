@@ -34,7 +34,6 @@ public class UIBuildingManager : MonoBehaviour
     
     public void SetPlayerStateManager(PlayerStateManager stateManager)
     {
-        Debug.Log("Local player's UIBuildingManager found.");
         playerStateManager = stateManager;
         
     }

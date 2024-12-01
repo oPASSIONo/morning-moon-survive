@@ -38,7 +38,6 @@ public class UIBuildingPage : MonoBehaviour
     
     public void SetPlayerStateManager(PlayerStateManager stateManager)
     {
-        Debug.Log("Local player's UIBuildingPage found.");
         playerStateManager = stateManager;
         
     }

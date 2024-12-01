@@ -39,7 +39,6 @@ public class UICraftingManager : MonoBehaviour
     }
     public void SetPlayerStateManager(PlayerStateManager stateManager)
     {
-        Debug.Log("Local player's UICraftManager found.");
         playerStateManager = stateManager;
         
     }

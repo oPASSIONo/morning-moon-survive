@@ -14,17 +14,13 @@ public class Health : NetworkBehaviour
     public event Action OnEntityDie;
         
     private PlayerAnimation playerAnimation;
-
     
     private void Start()
     {
-        // Only do this for the local player
         if (IsLocalPlayer)
         {
-            // Get the PlayerAnimation component on this GameObject
             playerAnimation = GetComponent<PlayerAnimation>();
         }
-      
     }
     
     public void Initialize(float maxHealth, float minHealth, float initialHealth)
@@ -32,8 +28,7 @@ public class Health : NetworkBehaviour
         MaxHealth = maxHealth;
         MinHealth = minHealth;
         CurrentHealth = initialHealth;
-      
-        // Trigger health changed event
+        
         OnHealthChanged?.Invoke(CurrentHealth, MaxHealth,MinHealth);
     }
     
@@ -45,9 +40,9 @@ public class Health : NetworkBehaviour
         {
             SetCurrentHealth(MinHealth);
         }
-       
-        ShowDamagePopupClientRpc(transform.position, damageAmount);
         
+        ShowDamagePopupSerVerRPC(transform.position, damageAmount);
+      
         OnHealthChanged?.Invoke(CurrentHealth, MaxHealth,MinHealth);
             
         IsDie();
@@ -62,33 +57,22 @@ public class Health : NetworkBehaviour
             SetCurrentHealth(MinHealth);
         }
      
-        ShowDamagePopupClientRpc(transform.position, damageAmount);
+        ShowDamagePopupSerVerRPC(transform.position, damageAmount);
         
         OnHealthChanged?.Invoke(CurrentHealth, MaxHealth,MinHealth);
             
         IsDie();
     }
 
-    /*[ServerRpc(RequireOwnership = false)]
+    [ServerRpc(RequireOwnership = false)]
     private void ShowDamagePopupSerVerRPC(Vector3 position, float damageAmount)
     {
-        NetworkObject networkObj = GetComponent<NetworkObject>();
-        if (networkObj != null && networkObj.IsSpawned)
-        {
-            ShowDamagePopupClientRpc(position, damageAmount);
-        }
-        else
-        {
-            Debug.LogWarning("Attempted to call ShowDamagePopup on an unspawned NetworkObject.");
-        }
+        ShowDamagePopupClientRpc(position, damageAmount);
     }
-    */
-
     
     [ClientRpc]
     private void ShowDamagePopupClientRpc(Vector3 position, float damageAmount)
     {
-        // Ensure the DamagePopup is available
         if (DamagePopup.current != null)
         {
             DamagePopup.current.CreatePopup(position, damageAmount.ToString());
@@ -116,23 +100,18 @@ public class Health : NetworkBehaviour
         {
             Die();
         }
-        /*if (CurrentHealth <= 0)
+        else if (playerAnimation != null)
         {
-            Die();
-        }*/
-        else
+            playerAnimation.PlayerHitAnim();
+        }
+        /*else
         {
             if (GetComponent<Player>() != null)
             {
                 playerAnimation.PlayerHitAnim();
             }
-        }
-        /*switch (CurrentHealth)
-        {
-            case 0:
-                Die();
-                break;
         }*/
+ 
     }
     
     public void Die()

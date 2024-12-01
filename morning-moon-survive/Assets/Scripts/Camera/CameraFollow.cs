@@ -47,7 +47,6 @@ public class CameraFollow : NetworkBehaviour
         {
             virtualCamera.Follow = playerCameraRoot;
             virtualCamera.LookAt = playerCameraRoot;
-            Debug.Log("Camera successfully assigned to PlayerCameraRoot.");
         }
         else
         {
