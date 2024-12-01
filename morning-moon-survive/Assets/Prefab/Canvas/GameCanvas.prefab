@@ -8021,7 +8021,7 @@ MonoBehaviour:
   craftButtonHandler: {fileID: 0}
   craftingPage: {fileID: 4656010594475367878}
   notiBox: {fileID: 8570402946784189093}
-  animalPenView: {fileID: 0}
+  animalPenView: {fileID: 4746551928062062557}
 --- !u!114 &6557169237813554623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13538,6 +13538,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53aa3594c88d8804b9b2fda4647df8c6, type: 3}
+--- !u!114 &4746551928062062557 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6309647135737976798, guid: 53aa3594c88d8804b9b2fda4647df8c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1607641543587182595}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 367deee45c8affb439139472f701b74e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6097852067881004421 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4814507785268041094, guid: 53aa3594c88d8804b9b2fda4647df8c6,
