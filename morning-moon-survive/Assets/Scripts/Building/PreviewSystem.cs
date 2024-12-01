@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PreviewSystem : MonoBehaviour
 {
@@ -32,6 +33,13 @@ public class PreviewSystem : MonoBehaviour
         cellIndicator.transform.rotation = Quaternion.Euler(0,0,0);
         previewObject = Instantiate(prefab);
         PreparePreview(previewObject);
+        NavMeshObstacle[] navMeshObstacles= previewObject.GetComponentsInChildren<NavMeshObstacle>();
+        
+        foreach (NavMeshObstacle obstacle in navMeshObstacles)
+        {
+            obstacle.enabled = false;
+        }
+    
         PrepareCursor(size);
         cellIndicator.SetActive(true);
     }

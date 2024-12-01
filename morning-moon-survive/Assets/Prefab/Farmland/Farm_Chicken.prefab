@@ -2016,6 +2016,7 @@ GameObject:
   - component: {fileID: 5336467038053704402}
   - component: {fileID: 8689450719339672800}
   - component: {fileID: 5057664322730235841}
+  - component: {fileID: 7738358685763575752}
   m_Layer: 10
   m_Name: Farm_Chicken
   m_TagString: Untagged
@@ -2094,6 +2095,22 @@ MonoBehaviour:
     - {fileID: 7744601434121344829}
     - {fileID: 2645958213841374623}
     - {fileID: 6702758215137575403}
+--- !u!208 &7738358685763575752
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3517547186804143839}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.865, y: 0.395, z: 2.98}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.67, y: 1.06, z: 0.21}
+  m_TimeToStationary: 0.5
 --- !u!1 &3606526213070685362
 GameObject:
   m_ObjectHideFlags: 0
