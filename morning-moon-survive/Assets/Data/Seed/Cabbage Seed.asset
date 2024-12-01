@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8377991816339d43a6ddca78279f929, type: 3}
+  m_Name: Cabbage Seed
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <MaxStackSize>k__BackingField: 50
+  <Weight>k__BackingField: 1
+  <Name>k__BackingField: Cabbage Seed
+  <ItemAbility>k__BackingField: Cabbage Seed for Planting
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 790732772e0650a4192f2f2e4ae3e2b9,
+    type: 3}
+  <ItemCategory>k__BackingField: 5
+  <ItemSubCategory>k__BackingField: 0
+  <ItemRarity>k__BackingField: 0
+  <DefaultParametersList>k__BackingField: []
+  <ItemPrefab>k__BackingField: {fileID: 6162922807225451059, guid: bb3ce817c8ebfdc4691421677ed7ce58,
+    type: 3}
+  <actionSFX>k__BackingField: {fileID: 0}
+  <SeedPositionInHand>k__BackingField: {x: 0.006271859, y: 0.0003000256, z: 0.0007719005}
+  <SeedRotationInHand>k__BackingField: {x: -22.818, y: 82.124, z: -92.678}
+  <SeedScale>k__BackingField: {x: 0.04999998, y: 0.04999999, z: 0.04999997}
+  daysToMedium: 1
+  daysToLarge: 1
+  daysToFull: 1
+  rotTime: 1
+  <FullPlant>k__BackingField: {fileID: 1794665143772536327, guid: d9f71562d0af15949bbfdb1e1c5bdee8,
+    type: 3}
