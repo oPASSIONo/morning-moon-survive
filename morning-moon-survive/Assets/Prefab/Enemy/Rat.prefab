@@ -263,7 +263,7 @@ PrefabInstance:
         type: 3}
       propertyPath: enemyName
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4054876587043634524}
     - target: {fileID: 2962588178209030269, guid: 96f0d6acdf921dc40824db48cbbe4d94,
         type: 3}
       propertyPath: healthComponent
@@ -417,6 +417,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 7061260205022162551, guid: e48b617660407be439d2ea3d25a82ccc, type: 3}
+--- !u!114 &4054876587043634524 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2899920564742771277, guid: 96f0d6acdf921dc40824db48cbbe4d94,
+    type: 3}
+  m_PrefabInstance: {fileID: 1187620605799657233}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6372889802729437779 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5191044141256725826, guid: 96f0d6acdf921dc40824db48cbbe4d94,
