@@ -85,7 +85,7 @@ public class TimeManager : MonoBehaviour
 
     private void Update()
     {
-        if (!IsStartTimer)
+        if (IsStartTimer)
         {
             UpdateTime();
             UpdateTimeDisplay();
