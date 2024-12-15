@@ -17,10 +17,10 @@ public class GameMultiplayerManager : MonoBehaviour
     public static GameMultiplayerManager Instance { get; private set; }
    
     [Header("Setting")]
-    //[SerializeField] private TextMeshProUGUI joinCodeText;
+    [SerializeField] private TextMeshProUGUI joinCodeText;
     [SerializeField] private TMP_InputField joinCodeInputField;
     //[SerializeField] private GameObject control;
-    [SerializeField] private int maxConnection = 2;
+    [SerializeField] private int maxConnection = 4;
     
     private NetworkVariable<int> playerNum = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone);
     
@@ -117,7 +117,7 @@ public class GameMultiplayerManager : MonoBehaviour
     public async void StartRelay()
     {
         string joinCode = await StartHostWithRelay();
-        //joinCodeText.text = joinCode;
+        joinCodeText.text = "IP : " + joinCode;
         Debug.Log("CODE : "+ joinCode);
     } 
 
