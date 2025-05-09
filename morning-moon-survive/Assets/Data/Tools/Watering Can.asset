@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11c19e9011524054b911d7e289d03941, type: 3}
+  m_Name: Watering Can
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 0
+  <MaxStackSize>k__BackingField: 1
+  <Weight>k__BackingField: 10
+  <Name>k__BackingField: Watering Can
+  <ItemAbility>k__BackingField: Normal Watering Can
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 80c0980dcc8021b48b908714680c927f,
+    type: 3}
+  <ItemCategory>k__BackingField: 5
+  <ItemSubCategory>k__BackingField: 1
+  <ItemRarity>k__BackingField: 0
+  <DefaultParametersList>k__BackingField: []
+  <ItemPrefab>k__BackingField: {fileID: 3772591290495458703, guid: 944bd70a2b152b14ca8fd339f7fd8bea,
+    type: 3}
+  <actionSFX>k__BackingField: {fileID: 0}
+  <AttackDamage>k__BackingField: 0
+  <AttackType>k__BackingField: 0
+  <Element>k__BackingField: 0
+  <ElementAttackDamage>k__BackingField: 0
+  <Sharpness>k__BackingField: 0
+  <ToolPositionInHand>k__BackingField: {x: 0.0252, y: 0.0019, z: 0.0003}
+  <ToolRotationInHand>k__BackingField: {x: -5.163, y: -269.028, z: -91.727}
+  <ToolScale>k__BackingField: {x: 0.05, y: 0.05, z: 0.05}

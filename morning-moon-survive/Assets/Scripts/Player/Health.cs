@@ -1,51 +1,101 @@
 using UnityEngine;
+using System;
 
 public class Health : MonoBehaviour
 {
-    public int MaxHealth { get; private set; } = 100;
-    public int CurrentHealth { get; private set; }
+    public float MaxHealth { get; private set; }
+    public float MinHealth { get; private set; }
+    public float CurrentHealth { get; private set; }
 
-    public event System.Action<int, int> OnHealthChanged; // Event to notify health changes
+    public event Action<float, float,float> OnHealthChanged;
+    public event Action OnEntityDie;
 
-    void Awake()
+    public void Initialize(float maxHealth, float minHealth, float initialHealth)
     {
-        // Initialize current health to max health
-        CurrentHealth = MaxHealth;
+        MaxHealth = maxHealth;
+        MinHealth = minHealth;
+        CurrentHealth = initialHealth;
+        
+        // Trigger health changed event
+        OnHealthChanged?.Invoke(CurrentHealth, MaxHealth,MinHealth);
+        
+    }
+    
+    public void TakeDamage(float damageAmount)
+    {
+        CurrentHealth -= damageAmount;
+        
+        if (CurrentHealth<=MinHealth)
+        {
+            SetCurrentHealth(MinHealth);
+        }
+        
+        DamagePopup.current.CreatePopup(transform.position, damageAmount.ToString());
+        
+        // Trigger health changed event
+        OnHealthChanged?.Invoke(CurrentHealth, MaxHealth,MinHealth);
+
+        IsDie();
+        Debug.Log($"{name} Take Damage ! Current HP : {CurrentHealth}");
+    }
+    
+    public void AddHealth(float amount)
+    {
+        SetCurrentHealth(CurrentHealth + amount);
+        if (CurrentHealth>=MaxHealth)
+        {
+            SetCurrentHealth(MaxHealth);
+        }
+        // Trigger health changed event
+        OnHealthChanged?.Invoke(CurrentHealth, MaxHealth,MinHealth);
+        Debug.Log($"{name} add health");
     }
 
-    public void TakeDamage(int damageAmount)
+    private void IsDie()
     {
-        // Reduce current health by damage amount
-        CurrentHealth -= damageAmount;
-        // Clamp current health to ensure it stays within bounds
-        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
-
-        // Trigger health changed event
-        OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
-
-        // Check if health is zero
-        if (CurrentHealth <= 0)
+        if (CurrentHealth == 0)
         {
             Die();
         }
+        else
+        {
+            if (GetComponent<Player>() != null)
+            {
+                PlayerAnimation.Instance.PlayerHitAnim();
+            }
+        }
+        /*switch (CurrentHealth)
+        {
+            case 0:
+                Die();
+                break;
+        }*/
     }
-
-    public void AddHealth(int amount)
+    
+    public void Die()
     {
-        // Increase current health by the specified amount
-        CurrentHealth += amount;
-        // Clamp current health to ensure it stays within bounds
-        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
-
-        // Trigger health changed event
-        OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
+        CurrentHealth = MinHealth;
+        OnHealthChanged?.Invoke(CurrentHealth,MaxHealth,MinHealth);
+        OnEntityDie?.Invoke();
+        Debug.Log($"{name} has died.Current Health : {CurrentHealth}");
     }
-
-    void Die()
+        
+    public void SetCurrentHealth(float hp)
     {
-        // Perform death actions here
-        Debug.Log("Entity has died.");
-        // For example, destroy the GameObject
-        //Destroy(gameObject);
+        CurrentHealth = hp;
+        OnHealthChanged?.Invoke(CurrentHealth,MaxHealth,MinHealth);
     }
+
+    public void SetMaxHealth(float val)
+    {
+        MaxHealth = val;
+        OnHealthChanged?.Invoke(CurrentHealth,MaxHealth,MinHealth);
+    }
+
+    public void SetMinHealth(float val)
+    {
+        MinHealth = val;
+        OnHealthChanged?.Invoke(CurrentHealth,MaxHealth,MinHealth);
+    }
+    
 }

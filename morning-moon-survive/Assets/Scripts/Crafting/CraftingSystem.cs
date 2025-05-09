@@ -1,12 +1,13 @@
+using System;
 using System.Collections.Generic;
 using Inventory.Model;
 using UnityEngine;
 
 public class CraftingSystem : MonoBehaviour
 {
-    [SerializeField] private List<Recipe> recipes = new List<Recipe>();
     [SerializeField] private InventorySO playerInventory;
-
+    
+    
     public void CraftItem(Recipe recipe)
     {
         if (recipe == null)
@@ -68,7 +69,4 @@ public class CraftingSystem : MonoBehaviour
             }
         }
     }
-    
-
-
 }

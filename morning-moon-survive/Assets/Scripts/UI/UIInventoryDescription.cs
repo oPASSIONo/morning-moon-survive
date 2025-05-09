@@ -32,7 +32,7 @@ namespace Inventory.UI
             itemImage.gameObject.SetActive(true);
             itemImage.sprite = sprite;
             title.text = itemName;
-            description.text = $"Ability:\n{itemDescription}";
+            description.text = $"Ability: {itemDescription}";
             this.category.text = $"Category: {category}";
             this.rarity.text = $"Rarity: {rarity}";
         }

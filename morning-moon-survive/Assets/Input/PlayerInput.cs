@@ -154,7 +154,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack"",
+                    ""name"": ""Action"",
                     ""type"": ""Button"",
                     ""id"": ""f10403c0-542e-440b-b25c-0d186e6d1c0d"",
                     ""expectedControlType"": ""Button"",
@@ -175,6 +175,33 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": ""SheathWeapon"",
                     ""type"": ""Button"",
                     ""id"": ""754495d8-d954-4040-9c22-d9eabbe5fbc0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""6f448770-a8f2-423c-999a-2f422afdcdb3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crafting"",
+                    ""type"": ""Button"",
+                    ""id"": ""48273641-91e7-40c1-9950-4c8194dc1afc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Building"",
+                    ""type"": ""Button"",
+                    ""id"": ""a78fd677-2cf4-4bf0-b07b-1b6b2b208e64"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -383,11 +410,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""cd326953-5461-449e-b99d-5b89c622d04e"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack"",
+                    ""action"": ""Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -412,6 +439,39 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""SheathWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad94e61a-fac2-46d6-ac1f-4ca95afeec98"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0eeb76b0-a0a7-4d2e-8f49-b25c4d45dda3"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crafting"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a21150f-c147-4c86-becc-985ed921a249"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Building"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -434,9 +494,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_PlayerControls_SelectSlot8 = m_PlayerControls.FindAction("SelectSlot8", throwIfNotFound: true);
         m_PlayerControls_SelectSlot9 = m_PlayerControls.FindAction("SelectSlot9", throwIfNotFound: true);
         m_PlayerControls_SelectSlot10 = m_PlayerControls.FindAction("SelectSlot10", throwIfNotFound: true);
-        m_PlayerControls_Attack = m_PlayerControls.FindAction("Attack", throwIfNotFound: true);
+        m_PlayerControls_Action = m_PlayerControls.FindAction("Action", throwIfNotFound: true);
         m_PlayerControls_DrawWeapon = m_PlayerControls.FindAction("DrawWeapon", throwIfNotFound: true);
         m_PlayerControls_SheathWeapon = m_PlayerControls.FindAction("SheathWeapon", throwIfNotFound: true);
+        m_PlayerControls_Dash = m_PlayerControls.FindAction("Dash", throwIfNotFound: true);
+        m_PlayerControls_Crafting = m_PlayerControls.FindAction("Crafting", throwIfNotFound: true);
+        m_PlayerControls_Building = m_PlayerControls.FindAction("Building", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -512,9 +575,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_SelectSlot8;
     private readonly InputAction m_PlayerControls_SelectSlot9;
     private readonly InputAction m_PlayerControls_SelectSlot10;
-    private readonly InputAction m_PlayerControls_Attack;
+    private readonly InputAction m_PlayerControls_Action;
     private readonly InputAction m_PlayerControls_DrawWeapon;
     private readonly InputAction m_PlayerControls_SheathWeapon;
+    private readonly InputAction m_PlayerControls_Dash;
+    private readonly InputAction m_PlayerControls_Crafting;
+    private readonly InputAction m_PlayerControls_Building;
     public struct PlayerControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -533,9 +599,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @SelectSlot8 => m_Wrapper.m_PlayerControls_SelectSlot8;
         public InputAction @SelectSlot9 => m_Wrapper.m_PlayerControls_SelectSlot9;
         public InputAction @SelectSlot10 => m_Wrapper.m_PlayerControls_SelectSlot10;
-        public InputAction @Attack => m_Wrapper.m_PlayerControls_Attack;
+        public InputAction @Action => m_Wrapper.m_PlayerControls_Action;
         public InputAction @DrawWeapon => m_Wrapper.m_PlayerControls_DrawWeapon;
         public InputAction @SheathWeapon => m_Wrapper.m_PlayerControls_SheathWeapon;
+        public InputAction @Dash => m_Wrapper.m_PlayerControls_Dash;
+        public InputAction @Crafting => m_Wrapper.m_PlayerControls_Crafting;
+        public InputAction @Building => m_Wrapper.m_PlayerControls_Building;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -587,15 +656,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SelectSlot10.started += instance.OnSelectSlot10;
             @SelectSlot10.performed += instance.OnSelectSlot10;
             @SelectSlot10.canceled += instance.OnSelectSlot10;
-            @Attack.started += instance.OnAttack;
-            @Attack.performed += instance.OnAttack;
-            @Attack.canceled += instance.OnAttack;
+            @Action.started += instance.OnAction;
+            @Action.performed += instance.OnAction;
+            @Action.canceled += instance.OnAction;
             @DrawWeapon.started += instance.OnDrawWeapon;
             @DrawWeapon.performed += instance.OnDrawWeapon;
             @DrawWeapon.canceled += instance.OnDrawWeapon;
             @SheathWeapon.started += instance.OnSheathWeapon;
             @SheathWeapon.performed += instance.OnSheathWeapon;
             @SheathWeapon.canceled += instance.OnSheathWeapon;
+            @Dash.started += instance.OnDash;
+            @Dash.performed += instance.OnDash;
+            @Dash.canceled += instance.OnDash;
+            @Crafting.started += instance.OnCrafting;
+            @Crafting.performed += instance.OnCrafting;
+            @Crafting.canceled += instance.OnCrafting;
+            @Building.started += instance.OnBuilding;
+            @Building.performed += instance.OnBuilding;
+            @Building.canceled += instance.OnBuilding;
         }
 
         private void UnregisterCallbacks(IPlayerControlsActions instance)
@@ -642,15 +720,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SelectSlot10.started -= instance.OnSelectSlot10;
             @SelectSlot10.performed -= instance.OnSelectSlot10;
             @SelectSlot10.canceled -= instance.OnSelectSlot10;
-            @Attack.started -= instance.OnAttack;
-            @Attack.performed -= instance.OnAttack;
-            @Attack.canceled -= instance.OnAttack;
+            @Action.started -= instance.OnAction;
+            @Action.performed -= instance.OnAction;
+            @Action.canceled -= instance.OnAction;
             @DrawWeapon.started -= instance.OnDrawWeapon;
             @DrawWeapon.performed -= instance.OnDrawWeapon;
             @DrawWeapon.canceled -= instance.OnDrawWeapon;
             @SheathWeapon.started -= instance.OnSheathWeapon;
             @SheathWeapon.performed -= instance.OnSheathWeapon;
             @SheathWeapon.canceled -= instance.OnSheathWeapon;
+            @Dash.started -= instance.OnDash;
+            @Dash.performed -= instance.OnDash;
+            @Dash.canceled -= instance.OnDash;
+            @Crafting.started -= instance.OnCrafting;
+            @Crafting.performed -= instance.OnCrafting;
+            @Crafting.canceled -= instance.OnCrafting;
+            @Building.started -= instance.OnBuilding;
+            @Building.performed -= instance.OnBuilding;
+            @Building.canceled -= instance.OnBuilding;
         }
 
         public void RemoveCallbacks(IPlayerControlsActions instance)
@@ -684,8 +771,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnSelectSlot8(InputAction.CallbackContext context);
         void OnSelectSlot9(InputAction.CallbackContext context);
         void OnSelectSlot10(InputAction.CallbackContext context);
-        void OnAttack(InputAction.CallbackContext context);
+        void OnAction(InputAction.CallbackContext context);
         void OnDrawWeapon(InputAction.CallbackContext context);
         void OnSheathWeapon(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
+        void OnCrafting(InputAction.CallbackContext context);
+        void OnBuilding(InputAction.CallbackContext context);
     }
 }

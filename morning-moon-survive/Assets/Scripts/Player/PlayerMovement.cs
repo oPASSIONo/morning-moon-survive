@@ -1,128 +1,184 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Manages player movement and speed, including dashing.
+/// </summary>
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
-    private PlayerInput playerInput;
+    public float MaxSpeed { get; private set; }
+    public float MinSpeed { get; private set; }
+    public float CurrentSpeed { get; private set; }
+    public float BaseSpeed { get; private set; }
+    private float dashForce = 10f;
+    private float dashDuration = 0.5f;
+    private bool isDashing;
+    private float dashTimeRemaining;
+    public bool isPlayerMoving { get; private set; }
+    private Rigidbody rb;
 
-    private InputAction moveAction;
-    
-    private float baseSpeed = 5f; // Base movement speed
-    private float currentSpeed; // Current movement speed
-    
-    // Reference to the Hunger component
-    public Hunger Hunger { private get; set; } // Reference to the Health component for the player
+    public event Action<float, float> OnSpeedChanged;
 
-    // Start is called before the first frame update
-    void Start()
+    private Satiety satietyComponent;
+    private Stamina staminaComponent;
+
+    private void Start()
     {
-        // Get the Hunger component
-        Hunger = GetComponent<Hunger>();
+        rb = GetComponent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
 
-        // Check if Hunger component exists
-        if (Hunger != null)
+        staminaComponent = GetComponent<Stamina>();
+        satietyComponent = GetComponent<Satiety>();
+        if (satietyComponent != null)
         {
-            // Subscribe to the OnHungerChanged event
-            Hunger.OnHungerChanged += UpdateSpeed;
-
-            // Initialize the player speed
-            UpdateSpeed(Hunger.CurrentHunger, Hunger.MaxHunger);
-            
+            satietyComponent.OnSatietyChanged += UpdateSpeed;
+            UpdateSpeed(satietyComponent.CurrentSatiety, satietyComponent.MaxSatiety);
         }
         else
         {
-            Debug.LogWarning("Hunger component not found.");
+            Debug.LogWarning("Satiety component not found.");
         }
+
+        GameInput.Instance.OnDashAction += HandleDash;
     }
 
-    
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        MovePlayer();
-       // RotationPlayer();
-    }
-    
-    void MovePlayer()
-    {
-        Vector2 inputVector = GameInput.Instance.GetMovement();
-    
-        // Get the main camera's transform
-        Transform cameraTransform =  Camera.main.transform;
-
-        // Calculate movement direction relative to the camera's forward direction
-        Vector3 movement = cameraTransform.forward * inputVector.y + cameraTransform.right * inputVector.x;
-        movement.y = 0f; // Ensure the movement stays in the horizontal plane
-
-        // Apply speed and deltaTime
-        Vector3 moveDirection = movement.normalized * currentSpeed * Time.deltaTime; // Use currentSpeed here
-
-        // Apply movement
-        transform.position += moveDirection;
-        Vector3 targetPosition = transform.position + movement.normalized;
-
-        // Make the player look at the target position
-        if (movement.magnitude > 0.1f) // Check if there is significant movement
+        if (isDashing)
         {
-            transform.LookAt(targetPosition);
-        }
-    }
-
-
-    void UpdateSpeed(int currentHunger, int maxHunger)
-    {
-        CheckHunger(currentHunger); // Pass the current hunger received as parameter
-    }
-
-    // Method to update the player's speed based on the current hunger level
-
-    private void CheckHunger(int currentHunger)
-    {
-        // If hunger is greater than or equal to 75, decrease the speed
-        if (currentHunger >= 75)
-        {
-            currentSpeed = baseSpeed * 0.5f; // Reduce the speed to 50%
-            Debug.Log(currentSpeed);
-            
+            switch (PlayerStateManager.Instance.currentState)
+            {
+                case PlayerStateManager.PlayerState.Normal:
+                    PlayerAnimation.Instance.setAnimationSpeed(2f);
+                    PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Dash);
+                    break;
+            }
+            dashTimeRemaining -= Time.deltaTime;
+            if (dashTimeRemaining <= 0)
+            {
+                isDashing = false;
+                rb.velocity = Vector3.zero; // Stop the dash
+                rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+                
+                PlayerAnimation.Instance.setAnimationSpeed(1f);
+                switch (PlayerStateManager.Instance.currentState)
+                {
+                    case PlayerStateManager.PlayerState.Dash:
+                        PlayerStateManager.Instance.SetState(PlayerStateManager.PlayerState.Normal);
+                        break;
+                }
+            }
         }
         else
         {
-            // If hunger is below 75, reset the speed to the base speed
-            currentSpeed = baseSpeed;
+            MovePlayer();
         }
     }
 
-    // Unsubscribe from the OnHungerChanged event when the script is destroyed
-    void OnDestroy()
+    private void MovePlayer()
     {
-        if (Hunger != null)
+        if (PlayerStateManager.Instance.currentState==PlayerStateManager.PlayerState.Normal)
         {
-            Hunger.OnHungerChanged -= UpdateSpeed;
+            Vector2 inputVector = GameInput.Instance.GetMovement();
+            Transform cameraTransform = Camera.main.transform;
+
+            Vector3 movement = cameraTransform.forward * inputVector.y + cameraTransform.right * inputVector.x;
+            movement.y = 0f;
+
+            Vector3 moveDirection = movement.normalized * CurrentSpeed * Time.deltaTime;
+            transform.position += moveDirection;
+
+            isPlayerMoving = movement.magnitude > 0.1f;
+            if (movement.magnitude > 0.1f)
+            {
+                Vector3 targetPosition = transform.position + movement.normalized;
+                transform.LookAt(targetPosition);
+            }
         }
-    }
-    
         
-    /*void RotationPlayer()
+    }
+
+    private void UpdateSpeed(float currentSatiety, float maxSatiety)
     {
-        Vector2 direction = moveAction.ReadValue<Vector2>();
+        CheckSatiety(currentSatiety);
+    }
 
-        // Get the main camera's transform
-        Transform cameraTransform = Camera.main.transform;
-
-        // Calculate movement direction relative to the camera's forward direction
-        Vector3 movement = cameraTransform.forward * direction.y + cameraTransform.right * direction.x;
-        movement.y = 0f; // Ensure the movement stays in the horizontal plane
-
-        // Calculate the target position to look at
-        Vector3 targetPosition = transform.position + movement.normalized;
-
-        // Make the player look at the target position
-        if (movement.magnitude > 0.1f) // Check if there is significant movement
+    private void CheckSatiety(float currentSatiety)
+    {
+        if (currentSatiety <= 25)
         {
-            transform.LookAt(targetPosition);
+            CurrentSpeed = BaseSpeed * 0.5f;
         }
-    }*/
+        else
+        {
+            CurrentSpeed = BaseSpeed;
+        }
+    }
+
+    public void Initialize(float maxSpeed, float minSpeed, float initialSpeed)
+    {
+        MaxSpeed = maxSpeed;
+        MinSpeed = minSpeed;
+        BaseSpeed = initialSpeed;
+        
+
+        OnSpeedChanged?.Invoke(CurrentSpeed, MaxSpeed);
+    }
+
+    private void HandleDash(object sender, EventArgs e)
+    {
+        if (!isDashing)
+        {
+            Vector2 inputVector = GameInput.Instance.GetMovement();
+            if (inputVector != Vector2.zero)
+            {
+                staminaComponent.TakeAction();
+            }
+            if (staminaComponent.isAction)
+            {
+                isDashing = true;
+                dashTimeRemaining = dashDuration;
+                    //staminaComponent.TakeAction();\
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
+
+                    if (staminaComponent.isAction)
+                    {
+                        Transform cameraTransform = Camera.main.transform;
+
+                        Vector3 dashDirection = cameraTransform.forward * inputVector.y + cameraTransform.right * inputVector.x;
+                        dashDirection.y = 0f;
+                        dashDirection.Normalize();
+
+                        rb.AddForce(dashDirection * dashForce, ForceMode.VelocityChange);
+                    }
+            }
+        }
+    }
+    
+    public void SetCurrentSpeed(float value)
+    {
+        CurrentSpeed = value;
+        OnSpeedChanged?.Invoke(CurrentSpeed, MaxSpeed);
+    }
+
+    public void SetMaxSpeed(float value)
+    {
+        MaxSpeed = value;
+        OnSpeedChanged?.Invoke(CurrentSpeed, MaxSpeed);
+    }
+
+    public void SetMinSpeed(float value)
+    {
+        MinSpeed = value;
+        OnSpeedChanged?.Invoke(CurrentSpeed, MaxSpeed);
+    }
+
+    public void SetBaseSpeed(float value)
+    {
+        BaseSpeed = value;
+        OnSpeedChanged?.Invoke(CurrentSpeed, MaxSpeed);
+    }
+
 }

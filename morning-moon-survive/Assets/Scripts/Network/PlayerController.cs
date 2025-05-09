@@ -19,21 +19,21 @@ public class PlayerController : NetworkBehaviour
     private Vector3 movement;
 
     
-    public Hunger Hunger { private get; set; }
+    public Satiety Satiety { private get; set; }
     
     void Start()
     {
-        Hunger = GetComponent<Hunger>();
+        Satiety = GetComponent<Satiety>();
         
         animator = GetComponent<Animator>();
         playerInput = new PlayerInput();
         playerInput.PlayerControls.Enable();
 
         
-        if (Hunger != null)
+        if (Satiety != null)
         {
             // Subscribe to the OnHungerChanged event
-            Hunger.OnHungerChanged += UpdateSpeed;
+            Satiety.OnSatietyChanged += UpdateSpeed;
 
         }
         else
@@ -64,7 +64,7 @@ public class PlayerController : NetworkBehaviour
         {
             MovePlayer();
         }
-        UpdateSpeed(Hunger.CurrentHunger, Hunger.MaxHunger);
+        UpdateSpeed(Satiety.CurrentSatiety, Satiety.MaxSatiety);
 
     }
 
@@ -93,7 +93,7 @@ public class PlayerController : NetworkBehaviour
         }
     }
     
-    void UpdateSpeed(int currentHunger, int maxHunger)
+    void UpdateSpeed(float currentHunger, float maxHunger)
     {
         if (!IsOwner)
             return;

@@ -20,14 +20,14 @@ public class GamePauseUI : MonoBehaviour
         });
         resumeButton.onClick.AddListener(() =>
         {
-            GameManager.Instance.TogglePauseGame();
+            NetworkGameManager.Instance.TogglePauseGame();
         });
         
     }
     private void Start()
     {
-        GameManager.Instance.OnLocalGamePaused += GameUIManager_OnLocalGamePaused;
-        GameManager.Instance.OnLocalGameUnPaused += GameUIManager_OnLocalGameUnPaused;
+        NetworkGameManager.Instance.OnLocalGamePaused += GameUIManager_OnLocalGamePaused;
+        NetworkGameManager.Instance.OnLocalGameUnPaused += GameUIManager_OnLocalGameUnPaused;
         
         Hide();
     }

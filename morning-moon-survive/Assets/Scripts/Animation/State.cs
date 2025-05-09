@@ -27,7 +27,7 @@ public class State
         stateControl.playerInput = new PlayerInput();
         stateControl.playerInput.PlayerControls.Enable();
         
-        attackAction = stateControl.playerInput.PlayerControls.Attack;
+        attackAction = stateControl.playerInput.PlayerControls.Action;
         drawAction = stateControl.playerInput.PlayerControls.DrawWeapon;
         sheathAction = stateControl.playerInput.PlayerControls.SheathWeapon;
         

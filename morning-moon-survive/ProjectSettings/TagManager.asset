@@ -6,19 +6,22 @@ TagManager:
   tags:
   - Weapon
   - Tree
+  - Enemy
+  - WeakPoint
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Placement
   - Water
   - UI
   - Tree
   - 
   - Player
   - Enemy
-  - 
-  - 
+  - Interactable
+  - Collectable
   - 
   - 
   - 
